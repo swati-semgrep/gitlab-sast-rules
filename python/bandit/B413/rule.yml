@@ -1,0 +1,20 @@
+rules:
+- id: bandit.B413
+  pattern-either:
+    - pattern: import pycryto
+    - pattern: import Crypto.Cipher
+    - pattern: import Crypto.Hash 
+    - pattern: import Crypto.IO
+    - pattern: import Crypto.Protocol
+    - pattern: import Crypto.PublicKey
+    - pattern: import Crypto.Random
+    - pattern: import Crypto.Signature  
+    - pattern: import Crypto.Util
+  message: |
+    Consider possible security implications associated with pycrypto module.
+  metadata:
+    cwe: 'CWE-327: Use of a Broken or Risky Cryptographic Algorithm'
+    owasp: 'A3: Sensitive Data Exposure'
+  severity: ERROR
+  languages: [python]
+
