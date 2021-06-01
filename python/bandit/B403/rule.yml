@@ -1,0 +1,13 @@
+rules:
+- id: bandit.B403
+  patterns:
+    - pattern-either:
+      - pattern: import pickle
+      - pattern: import cPickle
+  message: |
+    Consider possible security implications associated with pickle module.
+  metadata:
+    cwe: 'CWE-502: Deserialization of Untrusted Data'
+    owasp: 'A8: Insecure Deserialization'
+  severity: ERROR
+  languages: [python]

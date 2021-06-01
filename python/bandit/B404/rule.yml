@@ -1,0 +1,13 @@
+rules:
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/correctness/unchecked-returns.yaml
+# unchecked-subprocess-call
+- id: bandit.B404
+  patterns:
+  - pattern: import subprocess
+  message: |
+    Consider possible security implications associated with subprocess module.
+  metadata:
+    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+    owasp: 'A8: Insecure Deserialization'
+  languages: [python]
+  severity: WARNING
