@@ -1,0 +1,16 @@
+rule:
+- id: bandit.B107
+  patterns:
+  - pattern: |
+      def $FUNC(..., password="...", ...):
+        ...
+  message: |
+    Hardcoded password is used as a default argument to '$FUNC'. This could be dangerous if
+    a real password is not supplied.
+  metadata:
+    cwe: 'CWE-259: Use of Hard-coded Password'
+    owasp: 'A3: Broken Authentication and Session Management'
+  severity: WARNING
+  languages: [python]
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/best-practice/hardcoded-tmp-path.yaml
+# hardcoded-tmp-path
