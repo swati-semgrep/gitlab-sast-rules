@@ -1,0 +1,19 @@
+rules:
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/jinja2/security/audit/autoescape-disabled.yaml
+# autoescape-disabled
+- id: bandit.B701
+  patterns:
+  - pattern-not: jinja2.Environment(..., autoescape=True, ...)
+  - pattern-not: jinja2.Environment(..., autoescape=jinja2.select_autoescape(...), ...)
+  - pattern: jinja2.Environment(...)
+  message: >-
+    Detected a Jinja2 environment without autoescaping. Jinja2 does not autoescape by default.
+    This is dangerous if you are rendering to a browser because this allows for cross-site
+    scripting (XSS) attacks. If you are in a web context, enable autoescaping by setting
+    'autoescape=True.' You may also consider using 'jinja2.select_autoescape()' to only enable
+    automatic escaping for certain file extensions.
+  metadata:
+    cwe: 'CWE-116: Improper Encoding or Escaping of Output'
+    owasp: 'A7: Cross-Site Scripting (XSS)'
+  severity: WARNING
+  languages: [python]

@@ -1,0 +1,29 @@
+rules:
+# source (modified): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/formatted-sql-query.yaml
+# formatted-sql-query 
+- id: bandit.B608
+  patterns:
+  - pattern-either:
+    - pattern: $DB.execute("..." % ...)
+    - pattern: $DB.execute("...".format(...))
+    - pattern: $DB.execute(f"...")
+    - pattern: $DB.execute("..." + $V + "...")
+    - patterns:
+      - pattern-either:
+        - pattern-inside: |
+            $SQL = "..." % ...
+            ...
+        - pattern-inside: |
+            $SQL = "...".format(...)
+            ...
+        - pattern-inside: |
+            $SQL = f"...{$X}..."
+            ...
+      - pattern: $DB.execute($SQL)
+  message: |
+    Detected possible formatted SQL query. Use parameterized queries instead.
+  metadata:
+    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+    owasp: 'A1: Injection'
+  severity: WARNING
+  languages: [python]
