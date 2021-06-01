@@ -1,0 +1,12 @@
+rules:
+- id: bandit.B604
+  patterns:
+    - pattern-not: subprocess.$FUNC(..., shell=True, ...)
+    - pattern: $FOO(..., shell=True, ...)
+  message: |
+    subprocess call - check for execution of untrusted input
+  metadata:
+    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+    owasp: 'A1: Injection'
+  severity: INFO
+  languages: [python]

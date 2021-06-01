@@ -1,0 +1,17 @@
+rules:
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/paramiko/paramiko-exec-command.yaml
+# paramiko-exec-command
+- id: bandit.B601
+  patterns:
+  - pattern-inside: |
+      import paramiko
+      ...
+  - pattern: $CLIENT.exec_command(...)
+  message: |
+    Unverified SSL context detected. This will permit insecure connections without verifying
+    SSL certificates. Use 'ssl.create_default_context()' instead.
+  metadata:
+    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+    owasp: 'A1: Injection'
+  severity: WARNING
+  languages: [python]
