@@ -1,0 +1,16 @@
+rules:
+- id: bandit.B106
+  patterns:
+    - pattern: $FUNC(..., $PW="...", ...)
+    - metavariable-regex:
+        metavariable: "$PW"
+        regex: ".*([Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|pass|passwd|pwd|secret|token|secrete).*"
+  message: | 
+    Possible hardcoded password
+  metadata:
+    cwe: 'CWE-259: Use of Hard-coded Password'
+    owasp: 'A3: Broken Authentication and Session Management'
+  severity: INFO
+  languages: [python]
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/hardcoded-password-default-argument.yaml
+# hardcoded-password-default-argument

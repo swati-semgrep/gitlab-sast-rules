@@ -1,0 +1,14 @@
+rules:
+- id: bandit.B110
+  patterns:
+    - pattern: |
+        try:
+          ...
+        except $X:
+          pass
+  message: | 
+    Try, Except, Pass
+  metadata:
+    cwe: 'CWE-703: Improper Check or Handling of Exceptional Conditions'
+  severity: INFO
+  languages: [python]
