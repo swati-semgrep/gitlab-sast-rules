@@ -1,0 +1,12 @@
+rules:
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/best-practice/hardcoded-tmp-path.yaml
+# hardcoded-tmp-path
+- id: bandit.B108-2
+  patterns:
+    - pattern: open("=~/^\/(dev|var).*/", ...)
+  message: | 
+    Probable insecure usage of temp file/directory.   
+  metadata:
+    cwe: 'CWE-377: Insecure Temporary File'
+  severity: WARNING
+  languages: [python]
