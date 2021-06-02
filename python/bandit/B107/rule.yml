@@ -1,4 +1,4 @@
-rule:
+rules:
 - id: bandit.B107
   patterns:
   - pattern: |
