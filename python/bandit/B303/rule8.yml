@@ -1,3 +1,4 @@
+rules:
 - id: bandit.B303-8
   pattern: cryptography.hazmat.primitives.hashes.SHA1(...)
   message: |

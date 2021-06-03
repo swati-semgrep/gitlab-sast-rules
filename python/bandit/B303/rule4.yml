@@ -1,3 +1,4 @@
+rules:
 # insecure-hash-algorithm-md4
 - id: bandit.B303-4
   patterns:

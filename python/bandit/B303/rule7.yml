@@ -1,3 +1,4 @@
+rules:
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/cryptography/security/insecure-hash-algorithms.yaml
 # insecure-hash-algorithm-md5
 - id: bandit.B303-7
