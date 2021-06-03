@@ -1,4 +1,7 @@
 rules:
+# https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/insecure-file-permissions.yaml
+# should subsume B103 but we have to set the flag --dangerously-allow-arbitrary-code-execution-from-rules
+# - using metavariable-based approach for the time being
 - id: bandit.B103
   patterns:
     - pattern: os.chmod(...,$MASK)
@@ -11,5 +14,4 @@ rules:
     owasp: 'A6: Security Misconfiguration'
   severity: WARNING
   languages: [python]
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/network/bind.yaml
-# avoid-bind-to-all-interfaces
+

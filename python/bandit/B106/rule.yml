@@ -12,5 +12,4 @@ rules:
     owasp: 'A3: Broken Authentication and Session Management'
   severity: INFO
   languages: [python]
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/hardcoded-password-default-argument.yaml
-# hardcoded-password-default-argument
+
