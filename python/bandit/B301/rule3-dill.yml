@@ -8,11 +8,10 @@ rules:
   pattern-either:
   - pattern: "dill.$FUNC(...)"
   message: |
-    Avoid using `dill`, which uses `pickle`, which is known to lead to code execution 
-    vulnerabilities.
-    When unpickling, the serialized data could be manipulated to run arbitrary code.
-    Instead, consider serializing the relevant data as JSON or a similar text-based
-    serialization format.
+    Avoid using `dill`, which uses `pickle`, which is known to lead to code
+    execution vulnerabilities. When unpickling, the serialized data could be manipulated
+    to run arbitrary code. Instead, consider serializing the relevant data as JSON
+    or a similar text-based serialization format.
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8: Insecure Deserialization"
