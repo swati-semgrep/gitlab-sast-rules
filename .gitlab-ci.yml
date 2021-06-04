@@ -10,8 +10,10 @@ yamllint:
     - yamllint .
 
 rulecheck:
+  stage: test 
   image: ruby:3-alpine
   before_script:
     - gem install psych yaml fileutils
+  script:
     - ./scripts/autoformat.rb
 
