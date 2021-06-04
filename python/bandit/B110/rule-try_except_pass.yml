@@ -2,7 +2,11 @@
 rules:
 - id: "bandit.B110"
   patterns:
-  - pattern: "try:\n  ...\nexcept $X:\n  pass\n"
+  - pattern: |
+      try:
+        ...
+      except $X:
+        pass
   message: |
     Try, Except, Pass
   metadata:

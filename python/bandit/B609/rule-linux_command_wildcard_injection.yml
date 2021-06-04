@@ -7,18 +7,12 @@ rules:
 - id: "bandit.B609"
   patterns:
   - pattern-either:
-    - pattern-inside: |-
-        os.system("...")
-    - pattern-inside: |-
-        os.popen("...")
-    - pattern-inside: |-
-        os.popen2("...")
-    - pattern-inside: |-
-        os.popen3("...")
-    - pattern-inside: |-
-        os.popen4("...")
-    - pattern-inside: |-
-        subprocess.$W(..., shell=True, ...)
+    - pattern-inside: "os.system(\"...\")"
+    - pattern-inside: "os.popen(\"...\")"
+    - pattern-inside: "os.popen2(\"...\")"
+    - pattern-inside: "os.popen3(\"...\")"
+    - pattern-inside: "os.popen4(\"...\")"
+    - pattern-inside: "subprocess.$W(..., shell=True, ...)"
   - pattern-regex: "(tar|chmod|chown|rsync)(.*?)\\*"
   message: |
     Detected use of the wildcard character in a system call that spawns a shell.

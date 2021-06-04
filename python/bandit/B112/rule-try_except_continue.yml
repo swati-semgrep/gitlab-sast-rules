@@ -6,7 +6,11 @@
 rules:
 - id: "bandit.B112"
   patterns:
-  - pattern: "try:\n  ...\nexcept $X:\n  continue\n"
+  - pattern: |
+      try:
+        ...
+      except $X:
+        continue
   message: |
     Try, Except, Continue
   metadata:
