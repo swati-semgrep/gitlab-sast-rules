@@ -13,7 +13,7 @@ rulecheck:
   stage: test 
   image: ruby:3-alpine
   before_script:
-    - apk add --no-cache yaml-dev
+    - apk add --no-cache yaml-dev alpine-sdk
     - gem install psych yaml fileutils
   script:
     - ./scripts/autoformat.rb
