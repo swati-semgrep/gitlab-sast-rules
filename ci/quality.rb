@@ -25,7 +25,8 @@ module AutoFormat
         node.style  = Psych::Nodes::Scalar::DOUBLE_QUOTED
       end
 
-      # Second pass, unquote keys
+      # remove double quotes from keys and adjust
+      # message, pattern-inside and pattern
       ast.grep(Psych::Nodes::Mapping).each do |node|
         node.children.each_slice(2) do |k, v|
           k.plain  = true
