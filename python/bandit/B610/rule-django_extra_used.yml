@@ -1,14 +1,21 @@
+# yamllint disable
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/django/security/audit/query-set-extra.yaml
 # avoid-query-set-extra
-- id: bandit.B610
+# yamllint enable
+---
+- id: "bandit.B610"
   patterns:
   - pattern-either:
-    - pattern: $X.objects.$FUNC(...).extra(...)
-    - pattern: $X.objects.$FUNC(...).$FILTER(...).extra(...)
-    - pattern: $X.objects.$FUNC(...).$FILTER(...).$UPDATE(...).extra(...)
-  message: This is a last resort. You should be careful when using QuerySet.extra due to SQLi https://docs.djangoproject.com/en/3.0/ref/models/querysets/#django.db.models.query.QuerySet.extra
+    - pattern: "$X.objects.$FUNC(...).extra(...)"
+    - pattern: "$X.objects.$FUNC(...).$FILTER(...).extra(...)"
+    - pattern: "$X.objects.$FUNC(...).$FILTER(...).$UPDATE(...).extra(...)"
+  message: |-
+    This is a last resort. You should be careful when using QuerySet.extra due
+    to SQLi.
   metadata:
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
-    owasp: 'A1: Injection'
-  severity: ERROR
-  languages: [python]
+    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
+      ('SQL Injection')"
+    owasp: "A1: Injection"
+  severity: "ERROR"
+  languages:
+  - "python"

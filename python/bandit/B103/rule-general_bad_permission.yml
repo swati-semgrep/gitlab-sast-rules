@@ -1,17 +1,20 @@
-rules:
+# yamllint disable
 # https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/insecure-file-permissions.yaml
 # should subsume B103 but we have to set the flag --dangerously-allow-arbitrary-code-execution-from-rules
 # - using metavariable-based approach for the time being
-- id: bandit.B103
+# yamllint enable
+---
+rules:
+- id: "bandit.B103"
   patterns:
-    - pattern: os.chmod(...,$MASK)
-    - metavariable-regex:
-        metavariable: "$MASK"
-        regex: "(0x..f|0o..[2,3,7]|stat.S_IXGRP|stat.S_IWOTH)"
-  message: 'Chmod setting a permissive mask on file.'
+  - pattern: "os.chmod(...,$MASK)"
+  - metavariable-regex:
+      metavariable: "$MASK"
+      regex: "(0x..f|0o..[2,3,7]|stat.S_IXGRP|stat.S_IWOTH)"
+  message: "Chmod setting a permissive mask on file."
   metadata:
-    cwe: 'CWE-732: Incorrect Permission Assignment for Critical Resource'
-    owasp: 'A6: Security Misconfiguration'
-  severity: WARNING
-  languages: [python]
-
+    cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
+    owasp: "A6: Security Misconfiguration"
+  severity: "WARNING"
+  languages:
+  - "python"

@@ -1,11 +1,13 @@
+---
 rules:
-- id: bandit.B411
+- id: "bandit.B411"
   pattern-either:
-    - pattern: import xmlrpclib
+  - pattern: "import xmlrpclib"
   message: |
     Consider possible security implications associated with xmlrpclib module.
   metadata:
-    cwe: 'CWE-502: Deserialization of Untrusted Data'
-    owasp: 'A8: Insecure Deserialization'
-  severity: ERROR
-  languages: [python]
+    cwe: "CWE-502: Deserialization of Untrusted Data"
+    owasp: "A8: Insecure Deserialization"
+  severity: "ERROR"
+  languages:
+  - "python"

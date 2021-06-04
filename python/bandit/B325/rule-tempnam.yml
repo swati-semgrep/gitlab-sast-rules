@@ -1,12 +1,16 @@
-rules:
+# yamllint disable
 # source (modified): https://semgrep.dev/c/p/bandit
 # contrib.dlint.dlint-equivalent.insecure-os-temp-use
-- id: bandit.B325
+# yamllint enable
+---
+rules:
+- id: "bandit.B325"
   pattern-either:
-  - pattern: os.tempnam(...)
-  - pattern: os.tmpnam(...)
-  message: The Python 'os' tempnam|tmpnam functions are vulnerable to symlink attacks
+  - pattern: "os.tempnam(...)"
+  - pattern: "os.tmpnam(...)"
+  message: "The Python 'os' tempnam|tmpnam functions are vulnerable to symlink attacks"
   metadata:
-    cwe: 'CWE-377: Insecure Temporary File'
-  severity: WARNING
-  languages: [python]
+    cwe: "CWE-377: Insecure Temporary File"
+  severity: "WARNING"
+  languages:
+  - "python"

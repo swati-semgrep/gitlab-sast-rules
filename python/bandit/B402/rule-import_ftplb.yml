@@ -1,14 +1,17 @@
+---
 rules:
-- id: bandit.B402
+- id: "bandit.B402"
   patterns:
-    - pattern-either:
-      - pattern: import ftplib
-      - pattern: from ftplib import FTP
-      - pattern: ftplib.FTP(...)
+  - pattern-either:
+    - pattern: "import ftplib"
+    - pattern: "from ftplib import FTP"
+    - pattern: "ftplib.FTP(...)"
   message: |
-    functions are being called. FTP is considered insecure. Use SSH/SFTP/SCP or some other encrypted protocol
+    functions are being called. FTP is considered insecure. Use SSH/SFTP/SCP or
+    some other encrypted protocol
   metadata:
-    cwe: 'CWE-319: Cleartext Transmission of Sensitive Information'
-    owasp: 'A3: Sensitive Data Exposure'
-  severity: ERROR
-  languages: [python]
+    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "ERROR"
+  languages:
+  - "python"

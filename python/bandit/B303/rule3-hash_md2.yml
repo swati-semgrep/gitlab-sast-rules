@@ -1,16 +1,20 @@
-rules:
+# yamllint disable
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/pycryptodome/security/insecure-hash-algorithm.yaml
 # insecure-hash-algorithm-md2
-- id: bandit.B303-3
+# yamllint enable
+---
+rules:
+- id: "bandit.B303-3"
   patterns:
   - pattern-either:
-    - pattern: Crypto.Hash.MD2.new(...)
-    - pattern: Cryptodome.Hash.MD2.new (...)
+    - pattern: "Crypto.Hash.MD2.new(...)"
+    - pattern: "Cryptodome.Hash.MD2.new (...)"
   message: |
     Detected MD2 hash algorithm which is considered insecure. This algorithm
     has many known vulnerabilities and has been deprecated. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: 'CWE-327: Use of a Broken or Risky Cryptographic Algorithm'
-    owasp: 'A3: Sensitive Data Exposure'
-  severity: WARNING
-  languages: [python]
+    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "WARNING"
+  languages:
+  - "python"

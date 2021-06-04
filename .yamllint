@@ -1,0 +1,10 @@
+ignore: |
+  .git
+  .gitlab-ci.yml
+  .yamllint
+
+rules:
+  line-length:
+    max: 100
+    level: error
+  indentation: {spaces: 2, indent-sequences: consistent}

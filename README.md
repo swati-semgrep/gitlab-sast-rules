@@ -46,4 +46,21 @@ contains a single semgrep rule.  For rules that are specific to GitLab (i.e.,
 rules that are not covered by 3rd party analyzer), we could use
 `<analyzer>-gitlab`.
 
+## Formatting guidelines
+
+Rules contained in this repository have to adhere to the following format:
+
+- Use `"` for all one-line strings, otherwise the YAML literal block |
+- No collapsing of array elements
+- max line-length/text-width: 100 characters
+- indentation: 2 spaces
+- every rule has to have a corresponding test-case
+- if provided, comments-section at the top of the rule file
+- every YAML files starts with `---`
+
+The script `ci/quality.rb` automatically formats/rewrites all the rules files
+so that they adhere to our guidelines listed above. The script does not autofix
+the text-width yet, but everything else is automatically adjusted. It can be
+executed by running `ci/quality.rb` within the sast-rules directory after
+installing the gems `psych yaml fileutils` with `gem install psych yaml fileutils`.
 

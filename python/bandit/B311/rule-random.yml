@@ -1,16 +1,18 @@
+---
 rules:
-- id: bandit.B311
+- id: "bandit.B311"
   pattern-either:
-    - pattern: random.random(...)
-    - pattern: random.randrange(...)
-    - pattern: random.randint(...)
-    - pattern: random.choice(...)
-    - pattern: random.uniform(...)
-    - pattern: random.triangular(...)
+  - pattern: "random.random(...)"
+  - pattern: "random.randrange(...)"
+  - pattern: "random.randint(...)"
+  - pattern: "random.choice(...)"
+  - pattern: "random.uniform(...)"
+  - pattern: "random.triangular(...)"
   message: |
     Standard pseudo-random generators are not suitable for security/cryptographic purposes.
   metadata:
-    cwe: 'CWE-330: Use of Insufficiently Random Values'
-    owasp: 'A3: Sensitive Data Exposure'
-  severity: INFO
-  languages: [python]
+    cwe: "CWE-330: Use of Insufficiently Random Values"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "INFO"
+  languages:
+  - "python"

@@ -1,7 +1,10 @@
-rules:
+# yamllint disable
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/network/bind.yaml
 # avoid-bind-to-all-interfaces
-- id: bandit.B104
+# yamllint enable
+---
+rules:
+- id: "bandit.B104"
   patterns:
   - pattern-either:
     - pattern: |
@@ -22,7 +25,8 @@ rules:
     instead getting correct address from an environment variable or
     configuration file.
   metadata:
-    cwe: 'CWE-200: Exposure of Sensitive Information to an Unauthorized Actor'
-    owasp: 'A6: Security Misconfiguration'
-  severity: INFO
-  languages: [python]
+    cwe: "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
+    owasp: "A6: Security Misconfiguration"
+  severity: "INFO"
+  languages:
+  - "python"
