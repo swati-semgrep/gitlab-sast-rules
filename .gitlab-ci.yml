@@ -16,5 +16,5 @@ rulecheck:
     - apk add --no-cache yaml-dev alpine-sdk
     - gem install psych yaml fileutils
   script:
-    - ./scripts/autoformat.rb
+    - ./ci/autoformat.rb
 
