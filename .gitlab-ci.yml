@@ -17,7 +17,7 @@ rulecheck-quality:
     - apk add --no-cache yaml-dev alpine-sdk
     - gem install psych yaml fileutils
   script:
-    - ./ci/autoformat.rb
+    - ./ci/quality.rb
 
 # make sure that every rule has an associated test-case
 rulecheck-availability:
