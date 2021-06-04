@@ -1,12 +1,13 @@
 rules:
 - id: bandit.B101
   pattern-either:
-  - pattern: assert(...)
-  - pattern: assert("...")
+  - pattern: "assert(...)"
+  - pattern: "assert(\"...\")"
   message: |
-    Use of assert detected. The enclosed code will be removed when
-    compiling to optimised byte code.
+    "Use of assert detected. The enclosed code will be removed when
+    compiling to optimised byte code."
   metadata:
     cwe: 'CWE-754: Improper Check for Unusual or Exceptional Conditions'
-  severity: INFO
-  languages: [python]
+  severity: "INFO"
+  languages: 
+    - "python"

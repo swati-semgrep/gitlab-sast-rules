@@ -1,0 +1,11 @@
+stages:
+  - test
+
+yamllint:
+  image: python:3
+  stage: test 
+  before_script:
+    - pip install yamllint
+  script:
+    - yamllint .
+
