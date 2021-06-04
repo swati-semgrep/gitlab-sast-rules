@@ -1,6 +1,6 @@
 # semgrep-rules
 
-This the central semgrep rule repository that hosts the rules the semgrep rules
+This is the central semgrep rule repository that hosts the semgrep rules
 for the [GitLab semgrep analyzer](https://gitlab.com/gitlab-org/security-products/analyzers/semgrep).
 
 The repository is structured as illustrated below:
@@ -36,7 +36,7 @@ The repository is structured as illustrated below:
 The structure above follows the pattern:
 `<language>/<analyzer>/<ruleid>/{rule-<rulename>.yml, test-<rulename>\..*}`
 where `language` denotes the target programming language, `<analyzer>` is the
-analyzer from which a originates and `<ruleid>` denotes the rule identifier
+analyzer from which the rule originates and `<ruleid>` denotes the rule identifier
 that is used in the analyzer and `<rulename>` is a descriptive name for the
 actual rule. 
 
@@ -44,6 +44,6 @@ We can have multiple test cases per rule (all prefixed with `test-`) and rule
 files `rule-<rulename>.yml` that are prefixed with `rule-`; a rule file
 contains a single semgrep rule.  For rules that are specific to GitLab (i.e.,
 rules that are not covered by 3rd party analyzer), we could use
-`<analyzer>=gitlab`.
+`<analyzer>-gitlab`.
 
 
