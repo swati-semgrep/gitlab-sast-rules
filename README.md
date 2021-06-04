@@ -1,7 +1,49 @@
-# ABOUT
+# semgrep-rules
 
-This repository 'Test - Central Rule Repository' is created to test the assertions and ideas that can be implemented for the actual Central Rule repository.
+This is the central semgrep rule repository that hosts the semgrep rules
+for the [GitLab semgrep analyzer](https://gitlab.com/gitlab-org/security-products/analyzers/semgrep).
 
-The Central Rule repository is a separate repository where all the [Semgrep rulesets](https://gitlab.com/gitlab-org/security-products/analyzers/semgrep/-/tree/main/rules) created to-date are kept in a uniform  manner.
+The repository is structured as illustrated below:
 
-This [issue](https://gitlab.com/gitlab-org/gitlab/-/issues/329730#note_568340262) frames the general context behind this idea.
+``` bash
+.
+├── c
+│   └── flawfinder
+│       ├── FF1001
+│       │   ├── rule-strcpy.yml
+│       │   └── test-strcpy.c
+│       └── FF1002
+│       │   ├── memcpy.yml
+│       │   └── test-mcpy.c
+│       └── ...
+└── python
+│    └── bandit
+│        ├── B101
+│        │   ├── rule-assert.yml
+│        │   └── test-assert.py
+│        └── B102
+│        │   ├── rule-exec.yml
+│        │   ├── test-exec.yml
+│        │   ├── rule-something.yml
+│        │   └── test-something.yml
+│        └── B103
+│        │   ├── rule-chmod.yml
+│        │   └── test-chmod.py
+│        └── ...
+└── ...
+```
+
+The structure above follows the pattern:
+`<language>/<analyzer>/<ruleid>/{rule-<rulename>.yml, test-<rulename>\..*}`
+where `language` denotes the target programming language, `<analyzer>` is the
+analyzer from which the rule originates and `<ruleid>` denotes the rule identifier
+that is used in the analyzer and `<rulename>` is a descriptive name for the
+actual rule. 
+
+We can have multiple test cases per rule (all prefixed with `test-`) and rule
+files `rule-<rulename>.yml` that are prefixed with `rule-`; a rule file
+contains a single semgrep rule.  For rules that are specific to GitLab (i.e.,
+rules that are not covered by 3rd party analyzer), we could use
+`<analyzer>-gitlab`.
+
+
