@@ -1,16 +1,16 @@
-rules:
-- id: bandit.B112
-  patterns:
-    - pattern: |
-        try:
-          ...
-        except $X:
-          continue
-  message: | 
-    Try, Except, Continue
-  metadata:
-    cwe: 'CWE-703: Improper Check or Handling of Exceptional Conditions'
-  severity: INFO
-  languages: [python]
+# yamllint disable
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/flask/security/audit/debug-enabled.yaml
 # debug-enabled
+# yamllint enable
+---
+rules:
+- id: "bandit.B112"
+  patterns:
+  - pattern: "try:\n  ...\nexcept $X:\n  continue\n"
+  message: |
+    Try, Except, Continue
+  metadata:
+    cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
+  severity: "INFO"
+  languages:
+  - "python"

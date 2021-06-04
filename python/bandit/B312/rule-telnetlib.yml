@@ -1,12 +1,16 @@
-rules:
+# yamllint disable
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/telnetlib.yaml
 # telnetlib
-- id: bandig.B312
-  pattern: telnetlib.$ANYTHING(...)
+# yamllint enable
+---
+rules:
+- id: "bandig.B312"
+  pattern: "telnetlib.$ANYTHING(...)"
   message: |
     Telnet does not encrypt communications. Use SSH instead.
   metadata:
-    cwe: 'CWE-319: Cleartext Transmission of Sensitive Information'
-    owasp: 'A3: Sensitive Data Exposure'
-  severity: WARNING
-  languages: [python]
+    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "WARNING"
+  languages:
+  - "python"

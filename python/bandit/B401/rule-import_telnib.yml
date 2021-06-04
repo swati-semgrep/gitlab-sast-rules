@@ -1,11 +1,14 @@
+---
 rules:
-- id: bandit.B401
+- id: "bandit.B401"
   patterns:
-    - pattern: import telnetlib
+  - pattern: "import telnetlib"
   message: |
-    Telnet-related functions are being called. Telnet is considered insecure. Use SSH or some other encrypted protocol.
+    Telnet-related functions are being called. Telnet is considered insecure.
+    Use SSH or some other encrypted protocol.
   metadata:
-    cwe: 'CWE-319: Cleartext Transmission of Sensitive Information'
-    owasp: 'A3: Sensitive Data Exposure'
-  severity: ERROR
-  languages: [python]
+    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "ERROR"
+  languages:
+  - "python"

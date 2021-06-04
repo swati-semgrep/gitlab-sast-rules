@@ -1,16 +1,19 @@
+---
 rules:
-- id: bandit.B317
+- id: "bandit.B317"
   pattern-either:
   - patterns:
-    - pattern: xml.$ANYTHING
-    - pattern-not: xml.sax.saxutils
-    - pattern-not: xml.etree.ElementTree.Element
-    - pattern-not: xml.etree.ElementTree.SubElement
-  - pattern: lxml.$ANYTHING
-  - pattern: xmlrpclib.$ANYTHING
-  message: Insecure XML parsing functionality, prefer 'defusedxml'
+    - pattern: "xml.$ANYTHING"
+    - pattern-not: "xml.sax.saxutils"
+    - pattern-not: "xml.etree.ElementTree.Element"
+    - pattern-not: "xml.etree.ElementTree.SubElement"
+  - pattern: "lxml.$ANYTHING"
+  - pattern: "xmlrpclib.$ANYTHING"
+  message: |-
+    Insecure XML parsing functionality, prefer 'defusedxml'
   metadata:
-    cwe: 'CWE-611: Improper Restriction of XML External Entity Reference'
-    owasp: 'A4: XML External Entities (XXE)'
-  severity: WARNING
-  languages: [python]
+    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
+    owasp: "A4: XML External Entities (XXE)"
+  severity: "WARNING"
+  languages:
+  - "python"

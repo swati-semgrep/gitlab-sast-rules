@@ -1,14 +1,12 @@
+---
 rules:
-- id: bandit.B110
+- id: "bandit.B110"
   patterns:
-    - pattern: |
-        try:
-          ...
-        except $X:
-          pass
-  message: | 
+  - pattern: "try:\n  ...\nexcept $X:\n  pass\n"
+  message: |
     Try, Except, Pass
   metadata:
-    cwe: 'CWE-703: Improper Check or Handling of Exceptional Conditions'
-  severity: INFO
-  languages: [python]
+    cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
+  severity: "INFO"
+  languages:
+  - "python"

@@ -1,11 +1,14 @@
+---
 rules:
-- id: bandit.B504
+- id: "bandit.B504"
   patterns:
-    - pattern: ssl.wrap_socket()
+  - pattern: "ssl.wrap_socket()"
   message: |
-    ssl.wrap_socket call with no SSL/TLS protocol version specified, the default SSLv23 could be insecure, possible security issue.
+    ssl.wrap_socket call with no SSL/TLS protocol version specified, the
+    default SSLv23 could be insecure, possible security issue.
   metadata:
-    cwe: 'CWE-326: Inadequate Encryption Strength'
-    owasp: 'A3: Sensitive Data Exposure'
-  severity: INFO
-  languages: [python]
+    cwe: "CWE-326: Inadequate Encryption Strength"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "INFO"
+  languages:
+  - "python"

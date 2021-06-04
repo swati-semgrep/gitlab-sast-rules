@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'psych'
-require 'justify'
 require 'yaml'
 require 'fileutils'
 
@@ -34,7 +33,6 @@ module AutoFormat
           k.style  = Psych::Nodes::Scalar::ANY
 
           if k.value == 'message' || k.value == 'pattern-inside'
-            v.value = v.value.justify(100)
             v.style = Psych::Nodes::Scalar::LITERAL
           end
         end

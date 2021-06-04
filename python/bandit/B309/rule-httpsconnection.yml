@@ -1,12 +1,15 @@
-rules:
+# yamllint disable
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/httpsconnection-detected.yaml
 # httpsconnection-detected
-- id: bandit.B309
+# yamllint enable
+---
+rules:
+- id: "bandit.B309"
   patterns:
   - pattern-either:
-    - pattern: httplib.HTTPSConnection(...)
-    - pattern: http.client.HTTPSConnection(...)
-    - pattern: six.moves.http_client.HTTPSConnection(...)
+    - pattern: "httplib.HTTPSConnection(...)"
+    - pattern: "http.client.HTTPSConnection(...)"
+    - pattern: "six.moves.http_client.HTTPSConnection(...)"
   message: |
     The HTTPSConnection API has changed frequently with minor releases of Python.
     Ensure you are using the API for your version of Python securely.
@@ -14,7 +17,8 @@ rules:
     See https://docs.python.org/3/library/http.client.html#http.client.HTTPSConnection
     for more information.
   metadata:
-    cwe: 'CWE-295: Improper Certificate Validation'
-    owasp: 'A3: Sensitive Data Exposure'
-  severity: WARNING
-  languages: [python]
+    cwe: "CWE-295: Improper Certificate Validation"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "WARNING"
+  languages:
+  - "python"

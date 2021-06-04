@@ -12,6 +12,6 @@ yamllint:
 rulecheck:
   image: ruby:3-alpine
   before_script:
-    - gem install psych justify yaml fileutils
+    - gem install psych yaml fileutils
     - ./scripts/autoformat.rb
 
