@@ -7,7 +7,7 @@ require 'fileutils'
 module AutoFormat
   def self.run
     changed = 0
-    Dir.glob('**/*.yml').each do |file|
+    Dir.glob('**/rule*.yml').each do |file|
       ff = File.read(file)
       yaml_dict = YAML.load(ff)
       # extract comments
