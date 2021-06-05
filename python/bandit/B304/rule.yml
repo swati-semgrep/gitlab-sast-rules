@@ -1,0 +1,16 @@
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/pycryptodome/security/insecure-cipher-algorithm.yaml
+# insecure-cipher-algorithm-idea
+---
+rules:
+- id: "bandit.B304-12"
+  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.IDEA(...)"
+  message: |
+    Detected IDEA cipher algorithm which is considered insecure. 
+    The algorithm is considered weak and has been deprecated. 
+    Use AES instead.
+  metadata:
+    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "WARNING"
+  languages:
+  - "python"

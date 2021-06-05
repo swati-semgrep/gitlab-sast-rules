@@ -1,0 +1,16 @@
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/pycryptodome/security/insecure-cipher-algorithm.yaml
+# insecure-cipher-algorithm-blowfish
+---
+rules:
+- id: "bandit.B304-11"
+  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.Blowfish(...)"
+  message: |
+    Detected Blowfish cipher algorithm which is considered insecure. 
+    The algorithm has many known vulnerabilities. 
+    Use AES instead.
+  metadata:
+    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "WARNING"
+  languages:
+  - "python"
