@@ -4,8 +4,8 @@ rules:
   patterns:
   - pattern: "import telnetlib"
   message: |
-    Telnet-related functions are being called. Telnet is considered insecure.Use SSH or some other
-    encrypted protocol.
+    Telnet-related functions are being called. Telnet is considered insecure.
+    Use SSH or some other encrypted protocol.
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
     owasp: "A3: Sensitive Data Exposure"

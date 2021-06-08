@@ -9,9 +9,10 @@ rules:
   - pattern-either:
     - pattern: "$MODEL.objects.raw($QUERY, ...)"
     - pattern: "django.db.models.expressions.RawSQL(...)"
-  message: |
-    You should be very careful whenever you write raw SQL. Consider usingDjango ORM before raw SQL.
-    Seehttps://docs.djangoproject.com/en/3.0/topics/db/sql/#passing-parameters-into-raw
+  message: |-
+    You should be very careful whenever you write raw SQL. Consider using
+    Django ORM before raw SQL. See
+    https://docs.djangoproject.com/en/3.0/topics/db/sql/#passing-parameters-into-raw
   metadata:
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
       ('SQL Injection')"
