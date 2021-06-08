@@ -11,12 +11,11 @@ rules:
       ...)"
   - pattern: "jinja2.Environment(...)"
   message: |
-    Detected a Jinja2 environment without autoescaping. Jinja2 does not
-    autoescape by default.  This is dangerous if you are rendering to a browser
-    because this allows for cross-site scripting (XSS) attacks.  If you are in
-    a web context, enable autoescaping by setting 'autoescape=True.' You may
-    also consider using 'jinja2.select_autoescape()' to only enable automatic
-    escaping for certain file extensions.
+    Detected a Jinja2 environment without autoescaping. Jinja2 does notautoescape by default.  This is
+    dangerous if you are rendering to a browserbecause this allows for cross-site scripting (XSS)
+    attacks.  If you are ina web context, enable autoescaping by setting 'autoescape=True.' You mayalso
+    consider using 'jinja2.select_autoescape()' to only enable automaticescaping for certain file
+    extensions.
   metadata:
     cwe: "CWE-116: Improper Encoding or Escaping of Output"
     owasp: "A7: Cross-Site Scripting (XSS)"

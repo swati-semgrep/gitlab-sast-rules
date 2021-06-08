@@ -10,11 +10,11 @@ rules:
     - pattern: "Cryptodome.Cipher.Blowfish.new(...)"
     - pattern: "Crypto.Cipher.Blowfish.new(...)"
   message: |
-    Detected Blowfish cipher algorithm which is considered insecure. 
-    The algorithm has many known vulnerabilities. Use AES instead.
+    Detected Blowfish cipher algorithm which is considered insecure. The algorithm has many known
+    vulnerabilities. Use AES instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
   severity: "WARNING"
-  languages: 
+  languages:
   - "python"
