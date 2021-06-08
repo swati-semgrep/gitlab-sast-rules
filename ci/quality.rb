@@ -4,12 +4,6 @@ require 'psych'
 require 'yaml'
 require 'fileutils'
 
-module StringUtils
-  def self.wrap(txt, col = 80)
-    txt.gsub(/(.{1,#{col}})( +|$\n?)|(.{1,#{col}})/,
-             "\\1\\3\n")
-  end
-end
 
 module AutoFormat
   def self.run
@@ -45,7 +39,7 @@ module AutoFormat
             v.quoted = true
             v.plain = true
             v.style = Psych::Nodes::Scalar::LITERAL
-            v.value = StringUtils.wrap(v.value.delete("\n"), 100)
+            v.value = v.value.delete("\n")
           when 'pattern'
             v.style = if v.value.count("\n").zero?
                         Psych::Nodes::Scalar::DOUBLE_QUOTED
