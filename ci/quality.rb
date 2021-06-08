@@ -4,6 +4,13 @@ require 'psych'
 require 'yaml'
 require 'fileutils'
 
+module StringUtils
+  def self.wrap(txt, col = 80)
+    txt.gsub(/(.{1,#{col}})( +|$\n?)|(.{1,#{col}})/,
+             "\\1\\3\n").gsub(/^# *$/, '')
+  end
+end
+
 module AutoFormat
   def self.run
     changed = 0
@@ -33,12 +40,20 @@ module AutoFormat
           k.quoted = false
           k.style  = Psych::Nodes::Scalar::ANY
 
-          if k.value == 'message' || k.value == 'pattern-inside' || k.value == 'pattern'
-            if v.value.count("\n") == 0
-              v.style = Psych::Nodes::Scalar::DOUBLE_QUOTED
-            else
-              v.style = Psych::Nodes::Scalar::LITERAL
-            end
+          case k.value
+          when 'message'
+            v.quoted = true
+            v.plain = true
+            v.style = Psych::Nodes::Scalar::LITERAL
+            v.value = StringUtils.wrap(v.value.delete("\n"), 100)
+          when 'pattern'
+            v.style = if v.value.count("\n").zero?
+                        Psych::Nodes::Scalar::DOUBLE_QUOTED
+                      else
+                        Psych::Nodes::Scalar::LITERAL
+                      end
+          when 'pattern-inside'
+            v.style = Psych::Nodes::Scalar::LITERAL
           end
         end
       end
