@@ -11,7 +11,7 @@ rules:
   - metavariable-regex:
       metavariable: "$MASK"
       regex: "(0x..f|0o..[2,3,7]|stat.S_IXGRP|stat.S_IWOTH)"
-  message: |-
+  message: |
     Chmod setting a permissive mask on file.
   metadata:
     cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"

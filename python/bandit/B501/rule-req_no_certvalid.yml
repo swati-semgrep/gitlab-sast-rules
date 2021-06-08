@@ -15,8 +15,9 @@ rules:
     - pattern: "requests.request(..., verify=False, ...)"
     - pattern: "requests.get(..., verify=False, ...)"
     - pattern: "requests.post(..., verify=False, ...)"
-  message: |-
-    Certificate verification has been explicitly disabled. Thispermits insecure connections to insecure servers. Re-enablecertification validation.
+  message: |
+    Certificate verification has been explicitly disabled. Thispermits insecure connections to insecure
+    servers. Re-enablecertification validation.
   metadata:
     cwe: "CWE-295: Improper Certificate Validation"
     owasp: "A3: Sensitive Data Exposure"

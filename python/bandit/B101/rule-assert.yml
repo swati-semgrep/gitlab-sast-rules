@@ -4,8 +4,8 @@ rules:
   pattern-either:
   - pattern: "assert(...)"
   - pattern: "assert(\"...\")"
-  message: |-
-    "Use of assert detected. The enclosed code will be removed whencompiling to optimised byte code."
+  message: |
+    "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
   metadata:
     cwe: "CWE-754: Improper Check for Unusual or Exceptional Conditions"
   severity: "INFO"

@@ -11,7 +11,7 @@ rules:
         ...
       except $X:
         continue
-  message: |-
+  message: |
     Try, Except, Continue
   metadata:
     cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"

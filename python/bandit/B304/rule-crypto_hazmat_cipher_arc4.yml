@@ -6,8 +6,9 @@
 rules:
 - id: "bandit.B304-10"
   pattern: "cryptography.hazmat.primitives.ciphers.algorithms.ARC4(...)"
-  message: |-
-    Detected RC4 cipher algorithm which is considered insecure. The algorithm has many known vulnerabilities. Use AES instead.
+  message: |
+    Detected RC4 cipher algorithm which is considered insecure. The algorithm has many known
+    vulnerabilities. Use AES instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"

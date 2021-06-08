@@ -30,8 +30,10 @@ rules:
         - pattern: "os.spawnve(...)"
         - pattern: "os.spawnvp(...)"
         - pattern: "os.spawnvpe(...)"
-  message: |-
-    Found dynamic content when spawning a process. This is dangerous if externaldata can reach this function call because it allows a malicious actor toexecute commands. Ensure no external data reaches here.
+  message: |
+    Found dynamic content when spawning a process. This is dangerous if externaldata can reach this
+    function call because it allows a malicious actor toexecute commands. Ensure no external data
+    reaches here.
   metadata:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"

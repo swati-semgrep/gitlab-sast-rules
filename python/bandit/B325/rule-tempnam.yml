@@ -8,7 +8,7 @@ rules:
   pattern-either:
   - pattern: "os.tempnam(...)"
   - pattern: "os.tmpnam(...)"
-  message: |-
+  message: |
     The Python 'os' tempnam|tmpnam functions are vulnerable to symlink attacks
   metadata:
     cwe: "CWE-377: Insecure Temporary File"

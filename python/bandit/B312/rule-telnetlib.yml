@@ -6,7 +6,7 @@
 rules:
 - id: "bandig.B312"
   pattern: "telnetlib.$ANYTHING(...)"
-  message: |-
+  message: |
     Telnet does not encrypt communications. Use SSH instead.
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"

@@ -4,7 +4,7 @@ rules:
   pattern-either:
   - pattern: "wsgiref.handlers.CGIHandler(...)"
   - pattern: "twisted.web.twcgi.CGIDirectory(...)"
-  message: |-
+  message: |
     Consider possible security implications associated with httpoxy module.
   metadata:
     cwe: "CWE-284: Improper Access Control"

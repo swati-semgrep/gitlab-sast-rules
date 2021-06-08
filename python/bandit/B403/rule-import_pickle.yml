@@ -5,7 +5,7 @@ rules:
   - pattern-either:
     - pattern: "import pickle"
     - pattern: "import cPickle"
-  message: |-
+  message: |
     Consider possible security implications associated with pickle module.
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"

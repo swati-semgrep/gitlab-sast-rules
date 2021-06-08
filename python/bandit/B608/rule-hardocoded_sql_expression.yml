@@ -23,7 +23,7 @@ rules:
             $SQL = f"...{$X}..."
             ...
       - pattern: "$DB.execute($SQL)"
-  message: |-
+  message: |
     Detected possible formatted SQL query. Use parameterized queries instead.
   metadata:
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command

@@ -6,8 +6,9 @@
 rules:
 - id: "bandit.B304-12"
   pattern: "cryptography.hazmat.primitives.ciphers.algorithms.IDEA(...)"
-  message: |-
-    Detected IDEA cipher algorithm which is considered insecure. The algorithm is considered weak and has been deprecated. Use AES instead.
+  message: |
+    Detected IDEA cipher algorithm which is considered insecure. The algorithm is considered weak and
+    has been deprecated. Use AES instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"

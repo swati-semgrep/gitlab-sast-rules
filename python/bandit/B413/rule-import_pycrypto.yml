@@ -11,7 +11,7 @@ rules:
   - pattern: "import Crypto.Random"
   - pattern: "import Crypto.Signature"
   - pattern: "import Crypto.Util"
-  message: |-
+  message: |
     Consider possible security implications associated with pycrypto module.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
