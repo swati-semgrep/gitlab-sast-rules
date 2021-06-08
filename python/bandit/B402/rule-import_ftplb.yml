@@ -7,8 +7,8 @@ rules:
     - pattern: "from ftplib import FTP"
     - pattern: "ftplib.FTP(...)"
   message: |
-    functions are being called. FTP is considered insecure. Use SSH/SFTP/SCP orsome other encrypted
-    protocol
+    functions are being called. FTP is considered insecure. Use SSH/SFTP/SCP or
+    some other encrypted protocol
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
     owasp: "A3: Sensitive Data Exposure"
