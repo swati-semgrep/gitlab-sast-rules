@@ -9,12 +9,11 @@ rules:
   - pattern-either:
     - pattern: "Cryptodome.Cipher.DES.new(...)"
     - pattern: "Crypto.Cipher.DES.new(...)"
-  message: |
-    Detected DES cipher algorithm which is considered insecure. The algorithm is
-    considered weak and has been deprecated. Use AES instead.
+  message: |-
+    Detected DES cipher algorithm which is considered insecure. The algorithm isconsidered weak and has been deprecated. Use AES instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
   severity: "WARNING"
-  languages: 
+  languages:
   - "python"

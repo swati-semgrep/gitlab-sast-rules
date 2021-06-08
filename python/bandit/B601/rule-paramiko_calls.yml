@@ -10,9 +10,8 @@ rules:
       import paramiko
       ...
   - pattern: "$CLIENT.exec_command(...)"
-  message: |
-    Unverified SSL context detected. This will permit insecure connections without verifying
-    SSL certificates. Use 'ssl.create_default_context()' instead.
+  message: |-
+    Unverified SSL context detected. This will permit insecure connections without verifyingSSL certificates. Use 'ssl.create_default_context()' instead.
   metadata:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"

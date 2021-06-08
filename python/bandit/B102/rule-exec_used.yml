@@ -4,7 +4,7 @@ rules:
   pattern-either:
   - pattern: "exec(...)"
   - pattern: "exec(\"...\")"
-  message: |
+  message: |-
     The use of `exec` is risky.
   metadata:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command

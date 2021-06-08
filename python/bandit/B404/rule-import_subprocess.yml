@@ -7,7 +7,7 @@ rules:
 - id: "bandit.B404"
   patterns:
   - pattern: "import subprocess"
-  message: |
+  message: |-
     Consider possible security implications associated with subprocess module.
   metadata:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command

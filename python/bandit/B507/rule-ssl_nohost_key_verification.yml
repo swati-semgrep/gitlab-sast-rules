@@ -12,11 +12,8 @@
   - pattern-either:
     - pattern: "paramiko.client.AutoAddPolicy"
     - pattern: "paramiko.client.WarningPolicy"
-  message: |
-    Detected a paramiko host key policy that implicitly trusts a server's
-    host key. Host keys should be verified to ensure the connection
-    is not to a malicious server. Use RejectPolicy or a custom subclass
-    instead.
+  message: |-
+    Detected a paramiko host key policy that implicitly trusts a server'shost key. Host keys should be verified to ensure the connectionis not to a malicious server. Use RejectPolicy or a custom subclassinstead.
   metadata:
     cwe: "CWE-322: Key Exchange without Entity Authentication"
     owasp: "A5: Broken Access Control"

@@ -7,20 +7,21 @@ rules:
 - id: "bandit.B609"
   patterns:
   - pattern-either:
-    - pattern-inside: "os.system(\"...\")"
-    - pattern-inside: "os.popen(\"...\")"
-    - pattern-inside: "os.popen2(\"...\")"
-    - pattern-inside: "os.popen3(\"...\")"
-    - pattern-inside: "os.popen4(\"...\")"
-    - pattern-inside: "subprocess.$W(..., shell=True, ...)"
+    - pattern-inside: |-
+        os.system("...")
+    - pattern-inside: |-
+        os.popen("...")
+    - pattern-inside: |-
+        os.popen2("...")
+    - pattern-inside: |-
+        os.popen3("...")
+    - pattern-inside: |-
+        os.popen4("...")
+    - pattern-inside: |-
+        subprocess.$W(..., shell=True, ...)
   - pattern-regex: "(tar|chmod|chown|rsync)(.*?)\\*"
-  message: |
-    Detected use of the wildcard character in a system call that spawns a shell.
-    This subjects the wildcard to normal shell expansion, which can have unintended consequences
-    if there exist any non-standard file names. Consider a file named '-e sh script.sh' -- this
-    will execute a script when 'rsync' is called. See
-    https://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt
-    for more information.
+  message: |-
+    Detected use of the wildcard character in a system call that spawns a shell.This subjects the wildcard to normal shell expansion, which can have unintended consequencesif there exist any non-standard file names. Consider a file named '-e sh script.sh' -- thiswill execute a script when 'rsync' is called. Seehttps://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txtfor more information.
   metadata:
     cwe: "CWE-155: Improper Neutralization of Wildcards or Matching Symbols"
     owasp: "A1: Injection"

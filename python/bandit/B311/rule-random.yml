@@ -8,7 +8,7 @@ rules:
   - pattern: "random.choice(...)"
   - pattern: "random.uniform(...)"
   - pattern: "random.triangular(...)"
-  message: |
+  message: |-
     Standard pseudo-random generators are not suitable for security/cryptographic purposes.
   metadata:
     cwe: "CWE-330: Use of Insufficiently Random Values"

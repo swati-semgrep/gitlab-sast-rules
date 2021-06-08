@@ -3,7 +3,7 @@ rules:
 - id: "bandit.B411"
   pattern-either:
   - pattern: "import xmlrpclib"
-  message: |
+  message: |-
     Consider possible security implications associated with xmlrpclib module.
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"

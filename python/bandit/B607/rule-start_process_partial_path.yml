@@ -18,7 +18,7 @@ rules:
   - metavariable-regex:
       metavariable: "$BIN"
       regex: "^['\"][^/\\.][^:].*['\"]"
-  message: |
+  message: |-
     Starting a process with a partial executable path
   metadata:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
