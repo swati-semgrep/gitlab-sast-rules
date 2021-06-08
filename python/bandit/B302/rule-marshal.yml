@@ -11,7 +11,8 @@ rules:
   - pattern: "marshal.load(...)"
   - pattern: "marshal.loads(...)"
   message: |
-    The marshal module is not intended to be secure against erroneous or maliciously constructed data.
+    The marshal module is not intended to be secure against erroneous or maliciously constructed
+    data.
     Never unmarshal data received from anuntrusted or unauthenticated source.
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"

@@ -10,7 +10,8 @@ rules:
     - pattern: "Cryptodome.Cipher.DES.new(...)"
     - pattern: "Crypto.Cipher.DES.new(...)"
   message: |
-    Detected DES cipher algorithm which is considered insecure. The algorithm isconsidered weak and has
+    Detected DES cipher algorithm which is considered insecure. The algorithm isconsidered weak and
+    has
     been deprecated. Use AES instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"

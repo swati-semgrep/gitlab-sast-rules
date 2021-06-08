@@ -8,7 +8,8 @@ rules:
   pattern: "mako.template.Template(...)"
   message: |
     Mako templates do not provide a global HTML escaping mechanism.This means you must escape all
-    sensitive data in your templatesusing '| u' for URL escaping or '| h' for HTML escaping.If you are
+    sensitive data in your templatesusing '| u' for URL escaping or '| h' for HTML escaping.If you
+    are
     using Mako to serve web content, consider usinga system such as Jinja2 which enables global
     escaping.
   metadata:

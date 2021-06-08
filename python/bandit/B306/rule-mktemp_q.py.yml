@@ -7,8 +7,10 @@ rules:
 - id: "bandit.B306"
   pattern: "tempfile.mktemp(...)"
   message: |
-    Use tempfile.NamedTemporaryFile instead. From the official Pythondocumentation: THIS FUNCTION IS
-    UNSAFE AND SHOULD NOT BE USED. The file namemay refer to a file that did not exist at some point,
+    Use tempfile.NamedTemporaryFile instead. From the official Pythondocumentation: THIS FUNCTION
+    IS
+    UNSAFE AND SHOULD NOT BE USED. The file namemay refer to a file that did not exist at some
+    point,
     but by the time you getaround to creating it, someone else may have beaten you to the punch.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"

@@ -11,9 +11,11 @@ rules:
       ...)"
   - pattern: "jinja2.Environment(...)"
   message: |
-    Detected a Jinja2 environment without autoescaping. Jinja2 does notautoescape by default.  This is
+    Detected a Jinja2 environment without autoescaping. Jinja2 does notautoescape by default.  This
+    is
     dangerous if you are rendering to a browserbecause this allows for cross-site scripting (XSS)
-    attacks.  If you are ina web context, enable autoescaping by setting 'autoescape=True.' You mayalso
+    attacks.  If you are ina web context, enable autoescaping by setting 'autoescape=True.' You
+    mayalso
     consider using 'jinja2.select_autoescape()' to only enable automaticescaping for certain file
     extensions.
   metadata:

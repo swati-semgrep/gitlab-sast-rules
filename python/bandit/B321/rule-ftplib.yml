@@ -7,7 +7,8 @@ rules:
 - id: "bandit.B321"
   pattern: "ftplib.$ANYTHING(...)"
   message: |
-    FTP does not encrypt communications by default. This can lead to sensitivedata being exposed. Ensure
+    FTP does not encrypt communications by default. This can lead to sensitivedata being exposed.
+    Ensure
     use of FTP here does not expose sensitive data.
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"

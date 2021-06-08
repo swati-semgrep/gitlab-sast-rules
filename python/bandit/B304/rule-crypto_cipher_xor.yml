@@ -10,7 +10,8 @@ rules:
     - pattern: "Cryptodome.Cipher.XOR.new(...)"
     - pattern: "Crypto.Cipher.XOR.new(...)"
   message: |
-    Detected XOR cipher algorithm which is considered insecure. This algorithmis not cryptographically
+    Detected XOR cipher algorithm which is considered insecure. This algorithmis not
+    cryptographically
     secure and can be reversed easily. Use AES instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"

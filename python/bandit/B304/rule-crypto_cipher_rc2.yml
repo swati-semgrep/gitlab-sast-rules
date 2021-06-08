@@ -10,7 +10,8 @@ rules:
     - pattern: "Cryptodome.Cipher.ARC2.new(...)"
     - pattern: "Crypto.Cipher.ARC2.new"
   message: |
-    Detected RC2 cipher algorithm which is considered insecure. The algorithm has known vulnerabilities
+    Detected RC2 cipher algorithm which is considered insecure. The algorithm has known
+    vulnerabilities
     and is difficult to use securely. Use AES instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
