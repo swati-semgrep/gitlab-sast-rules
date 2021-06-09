@@ -29,3 +29,11 @@ rulecheck-availability:
   script:
     - ./ci/availability.rb
 
+semgrep-validity-check:
+  image: python:3
+  stage: test 
+  before_script:
+    - pip install semgrep
+  script:
+    - ci/semgrep_validity_check.sh
+

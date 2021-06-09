@@ -3,6 +3,7 @@
 # avoid-query-set-extra
 # yamllint enable
 ---
+rules:
 - id: "bandit.B610"
   patterns:
   - pattern-either:
