@@ -11,9 +11,11 @@ rules:
       ...
   - pattern: "$APP.run(..., debug=True, ...)"
   message: |
-    Detected Flask app with debug=True. Do not deploy to production with this flag enabled
-    as it will leak sensitive information. Instead, consider using Flask configuration
-    variables or setting 'debug' using system environment variables.
+    Detected Flask app with debug=True. Do not deploy to production with this flag enabled as it
+    will
+    leak sensitive information. Instead, consider using Flask configuration variables or setting
+    'debug'
+    using system environment variables.
   metadata:
     cwe: "CWE-489: Active Debug Code"
     owasp: "A6: Security Misconfiguration"

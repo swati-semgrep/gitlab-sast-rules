@@ -50,7 +50,7 @@ rules that are not covered by 3rd party analyzer), we could use
 
 Rules contained in this repository have to adhere to the following format:
 
-- Use `"` for all one-line strings, otherwise the YAML literal block |
+- Use `"` for strings, otherwise the YAML literal block |
 - No collapsing of array elements
 - max line-length/text-width: 100 characters
 - indentation: 2 spaces

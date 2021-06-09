@@ -7,8 +7,9 @@ rules:
 - id: "bandit.B305"
   pattern: "cryptography.hazmat.primitives.ciphers.modes.ECB(...)"
   message: |
-    Detected ECB cipher mode which is considered insecure. The algorithm can
-    potentially leak information about the plaintext. Use CBC mode instead.
+    Detected ECB cipher mode which is considered insecure. The algorithm canpotentially leak
+    information
+    about the plaintext. Use CBC mode instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
