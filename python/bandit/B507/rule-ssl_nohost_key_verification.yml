@@ -3,6 +3,7 @@
 # paramiko-implicit-trust-host-key
 # yamllint enable
 ---
+rules:
 - id: "bandit.B507"
   patterns:
   - pattern-inside: |
