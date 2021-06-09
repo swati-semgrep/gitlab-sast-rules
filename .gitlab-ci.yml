@@ -15,8 +15,9 @@ rulecheck-quality:
   image: ruby:3-alpine
   before_script:
     - apk add --no-cache yaml-dev alpine-sdk
-    - gem install psych yaml fileutils
+    - gem install psych yaml fileutils json-schema
   script:
+    - ./ci/schema.rb .
     - ./ci/quality.rb
 
 # make sure that every rule has an associated test-case

@@ -3,6 +3,7 @@
 # avoid-query-set-extra
 # yamllint enable
 ---
+rules:
 - id: "bandit.B610"
   patterns:
   - pattern-either:
@@ -10,7 +11,8 @@
     - pattern: "$X.objects.$FUNC(...).$FILTER(...).extra(...)"
     - pattern: "$X.objects.$FUNC(...).$FILTER(...).$UPDATE(...).extra(...)"
   message: |
-    This is a last resort. You should be careful when using QuerySet.extra dueto SQLi.
+    This is a last resort. You should be careful when using QuerySet.extra due
+    to SQLi.
   metadata:
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
       ('SQL Injection')"
