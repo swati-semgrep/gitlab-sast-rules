@@ -33,8 +33,9 @@ rules:
       metavariable: $SIZE
       comparison: $SIZE < 2048
   message: |
-    Detected an insufficient key size for DSA. NIST recommends
-    a key size of 2048 or higher.
+    Detected an insufficient key size for DSA. 
+    NIST 
+    recommends a key size of 2048 or higher.
   metadata:
     cwe: "CWE-326: Inadequate Encryption Strength"
     owasp: "A3: Sensitive Data Exposure"
