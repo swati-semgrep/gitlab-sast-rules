@@ -13,7 +13,7 @@ rules:
     - pattern: |
         "cryptography.hazmat.primitives.asymmetric.rsa.generate_private_key($SIZE, ...)"
     - pattern: |
-        "cryptography.hazmat.primitives.asymmetric.dsa.generate_private_key(..., key_size=$SIZE, ...)"
+        "cryptography.hazmat.primitives.asymmetric.dsa.generate_private_key(...,key_size=$SIZE,...)"
     - pattern: |
         "cryptography.hazmat.primitives.asymmetric.dsa.generate_private_key($EXP, $SIZE, ...)"
     - pattern: "cryptography.hazmat.primitives.asymmetric.dsa.generate_private_key($SIZE, ...)"
