@@ -30,8 +30,8 @@ rules:
     - pattern: "pycryptodomex_dsa.generate(bits=$SIZE, ...)"
     - pattern: "pycryptodomex_dsa.generate($SIZE, ...)"
   - metavariable-comparison:
-      metavariable: "$SIZE"
-      comparison: "$SIZE < 2048"
+      metavariable: $SIZE
+      comparison: $SIZE < 2048
   message: |
     Detected an insufficient key size for DSA. NIST recommends
     a key size of 2048 or higher.
