@@ -5,7 +5,8 @@
 rules:
 - id: "bandit.B505-2"
   patterns:
-  - pattern-inside: "cryptography.hazmat.primitives.asymmetric.ec.generate_private_key(...)"
+  - pattern-inside: |-
+      cryptography.hazmat.primitives.asymmetric.ec.generate_private_key(...)
   message: |
     Detected an insufficient curve size for EC. NIST recommends
     a key size of 224 or higher. For example, use 'ec.SECP256R1'.
@@ -13,5 +14,5 @@ rules:
     cwe: "CWE-326: Inadequate Encryption Strength"
     owasp: "A3: Sensitive Data Exposure"
   severity: "WARNING"
-  languages: 
+  languages:
   - "python"
