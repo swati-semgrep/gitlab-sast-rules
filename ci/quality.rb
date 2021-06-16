@@ -39,7 +39,7 @@ module AutoFormat
             v.quoted = true
             v.plain = true
             v.style = Psych::Nodes::Scalar::LITERAL
-            v.value = v.value.gsub(/(.{1,#{95}})(\s+|\Z)/, "\\1\n")
+            v.value = v.value.gsub(/(.{1,95})(\s+|\Z)/, "\\1\n")
           when 'pattern'
             v.style = if v.value.count("\n").zero?
                         Psych::Nodes::Scalar::DOUBLE_QUOTED
