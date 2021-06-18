@@ -1,5 +1,6 @@
 stages:
   - test
+  - gapanalysis
 
 # make sure the rules adhere to our quality guidelines
 yamllint-quality:
@@ -38,3 +39,9 @@ semgrep-validity-check:
   script:
     - ci/semgrep_validity_check.sh
 
+gapanalysis:
+  stage: gapanalysis
+  variables:
+    UPSTREAM_BRANCH: $CI_COMMIT_REF_NAME
+  trigger:
+    project: gitlab-org/secure/gsoc-sast-vulnerability-rules/rule-testing-framework/rule-testing
