@@ -4,7 +4,7 @@
 # yamllint enable
 ---
 rules:
-- id: "bandig.B312"
+- id: "bandit.B312"
   pattern: "telnetlib.$ANYTHING(...)"
   message: |
     Telnet does not encrypt communications. Use SSH instead.
