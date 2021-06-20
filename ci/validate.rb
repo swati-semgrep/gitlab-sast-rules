@@ -2,13 +2,12 @@ require "yaml"
 
 
 add_ids = {} #accumulate ids in a hash
-repetition = [] # store the repetitive rule_ids, Maybe used
 Dir.glob('**/rule-*.yml').each do |file|  # checking through the directories for the yaml files
     get_content = File.read(file) 
     yaml_dict = YAML.load(get_content)
 
-    yaml_dict['rules'].each do |key,value|  #Iterating to count rules -> occurence
-        if key == "id"
+    yaml_dict['rules'].each do |key,value|  #Iterating through components in a rule
+        if key == "id"  #Taking out ids and storing them as values of add_ids hash
             if add_ids.include?(value)
                 add_ids[value]+=1
             else
@@ -18,14 +17,13 @@ Dir.glob('**/rule-*.yml').each do |file|  # checking through the directories for
     end
 end
 
-add_ids.each do |key,value|  # Checking if repetition is there
+add_ids.each do |key,value|  # Checking add_ids hash for occurences of each id
     if value > 1
-        repetition.append(value)
+        repetition = repetition + 1 #If any id repeats
     end
 end
 
-puts repetition
-exit(-1) if repetition.count > 0 #Fail if rule is repeated
+exit(-1) if repetition > 0 #Fail if ruleid is repeated
 
 exit(0)
 
