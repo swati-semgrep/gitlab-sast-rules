@@ -6,8 +6,6 @@ all_ruleids = Dir.glob('**/rule-*.yml').map { |file| YAML.safe_load(File.read(fi
 # filter duplicate rule ids
 duplicates = all_ruleids.tally.filter { |_ruleid, count| count > 1 }.map { |ruleid, _count| ruleid }
 
-puts all_ruleids
-puts duplicates
 if duplicates.any?
   puts("duplicate ids: #{duplicates.join(',')}")
   exit(1)
