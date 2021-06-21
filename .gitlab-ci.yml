@@ -43,7 +43,7 @@ semgrep-validity-check:
 unique-rule-id:
   stage: test
   before_script:
-    - gem install yaml psych
+    - gem install yaml
   script:
     - chmod +x ./ci/validate.rb
 
