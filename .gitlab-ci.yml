@@ -45,7 +45,7 @@ unique-rule-id:
   before_script:
     - gem install yaml psych
   script:
-    - ./ci/validate.rb
+    - chmod +x ./ci/validate.rb
 
 gapanalysis:
   stage: gapanalysis
