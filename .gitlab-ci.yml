@@ -39,6 +39,14 @@ semgrep-validity-check:
   script:
     - ci/semgrep_validity_check.sh
 
+# Ensure all rule-ids are unique
+unique-rule-id:
+  stage: test
+  before_script:
+    - gem install yaml
+  script:
+    - ./ci/validate.rb
+
 gapanalysis:
   stage: gapanalysis
   variables:
