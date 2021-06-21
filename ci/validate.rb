@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 require 'yaml'
 
-repeat = 0
-#Take out all ids from the ruleset and store in all_ruleids array
-all_ruleids = Dir.glob('**/rule-*.yml').map {|file| YAML.load(File.read(file))['rules'].first['id'] }
+all_ruleids = Dir.glob('**/rule-*.yml').map { |file| YAML.safe_load(File.read(file))['rules'].first['id'] }
 # filter duplicate rule ids
-duplicates = all_ruleids.tally.filter{ |ruleid, count| repeat > 1 }.map{ |ruleid,count| ruleid}
+duplicates = all_ruleids.tally.filter { |_ruleid, count| count > 1 }.map { |ruleid, _count| ruleid }
 
-#Showing duplicates to user.
+puts all_ruleids
+puts duplicates
 if duplicates.any?
- puts("duplicate ids: #{duplicates.join(",")}")
- exit(1) 
+  puts("duplicate ids: #{duplicates.join(',')}")
+  exit(1)
 end
 
-exit (0)
+exit(0)
