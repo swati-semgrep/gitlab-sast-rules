@@ -1,6 +1,6 @@
 require "yaml"
 
-
+repetition = 0
 add_ids = {} #accumulate ids in a hash
 Dir.glob('**/rule-*.yml').each do |file|  # checking through the directories for the yaml files
     get_content = File.read(file) 
