@@ -28,7 +28,7 @@ all_ids.each do |key,value|  # Checking all_ids hash for occurences of each id
         repetition = repetition + 1 #If any id repeats
     end
 end
-puts repetition
+
 exit(-1) if repetition > 0 #Fail if ruleid is repeated(i.e., presence of duplicates)
 
 exit(0)
