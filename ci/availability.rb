@@ -15,15 +15,13 @@ module FileCheck
               ''
             end
 
-      return ["no extesions known for #{lang}"] if ext.empty?
+      next if ext.empty?
 
       Dir.glob("#{lang}/**/rule-*.yml").each do |file|
         dirname = File.dirname(file)
-        base = File.basename(file, '.yml')
-        test = "test-#{base.split('-')[1]}"
-        testfilepath = "#{File.join(dirname, test)}.#{ext}"
-        unless File.exist?(testfilepath)
-          puts("no test case for #{file}: ✘")
+
+        if Dir.glob("#{dirname}/test-*.#{ext}").count.zero? 
+          puts("no test cases in #{dirname}: ✘")
           ok = false
         end
       end
