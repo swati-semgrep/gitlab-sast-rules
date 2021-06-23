@@ -1,0 +1,14 @@
+---
+rules:
+- id: "python/crypto/rule-crypto.hazmat_hash_sha1"
+  pattern: "cryptography.hazmat.primitives.hashes.SHA1(...)"
+  message: |
+    Detected SHA1 hash algorithm which is considered insecure. SHA1 is not
+    collision resistant and is therefore not suitable as a cryptographic
+    signature. Use SHA256 or SHA3 instead.
+  metadata:
+    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    owasp: "A3: Sensitive Data Exposure"
+  severity: "WARNING"
+  languages:
+  - "python"

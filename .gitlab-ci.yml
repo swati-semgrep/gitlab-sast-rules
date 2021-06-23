@@ -19,7 +19,16 @@ rulecheck-quality:
     - gem install psych yaml fileutils json-schema
   script:
     - ./ci/schema.rb .
-    - ./ci/quality.rb
+    - ./ci/autoformat.rb
+
+mapping-check:
+  stage: test 
+  image: ruby:3-alpine
+  before_script:
+    - apk add --no-cache yaml-dev alpine-sdk
+    - gem install yaml
+  script:
+    - ./ci/mappings.rb
 
 # make sure that every rule has an associated test-case
 rulecheck-availability:
@@ -42,10 +51,11 @@ semgrep-validity-check:
 # Ensure all rule-ids are unique
 unique-rule-id:
   stage: test
+  image: ruby:3-alpine
   before_script:
     - gem install yaml
   script:
-    - chmod +x ./ci/validate.rb
+    - ci/unique_ids.rb
 
 gapanalysis:
   stage: gapanalysis

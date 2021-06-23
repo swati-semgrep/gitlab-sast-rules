@@ -1,0 +1,16 @@
+---
+rules:
+- id: "python/exception/rule-try_except_pass"
+  patterns:
+  - pattern: |
+      try:
+        ...
+      except $X:
+        pass
+  message: |
+    Try, Except, Pass
+  metadata:
+    cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
+  severity: "INFO"
+  languages:
+  - "python"

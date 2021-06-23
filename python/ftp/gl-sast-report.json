@@ -1,0 +1,69 @@
+{
+  "version": "3.0.0",
+  "vulnerabilities": [
+    {
+      "id": "ada5f412d6711195af4dcf2252f721caca0c0479b225c5dd9ce9e043231a516c",
+      "category": "sast",
+      "message": "FTP-related functions are being called. FTP is considered insecure. Use SSH/SFTP/SCP or some other encrypted protocol.",
+      "cve": "test-import_ftplb.py:9e66415b5d132cad82bacedec9269d7d828b6fd047e560579d725ccc990843b4:B321",
+      "severity": "High",
+      "confidence": "High",
+      "scanner": {
+        "id": "bandit",
+        "name": "Bandit"
+      },
+      "location": {
+        "file": "test-import_ftplb.py",
+        "start_line": 3,
+        "end_line": 3
+      },
+      "identifiers": [
+        {
+          "type": "bandit_test_id",
+          "name": "Bandit Test ID B321",
+          "value": "B321"
+        }
+      ]
+    },
+    {
+      "id": "3f49f2be1be908341464182daca86b444327350e37901947f60da1e16ca1b57a",
+      "category": "sast",
+      "message": "A FTP-related module is being imported.  FTP is considered insecure. Use SSH/SFTP/SCP or some other encrypted protocol.",
+      "cve": "test-import_ftplb.py:f6a3ab26d5c974a06a8b17c5e735705e72aa0b6ffe6b3a894277d4d9943a9351:B402",
+      "severity": "High",
+      "confidence": "High",
+      "scanner": {
+        "id": "bandit",
+        "name": "Bandit"
+      },
+      "location": {
+        "file": "test-import_ftplb.py",
+        "start_line": 1,
+        "end_line": 2
+      },
+      "identifiers": [
+        {
+          "type": "bandit_test_id",
+          "name": "Bandit Test ID B402",
+          "value": "B402"
+        }
+      ]
+    }
+  ],
+  "remediations": [],
+  "scan": {
+    "scanner": {
+      "id": "bandit",
+      "name": "Bandit",
+      "url": "https://github.com/PyCQA/bandit",
+      "vendor": {
+        "name": "GitLab"
+      },
+      "version": "1.7.0"
+    },
+    "type": "sast",
+    "start_time": "2021-06-11T12:45:18",
+    "end_time": "2021-06-11T12:45:18",
+    "status": "success"
+  }
+}
