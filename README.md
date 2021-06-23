@@ -8,7 +8,7 @@ The repository is structured as illustrated below:
 ``` bash
 .
 ├── mappings
-│   ├── analyzer.yml
+│   └── analyzer.yml
 ├── c
 │   ├── memory
 │   │   ├── rule-strcpy.yml
