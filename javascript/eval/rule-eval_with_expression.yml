@@ -1,5 +1,6 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
+# source: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-eval-with-expression.js"
 # yamllint enable
 ---
 rules:
@@ -8,9 +9,6 @@ rules:
     cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
       ('Eval Injection')"
     owasp: "A1: Injection"
-    # yamllint disable
-    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-eval-with-expression.js"
-    # yamllint enable
   message: |
     Detected eval(variable), which could allow a malicious actor to run arbitrary code.
   patterns:
