@@ -1,3 +1,9 @@
+# yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
+# source (original): https://semgrep.dev/c/p/bandit
+# hash: acdabdb
+# id: python.lang.security.audit.weak-ssl-version.weak-ssl-version
+# yamllint enable
 ---
 rules:
 - id: "python/ssl/rule-ssl_no_version"

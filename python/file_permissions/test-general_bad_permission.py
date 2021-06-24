@@ -1,6 +1,7 @@
 #!/usr/bin/env python
+# License: MIT (c) GitLab Inc.
 
-import os 
+import os
 
 os.chmod(key_file, 0o777)
 os.chmod('/etc/hosts', 0o777)

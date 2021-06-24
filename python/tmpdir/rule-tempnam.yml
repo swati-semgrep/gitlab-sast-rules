@@ -1,5 +1,7 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (modified): https://semgrep.dev/c/p/bandit
+# hash: acdabdb
 # contrib.dlint.dlint-equivalent.insecure-os-temp-use
 # yamllint enable
 ---

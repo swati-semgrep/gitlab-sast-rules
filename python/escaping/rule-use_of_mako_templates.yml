@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/mako-templates-detected.yaml
-# mako-templates-detected
+# hash: acdabdb
+# id: mako-templates-detected
 # yamllint enable
 ---
 rules:

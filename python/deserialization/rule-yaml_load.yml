@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/deserialization/avoid-pyyaml-load.yaml
-# avoid-pyyaml-load
+# hash: acdabdb
+# id: avoid-pyyaml-load
 # yamllint enable
 ---
 rules:

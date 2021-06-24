@@ -67,3 +67,13 @@ are digested by the [testing framework](https://gitlab.com/gitlab-org/secure/gso
 to perform an automated gap analysis; the goal of this analysis is to check
 whether there is an unexpected deviation between semgrep (with the rules in this repository) 
 and a given analyzer.
+
+## Datasources
+
+The rules and test-cases in this repository are partially sourced from the
+sources listed below:
+1. https://github.com/returntocorp/semgrep-rules
+1. https://github.com/PyCQA/bandit
+
+The details are listed in the headers of all the rule end test-files including
+the licensing information and proper attribution. 

@@ -1,6 +1,5 @@
 # yamllint disable
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/telnetlib.yaml
-# telnetlib
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:

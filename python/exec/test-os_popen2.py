@@ -1,3 +1,5 @@
+# License: MIT (c) GitLab Inc.
+
 import subprocess
 import os
 from subprocess import Popen as pop

@@ -1,6 +1,7 @@
 # yamllint disable
+# License: MIT (c) GitLab Inc.
 # https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/insecure-file-permissions.yaml
-# should subsume B103 but we have to set the flag --dangerously-allow-arbitrary-code-execution-from-rules
+# should subsume B103 but we are using our rule because we would have to set the flag --dangerously-allow-arbitrary-code-execution-from-rules
 # - using metavariable-based approach for the time being
 # yamllint enable
 ---

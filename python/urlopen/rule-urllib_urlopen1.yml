@@ -1,3 +1,10 @@
+# yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
+# source (original): 
+# https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/dynamic-urllib-use-detected.yaml
+# hash: acdabdb
+# id: dynamic-urllib-use-detected
+# yamllint enable
 ---
 rules:
 - id: "python/urlopen/rule-urllib_urlopen1"

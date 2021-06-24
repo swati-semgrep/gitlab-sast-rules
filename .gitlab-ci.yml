@@ -20,6 +20,7 @@ rulecheck-quality:
   script:
     - ./ci/schema.rb .
     - ./ci/autoformat.rb
+    - ./ci/license_header.sh
 
 mapping-check:
   stage: test 

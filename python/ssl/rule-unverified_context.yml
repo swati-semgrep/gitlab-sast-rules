@@ -1,6 +1,8 @@
 # yamllint disable
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/unverified-ssl-context.yaml
-# unverified-ssl-context
+# License: LGPL 2.1 (c) Return To Corporation
+# hash: acdabdb
+# id: unverified-ssl-context
 # yamllint enable
 ---
 rules:

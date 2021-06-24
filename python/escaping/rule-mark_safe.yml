@@ -1,3 +1,9 @@
+# yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
+# source (modified): https://github.com/returntocorp/semgrep-rules/blob/develop/python/django/security/audit/avoid-mark-safe.py
+# hash: acdabdb
+# id: python.django.security.audit.avoid-mark-safe.avoid-mark-safe
+# yamllint enable
 ---
 rules:
 - id: "python/escaping/rule-mark_safe"

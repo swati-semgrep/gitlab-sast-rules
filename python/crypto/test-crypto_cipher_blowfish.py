@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/ciphers.py
+# hash:  8eee173
+
 from Crypto.Cipher import Blowfish as pycrypto_blowfish
 from Cryptodome.Cipher import Blowfish as pycryptodomex_blowfish
 

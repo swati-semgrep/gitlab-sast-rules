@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/requests/security/disabled-cert-validation.yaml
-# disabled-cert-validation
+# hash: acdabdb
+# id: disabled-cert-validation
 # yamllint enable
 ---
 rules:

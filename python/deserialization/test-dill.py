@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# License: MIT (c) GitLab Inc.
 
 import dill
 

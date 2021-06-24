@@ -1,3 +1,9 @@
+# yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/weak-ssl-version.py
+# hash: acdabdb
+# id: weak-ssl-version
+# yamllint enable
 ---
 rules:
 - id: "python/ssl/rule-ssl_with_bad_version"

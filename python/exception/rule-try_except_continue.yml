@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/flask/security/audit/debug-enabled.yaml
-# debug-enabled
+# hash: acdabdb
+# id: debug-enabled
 # yamllint enable
 ---
 rules:

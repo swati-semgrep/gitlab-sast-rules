@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/django/security/audit/query-set-extra.yaml
-# avoid-query-set-extra
+# hash: acdabdb
+# id: avoid-query-set-extra
 # yamllint enable
 ---
 rules:

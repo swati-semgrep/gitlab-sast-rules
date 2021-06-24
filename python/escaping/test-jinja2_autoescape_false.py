@@ -1,3 +1,7 @@
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/jinja2_templating.py
+# hash:  8eee173
+
 import jinja2
 from jinja2 import Environment, select_autoescape
 templateLoader = jinja2.FileSystemLoader( searchpath="/" )

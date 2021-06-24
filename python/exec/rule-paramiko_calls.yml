@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/paramiko/paramiko-exec-command.yaml
-# paramiko-exec-command
+# hash: acdabdb
+# id: paramiko-exec-command
 # yamllint enable
 ---
 rules:

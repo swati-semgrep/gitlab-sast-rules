@@ -1,3 +1,7 @@
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/hardcoded-passwords.py
+# hash:  8eee173
+
 def someFunction(user, password="Admin"):
     print("Hi " + user)
 
