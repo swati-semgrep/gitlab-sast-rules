@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/pycryptodome/security/insecure-cipher-algorithm.yaml
-# insecure-cipher-algorithm-xor
+# hash: acdabdb
+# id: insecure-cipher-algorithm-xor
 # yamllint enable
 ---
 rules:

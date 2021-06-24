@@ -1,3 +1,7 @@
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/mako_templating.py
+# hash:  8eee173
+
 from mako.template import Template
 import mako
 

@@ -1,5 +1,7 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/cryptography/security/insecure-hash-algorithms.yaml
+# hash: acdabdb
 # insecure-hash-algorithm-md5
 # yamllint enable
 ---

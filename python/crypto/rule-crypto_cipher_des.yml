@@ -1,5 +1,7 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/pycryptodome/security/insecure-cipher-algorithm.yaml
+# hash: acdabdb
 # insecure-cipher-algorithm-des
 # yamllint enable
 ---

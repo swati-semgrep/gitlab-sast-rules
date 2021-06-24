@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/telnetlib.py
+# hash:  8eee173
 
 import telnetlib
 import getpass

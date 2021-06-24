@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/ciphers.py
+# hash:  8eee173
+
 from Crypto.Cipher import ARC2 as pycrypto_arc2
 from Cryptodome.Cipher import ARC2 as pycryptodomex_arc2
 from Crypto import Random

@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/weak_cryptographic_key_sizes.py
+# hash:  8eee173
+
 from cryptography.hazmat import backends
 from cryptography.hazmat.primitives.asymmetric import dsa
 from cryptography.hazmat.primitives.asymmetric import rsa

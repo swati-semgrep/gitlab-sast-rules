@@ -1,3 +1,7 @@
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/os-spawn.py
+# hash:  8eee173
+
 import os
 
 os.spawnl(mode, path)

@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/paramiko-implicit-trust-host-key.yaml
-# paramiko-implicit-trust-host-key
+# hash: acdabdb
+# id: paramiko-implicit-trust-host-key
 # yamllint enable
 ---
 rules:

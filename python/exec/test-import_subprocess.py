@@ -1,6 +1,9 @@
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/subprocess_shell.py
+# hash:  8eee173
+
 import subprocess
 from subprocess import Popen as pop
-
 
 def Popen(*args, **kwargs):
     print('hi')

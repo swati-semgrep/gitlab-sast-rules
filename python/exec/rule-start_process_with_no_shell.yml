@@ -1,6 +1,8 @@
 # yamllint disable
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/dangerous-spawn-process.yaml
-# dangerous-spawn-process
+# License: LGPL 2.1 (c) Return To Corporation
+# source (modified): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/dangerous-spawn-process.yaml
+# hash: acdabdb
+# id: dangerous-spawn-process
 # yamllint enable
 ---
 rules:

@@ -1,5 +1,7 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (modified/combined): https://github.com/returntocorp/semgrep-rules/tree/develop/python/cryptography/security/insufficient*-size/insufficient*-size.yaml
+# hash: acdabdb
 # yamllint enable
 ---
 rules:

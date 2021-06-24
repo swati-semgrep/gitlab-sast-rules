@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/correctness/tempfile/mktemp.yaml
-# tempfile-insecure
+# hash: acdabdb
+# id: tempfile-insecure
 # yamllint enable
 ---
 rules:

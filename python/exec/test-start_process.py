@@ -1,3 +1,7 @@
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/partial_path_process.py
+# hash:  8eee173
+
 from subprocess import Popen as pop
 
 pop('gcc --version', shell=False)

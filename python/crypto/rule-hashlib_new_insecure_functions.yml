@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (modified): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/insecure-hash-function.yaml
-# insecure-hash-function
+# hash: acdabdb
+# id: insecure-hash-function
 # yamllint enable
 ---
 rules:

@@ -1,3 +1,7 @@
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/xml_expatbuilder.py
+# hash:  8eee173
+
 import xml.dom.expatbuilder as bad
 import defusedxml.expatbuilder as good
 

@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/xml_etree_celementtree.py
+# hash:  8eee173
 
 import xml.etree.cElementTree as badET
 import defusedxml.cElementTree as goodET

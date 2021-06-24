@@ -1,3 +1,7 @@
+# License: Apache 2.0 (c) PyCQA
+# source: https://github.com/PyCQA/bandit/blob/master/examples/requests-ssl-verify-disabled.py
+# hash:  8eee173
+
 import requests
 
 requests.get('https://gmail.com', verify=True)

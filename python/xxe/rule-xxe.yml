@@ -1,5 +1,8 @@
 # yamllint disable
-# source (modified): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/use-defused-xml.yaml
+# License: LGPL 2.1 (c) Return To Corporation
+# source (original): https://github.com/returntocorp/semgrep-rules/blob/contrib/dlint/dlint-equivalent.yaml
+# hash: acdabdb
+# id: insecure-xml-use
 # yamllint enable
 ---
 rules:

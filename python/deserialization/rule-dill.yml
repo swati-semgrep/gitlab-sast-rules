@@ -1,6 +1,7 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/deserialization/pickle.yaml
-# avoid-dill
+# id: avoid-dill
 # yamllint enable
 ---
 rules:

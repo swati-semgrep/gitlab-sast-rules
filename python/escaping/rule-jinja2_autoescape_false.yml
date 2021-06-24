@@ -1,6 +1,8 @@
 # yamllint disable
+# License: LGPL 2.1 (c) Return To Corporation
 # source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/jinja2/security/audit/autoescape-disabled.yaml
-# autoescape-disabled
+# hash: acdabdb
+# id: autoescape-disabled
 # yamllint enable
 ---
 rules:
