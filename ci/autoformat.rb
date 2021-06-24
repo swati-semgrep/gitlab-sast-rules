@@ -52,7 +52,7 @@ module AutoFormat
                       else
                         Psych::Nodes::Scalar::LITERAL
                       end
-          when 'pattern-inside'
+          when 'pattern-inside', 'pattern-not-inside'
             v.style = Psych::Nodes::Scalar::LITERAL
           end
         end

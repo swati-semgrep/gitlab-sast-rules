@@ -3,17 +3,17 @@
 # yamllint enable
 ---
 rules:
-- id: eslint.detect-non-literal-regexp
+- id: "javascript/dos/rule-non_literal_regexp"
   patterns:
-    - pattern: |
-        new RegExp(...)
-    - pattern-not: |
-        new RegExp("...", ...)
+  - pattern: |
+      new RegExp(...)
+  - pattern-not: "new RegExp(\"...\", ...)\n"
   message: |
-    RegExp() called with a variable, this might allow an attacker to DOS your application with a long-running regular expression.
+    RegExp() called with a variable, this might allow an attacker to DOS your application with a
+    long-running regular expression.
   languages:
-  - javascript
-  - typescript
-  severity: WARNING
+  - "javascript"
+  - "typescript"
+  severity: "WARNING"
   metadata:
-    cwe: 'CWE-185: Incorrect Regular Expression'
+    cwe: "CWE-185: Incorrect Regular Expression"

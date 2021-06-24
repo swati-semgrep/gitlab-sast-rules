@@ -3,24 +3,24 @@
 # yamllint enable
 ---
 rules:
-- id: eslint.detect-possible-timing-attacks
+- id: "javascript/timing/rule-possible_timing_attacks"
   patterns:
-  - pattern-not: if ($Z == null) { ... };
-  - pattern-not: if ($Z === null) { ... };
-  - pattern-not: if ($Z != null) { ... };
-  - pattern-not: if ($Z !== null) { ... };
-  - pattern-not: if ($Q != undefined) { ... };
-  - pattern-not: if ($Q !== undefined) { ... };
-  - pattern-not: if ($Q == undefined) { ... };
-  - pattern-not: if ($Q === undefined) { ... };
-  - pattern-not: return $Y == null;
-  - pattern-not: return $Y === null;
-  - pattern-not: return $Y != null;
-  - pattern-not: return $Y !== null;
-  - pattern-not: return $Y == undefined;
-  - pattern-not: return $Y === undefined;
-  - pattern-not: return $Y != undefined;
-  - pattern-not: return $Y !== undefined;
+  - pattern-not: "if ($Z == null) { ... };"
+  - pattern-not: "if ($Z === null) { ... };"
+  - pattern-not: "if ($Z != null) { ... };"
+  - pattern-not: "if ($Z !== null) { ... };"
+  - pattern-not: "if ($Q != undefined) { ... };"
+  - pattern-not: "if ($Q !== undefined) { ... };"
+  - pattern-not: "if ($Q == undefined) { ... };"
+  - pattern-not: "if ($Q === undefined) { ... };"
+  - pattern-not: "return $Y == null;"
+  - pattern-not: "return $Y === null;"
+  - pattern-not: "return $Y != null;"
+  - pattern-not: "return $Y !== null;"
+  - pattern-not: "return $Y == undefined;"
+  - pattern-not: "return $Y === undefined;"
+  - pattern-not: "return $Y != undefined;"
+  - pattern-not: "return $Y !== undefined;"
   - pattern-either:
     - pattern: |
         if (password == $X) {
@@ -486,12 +486,11 @@ rules:
         return $X != api;
     - pattern: |
         return api != $X;
-  message: >-
-    String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks.
-    More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/
+  message: |
+    String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More
+    info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/
   languages:
-  - javascript
-  severity: WARNING
+  - "javascript"
+  severity: "WARNING"
   metadata:
-    cwe: 'CWE-208: Observable Timing Discrepancy'
-
+    cwe: "CWE-208: Observable Timing Discrepancy"
