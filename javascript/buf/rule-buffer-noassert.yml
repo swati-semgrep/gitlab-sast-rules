@@ -2,6 +2,7 @@
 # License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
+rules:
 - id: "javascript/buf/rule-buffer-noassert"
   metadata:
     cwe: "CWE-119: Improper Restriction of Operations within the Bounds of a Memory
