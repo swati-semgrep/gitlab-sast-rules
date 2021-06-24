@@ -10,4 +10,31 @@ eslint:
   - id: "eslint.detect-eval-with-expression"
     rules:
       - "javascript/eval/rule-eval_with_expression"
+  - id: "eslint.detect-child-process"
+    rules:
+      - "javascript/eval/rule-eval_with_expression"
+  - id: "eslint.detect-pseudoRandomBytes"
+    rules:
+      - "javascript/random/rule-pseudo_random_bytes.yml"
+  - id: "eslint.detect-disable-mustache-escape"
+    rules:
+      - "javascript/xss/rule-mustache_escape.yml"
+  - id: "eslint.detect-non-literal-require"
+    rules:
+      - "javascript/require/rule-non_literal_require"
+  - id: "eslint.detect-buffer-noassert"
+    rules:
+      - "javascript/buf/rule-buffer-noassert.yml"
+  - id: "eslint.detect-possible-timing-attacks"
+    rules:
+      - "javascript/timing/rule-possible_timing_attacks.yml"
+  - id: "eslint.detect-non-literal-regexp"
+    rules:
+      - "javascript/dos/rule-non_literal_regexp.yml"
+  - id: "eslint.detect-non-literal-fs-filename"
+    rules:
+      - "javascript/pathtraversal/rule-non_literal_fs_filename.yml"
+  - id: "eslint.detect-object-injection"
+    rules:
+      - "javascript/protinjection/rule-object_injection"
 
