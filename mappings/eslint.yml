@@ -1,0 +1,13 @@
+# yamllint disable
+# maps bandit rule ids to semgrep rules
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+eslint:
+  - id: "eslint.detect-no-csrf-before-method-override"
+    rules:
+      - "javascript/csrf/rule-no_csrf_before_method_override"
+  - id: "eslint.detect-eval-with-expression"
+    rules:
+      - "javascript/eval/rule-eval_with_expression"
+
