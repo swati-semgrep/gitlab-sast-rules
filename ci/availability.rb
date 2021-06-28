@@ -11,6 +11,8 @@ module FileCheck
               'c'
             when 'python'
               'py'
+            when 'javascript'
+              'js'
             else
               ''
             end
