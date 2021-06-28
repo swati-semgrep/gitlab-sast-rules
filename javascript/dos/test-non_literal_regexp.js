@@ -1,3 +1,5 @@
+// License: MIT (c) GitLab Inc.
+
 function test_positive(someVar, obj) {
   // detect-non-literal-regexp
   r2 = new RegExp(someVar)

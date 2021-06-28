@@ -1,4 +1,4 @@
-//License: MIT (c) GitLab Inc.
+// License: MIT (c) GitLab Inc.
 
 function negative(someVar, obj) {
   two = 2
