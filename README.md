@@ -74,6 +74,7 @@ The rules and test-cases in this repository are partially sourced from the
 sources listed below:
 1. https://github.com/returntocorp/semgrep-rules
 1. https://github.com/PyCQA/bandit
+1. https://github.com/nodesecurity/eslint-plugin-security
 
 The details are listed in the headers of all the rule end test-files including
 the licensing information and proper attribution. 
