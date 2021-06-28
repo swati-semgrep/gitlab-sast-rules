@@ -58,7 +58,8 @@ module AutoFormat
         end
       end
 
-      File.open("#{file}_tmp", 'w') do |f|
+      tmpfile = "#{file}_tmp"
+      File.open(tmpfile, 'w') do |f|
         if comments.any?
           f.puts('# yamllint disable')
           f.puts(comments) if comments.any?
@@ -66,6 +67,19 @@ module AutoFormat
         end
         f.puts(ast.to_yaml)
       end
+
+      s = StringIO.new
+      File.readlines(tmpfile).each do |line|
+        if line.start_with?("    source-rule-url:")
+          s << "    # yamllint disable"
+          s << line
+          s << "    # yamllint enable"
+        else
+          s << line
+        end
+      end
+
+      File.write(tmpfile, s)
 
       if FileUtils.identical?(file, "#{file}_tmp")
         puts("#{file}: ✔")
