@@ -16,6 +16,8 @@ The repository is structured as illustrated below:
 │   │   ├── memcpy.yml
 │   │   └── test-mcpy.c
 │   └── ...
+└── javascript
+│   └── ...
 └── python
 │    ├── assert
 │    │   ├── rule-assert.yml
