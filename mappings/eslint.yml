@@ -4,37 +4,37 @@
 # yamllint enable
 ---
 eslint:
-  - id: "eslint.detect-no-csrf-before-method-override"
+  - id: "security/detect-no-csrf-before-method-override"
     rules:
       - "javascript/csrf/rule-no_csrf_before_method_override"
-  - id: "eslint.detect-eval-with-expression"
+  - id: "security/detect-eval-with-expression"
     rules:
       - "javascript/eval/rule-eval_with_expression"
-  - id: "eslint.detect-child-process"
+  - id: "security/detect-child-process"
     rules:
-      - "javascript/eval/rule-eval_with_expression"
-  - id: "eslint.detect-pseudoRandomBytes"
+      - "javascript/exec/rule-child_process"
+  - id: "security/detect-pseudoRandomBytes"
     rules:
-      - "javascript/random/rule-pseudo_random_bytes.yml"
-  - id: "eslint.detect-disable-mustache-escape"
+      - "javascript/random/rule-pseudo_random_bytes"
+  - id: "security/detect-disable-mustache-escape"
     rules:
-      - "javascript/xss/rule-mustache_escape.yml"
-  - id: "eslint.detect-non-literal-require"
+      - "javascript/xss/rule-mustache_escape"
+  - id: "security/detect-non-literal-require"
     rules:
       - "javascript/require/rule-non_literal_require"
-  - id: "eslint.detect-buffer-noassert"
+  - id: "security/detect-buffer-noassert"
     rules:
-      - "javascript/buf/rule-buffer-noassert.yml"
-  - id: "eslint.detect-possible-timing-attacks"
+      - "javascript/buf/rule-buffer-noassert"
+  - id: "security/detect-possible-timing-attacks"
     rules:
-      - "javascript/timing/rule-possible_timing_attacks.yml"
-  - id: "eslint.detect-non-literal-regexp"
+      - "javascript/timing/rule-possible_timing_attacks"
+  - id: "security/detect-non-literal-regexp"
     rules:
-      - "javascript/dos/rule-non_literal_regexp.yml"
-  - id: "eslint.detect-non-literal-fs-filename"
+      - "javascript/dos/rule-non_literal_regexp"
+  - id: "security/detect-non-literal-fs-filename"
     rules:
-      - "javascript/pathtraversal/rule-non_literal_fs_filename.yml"
-  - id: "eslint.detect-object-injection"
+      - "javascript/pathtraversal/rule-non_literal_fs_filename"
+  - id: "security/detect-object-injection"
     rules:
       - "javascript/protinjection/rule-object_injection"
 
