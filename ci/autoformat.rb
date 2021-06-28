@@ -71,9 +71,9 @@ module AutoFormat
       s = StringIO.new
       File.readlines(tmpfile).each do |line|
         if line.start_with?("    source-rule-url:")
-          s << "    # yamllint disable"
+          s << "    # yamllint disable\n"
           s << line
-          s << "    # yamllint enable"
+          s << "    # yamllint enable\n"
         else
           s << line
         end
