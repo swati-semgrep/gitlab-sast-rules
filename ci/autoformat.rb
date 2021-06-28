@@ -79,7 +79,7 @@ module AutoFormat
         end
       end
 
-      File.write(tmpfile, s)
+      File.write(tmpfile, s.string)
 
       if FileUtils.identical?(file, "#{file}_tmp")
         puts("#{file}: ✔")
