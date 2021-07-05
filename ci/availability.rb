@@ -6,23 +6,10 @@ module FileCheck
     Dir.entries('./').select { |f| File.directory?(f) }.each do |lang|
       next if ['.git', '..', '.', 'ci'].include?(lang)
 
-      ext = case lang
-            when 'c'
-              'c'
-            when 'python'
-              'py'
-            when 'javascript'
-              'js'
-            else
-              ''
-            end
-
-      next if ext.empty?
-
       Dir.glob("#{lang}/**/rule-*.yml").each do |file|
         dirname = File.dirname(file)
 
-        if Dir.glob("#{dirname}/test-*.#{ext}").count.zero? 
+        if Dir.glob("#{dirname}/test-*.*").count.zero?
           puts("no test cases in #{dirname}: ✘")
           ok = false
         end

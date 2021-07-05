@@ -4,6 +4,10 @@
 # yamllint enable
 ---
 eslint:
+  - id: "react/no-danger-with-children"
+    rules:
+      - "javascript/react/rule-missing_noopener"
+      - "javascript/react/rule-dangerouslysetinnerhtml"
   - id: "security/detect-no-csrf-before-method-override"
     rules:
       - "javascript/csrf/rule-no_csrf_before_method_override"
