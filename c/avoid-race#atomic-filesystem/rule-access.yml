@@ -14,6 +14,6 @@ rules:
     Set up the correct permissions (e.g., using setuid()) and try to open the file
     directly
   metadata:
-    cwe: CWE-362/CWE-367!
+    cwe: CWE-362/CWE-367
   pattern: access(...)
   severity: ERROR
