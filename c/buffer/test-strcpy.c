@@ -1,14 +1,15 @@
+# License: MIT (c) GitLab Inc.
 #include <stdio.h>
 #include <string.h>
 
 int main() {
-  char str1[20] = "Finding flaw";
-  char str2[20];
+  char string1[20] = "Finding flaw";
+  char string2[20];
 
   // should report this
-  strcpy(str2, str1);
+  strcpy(string2, string1);
 
-  puts(str2); 
+  puts(string2); 
 
   return 0;
 }
