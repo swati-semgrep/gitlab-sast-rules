@@ -5,13 +5,13 @@
 # yamllint enable
 ---
 rules:
-- id: FF1001
+- id: "FF1001"
   languages:
-  - c
-  message: 'Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily
-    misused).'
+  - "c"
+  message: "Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily
+    misused)."
   metadata:
-    cwe: 'CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)'
-  pattern: strcpy(...)
-  severity: ERROR
+    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
+      [MS-banned] (CWE-120)"
+  pattern: "strcpy(...)"
+  severity: "ERROR"
