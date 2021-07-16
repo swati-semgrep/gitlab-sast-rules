@@ -1,4 +1,4 @@
-# License: MIT (c) GitLab Inc.
+// License: MIT (c) GitLab Inc.
 #include <stdio.h>
 #include <string.h>
 
