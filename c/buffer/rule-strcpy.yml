@@ -5,7 +5,7 @@
 # yamllint enable
 ---
 rules:
-- id: "FF1001"
+- id: "c/buffer/rule-strcpy"
   languages:
   - "c"
   message: "Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily
