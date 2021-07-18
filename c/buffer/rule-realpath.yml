@@ -13,7 +13,7 @@ rules:
     implementation problems, the input argument should also be checked to ensure it is no larger
     than MAXPATHLEN.
   metadata:
-    cwe: "CWE-120: This function does not protect against buffer overflows,
-      and some implementations can overflow internally (CWE-120/CWE-785!)"
+    cwe: "CWE-120: This function does not protect against buffer overflows, and some
+      implementations can overflow internally (CWE-120/CWE-785!)"
   pattern: "realpath(...)"
   severity: "WARNING"

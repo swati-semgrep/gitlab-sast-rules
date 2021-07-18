@@ -11,9 +11,9 @@ rules:
   message: |
     Use getpwuid() instead.
   metadata:
-    cwe: "CWE-120: This function is dangerous; it may overflow the provided
-      buffer. It extracts data from a 'protected' area, but most systems have many
-      commands to let users modify the protected area, and it's not always clear what
-      their limits are.  Best to avoid using this function altogether (CWE-676, CWE-120)"
+    cwe: "CWE-120: This function is dangerous; it may overflow the provided buffer.
+      It extracts data from a 'protected' area, but most systems have many commands
+      to let users modify the protected area, and it's not always clear what their
+      limits are.  Best to avoid using this function altogether (CWE-676, CWE-120)"
   pattern: "getpw(...)"
   severity: "ERROR"

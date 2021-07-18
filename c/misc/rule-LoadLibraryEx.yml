@@ -12,7 +12,7 @@ rules:
     Use a flag like LOAD_LIBRARY_SEARCH_SYSTEM32 or LOAD_LIBRARY_SEARCH_APPLICATION_DIR to search
     only desired folders.
   metadata:
-    cwe: "CWE-20: Ensure that the full path to the library is specified,
-      or current directory may be used (CWE-829, CWE-20)"
+    cwe: "CWE-20: Ensure that the full path to the library is specified, or current
+      directory may be used (CWE-829, CWE-20)"
   pattern: "LoadLibraryEx(...)"
   severity: "WARNING"
