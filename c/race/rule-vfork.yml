@@ -5,12 +5,13 @@
 # yamllint enable
 ---
 rules:
-- id: "c/buffer/rule-strncpy"
+- id: "c/race/rule-vfork"
   languages:
   - "c"
-  message: "Easily used incorrectly"
+  message: |
+    Use fork() instead.
   metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-  pattern: "strncpy(...)"
+    cwe: "CWE-362: On some old systems, vfork() permits race conditions, and it's
+      very difficult to use correctly (CWE-362)"
+  pattern: "vfork(...)"
   severity: "INFO"

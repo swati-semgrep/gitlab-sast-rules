@@ -5,12 +5,18 @@
 # yamllint enable
 ---
 rules:
-- id: "c/buffer/rule-strncpy"
+- id: "c/buffer/rule-getchar_fgetc"
   languages:
   - "c"
-  message: "Easily used incorrectly"
+  message: |
+    .
   metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-  pattern: "strncpy(...)"
+    cwe: "CWE-120, CWE-20: Check buffer boundaries if used in a loop including recursive
+      loops (CWE-120, CWE-20)"
+  pattern-either:
+  - pattern: "getchar(...)"
+  - pattern: "fgetc(...)"
+  - pattern: "getc(...)"
+  - pattern: "read(...)"
+  - pattern: "_gettc(...)"
   severity: "INFO"

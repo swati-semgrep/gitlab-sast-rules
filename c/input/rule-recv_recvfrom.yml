@@ -5,12 +5,17 @@
 # yamllint enable
 ---
 rules:
-- id: "c/buffer/rule-strncpy"
+- id: "c/input/rule-recv_recvfrom"
   languages:
   - "c"
-  message: "Easily used incorrectly"
+  message: |
+    Make sure input data is filtered, especially if an attacker could manipulate it.
   metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-  pattern: "strncpy(...)"
+    cwe: "CWE-20: Function accepts input from outside program (CWE-20)"
+  pattern-either:
+  - pattern: "recv(...)"
+  - pattern: "recvfrom(...)"
+  - pattern: "recvmsg(...)"
+  - pattern: "fread(...)"
+  - pattern: "readv(...)"
   severity: "INFO"

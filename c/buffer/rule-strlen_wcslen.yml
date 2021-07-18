@@ -5,12 +5,17 @@
 # yamllint enable
 ---
 rules:
-- id: "c/buffer/rule-strncpy"
+- id: "c/buffer/rule-strlen_wcslen"
   languages:
   - "c"
-  message: "Easily used incorrectly"
+  message: |
+    .
   metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-  pattern: "strncpy(...)"
+    cwe: "CWE-126: Does not handle strings that are not \\0-terminated; if given one
+      it may perform an over-read (it could cause a crash if unprotected) (CWE-126)"
+  pattern-either:
+  - pattern: "strlen(...)"
+  - pattern: "wcslen(...)"
+  - pattern: "_tcslen(...)"
+  - pattern: "_mbslen(...)"
   severity: "INFO"

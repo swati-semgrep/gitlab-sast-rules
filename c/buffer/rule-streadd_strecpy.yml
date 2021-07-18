@@ -5,12 +5,14 @@
 # yamllint enable
 ---
 rules:
-- id: "c/buffer/rule-strncpy"
+- id: "c/buffer/rule-streadd_strecpy"
   languages:
   - "c"
-  message: "Easily used incorrectly"
+  message: |
+    Ensure the destination has 4 times the size of the source, to leave room for expansion.
   metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-  pattern: "strncpy(...)"
-  severity: "INFO"
+    cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
+  pattern-either:
+  - pattern: "streadd(...)"
+  - pattern: "strecpy(...)"
+  severity: "ERROR"

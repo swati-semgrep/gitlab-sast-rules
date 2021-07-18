@@ -5,12 +5,13 @@
 # yamllint enable
 ---
 rules:
-- id: "c/buffer/rule-strncpy"
+- id: "c/misc/rule-AddAccessAllowedAce"
   languages:
   - "c"
-  message: "Easily used incorrectly"
+  message: |
+    Make sure that you set inheritance by hand if you wish it to inherit.
   metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-  pattern: "strncpy(...)"
-  severity: "INFO"
+    cwe: "CWE-732: This doesn't set the inheritance bits in the access control entry
+      (ACE) header (CWE-732)"
+  pattern: "AddAccessAllowedAce(...)"
+  severity: "WARNING"

@@ -5,12 +5,14 @@
 # yamllint enable
 ---
 rules:
-- id: "c/buffer/rule-strncpy"
+- id: "c/race/rule-readlink"
   languages:
   - "c"
-  message: "Easily used incorrectly"
+  message: |
+    Reconsider approach.
   metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-  pattern: "strncpy(...)"
-  severity: "INFO"
+    cwe: "CWE-362, CWE-20: This accepts filename arguments; if an attacker can move
+      those files or change the link content, a race condition results.  Also, it
+      does not terminate with ASCII NUL. (CWE-362, CWE-20)"
+  pattern: "readlink(...)"
+  severity: "ERROR"

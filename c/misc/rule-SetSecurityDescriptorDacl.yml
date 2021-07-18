@@ -5,12 +5,13 @@
 # yamllint enable
 ---
 rules:
-- id: "c/buffer/rule-strncpy"
+- id: "c/misc/rule-SetSecurityDescriptorDacl"
   languages:
   - "c"
-  message: "Easily used incorrectly"
+  message: |
+    .
   metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-  pattern: "strncpy(...)"
-  severity: "INFO"
+    cwe: "CWE-732: Never create NULL ACLs; an attacker can set it to Everyone (Deny
+      All Access), which would even forbid administrator access (CWE-732)"
+  pattern: "SetSecurityDescriptorDacl(...)"
+  severity: "ERROR"
