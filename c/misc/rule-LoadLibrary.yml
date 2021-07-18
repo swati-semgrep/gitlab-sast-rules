@@ -12,7 +12,7 @@ rules:
     Use LoadLibraryEx with one of the search flags, or call SetSearchPathMode to use a safe search
     path, or pass a full path to the library.
   metadata:
-    cwe: "CWE-829, CWE-20: Ensure that the full path to the library is specified,
+    cwe: "CWE-20: Ensure that the full path to the library is specified,
       or current directory may be used (CWE-829, CWE-20)"
   pattern: "LoadLibrary(...)"
   severity: "WARNING"

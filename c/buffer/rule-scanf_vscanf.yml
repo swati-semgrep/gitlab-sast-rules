@@ -11,7 +11,7 @@ rules:
   message: |
     Specify a limit to %s, or use a different input function.
   metadata:
-    cwe: "CWE-120, CWE-20: The scanf() family's %s operation, without a limit specification,
+    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
       permits buffer overflows (CWE-120, CWE-20)"
   pattern-either:
   - pattern: "scanf(...)"

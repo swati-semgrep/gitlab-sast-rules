@@ -11,7 +11,7 @@ rules:
   message: |
     Check implementation on installation, or limit the size of all string inputs.
   metadata:
-    cwe: "CWE-120, CWE-20: Some older implementations do not protect against internal
+    cwe: "CWE-120: Some older implementations do not protect against internal
       buffer overflows (CWE-120, CWE-20)"
   pattern-either:
   - pattern: "getopt(...)"

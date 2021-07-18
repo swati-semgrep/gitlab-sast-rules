@@ -11,7 +11,7 @@ rules:
   message: |
     Set up the correct permissions (e.g., using setuid()) and try to open the file directly.
   metadata:
-    cwe: "CWE-367: This usually indicates a security flaw.  If an attacker can change
+    cwe: "CWE-362: This usually indicates a security flaw.  If an attacker can change
       anything along the path between the call to access() and the file's actual use
       (e.g., by moving files), the attacker can exploit the race condition (CWE-362/CWE-367!)"
   pattern: "access(...)"

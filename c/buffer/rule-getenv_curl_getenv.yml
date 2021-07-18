@@ -11,7 +11,7 @@ rules:
   message: |
     Check environment variables carefully before using them.
   metadata:
-    cwe: "CWE-807, CWE-20: Environment variables are untrustable input if they can
+    cwe: "CWE-20: Environment variables are untrustable input if they can
       be set by an attacker.  They can have any content and length, and the same variable
       can be set more than once (CWE-807, CWE-20)"
   pattern-either:

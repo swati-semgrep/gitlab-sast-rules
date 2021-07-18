@@ -11,7 +11,7 @@ rules:
   message: |
     Use getcwd instead.
   metadata:
-    cwe: "CWE-120, CWE-20: This does not protect against buffer overflows by itself,
+    cwe: "CWE-120: This does not protect against buffer overflows by itself,
       so use with caution (CWE-120, CWE-20)"
   pattern: "getwd(...)"
   severity: "WARNING"
