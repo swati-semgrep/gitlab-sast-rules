@@ -9,7 +9,8 @@ rules:
   languages:
   - "c"
   message: |
-    .
+    Ensure that umask is given most restrictive possible setting (e.g.,
+    066 or 077)
   metadata:
     cwe: "CWE-732: Ensure that umask is given most restrictive possible setting (e.g.,
       066 or 077) (CWE-732)"
