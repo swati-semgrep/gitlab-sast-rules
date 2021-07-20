@@ -9,7 +9,7 @@ rules:
   languages:
   - "c"
   message: |
-    .
+    The software does not properly handle when an input contains Unicode encoding.
   metadata:
     cwe: "CWE-120: Requires maximum length in CHARACTERS, not bytes (CWE-120)"
   pattern: "MultiByteToWideChar(...)"
