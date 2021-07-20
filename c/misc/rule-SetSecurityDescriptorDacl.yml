@@ -9,7 +9,8 @@ rules:
   languages:
   - "c"
   message: |
-    .
+    Never create NULL ACLs; an attacker can set it to Everyone (Deny
+    All Access)
   metadata:
     cwe: "CWE-732: Never create NULL ACLs; an attacker can set it to Everyone (Deny
       All Access), which would even forbid administrator access (CWE-732)"
