@@ -10,11 +10,11 @@ The repository is structured as illustrated below:
 ├── mappings
 │   └── analyzer.yml
 ├── c
-│   ├── memory
+│   ├── buffer
 │   │   ├── rule-strcpy.yml
 │   │   ├── test-strcpy.c
-│   │   ├── memcpy.yml
-│   │   └── test-mcpy.c
+│   │   ├── rule-memcpy.yml
+│   │   └── test-memcpy.c
 │   └── ...
 └── javascript
 │   └── ...
@@ -77,6 +77,7 @@ sources listed below:
 1. https://github.com/returntocorp/semgrep-rules
 1. https://github.com/PyCQA/bandit
 1. https://github.com/nodesecurity/eslint-plugin-security
+1. https://github.com/david-a-wheeler/flawfinder/blob/master/flawfinder.py
 
 The details are listed in the headers of all the rule end test-files including
 the licensing information and proper attribution. 
