@@ -1,0 +1,219 @@
+# yamllint disable
+# maps flawfinder rule ids to semgrep rules
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+flawfinder:
+  - id: strcpy
+    rules: 
+      - c/buffer/rule-strcpy
+  - id: strcpyA
+    rules: 
+      - c/buffer/rule-strcpyA_strcpyW
+  - id: lstrcpy
+    rules: 
+      - c/buffer/rule-lstrcpy_wcscpy
+  - id: memcpy
+    rules: 
+      - c/buffer/rule-memcpy_CopyMemory
+  - id: strcat
+    rules: 
+      - c/buffer/rule-strcat
+  - id: lstrcat
+    rules: 
+      - c/buffer/rule-lstrcat_wcscat
+  - id: StrCat
+    rules: 
+      - c/buffer/rule-StrCat_StrCatA
+  - id: strncpy
+    rules: 
+      - c/buffer/rule-strncpy
+  - id: lstrcpyn
+    rules: 
+      - c/buffer/rule-lstrcpyn_wcsncpy
+  - id: strncat
+    rules: 
+      - c/buffer/rule-strncat
+  - id: lstrcatn
+    rules: 
+      - c/buffer/rule-lstrcatn_wcsncat
+  - id: strccpy
+    rules: 
+      - c/buffer/rule-strccpy_strcadd
+  - id: char
+    rules: 
+      - c/buffer/rule-char_TCHAR
+  - id: gets
+    rules: 
+      - c/buffer/rule-gets__getts
+  - id: sprintf
+    rules: 
+      - c/buffer/rule-sprintf_vsprintf
+  - id: printf
+    rules: 
+      - c/format/rule-printf_vprintf
+  - id: fprintf
+    rules: 
+      - c/format/rule-fprintf_vfprintf
+  - id: syslog
+    rules: 
+      - c/format/rule-syslog
+  - id: snprintf
+    rules: 
+      - c/format/rule-snprintf_vsnprintf
+  - id: scanf
+    rules: 
+      - c/buffer/rule-scanf_vscanf
+  - id: fscanf
+    rules: 
+      - c/buffer/rule-fscanf_sscanf
+  - id: strlen
+    rules: 
+      - c/buffer/rule-strlen_wcslen
+  - id: MultiByteToWideChar
+    rules: 
+      - c/buffer/rule-MultiByteToWideChar
+  - id: streadd
+    rules: 
+      - c/buffer/rule-streadd_strecpy
+  - id: strtrns
+    rules: 
+      - c/buffer/rule-strtrns
+  - id: realpath
+    rules: 
+      - c/buffer/rule-realpath
+  - id: getopt
+    rules: 
+      - c/buffer/rule-getopt_getopt_long
+  - id: getwd
+    rules: 
+      - c/buffer/rule-getwd
+  - id: getchar
+    rules: 
+      - c/buffer/rule-getchar_fgetc
+  - id: access
+    rules: 
+      - c/race/rule-access
+  - id: chown
+    rules: 
+      - c/race/rule-chown
+  - id: chgrp
+    rules: 
+      - c/race/rule-chgrp
+  - id: chmod
+    rules: 
+      - c/race/rule-chmod
+  - id: vfork
+    rules: 
+      - c/race/rule-vfork
+  - id: readlink
+    rules: 
+      - c/race/rule-readlink
+  - id: tmpfile
+    rules: 
+      - c/tmpfile/rule-tmpfile
+  - id: tmpnam
+    rules: 
+      - c/tmpfile/rule-tmpnam_tempnam
+  - id: mktemp
+    rules: 
+      - c/tmpfile/rule-mktemp
+  - id: mkstemp
+    rules: 
+      - c/tmpfile/rule-mkstemp
+  - id: fopen
+    rules: 
+      - c/misc/rule-fopen_open
+  - id: umask
+    rules: 
+      - c/access/rule-umask
+  - id: GetTempFileName
+    rules: 
+      - c/tmpfile/rule-GetTempFileName
+  - id: execl
+    rules: 
+      - c/shell/rule-execl_execlp
+  - id: system
+    rules: 
+      - c/shell/rule-system
+  - id: CreateProcessAsUser
+    rules: 
+      - c/shell/rule-CreateProcessAsUser_CreateProcessWithLogon
+  - id: CreateProcess
+    rules: 
+      - c/shell/rule-CreateProcess
+  - id: atoi
+    rules: 
+      - c/integer/rule-atoi_atol
+  - id: drand48
+    rules: 
+      - c/random/rule-drand48_erand48
+  - id: crypt
+    rules: 
+      - c/crypto/rule-crypt_crypt_r
+  - id: EVP_des_ecb
+    rules: 
+      - c/crypto/rule-EVP_des_ecb_EVP_des_cbc
+  - id: EVP_rc4_40
+    rules: 
+      - c/crypto/rule-EVP_rc4_40_EVP_rc2_40_cbc
+  - id: chroot
+    rules: 
+      - c/misc/rule-chroot
+  - id: getenv
+    rules: 
+      - c/buffer/rule-getenv_curl_getenv
+  - id: g_get_home_dir
+    rules: 
+      - c/buffer/rule-g_get_home_dir
+  - id: g_get_tmp_dir
+    rules: 
+      - c/buffer/rule-g_get_tmp_dir
+  - id: RpcImpersonateClient
+    rules: 
+      - c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser
+  - id: InitializeCriticalSection
+    rules: 
+      - c/misc/rule-InitializeCriticalSection
+  - id: LoadLibrary
+    rules: 
+      - c/misc/rule-LoadLibrary
+  - id: LoadLibraryEx
+    rules: 
+      - c/misc/rule-LoadLibraryEx
+  - id: SetSecurityDescriptorDacl
+    rules: 
+      - c/misc/rule-SetSecurityDescriptorDacl
+  - id: AddAccessAllowedAce
+    rules: 
+      - c/misc/rule-AddAccessAllowedAce
+  - id: getlogin
+    rules: 
+      - c/misc/rule-getlogin
+  - id: cuserid
+    rules: 
+      - c/misc/rule-cuserid
+  - id: getpw
+    rules: 
+      - c/buffer/rule-getpw
+  - id: getpass
+    rules: 
+      - c/misc/rule-getpass
+  - id: gsignal
+    rules: 
+      - c/obsolete/rule-gsignal_ssignal
+  - id: memalign
+    rules: 
+      - c/free/rule-memalign
+  - id: ulimit
+    rules: 
+      - c/obsolete/rule-ulimit
+  - id: usleep
+    rules: 
+      - c/obsolete/rule-usleep
+  - id: recv
+    rules: 
+      - c/input/rule-recv_recvfrom
+  - id: equal
+    rules: 
+      - c/buffer/rule-equal_mismatch
