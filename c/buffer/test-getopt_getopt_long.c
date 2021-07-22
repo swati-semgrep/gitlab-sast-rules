@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
                  break;
              case 'b' : breadth = atoi(optarg);
                  break;
-             default: print_usage(); 
+             default: 
                  exit(EXIT_FAILURE);
         }
     }

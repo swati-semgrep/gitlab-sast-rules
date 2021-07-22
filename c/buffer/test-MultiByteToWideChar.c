@@ -1,7 +1,7 @@
 // License: MIT (c) GitLab Inc.
 #include<stdio.h>
 int main(){
-    print("Hello HUMANS!");
+    printf("Hello HUMANS!");
 }
 void demo2() {
   char d[20];
