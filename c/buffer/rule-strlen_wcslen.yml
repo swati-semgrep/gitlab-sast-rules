@@ -9,7 +9,7 @@ rules:
   languages:
   - "c"
   message: |
-    .
+    Does not handle strings that are not \\0-terminated.
   metadata:
     cwe: "CWE-126: Does not handle strings that are not \\0-terminated; if given one
       it may perform an over-read (it could cause a crash if unprotected) (CWE-126)"

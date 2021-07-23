@@ -9,7 +9,7 @@ rules:
   languages:
   - "c"
   message: |
-    ."Buffer overflows is not checked"
+    Buffer overflows is not checked
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
       [MS-banned] (CWE-120)"

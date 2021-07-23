@@ -9,7 +9,7 @@ rules:
   languages:
   - "c"
   message: |
-    .
+    Temporary file race condition in certain cases.
   metadata:
     cwe: "CWE-377: Temporary file race condition in certain cases (e.g., if run as
       SYSTEM in many versions of Windows) (CWE-377)"
