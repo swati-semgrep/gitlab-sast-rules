@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # enable globbing
 shopt -s globstar
