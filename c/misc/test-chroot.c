@@ -1,3 +1,4 @@
+// License: MIT (c) GitLab Inc.
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
