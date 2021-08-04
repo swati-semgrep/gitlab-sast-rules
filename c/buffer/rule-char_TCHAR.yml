@@ -15,7 +15,7 @@ rules:
     cwe: "CWE-120: Statically-sized arrays can be improperly restricted, leading to
       potential overflows or other issues (CWE-119!/CWE-120)"
   pattern-either:
-  - pattern: "(char $X)"
-  - pattern: "(TCHAR $X)"
-  - pattern: "(wchar_t $X)"
+  - pattern-regex: "static *(const)? *(wchar_t) *\\w *\\[.*\\]\\;"
+  - pattern-regex: "static *(const)? *(char) *\\w *\\[.*\\]\\;"
+  - pattern-regex: "static *(const)? *(TCHAR) *\\w *\\[.*\\]\\;"
   severity: "INFO"
