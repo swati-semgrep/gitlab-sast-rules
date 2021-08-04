@@ -1,6 +1,7 @@
 // License: MIT (c) GitLab Inc.
 
 #include <stdio.h>
+
 #include <string.h>
 
 int main() {
@@ -10,7 +11,7 @@ int main() {
   // should report this
   strcpy(string2, string1);
 
-  puts(string2); 
+  puts(string2);
 
   return 0;
 }
