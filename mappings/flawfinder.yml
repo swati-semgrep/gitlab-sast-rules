@@ -601,7 +601,7 @@ flawfinder:
   - id: "ImpersonateSecurityContext"
     rules: 
       - "c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser"
-  - id: "SetThreadToken
+  - id: "SetThreadToken"
     rules: 
       - "c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser"
   - id: "InitializeCriticalSection"
