@@ -634,7 +634,7 @@ flawfinder:
   - id: "gsignal"
     rules: 
       - "c/obsolete/rule-gsignal_ssignal"
-  - id: "ssignal
+  - id: "ssignal"
     rules: 
       - "c/obsolete/rule-gsignal_ssignal"
   - id: "memalign"
@@ -658,7 +658,7 @@ flawfinder:
   - id: "fread"
     rules: 
       - "c/input/rule-recv_recvfrom"
-  - id: "readv
+  - id: "readv"
     rules: 
       - "c/input/rule-recv_recvfrom"
   - id: "equal"
