@@ -17,5 +17,7 @@ rules:
       free() results from memalign() may fail. This may, on a few systems, be exploitable.
       \ Also note that memalign() may not check that the boundary parameter is correct
       (CWE-676)"
-  pattern: "memalign(...)"
+  pattern-either:
+  - pattern: "memalign(...)"
+  - pattern-regex: "(void)\\s\\*(\\s|)(memalign)\\;"
   severity: "INFO"
