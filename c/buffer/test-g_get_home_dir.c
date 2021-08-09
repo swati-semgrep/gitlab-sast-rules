@@ -7,5 +7,5 @@
 void main() {
   const gchar *
     gchar = g_get_home_dir(void);
-  printf(gchar)
+  printf(gchar);
 }

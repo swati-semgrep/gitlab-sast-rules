@@ -37,4 +37,5 @@ rules:
   - pattern: "g_random_int_range(...)"
   - pattern: "g_random_double(...)"
   - pattern: "g_random_double_range(...)"
+  - pattern-regex: "(void|int|float|short)\\s(lcong48)\\(\\)\\;"
   severity: "WARNING"
