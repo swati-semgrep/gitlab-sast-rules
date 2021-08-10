@@ -9,7 +9,7 @@ rules:
 - id: "python/tmpdir/rule-hardcodedtmp"
   pattern: "$CALL(\"=~/^\\/tmp.*/\", ...)"
   message: |
-    Detected hardcoded temp directory. Consider using 'tempfile.TemporaryFile' instead.
+    Detected hardcoded temp directory. Consider using `tempfile.TemporaryFile` instead.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
   severity: "WARNING"

@@ -11,7 +11,7 @@ rules:
   - pattern: "os.tempnam(...)"
   - pattern: "os.tmpnam(...)"
   message: |
-    The Python 'os' tempnam|tmpnam functions are vulnerable to symlink attacks
+    The Python `os` `tempnam|tmpnam` functions are vulnerable to symlink attacks
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
   severity: "WARNING"
