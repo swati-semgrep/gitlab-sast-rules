@@ -2,6 +2,7 @@
 # This script consolidates all yaml files to a single rule files
 
 require 'yaml'
+require_relative './autoformat.rb'
 
 Dir.mkdir("rule-sets") unless Dir.exists?("rule-sets")
 
@@ -33,6 +34,7 @@ Dir.glob('mappings/*.yml').each do |mappings|
     outdict['rules'] << rule
   end
 
+  formatted = AutoFormat.reformat_yaml('', outdict)
   puts("writing #{prefix}.yml")
-  File.open("rule-sets/#{prefix}.yml", 'w') { |file| file.write(outdict.to_yaml) }
+  File.open("rule-sets/#{prefix}.yml", 'w') { |file| file.write(formatted) }
 end

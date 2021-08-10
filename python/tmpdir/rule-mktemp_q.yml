@@ -9,11 +9,10 @@ rules:
 - id: "python/tmpdir/rule-mktemp_q"
   pattern: "tempfile.mktemp(...)"
   message: |
-    Use tempfile.NamedTemporaryFile instead. From the official Pythondocumentation: THIS FUNCTION
-    IS
-    UNSAFE AND SHOULD NOT BE USED. The file namemay refer to a file that did not exist at some
-    point,
-    but by the time you getaround to creating it, someone else may have beaten you to the punch.
+    Use tempfile.NamedTemporaryFile instead. From the official Python documentation: THIS FUNCTION
+    IS UNSAFE AND SHOULD NOT BE USED. The file name may refer to a file that did not exist at some
+    point, but by the time you getaround to creating it, someone else may have beaten you to the
+    punch.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
     owasp: "A3: Sensitive Data Exposure"

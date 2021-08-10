@@ -10,7 +10,7 @@ rules:
   patterns:
   - pattern: "open(\"=~/^/(dev|var).*/\", ...)"
   message: |
-    "Probable insecure usage of temp file/directory."
+    Probable insecure usage of temp file/directory.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
   severity: "WARNING"

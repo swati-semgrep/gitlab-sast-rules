@@ -4,8 +4,53 @@ require 'psych'
 require 'yaml'
 require 'fileutils'
 
-
 module AutoFormat
+  def self.wrap(txt, col = 95)
+    txt.gsub(/(.{1,#{col}})( +|$\n?)|(.{1,#{col}})/,
+             "\\1\\3\n").gsub(/^ *$/, '')
+  end
+
+  def self.reformat_yaml(id, yaml_dict)
+    ast = Psych.parse_stream(Psych.dump(yaml_dict))
+
+    # apply double quotes
+    ast.grep(Psych::Nodes::Scalar).each do |node|
+      node.plain  = false
+      node.quoted = true
+      node.style  = Psych::Nodes::Scalar::DOUBLE_QUOTED
+    end
+
+    # remove double quotes from keys and adjust
+    # message, pattern-inside and pattern
+    ast.grep(Psych::Nodes::Mapping).each do |node|
+      node.children.each_slice(2) do |k, v|
+        k.plain  = true
+        k.quoted = false
+        k.style  = Psych::Nodes::Scalar::ANY
+
+        case k.value
+        when 'id'
+          v.quoted = true
+          v.value = id if id != ''
+        when 'message'
+          v.quoted = true
+          v.plain = true
+          v.style = Psych::Nodes::Scalar::LITERAL
+          v.value = AutoFormat.wrap(v.value)
+        when 'pattern'
+          v.style = if v.value.count("\n").zero?
+                      Psych::Nodes::Scalar::DOUBLE_QUOTED
+                    else
+                      Psych::Nodes::Scalar::LITERAL
+                    end
+        when 'pattern-inside', 'pattern-not-inside'
+          v.style = Psych::Nodes::Scalar::LITERAL
+        end
+      end
+    end
+    ast.to_yaml
+  end
+
   def self.run
     changed = 0
     Dir.glob('**/rule-*.yml').each do |file|
@@ -29,43 +74,7 @@ module AutoFormat
 
       next if yaml_dict == false
 
-      ast = Psych.parse_stream(Psych.dump(yaml_dict))
-
-      # apply double quotes
-      ast.grep(Psych::Nodes::Scalar).each do |node|
-        node.plain  = false
-        node.quoted = true
-        node.style  = Psych::Nodes::Scalar::DOUBLE_QUOTED
-      end
-
-      # remove double quotes from keys and adjust
-      # message, pattern-inside and pattern
-      ast.grep(Psych::Nodes::Mapping).each do |node|
-        node.children.each_slice(2) do |k, v|
-          k.plain  = true
-          k.quoted = false
-          k.style  = Psych::Nodes::Scalar::ANY
-
-          case k.value
-          when 'id'
-            v.quoted = true
-            v.value = id
-          when 'message'
-            v.quoted = true
-            v.plain = true
-            v.style = Psych::Nodes::Scalar::LITERAL
-            v.value = v.value.gsub(/(.{1,95})(\s+|\Z)/, "\\1\n")
-          when 'pattern'
-            v.style = if v.value.count("\n").zero?
-                        Psych::Nodes::Scalar::DOUBLE_QUOTED
-                      else
-                        Psych::Nodes::Scalar::LITERAL
-                      end
-          when 'pattern-inside', 'pattern-not-inside'
-            v.style = Psych::Nodes::Scalar::LITERAL
-          end
-        end
-      end
+      astyaml = AutoFormat.reformat_yaml(id, yaml_dict)
 
       tmpfile = "#{file}_tmp"
       File.open(tmpfile, 'w') do |f|
@@ -74,7 +83,7 @@ module AutoFormat
           f.puts(comments) if comments.any?
           f.puts('# yamllint enable')
         end
-        f.puts(ast.to_yaml)
+        f.puts(astyaml)
       end
 
       s = StringIO.new
@@ -108,10 +117,3 @@ module AutoFormat
   end
 end
 
-changed = AutoFormat.run
-
-puts "#{changed} formatted files"
-
-exit(-1) if changed > 0
-
-exit(0)
