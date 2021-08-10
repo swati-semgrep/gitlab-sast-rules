@@ -81,3 +81,14 @@ sources listed below:
 
 The details are listed in the headers of all the rule end test-files including
 the licensing information and proper attribution. 
+
+## Versioning and Changelog
+
+We apply the following semantic versioning scheme to this repository:
+
+1. patch version increment: for updated/patched/added rules.
+1. minor version increment: backwards-compatible YAML schema changes (e.g., adding/removing optional fields).
+1. major version increment: non-backwards-compatible YAML schema changes (e.g., adding/removing required fields)
+
+All notable changes concerning minor and major updates are tracked in [the changelog](CHANGELOG.md) which 
+is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
