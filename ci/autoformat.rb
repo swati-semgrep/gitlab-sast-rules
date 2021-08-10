@@ -9,11 +9,20 @@ module AutoFormat
   def self.run
     changed = 0
     Dir.glob('**/rule-*.yml').each do |file|
-
-      id = File.join(File.dirname(file), File.basename(file, ".yml"))
-
+      id = File.join(File.dirname(file), File.basename(file, '.yml'))
       ff = File.read(file)
-      yaml_dict = YAML.load(ff)
+      yaml_dict = YAML.safe_load(ff)
+
+      unless yaml_dict.key?('rules')
+        puts "#{file}: no rules key"
+        exit(1)
+      end
+
+      if yaml_dict['rules'].length != 1
+        puts "#{file}: one rule per file policy violated"
+        exit(1)
+      end
+
       # extract comments
       comments = ff.scan(/^#.*?$/)
       comments.filter! { |r| !r.include?('yamllint') }
