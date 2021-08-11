@@ -23,10 +23,10 @@ rules:
   - patterns:
     - pattern: "_ftprintf($FD, $FMT, ...)"
     - pattern-not: "_ftprintf($FD, \"...\", ...)"
-  - patterns: 
+  - patterns:
     - pattern: "fwprintf($FD, $FMT, ...)"
     - pattern-not: "fwprintf($FD, \"...\", ...)"
-  - patterns: 
+  - patterns:
     - pattern: "fvwprintf($FD, $FMT, ...)"
     - pattern-not: "fvwprintf($FD, \"...\", ...)"
   severity: "ERROR"
