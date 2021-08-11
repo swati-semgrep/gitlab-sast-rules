@@ -16,17 +16,17 @@ rules:
   pattern-either:
   - patterns:
     - pattern: "snprintf($VAR,$NUM,...)"
-    - pattern-not: snprintf($VAR,"...")
+    - pattern-not: "snprintf($VAR,\"...\")"
   - patterns:
     - pattern: "vsnprintf($VAR,$NUM,...)"
-    - pattern-not: vsnprintf($VAR,"...")
+    - pattern-not: "vsnprintf($VAR,\"...\")"
   - patterns:
     - pattern: "_snprintf($VAR,$NUM,...)"
-    - pattern-not: _snprintf($VAR,"...")
+    - pattern-not: "_snprintf($VAR,\"...\")"
   - patterns:
     - pattern: "_sntprintf($VAR,$NUM,...)"
-    - pattern-not: sntprintf($VAR,"...")
+    - pattern-not: "sntprintf($VAR,\"...\")"
   - patterns:
     - pattern: "_vsntprintf($VAR,$NUM,...)"
-    - pattern-not: _vsntprintf($VAR,"...")
+    - pattern-not: "_vsntprintf($VAR,\"...\")"
   severity: "ERROR"
