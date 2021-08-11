@@ -14,10 +14,22 @@ rules:
     cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
       exploited (CWE-134)"
   pattern-either:
-  - pattern: "printf(...)"
-  - pattern: "vprintf(...)"
-  - pattern: "vwprintf(...)"
-  - pattern: "vfwprintf(...)"
-  - pattern: "_vtprintf(...)"
-  - pattern: "wprintf(...)"
+  - patterns:
+    - pattern: "printf(...)"
+    - pattern-not: "printf(\"...\")"
+  - patterns:  
+    - pattern: "vprintf(...)"
+    - pattern-not: "vprintf(\"...\")"
+  - patterns:
+    - pattern: "vwprintf(...)"
+    - pattern-not: "vwprintf(\"...\")"
+  - patterns:
+    - pattern: "vfwprintf(...)"
+    - pattern-not: "vfwprintf(\"...\")"
+  - patterns:
+    - pattern: "_vtprintf(...)"
+    - pattern-not: "_vtprintf(\"...\")"
+  - patterns:
+    - pattern: "wprintf(...)"
+    - pattern-not: "wprintf(\"...\")"
   severity: "ERROR"
