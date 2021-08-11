@@ -16,7 +16,7 @@ rules:
   pattern-either:
   - patterns:
     - pattern: "printf(...)"
-    - pattern-not: "printf(\"...\")"
+    - pattern-not: "printf(\"...\",$VAR)"
   - patterns:
     - pattern: "vprintf(...)"
     - pattern-not: "vprintf(\"...\")"
