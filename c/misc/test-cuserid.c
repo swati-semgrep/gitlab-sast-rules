@@ -9,6 +9,7 @@ int main(void) {
 
   if (cuserid(username) == NULL) {
     fprintf(stderr, "login name not found");
+    fprintf(stderr, username);
     exit(1);
   }
   printf("%s\n", username);
