@@ -14,14 +14,19 @@ rules:
     cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
       exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
   pattern-either:
-  - pattern: "snprintf($VAR,$NUM,...)"
-  - pattern-not: "snprintf($VAR,"...")"
-  - pattern: "vsnprintf($VAR,$NUM,...)"
-  - pattern-not: "vsnprintf($VAR,"...")"
-  - pattern: "_snprintf($VAR,$NUM,...)"
-  - pattern-not: "_snprintf($VAR,"...")"
-  - pattern: "_sntprintf($VAR,$NUM,...)"
-  - pattern-not: "sntprintf($VAR,"...")"
-  - pattern: "_vsntprintf($VAR,$NUM,...)"
-  - pattern-not: "_vsntprintf($VAR,"...")"
+  - patterns:
+    - pattern: "snprintf($VAR,$NUM,...)"
+    - pattern-not: snprintf($VAR,"...")
+  - patterns:
+    - pattern: "vsnprintf($VAR,$NUM,...)"
+    - pattern-not: vsnprintf($VAR,"...")
+  - patterns:
+    - pattern: "_snprintf($VAR,$NUM,...)"
+    - pattern-not: _snprintf($VAR,"...")
+  - patterns:
+    - pattern: "_sntprintf($VAR,$NUM,...)"
+    - pattern-not: sntprintf($VAR,"...")
+  - patterns:
+    - pattern: "_vsntprintf($VAR,$NUM,...)"
+    - pattern-not: _vsntprintf($VAR,"...")
   severity: "ERROR"
