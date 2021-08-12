@@ -37,5 +37,5 @@ rules:
   - pattern: "g_random_int_range(...)"
   - pattern: "g_random_double(...)"
   - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float)\\s(\\*|)(\\s|)(seed48)\\((short|long|double|int|float)\\s(\\*|)(\\s|)\\)\\;"
+  - pattern-regex: "(long|short|double|int|float)\\s(\\*|)(\\s|)(seed48)(\\(.*\\))\\;"
   severity: "WARNING"
