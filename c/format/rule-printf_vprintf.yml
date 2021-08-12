@@ -18,8 +18,8 @@ rules:
     - pattern: "printf(...)"
     - pattern-not: "printf(\"...\",...)"
   - patterns:
-    - pattern: "vprintf(...)"
-    - pattern-not: "vprintf(\"...\")"
+    - pattern: "vprintf($FMT, $ARGS)"
+    - pattern-not: "vprintf(\"...\", $ARGS)"
   - patterns:
     - pattern: "vwprintf(...)"
     - pattern-not: "vwprintf(\"...\")"
