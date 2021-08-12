@@ -12,11 +12,11 @@ rules:
     Use a constant for the format specification.
   metadata:
     cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited and note that sprintf variations do not always \\0-terminate (CWE-134)"
+      exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
   pattern-either:
   - patterns:
-    - pattern: "snprintf($VAR,$NUM,...)"
-    - pattern-not: "snprintf($VAR,\"...\")"
+    - pattern: "snprintf($TYPE,$SIZE,$VAR)"
+    - pattern-not: "snprintf($TYPE,$SIZE,\"...\",$VAR)"
   - patterns:
     - pattern: "vsnprintf($VAR,$NUM,...)"
     - pattern-not: "vsnprintf($VAR,\"...\")"
@@ -25,7 +25,7 @@ rules:
     - pattern-not: "_snprintf($VAR,\"...\")"
   - patterns:
     - pattern: "_sntprintf($VAR,$NUM,...)"
-    - pattern-not: "_sntprintf($VAR,\"...\")"
+    - pattern-not: "sntprintf($VAR,\"...\")"
   - patterns:
     - pattern: "_vsntprintf($VAR,$NUM,...)"
     - pattern-not: "_vsntprintf($VAR,\"...\")"
