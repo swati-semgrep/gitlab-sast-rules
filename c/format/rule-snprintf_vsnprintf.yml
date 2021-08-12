@@ -18,15 +18,15 @@ rules:
     - pattern: "snprintf($TYPE,$SIZE,$VAR)"
     - pattern-not: "snprintf($TYPE,$SIZE,\"...\",$VAR)"
   - patterns:
-    - pattern: "vsnprintf($VAR,$NUM,...)"
-    - pattern-not: "vsnprintf($VAR,\"...\")"
+    - pattern: "vsnprintf($VAR,$FMT,...)"
+    - pattern-not: "vsnprintf($VAR,\"...\",...)"
   - patterns:
-    - pattern: "_snprintf($VAR,$NUM,...)"
-    - pattern-not: "_snprintf($VAR,\"...\")"
+    - pattern: "_snprintf($VAR,$FMT,...)"
+    - pattern-not: "_snprintf($VAR,\"...\",...)"
   - patterns:
-    - pattern: "_sntprintf($VAR,$NUM,...)"
-    - pattern-not: "sntprintf($VAR,\"...\")"
+    - pattern: "_sntprintf($VAR,$FMT,...)"
+    - pattern-not: "sntprintf($VAR,\"...\",...)"
   - patterns:
-    - pattern: "_vsntprintf($VAR,$NUM,...)"
-    - pattern-not: "_vsntprintf($VAR,\"...\")"
+    - pattern: "_vsntprintf($VAR,$FMT,...)"
+    - pattern-not: "_vsntprintf($VAR,\"...\",...)"
   severity: "ERROR"
