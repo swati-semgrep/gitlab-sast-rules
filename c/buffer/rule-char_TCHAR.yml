@@ -15,8 +15,17 @@ rules:
     cwe: "CWE-120: Statically-sized arrays can be improperly restricted, leading to
       potential overflows or other issues (CWE-119!/CWE-120)"
   pattern-either:
-  - pattern-regex: "static *(const)? *(wchar_t|char|TCHAR) *[a-zA-Z0-9_]+ *\\[.*\\]\\
-      *(={.*})?;"
-  - pattern-regex: "(wchar_t|char|TCHAR) *[a-zA-Z0-9_]+\\[.*\\]"
-  - pattern-regex: "[a-zA-Z0-9_]+ *= *\\( *char \\* *\\) .*"
+  - patterns:
+    - pattern-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[.*\\]"
+    - pattern-not-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
+  - patterns:
+    - pattern-regex: "(char) *[a-zA-Z0-9_]+\\[.*\\]"
+    - pattern-not-regex: "(char) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
+  - patterns:
+    - pattern-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[.*\\]"
+    - pattern-not-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
+  - patterns:
+    - pattern-regex: "static *(const)? *(wchar_t|char|TCHAR) *[a-zA-Z0-9_]+ *\\[.*\\]\\*(={.*})?"
+  - patterns:
+    - pattern-regex: "(.*|)(\\s|)\\=(\\s|)\\((char.*) (malloc)\\(.*\\[[0-9]+\\].*\\)"
   severity: "INFO"
