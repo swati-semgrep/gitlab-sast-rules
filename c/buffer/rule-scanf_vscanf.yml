@@ -14,9 +14,19 @@ rules:
     cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
       permits buffer overflows (CWE-120, CWE-20)"
   pattern-either:
-  - pattern: "scanf(...)"
-  - pattern: "vscanf(...)"
-  - pattern: "wscanf(...)"
-  - pattern: "_tscanf(...)"
-  - pattern: "vwscanf(...)"
+  - patterns:
+    - pattern: "scanf($FMT, ...)"
+    - pattern-not: "scanf(\"...\", ...)"
+  - patterns:
+    - pattern: "vscanf($FMT, ...)"
+    - pattern-not: "vscanf(\"...\", ...)"
+  - patterns:
+    - pattern: "wscanf($FMT, ...)"
+    - pattern-not: "wscanf(\"...\", ...)"
+  - patterns:
+    - pattern: "_tscanf($FMT, ...)"
+    - pattern-not: "_tscanf(\"...\", ...)"
+  - patterns:
+    - pattern: "vwscanf(FMT, ...)"
+    - pattern-not: "vwscanf(\"...\", ...)"
   severity: "ERROR"
