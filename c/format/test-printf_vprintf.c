@@ -18,7 +18,8 @@ int main() {
   vprintfex("%d variable %s\n", 2, "arguments");
   printf("An example only");
   wint_t x = 8;
-  wprintf(L "x = %d \n", x);
+  char *fmt;
+  wprintf(fmt, x);
 
   return 0;
 }
