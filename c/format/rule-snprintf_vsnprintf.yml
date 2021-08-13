@@ -15,14 +15,14 @@ rules:
       exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
   pattern-either:
   - patterns:
-    - pattern: "snprintf($TYPE,$SIZE,$VAR)"
-    - pattern-not: "snprintf($TYPE,$SIZE,\"...\",$VAR)"
+    - pattern: "snprintf($BUF,$SIZ,$FMT,...)"
+    - pattern-not: "snprintf($BUF,$SIZ,\"...\",...)"
   - patterns:
-    - pattern: "vsnprintf($VAR,$FMT,...)"
-    - pattern-not: "vsnprintf($VAR,\"...\",...)"
+    - pattern: "vsnprintf($BUF,$SIZ,$FMT)"
+    - pattern-not: "vsnprintf($BUF,$SIZ,\"...\",...)"
   - patterns:
-    - pattern: "_snprintf($VAR,$FMT,...)"
-    - pattern-not: "_snprintf($VAR,\"...\",...)"
+    - pattern: "_snprintf($BUF,$SIZ,$FMT,...)"
+    - pattern-not: "_snprintf($BUF,$SIZ,$FMT,\"...\",...)"
   - patterns:
     - pattern: "_sntprintf($VAR,$FMT,...)"
     - pattern-not: "sntprintf($VAR,\"...\",...)"
