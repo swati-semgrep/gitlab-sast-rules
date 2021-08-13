@@ -4,6 +4,17 @@
 require 'yaml'
 require_relative './autoformat.rb'
 
+if ARGV.empty?
+  puts "please provide version tag"
+  exit 1
+end
+
+version = ARGV[0]
+unless version.match?(/[0-9.]{1,15}/)
+  puts "only semver version strings allowed"
+  exit 1
+end
+
 Dir.mkdir("rule-sets") unless Dir.exists?("rule-sets")
 
 Dir.glob('mappings/*.yml').each do |mappings|
@@ -48,5 +59,10 @@ Dir.glob('mappings/*.yml').each do |mappings|
 
   formatted = AutoFormat.reformat_yaml('', outdict)
   puts("writing #{prefix}.yml")
-  File.open("rule-sets/#{prefix}.yml", 'w') { |file| file.write(formatted) }
+  File.open("rule-sets/#{prefix}.yml", 'w') { |file| 
+    file.puts('# yamllint disable')
+    file.puts("# rule-set version: #{version}")
+    file.puts('# yamllint enable')
+    file.write(formatted) 
+  }
 end

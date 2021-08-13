@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # consolidate rule files and remap rules
-ci/deploy.rb
+ci/deploy.rb "$CI_COMMIT_TAG"
 
 # enable globbing
 shopt -s globstar
