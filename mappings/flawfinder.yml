@@ -646,21 +646,6 @@ flawfinder:
   - id: "usleep"
     rules: 
       - "c/obsolete/rule-usleep"
-  - id: "recv"
-    rules: 
-      - "c/input/rule-recv_recvfrom"
-  - id: "recvfrom"
-    rules: 
-      - "c/input/rule-recv_recvfrom"
-  - id: "recvmsg"
-    rules: 
-      - "c/input/rule-recv_recvfrom"
-  - id: "fread"
-    rules: 
-      - "c/input/rule-recv_recvfrom"
-  - id: "readv"
-    rules: 
-      - "c/input/rule-recv_recvfrom"
   - id: "equal"
     rules: 
       - "c/buffer/rule-equal_mismatch"
@@ -670,3 +655,18 @@ flawfinder:
   - id: "is_permutation"
     rules: 
       - "c/buffer/rule-equal_mismatch"
+# - id: "recv"
+#   rules: 
+#     - "c/input/rule-recv_recvfrom"
+# - id: "recvfrom"
+#   rules: 
+#     - "c/input/rule-recv_recvfrom"
+# - id: "recvmsg"
+#   rules: 
+#     - "c/input/rule-recv_recvfrom"
+# - id: "fread"
+#   rules: 
+#     - "c/input/rule-recv_recvfrom"
+# - id: "readv"
+#   rules: 
+#     - "c/input/rule-recv_recvfrom"
