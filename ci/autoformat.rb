@@ -15,6 +15,8 @@ module AutoFormat
 
     # apply double quotes
     ast.grep(Psych::Nodes::Scalar).each do |node|
+      next if node.value == "regex"
+      
       node.plain  = false
       node.quoted = true
       node.style  = Psych::Nodes::Scalar::DOUBLE_QUOTED
@@ -24,6 +26,8 @@ module AutoFormat
     # message, pattern-inside and pattern
     ast.grep(Psych::Nodes::Mapping).each do |node|
       node.children.each_slice(2) do |k, v|
+        next if k.value == "regex" 
+
         k.plain  = true
         k.quoted = false
         k.style  = Psych::Nodes::Scalar::ANY
@@ -32,6 +36,10 @@ module AutoFormat
         when 'id'
           v.quoted = true
           v.value = id if id != ''
+        when 'base'
+          v.quoted = false
+          v.plain = true
+          v.style = Psych::Nodes::Scalar::ANY
         when 'message'
           v.quoted = true
           v.plain = true

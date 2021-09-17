@@ -51,7 +51,7 @@ func foo3() {
 	}
 	defer r.Close()
 	for i, f := range r.File {
-		out, err := os.OpenFile("output"+strconv.Itoa(i), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, f.Mode())
+		out, err := os.OpenFile("output" + strconv.Itoa(i), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, f.Mode())
 		if err != nil {
 			panic(err)
 		}

@@ -98,3 +98,4 @@ is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Gosec
 
 - G104: [Metavariable types not supported for go at the moment](https://github.com/returntocorp/semgrep-rules/issues/1149)
+- G307: [Deferring a method which returns an error](https://github.com/returntocorp/semgrep-rules/issues/1149)

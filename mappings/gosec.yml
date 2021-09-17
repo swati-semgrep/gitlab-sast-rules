@@ -30,7 +30,7 @@ gosec:
       - "go/injection/rule-ssrf"
   - id: "G110"
     rules:
-      - "go/zip/rule-decompression_bomb"
+      - "go/filesystem/rule-decompression_bomb"
   - id: "G204"
     rules:
       - "go/subproc/rule-subproc"
@@ -49,3 +49,45 @@ gosec:
   - id: "G302"
     rules:
       - "go/file_permissions/rule-fileperm"
+  - id: "G303"
+    rules:
+      - "go/filesystem/rule-tempfiles"
+  - id: "G304"
+    rules:
+      - "go/filesystem/rule-filereadtaint"
+  - id: "G305"
+    rules:
+      - "go/filesystem/rule-ziparchive"
+  - id: "G306"
+    rules:
+      - "go/filesystem/rule-poorwritepermissions"
+  - id: "G401"
+    rules:
+      - "go/crypto/rule-weakcrypto"
+  - id: "G402"
+    rules:
+      - "go/crypto/rule-badtlssettings"
+  - id: "G403"
+    rules:
+      - "go/crypto/rule-weakkeystrength"
+  - id: "G404"
+    rules:
+      - "go/crypto/rule-weakrandsource"
+  - id: "G501"
+    rules:
+      - "go/blocklist/rule-blocklist-md5"
+  - id: "G502"
+    rules:
+      - "go/blocklist/rule-blocklist-des"
+  - id: "G503"
+    rules:
+      - "go/blocklist/rule-blocklist-rc4"
+  - id: "G504"
+    rules:
+      - "go/blocklist/rule-blocklist-cgi"
+  - id: "G505"
+    rules:
+      - "go/blocklist/rule-blocklist-sha1"
+  - id: "G601"
+    rules:
+      - "go/memory/rule-memoryaliasing"
