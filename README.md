@@ -92,3 +92,9 @@ We apply the following semantic versioning scheme to this repository:
 
 All notable changes concerning minor and major updates are tracked in [the changelog](CHANGELOG.md) which 
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+## Rules that are not covered at the moment
+
+### Gosec
+
+- G104: [Metavariable types not supported for go at the moment](https://github.com/returntocorp/semgrep-rules/issues/1149)

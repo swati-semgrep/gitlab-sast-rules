@@ -1,5 +1,6 @@
-// License: Apache 2.0
-// source: https://securego.io/docs/rules/g101.html
+// License: Apache 2.0 (c) gosec
+// source: https://github.com/securego/gosec/blob/master/testutils/source.go
+// hash: bfb0f42
 
 package main
 
