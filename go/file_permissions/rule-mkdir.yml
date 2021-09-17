@@ -12,7 +12,7 @@ rules:
     - pattern: "os.MkdirAll(...,$MASK)"
   - metavariable-regex:
       metavariable: "$MASK"
-      regex: "0?(6[2,3,7][2,3,7]|7..)"
+      regex: "0?(6[2,3,7][2,3,7]|7[2,3,7][2,3,7])"
   message: |
     Poor file permissions used when creating a directory
   metadata:
