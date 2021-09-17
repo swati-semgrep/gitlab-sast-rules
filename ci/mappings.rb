@@ -20,6 +20,7 @@ module MappingCheck
         end
       end
     end
+    ok
   end
 end
 
