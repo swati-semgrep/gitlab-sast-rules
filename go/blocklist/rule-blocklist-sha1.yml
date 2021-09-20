@@ -8,11 +8,12 @@ rules:
   patterns:
   - pattern: |
       import "crypto/sha1"
-  message: "The SHA-1 message-digest algorithm has been cryptographically broken and
-    is unsuitable \nfor further use. It is recommended that the SHA-3, or BLAKE2 family
-    of algorithms be \nused for non-password based cryptographic hashes instead. For
-    password based \ncryptographic hashes, consider using the bcrypt or Argon2 family
-    of cryptographic hashes.\n"
+  message: |
+    The SHA-1 message-digest algorithm has been cryptographically broken and
+    is unsuitable for further use. It is recommended that the SHA-3, or BLAKE2 family
+    of algorithms be used for non-password based cryptographic hashes instead. For
+    password based cryptographic hashes, consider using the bcrypt or Argon2 family
+    of cryptographic hashes.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A9: Using Components with Known Vulnerabilities"
