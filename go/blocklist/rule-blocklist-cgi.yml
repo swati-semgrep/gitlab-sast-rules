@@ -8,8 +8,8 @@ rules:
   patterns:
   - pattern: |
       import "net/http/cgi"
-  message: "Blocklisted import net/http/cgi: Go versions < 1.6.3 are vulnerable to
-    Httpoxy \nattack: (CVE-2016-5386)\n"
+  message: |
+    Go versions < 1.6.3 are vulnerable to Httpoxy attack: (CVE-2016-5386)
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A9: Using Components with Known Vulnerabilities"

@@ -21,8 +21,9 @@ rules:
         sha1.New()
     - pattern: |
         sha1.Sum(...)
-  message: "Usage of a cryptographically insecure algorithm has been detected. It
-    is recommended that \nalternative algorithms be used instead.\n"
+  message: |
+    Usage of a cryptographically insecure algorithm has been detected. It
+    is recommended that alternative algorithms be used instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A9: Using Components with Known Vulnerabilities"
