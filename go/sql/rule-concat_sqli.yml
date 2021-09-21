@@ -7,6 +7,9 @@
 rules:
 - id: "go/sql/rule-concat_sqli"
   patterns:
+  - pattern-inside: |
+      import "database/sql"
+      ...
   - pattern-either:
     - pattern: "$DB.Query($Q + $IN)"
     - pattern: "$DB.QueryContext(..., $Q + $IN)"

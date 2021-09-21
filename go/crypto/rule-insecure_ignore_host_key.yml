@@ -7,7 +7,7 @@
 rules:
 - id: "go/crypto/rule-insecure_ignore_host_key"
   patterns:
-  - pattern: "ssh.InsecureIgnoreHostKey()"
+  - pattern: "ssh.InsecureIgnoreHostKey(...)"
   message: |
     Audit the use of ssh.InsecureIgnoreHostKey
   metadata:

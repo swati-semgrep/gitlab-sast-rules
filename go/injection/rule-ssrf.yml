@@ -1,6 +1,6 @@
 # yamllint disable
 # License: Apache 2.0 (c) gosec
-# source (original): https://github.com/securego/gosec/blob/master/rules/hardcoded_credentials.go
+# source (original): https://github.com/securego/gosec/blob/master/rules/ssrf.go
 # hash: 2a4064d 
 # yamllint enable
 ---
@@ -20,6 +20,13 @@ rules:
     - patterns:
       - pattern: "http.PostForm($URL, ...)"
       - pattern-not: "http.PostForm(\"...\", ...)"
+    - patterns:
+      - pattern-inside: |
+          $REQ, ... := http.NewRequest(..., url, ...)
+          ...
+          $CLIENT := &http.Client{...}
+          ...
+      - pattern: "$CLIENT.Do($REQ)"
     - patterns:
       - pattern-not-inside: |
           const $X = "..."

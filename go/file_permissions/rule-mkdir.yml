@@ -10,9 +10,10 @@ rules:
   - pattern-either:
     - pattern: "os.Mkdir(...,$MASK)"
     - pattern: "os.MkdirAll(...,$MASK)"
-  - metavariable-regex:
+  - metavariable-comparison:
       metavariable: "$MASK"
-      regex: "0?(6[2,3,7][2,3,7]|7[2,3,7][2,3,7])"
+      comparison: "$MASK > 0o600 and $MASK != 0o750"
+      base: 8
   message: |
     Poor file permissions used when creating a directory
   metadata:

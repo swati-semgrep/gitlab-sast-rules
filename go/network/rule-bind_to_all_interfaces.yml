@@ -7,8 +7,12 @@
 rules:
 - id: "go/network/rule-bind_to_all_interfaces"
   patterns:
-  - pattern: |
-      net.Listen(..., "0.0.0.0:2000")
+  - pattern-either:
+    - pattern: "net.Listen(..., \"$ADDR\")"
+    - pattern: "tls.Listen(..., \"$ADDR\", ...)"
+  - metavariable-regex:
+      metavariable: "$ADDR"
+      regex: "0.0.0.0:[0-9]+"
   message: |
     Binding to all network interfaces can potentially open up a service to
     traffic on unintended interfaces, that may not be properly documented or
