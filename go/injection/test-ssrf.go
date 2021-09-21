@@ -7,6 +7,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -120,4 +121,14 @@ func get(url string) {
 func foo9() {
 	url := "http://127.0.0.1"
 	get(url)
+}
+
+func foo10() {
+	var q = []byte(`your query`)
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(q))
+	req.Header.Set("X-Custom-Header", "myvalue")
+	req.Header.Set("Content-Type", "text/plain")
+
+	client := &http.Client{}
+	client.Do(req)
 }

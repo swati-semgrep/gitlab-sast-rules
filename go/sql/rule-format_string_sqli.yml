@@ -8,17 +8,17 @@ rules:
 - id: "go/sql/rule-format_string_sqli"
   patterns:
   - pattern-inside: |
-      $Q := fmt.Sprintf($QUERY, ...)
+      $Q := fmt.Sprintf("$QUERY", ...)
       ...
   - pattern-not-inside: |
-      $Q := fmt.Sprintf($QUERY, "...")
+      $Q := fmt.Sprintf("$QUERY", "...")
       ...
   - pattern-not-inside: |
       pq.QuoteIdentifier(...)
       ...
   - metavariable-regex:
       metavariable: "$QUERY"
-      regex: ".*%s.*"
+      regex: "(?i)(SELECT|DELETE|INSERT|UPDATE|INTO|FROM|WHERE).*%[^bdoxXfFp].*"
   - pattern-either:
     - pattern: "$DB.QueryContext(..., $Q)"
     - pattern: "$DB.Query($Q)"

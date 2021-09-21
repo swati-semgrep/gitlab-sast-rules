@@ -78,9 +78,8 @@ func foo5() {
 	defer rows.Close()
 }
 
-
 func foo6() {
-    var staticQuery1 = "SELECT * FROM foo WHERE age < "
+	var staticQuery1 = "SELECT * FROM foo WHERE age < "
 	db, err := sql.Open("sqlite3", ":memory:")
 	if err != nil {
 		panic(err)
@@ -95,9 +94,8 @@ func foo6() {
 const age = "32"
 const gender = "M"
 
-
 func foo7() {
-var staticQuery2 = "SELECT * FROM foo WHERE age < "
+	var staticQuery2 = "SELECT * FROM foo WHERE age < "
 	db, err := sql.Open("sqlite3", ":memory:")
 	if err != nil {
 		panic(err)
@@ -108,7 +106,6 @@ var staticQuery2 = "SELECT * FROM foo WHERE age < "
 	}
 	defer rows.Close()
 }
-
 
 func foo8() {
 	db, err := sql.Open("sqlite3", ":memory:")

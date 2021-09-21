@@ -8,8 +8,10 @@ rules:
 - id: "go/unsafe/rule-unsafe"
   patterns:
   - pattern-either:
-    - pattern: "unsafe.Pointer(...)"
+    - pattern: "unsafe.Alignof(...)"
+    - pattern: "unsafe.Offsetof(...)"
     - pattern: "unsafe.Sizeof(...)"
+    - pattern: "unsafe.Pointer(...)"
   message: |
     Using the unsafe package in Go gives you low-level memory management and many
     of the strength of the C language but also gives flexibility to the attacker of
