@@ -5,17 +5,12 @@
 rules:
 - id: "javascript/protinjection/rule-object_injection"
   patterns:
-  - pattern: "$O[$ARG]"
+  - pattern: "$V = $O[$ARG]"
   - pattern-not: "$O[\"...\"]"
   - pattern-not: "$O[($ARG : float)]"
   - pattern-not-inside: |
-      $ARG = [$V];
+      $ARG = ...;
       ...
-      <... $O[$ARG] ...>;
-  - pattern-not-inside: |
-      $ARG = $V;
-      ...
-      <... $O[$ARG] ...>;
   - metavariable-regex:
       metavariable: "$ARG"
       regex: "(?![0-9]+)"
