@@ -22,7 +22,6 @@ rules:
     - pattern: "subprocess.$FUNC(..., shell={})"
     - pattern: "subprocess.$FUNC([...], shell=None)"
     - pattern: "subprocess.$FUNC(..., shell=None)"
-    - pattern: "subprocess.$FUNC(..., shell=None)"
   message: |
     subprocess call - check for execution of untrusted input
   metadata:
