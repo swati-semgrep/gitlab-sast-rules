@@ -36,3 +36,11 @@ func saferange() {
 	sampleString := "A string"
 	for sampleString, _ = range sampleMap { fmt.Println(sampleString) }
 }
+
+// https://gitlab.com/gitlab-org/gitlab/-/issues/348952
+func shouldNotBeReported() {
+    array := []string{"a", "b"}
+    for _, s := range array {
+        fmt.Println(s)
+    }
+}
