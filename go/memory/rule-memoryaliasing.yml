@@ -17,7 +17,7 @@ rules:
         }
     - pattern: |
         for _, $ARG := range $SLICE {
-          <... $X(..., <... $ARG ...>, ...) ...>
+          <... $X(..., <... &$ARG ...>, ...) ...>
         }
   - pattern-not: "for _, $ARG := range $SLICE {\n  <... *$ARG ...>\n}\n"
   - pattern-not-inside: |-
