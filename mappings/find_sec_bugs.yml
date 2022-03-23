@@ -1,0 +1,37 @@
+# yamllint disable
+# maps spotbugs rule ids to semgrep rules
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+find_sec_bugs:
+  - id: "PREDICTABLE_RANDOM"
+    rules:
+      - "java/random/rule-PseudoRandom"
+  - id: "XSS_SERVLET"
+    rules:
+      - "java/xss/rule-XSSServlet"
+  - id: "XSS_SERVLET_PARAMETER"
+    rules:
+      - "java/xss/rule-XSSServletParameter"
+  - id: "XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
+    rules:
+      - "java/xss/rule-XSSReqParamToServletWriter"
+  - id: "NORMALIZATION_AFTER_VALIDATION"
+    rules:
+      - "java/strings/rule-NormalizeAfterValidation"
+  - id: "MODIFICATION_AFTER_VALIDATION"
+    rules:
+      - "java/strings/rule-ModifyAfterValidation"
+  - id: "IMPROPER_UNICODE"
+    rules:
+      - "java/strings/rule-ImproperUnicode"
+  - id: "DANGEROUS_PERMISSION_COMBINATION"
+    rules:
+      - "java/perm/rule-DangerousPermissions"
+  - id: "OVERLY_PERMISSIVE_FILE_PERMISSION"
+    rules:
+      - "java/perm/rule-OverlyPermissiveFilePermissionInline"
+      - "java/perm/rule-OverlyPermissiveFilePermissionObj"
+  - id: "SAML_IGNORE_COMMENTS"
+    rules:
+      - "java/xml/rule-SAMLIgnoreComments"

@@ -1,0 +1,25 @@
+# yamllint disable
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+rules:
+- id: "java/strings/rule-ModifyAfterValidation"
+  patterns:
+  - pattern: |
+      (Pattern $Y).matcher($VAR);
+      ...
+      $VAR.$METHOD(...);
+  - metavariable-regex:
+      metavariable: "$METHOD"
+      regex: "(replace)"
+  languages:
+  - "java"
+  message: |
+    CERT: IDS11-J. Perform any string modifications before validation
+  metadata:
+    # yamllint disable
+    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#MODIFICATION_AFTER_VALIDATION"
+    # yamllint enable
+    category: "security"
+    confidence: "HIGH"
+  severity: "ERROR"

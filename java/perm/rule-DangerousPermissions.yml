@@ -1,0 +1,28 @@
+# yamllint disable
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+rules:
+- id: "java/perm/rule-DangerousPermissions"
+  pattern-either:
+  - pattern: |
+      $RUNVAR = new RuntimePermission("createClassLoader");
+      ...
+      (PermissionCollection $PC).add($RUNVAR);
+  - pattern: |
+      $REFVAR = new ReflectPermission("suppressAccessChecks");
+      ...
+      (PermissionCollection $PC).add($REFVAR);
+  - pattern: "(PermissionCollection $PC).add(new ReflectPermission(\"suppressAccessChecks\"))"
+  - pattern: "(PermissionCollection $PC).add(new RuntimePermission(\"createClassLoader\"))"
+  languages:
+  - "java"
+  message: |
+    Do not grant dangerous combinations of permissions.
+  metadata:
+    # yamllint disable
+    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#DANGEROUS_PERMISSION_COMBINATION"
+    # yamllint enable
+    category: "security"
+    confidence: "HIGH"
+  severity: "ERROR"

@@ -1,0 +1,24 @@
+# yamllint disable
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+rules:
+- id: "java/strings/rule-NormalizeAfterValidation"
+  patterns:
+  - pattern: |
+      $Y = Pattern.compile("[<>]");
+      ...
+      $Y.matcher($VAR);
+      ...
+      java.text.Normalizer.normalize($VAR, ...);
+  languages:
+  - "java"
+  message: |
+    IDS01-J. Normalize strings before validating them
+  metadata:
+    # yamllint disable
+    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#NORMALIZATION_AFTER_VALIDATION"
+    # yamllint enable
+    category: "security"
+    confidence: "HIGH"
+  severity: "ERROR"
