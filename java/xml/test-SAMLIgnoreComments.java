@@ -18,6 +18,5 @@ public class SAMLIgnoreComments {
     Boolean shouldIgnore = false;
     BasicParserPool pool = new BasicParserPool();
     pool.setIgnoreComments(shouldIgnore);
-    return pool;
   }
 }
