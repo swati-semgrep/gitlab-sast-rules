@@ -1,0 +1,30 @@
+# yamllint disable
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+rules:
+- id: "java/strings/rule-ImproperUnicode"
+  patterns:
+  - pattern: "(String $S). ... .$METHOD(...)"
+  - pattern-not-inside: |
+      $VAL = java.text.Normalizer.normalize(...);
+      ...
+      $VAL. ... .$METHOD(...);
+  - pattern-not-inside: |
+      $S = java.text.Normalizer.normalize(...);
+      ...
+  - metavariable-regex:
+      metavariable: "$METHOD"
+      regex: "(equals|matches|compareTo)"
+  languages:
+  - "java"
+  message: |
+    Improper Handling of Unicode Encoding
+  metadata:
+    cwe: "CWE-176: Improper Handling of Unicode Encoding"
+    # yamllint disable
+    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#IMPROPER_UNICODE"
+    # yamllint enable
+    category: "security"
+    confidence: "HIGH"
+  severity: "ERROR"
