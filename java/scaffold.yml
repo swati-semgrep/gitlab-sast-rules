@@ -1,0 +1,31 @@
+# yamllint disable
+# declares all the maven dependencies that cannot be represented
+# in 'dependency@version' format.
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+dependencies:
+  - dependency:
+      groupId: org.opensaml
+      artifactId: opensaml
+      version: 2.6.4
+      exclusions:
+        - exclusion:
+            groupId: xerces
+            artifactId: xercesImpl
+  - dependency:
+      groupId: org.opensaml
+      artifactId: openws
+      version: 1.5.4
+      exclusions:
+        - exclusion:
+            groupId: xerces
+            artifactId: xercesImpl
+  - dependency:
+      groupId: org.opensaml
+      artifactId: xmltooling
+      version: 1.4.4
+      exclusions:
+        - exclusion:
+            groupId: xerces
+            artifactId: xercesImpl
