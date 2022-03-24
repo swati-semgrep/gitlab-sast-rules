@@ -1,4 +1,5 @@
 // License: MIT (c) GitLab Inc.
+package random;
 import java.util.Random;
 
 public class PseudoRandom {

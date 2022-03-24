@@ -1,5 +1,5 @@
 // License: MIT (c) GitLab Inc.
-
+package perm;
 import java.lang.reflect.ReflectPermission;
 import java.security.CodeSource;
 import java.security.PermissionCollection;

@@ -1,5 +1,5 @@
 // License: MIT (c) GitLab Inc.
-
+package strings;
 import java.text.Normalizer;
 
 public class ImproperUnicode {

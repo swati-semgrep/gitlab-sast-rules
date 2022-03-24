@@ -1,5 +1,5 @@
 // License: MIT (c) GitLab Inc.
-
+package strings;
 import java.text.Normalizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
