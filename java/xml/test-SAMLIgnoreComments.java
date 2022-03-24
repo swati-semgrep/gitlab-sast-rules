@@ -1,5 +1,6 @@
 // License: MIT (c) GitLab Inc.
 // scaffold: dependencies=org.springframework.security.spring-security-core@5.6.2
+package xml;
 
 import org.opensaml.xml.parse.BasicParserPool;
 import org.opensaml.xml.parse.ParserPool;
