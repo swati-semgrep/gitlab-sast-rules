@@ -1,5 +1,8 @@
 // License: MIT (c) GitLab Inc.
 package random;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.math.RandomUtils;
+
 import java.util.Random;
 
 public class PseudoRandom {
@@ -10,12 +13,11 @@ public class PseudoRandom {
         return Long.toHexString(r.nextLong());
     }
 
-    public static String get(Random r) {
-        return Long.toHexString(r.nextLong());
+    public static String count() {
+        return RandomStringUtils.random(10);
     }
 
-    public static long count() {
-        return new Random().doubles().limit(10).count();
+    public static long getRandomVal() {
+        return RandomUtils.nextLong();
     }
-
 }

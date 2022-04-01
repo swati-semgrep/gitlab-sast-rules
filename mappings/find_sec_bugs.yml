@@ -4,18 +4,25 @@
 # yamllint enable
 ---
 find_sec_bugs:
+  
+  # random
   - id: "PREDICTABLE_RANDOM"
     rules:
       - "java/random/rule-PseudoRandom"
+  
+  # XSS
   - id: "XSS_SERVLET"
     rules:
       - "java/xss/rule-XSSServlet"
+      - "java/xss/rule-XSSServletParameter"
   - id: "XSS_SERVLET_PARAMETER"
     rules:
       - "java/xss/rule-XSSServletParameter"
   - id: "XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
     rules:
       - "java/xss/rule-XSSReqParamToServletWriter"
+  
+  # Strings
   - id: "NORMALIZATION_AFTER_VALIDATION"
     rules:
       - "java/strings/rule-NormalizeAfterValidation"
@@ -25,6 +32,11 @@ find_sec_bugs:
   - id: "IMPROPER_UNICODE"
     rules:
       - "java/strings/rule-ImproperUnicode"
+  - id: "BAD_HEXA_CONVERSION"
+    rules:
+      - "java/strings/rule-BadHexConversion"
+  
+  # Permissions 
   - id: "DANGEROUS_PERMISSION_COMBINATION"
     rules:
       - "java/perm/rule-DangerousPermissions"
@@ -32,6 +44,65 @@ find_sec_bugs:
     rules:
       - "java/perm/rule-OverlyPermissiveFilePermissionInline"
       - "java/perm/rule-OverlyPermissiveFilePermissionObj"
+
+  # XML 
   - id: "SAML_IGNORE_COMMENTS"
     rules:
       - "java/xml/rule-SAMLIgnoreComments"
+
+  # Injections    
+  - id: "AWS_QUERY_INJECTION"
+    rules: 
+      - "java/inject/rule-AWSQueryInjection"
+  - id: "BEAN_PROPERTY_INJECTION"
+    rules: 
+      - "java/inject/rule-BeanPropertyInjection"
+  - id: "COMMAND_INJECTION"
+    rules: 
+      - "java/inject/rule-CommandInjection"
+  - id: "CRLF_INJECTION_LOGS"
+    rules: 
+      - "java/inject/rule-CLRFInjectionLogs"
+  - id: "CUSTOM_INJECTION"
+    rules: 
+      - "java/inject/rule-CustomInjection"
+  
+  # Cryptography
+  - id: "BLOWFISH_KEY_SIZE"
+    rules: 
+      - "java/crypto/rule-BlowfishKeySize"
+  - id: "CIPHER_INTEGRITY"
+    rules: 
+      - "java/crypto/rule-CipherIntegrity"
+  - id: "ECB_MODE"
+    rules: 
+      - "java/crypto/rule-CipherECBMode"
+  - id: "PADDING_ORACLE"
+    rules: 
+      - "java/crypto/rule-CipherPaddingOracle"
+  - id: "CUSTOM_MESSAGE_DIGEST"
+    rules: 
+      - "java/crypto/rule-CustomMessageDigest"
+  - id: "DEFAULT_HTTP_CLIENT"
+    rules: 
+      - "java/crypto/rule-DefaultHTTPClient"
+  - id: "DES_USAGE"
+    rules: 
+      - "java/crypto/rule-CipherDESInsecure"
+  - id: "TDES_USAGE"
+    rules: 
+      - "java/crypto/rule-CipherDESedeInsecure"
+  
+  # Cookie
+  - id: "COOKIE_PERSISTENT"
+    rules: 
+      - "java/cookie/rule-CookiePersistent"
+  - id: "INSECURE_COOKIE"
+    rules: 
+      - "java/cookie/rule-CookieInsecure"
+  - id: "HTTPONLY_COOKIE"
+    rules: 
+      - "java/cookie/rule-CookieHTTPOnly"
+  - id: "COOKIE_USAGE"
+    rules: 
+      - "java/cookie/rule-CookieUsage"

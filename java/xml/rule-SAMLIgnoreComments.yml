@@ -15,4 +15,4 @@ rules:
     # yamllint enable
     category: "security"
     confidence: "HIGH"
-  severity: "ERROR"
+  severity: "WARNING"
