@@ -29,3 +29,8 @@ dependencies:
         - exclusion:
             groupId: xerces
             artifactId: xercesImpl
+  - dependency:
+      groupId: javax.servlet
+      artifactId: javax.servlet-api
+      version: 3.0.1
+      scope: provided

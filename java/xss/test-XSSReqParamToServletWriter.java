@@ -1,5 +1,4 @@
 // License: MIT (c) GitLab Inc.
-// scaffold: dependencies=javax.servlet.servlet-api@2.5
 package xss;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+// Also contains vulnerabilities found under ids: XSS_SERVLET,SERVLET_PARAMETER
 public class XSSReqParamToServletWriter extends HttpServlet {
 
     protected void danger(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -6,7 +6,7 @@ rules:
 - id: "java/strings/rule-ModifyAfterValidation"
   patterns:
   - pattern: |
-      (Pattern $Y).matcher($VAR);
+      (java.util.regex.Pattern $Y).matcher($VAR);
       ...
       $VAR.$METHOD(...);
   - metavariable-regex:
@@ -22,4 +22,4 @@ rules:
     # yamllint enable
     category: "security"
     confidence: "HIGH"
-  severity: "ERROR"
+  severity: "WARNING"

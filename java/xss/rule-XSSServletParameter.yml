@@ -13,7 +13,7 @@ rules:
     Untrusted servlet parameter
   languages:
   - "java"
-  severity: "WARNING"
+  severity: "ERROR"
   metadata:
     cwe: "CWE-20: Improper Input Validation"
     owasp: "A7: Cross-Site Scripting (XSS)"

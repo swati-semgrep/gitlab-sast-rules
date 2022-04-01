@@ -1,59 +1,46 @@
 // License: MIT (c) GitLab Inc.
 package strings;
+
+import java.net.IDN;
+import java.net.URI;
 import java.text.Normalizer;
 
 public class ImproperUnicode {
 
-    public boolean danger() {
-        String s = "ADM\u0131N";
-        if (s.equalsIgnoreCase("ADMIN")) {
-            return true;
-        }
-        if (s.equals("ADMIN")) {
-            return true;
-        }
-        if (s.toUpperCase().equalsIgnoreCase("ADMIN")) {
-            return true;
-        }
-        if (s.matches("ADMIN")) {
-            return true;
-        }
-        if (s.compareTo("ADMIN") == 0) {
-            return true;
-        }
-        return s.equalsIgnoreCase("ADMIN");
+    public boolean dangerToUpperEquals(String s) {
+        return s.toUpperCase().equals("TEST");
     }
 
-    public boolean danger2(String s) {
-        if (s.equalsIgnoreCase("ADMIN")) {
-            return true;
-        }
-        if (s.equals("ADMIN")) {
-            return true;
-        }
-        if (s.toUpperCase().equalsIgnoreCase("ADMIN")) {
-            return true;
-        }
-        if (s.matches("ADMIN")) {
-            return true;
-        }
-        if (s.compareTo("ADMIN") == 0) {
-            return true;
-        }
-        return s.equalsIgnoreCase("ADMIN");
+    public boolean dangerToUpperEqualIgnoreCase(String s) {
+        return s.toUpperCase().equalsIgnoreCase("TEST");
     }
 
-    public boolean ok(String s) {
-        return Normalizer.normalize(s, Normalizer.Form.NFC).equals("ADMIN");
+    public int dangerToUpperIndexOf(String s) {
+        return s.toUpperCase().indexOf("T");
     }
 
-    public boolean ok2(String s) {
-        String normalized = Normalizer.normalize(s, Normalizer.Form.NFC);
-
-        if(normalized.equalsIgnoreCase("ADMIN")) {
-            return true;
-        }
-
-        return normalized.equals("ADMIN");
+    public boolean dangerToLowerEquals(String s) {
+        return s.toLowerCase().equals("test");
     }
+
+    public boolean dangerToLowerEqualIgnoreCase(String s) {
+        return s.toLowerCase().equalsIgnoreCase("test");
+    }
+
+    public int dangerToLowerIndexOf(String s) {
+        return s.toLowerCase().indexOf("t");
+    }
+
+    public String dangerURI(URI uri) {
+        return uri.toASCIIString();
+    }
+
+    public String dangerIDN(String input) {
+        return IDN.toASCII(input);
+    }
+
+    public boolean dangerNormalize(String s) {
+        return Normalizer.normalize(s.toUpperCase(), Normalizer.Form.NFKC).equals("ADMIN");
+    }
+
 }
