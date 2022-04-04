@@ -34,3 +34,12 @@ dependencies:
       artifactId: javax.servlet-api
       version: 3.0.1
       scope: provided
+  - dependency:
+      groupId: javax.faces
+      artifactId: javax.faces-api
+      version: 2.3
+      scope: provided
+  - dependency:
+      groupId: javax.el
+      artifactId: javax.el-api
+      version: 3.0.0

@@ -18,6 +18,7 @@ rules:
         $QUERY = String.format("...",...,$VAR,...);
         ...
         $ST.executeQuery($QUERY);
+    - pattern: "$ST.executeQuery((StringBuilder $SB).toString());"
     - pattern: "$ST.executeQuery(... + $VAR + ...);"
     - pattern: "$ST.executeQuery(... + $VAR);"
     - pattern: "$ST.executeQuery(...,String.format(\"...\",...,$VAR,...), ...);"
