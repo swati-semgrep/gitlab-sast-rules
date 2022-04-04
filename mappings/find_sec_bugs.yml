@@ -44,6 +44,9 @@ find_sec_bugs:
     rules:
       - "java/perm/rule-OverlyPermissiveFilePermissionInline"
       - "java/perm/rule-OverlyPermissiveFilePermissionObj"
+  - id: "FORMAT_STRING_MANIPULATION"
+    rules:
+      - "java/strings/rule-FormatStringManipulation"
 
   # XML 
   - id: "SAML_IGNORE_COMMENTS"
@@ -66,6 +69,10 @@ find_sec_bugs:
   - id: "CUSTOM_INJECTION"
     rules: 
       - "java/inject/rule-CustomInjection"
+      - "java/inject/rule-CustomInjectionSQLString"
+  - id: "EL_INJECTION"
+    rules: 
+      - "java/inject/rule-ELInjection"
   
   # Cryptography
   - id: "BLOWFISH_KEY_SIZE"
@@ -106,3 +113,32 @@ find_sec_bugs:
   - id: "COOKIE_USAGE"
     rules: 
       - "java/cookie/rule-CookieUsage"
+  
+  # Password
+  - id: "DMI_EMPTY_DB_PASSWORD"
+    rules:
+      - "java/password/rule-EmptyDBPassword"
+  - id: "DMI_CONSTANT_DB_PASSWORD"
+    rules:
+      - "java/password/rule-ConstantDBPassword"
+  - id: "HARD_CODE_KEY"
+    rules:
+      - "java/password/rule-HardcodeKey"
+      - "java/password/rule-HardcodeKeySuspiciousName"
+      - "java/password/rule-HardcodeKeySuspiciousValue"
+      - "java/password/rule-HardcodeKeyEquals"
+  - id: "HARD_CODE_PASSWORD"
+    rules:
+      - "java/password/rule-HardcodePassword"
+      - "java/password/rule-EmptyDBPassword"
+      - "java/password/rule-ConstantDBPassword"
+
+  # Unsafe
+  - id: "EXTERNAL_CONFIG_CONTROL"
+    rules:
+      - "java/unsafe/rule-ExternalConfigControl"
+
+  # File
+  - id: "FILE_UPLOAD_FILENAME"
+    rules:
+      - "java/file/rule-FileUploadFileName"
