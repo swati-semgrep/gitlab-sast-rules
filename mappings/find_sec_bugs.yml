@@ -52,6 +52,9 @@ find_sec_bugs:
   - id: "SAML_IGNORE_COMMENTS"
     rules:
       - "java/xml/rule-SAMLIgnoreComments"
+  - id: "RPC_ENABLED_EXTENSIONS"
+    rules:
+      - "java/xml/rule-ApacheXmlRpc"
 
   # Injections    
   - id: "AWS_QUERY_INJECTION"
@@ -73,6 +76,9 @@ find_sec_bugs:
   - id: "EL_INJECTION"
     rules: 
       - "java/inject/rule-ELInjection"
+  - id: "REQUESTDISPATCHER_FILE_DISCLOSURE"
+    rules: 
+      - "java/inject/rule-FileDisclosure"
   
   # Cryptography
   - id: "BLOWFISH_KEY_SIZE"
@@ -99,6 +105,12 @@ find_sec_bugs:
   - id: "TDES_USAGE"
     rules: 
       - "java/crypto/rule-CipherDESedeInsecure"
+  - id: "RSA_KEY_SIZE"
+    rules: 
+      - "java/crypto/rule-InsufficientKeySizeRsa"
+  - id: "RSA_NO_PADDING"
+    rules:
+      - "java/crypto/rule-RsaNoPadding"
   
   # Cookie
   - id: "COOKIE_PERSISTENT"
@@ -142,3 +154,57 @@ find_sec_bugs:
   - id: "FILE_UPLOAD_FILENAME"
     rules:
       - "java/file/rule-FileUploadFileName"
+
+  # Script
+  - id: "SCRIPT_ENGINE_INJECTION"
+    rules:
+      - "java/script/rule-ScriptInjection"
+
+  - id: "SPEL_INJECTION"
+    rules:
+      - "java/script/rule-ScriptInjection"
+
+  - id: "EL_INJECTION"
+    rules:
+      - "java/script/rule-ScriptInjection"
+
+  - id: "SEAM_LOG_INJECTION"
+    rules:
+      - "java/script/rule-ScriptInjection"
+
+  - id: "OGNL_INJECTION"
+    rules:
+      - "java/script/rule-ScriptInjection"
+
+  # Servlet
+  - id: "SERVLET_PARAMETER" 
+    rules:
+      - "java/endpoint/rule-InsecureServlet"
+
+  - id: "SERVLET_CONTENT_TYPE"
+    rules:
+      - "java/endpoint/rule-InsecureServlet"
+
+  - id: "SERVLET_SERVER_NAME"
+    rules:
+      - "java/endpoint/rule-InsecureServlet"
+
+  - id: "SERVLET_SESSION_ID" 
+    rules:
+      - "java/endpoint/rule-InsecureServlet"
+
+  - id: "SERVLET_QUERY_STRING" 
+    rules:
+      - "java/endpoint/rule-InsecureServlet"
+
+  - id: "SERVLET_HEADER"
+    rules:
+      - "java/endpoint/rule-InsecureServlet"
+
+  - id: "SERVLET_HEADER_REFERER"  
+    rules:
+      - "java/endpoint/rule-InsecureServlet"
+
+  - id: "SERVLET_HEADER_USER_AGENT"
+    rules:
+      - "java/endpoint/rule-InsecureServlet"

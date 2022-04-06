@@ -5,6 +5,6 @@ ignore: |
 
 rules:
   line-length:
-    max: 100
+    max: 200
     level: warning
   indentation: {spaces: 2, indent-sequences: consistent}

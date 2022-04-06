@@ -1,0 +1,30 @@
+# yamllint disable
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+rules:
+- id: "java/xml/rule-ApacheXmlRpc"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          XmlRpcServerConfigImpl $VAR = new org.apache.xmlrpc.server.XmlRpcServerConfigImpl();
+          ...
+      - pattern: "$VAR.setEnabledForExtensions(true);"
+    - patterns:
+      - pattern-inside: |
+          XmlRpcClientConfigImpl $VAR = new org.apache.xmlrpc.client.XmlRpcClientConfigImpl();
+          ...
+      - pattern: "$VAR.setEnabledForExtensions(true);"
+  languages:
+  - "java"
+  message: "Enabling extensions in Apache XML RPC server or client can lead to \ndeserialization
+    vulnerability which would allow an attacker to execute arbitrary code.\n"
+  metadata:
+    # yamllint disable
+    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#RPC_ENABLED_EXTENSIONS"
+    # yamllint enable
+    category: "security"
+    confidence: "HIGH"
+    cwe: "CWE-502: Deserialization of Untrusted Data"
+  severity: "WARNING"
