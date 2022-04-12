@@ -15,7 +15,7 @@ public class SAMLIgnoreComments {
 
   @Bean
   void parserPool2() {
-    Boolean shouldIgnore = false;
+    boolean shouldIgnore = false;
     BasicParserPool pool = new BasicParserPool();
     pool.setIgnoreComments(shouldIgnore);
   }

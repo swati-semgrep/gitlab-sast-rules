@@ -4,18 +4,39 @@
 ---
 rules:
 - id: "java/inject/rule-AWSQueryInjection"
-  patterns:
-  - pattern-either:
-    - pattern: |
-        $QUERY = ... + $VAR + ...;
-        ...
-        $REQ = new SelectRequest($QUERY, ...);
-        ...
-        (AmazonSimpleDB $DB).select($REQ);
-    - pattern: |
-        $QUERY = ... + $VAR + ...;
-        ...
-        (AmazonSimpleDB $DB).select(new SelectRequest($QUERY,...));
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(...) {
+          ...
+          $VAR = ... + $X;
+          ...
+        }
+    - pattern: "$VAR"
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |
+          $REQ = new SelectRequest($QUERY, ...);
+          ...
+          $DB.select($REQ);
+      - pattern-inside: |
+          $DB.select(new SelectRequest($QUERY,...));
+      - pattern-inside: |
+          $DB.select((SelectRequest $SR).withSelectExpression($QUERY,...));
+    - pattern: "$QUERY"
+    - metavariable-pattern:
+        metavariable: "$DB"
+        pattern-either:
+        - pattern: "(AmazonSimpleDB $DB)"
+        - pattern: "(AmazonSimpleDBClient $DB)"
   message: |
     "Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
     records."
