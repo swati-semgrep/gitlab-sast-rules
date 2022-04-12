@@ -117,6 +117,9 @@ find_sec_bugs:
   - id: "TEMPLATE_INJECTION_VELOCITY"
     rules:
       - "java/templateinjection/rule-TemplateInjection"
+  - id: "MALICIOUS_XSLT"
+    rules:
+      - "java/xml/rule-XsltTransform"
 
   # Injections    
   - id: "AWS_QUERY_INJECTION"
@@ -138,18 +141,36 @@ find_sec_bugs:
   - id: "EL_INJECTION"
     rules: 
       - "java/inject/rule-ELInjection"
-
   - id: "REQUESTDISPATCHER_FILE_DISCLOSURE"
     rules: 
       - "java/inject/rule-FileDisclosure"
-
   - id: "STRUTS_FILE_DISCLOSURE"
     rules: 
       - "java/inject/rule-FileDisclosure"
-
   - id: "SPRING_FILE_DISCLOSURE"
     rules: 
       - "java/inject/rule-FileDisclosure"
+  - id: "LDAP_INJECTION"
+    rules: 
+      - "java/inject/rule-LDAPInjection"
+  - id: "PATH_TRAVERSAL_IN"
+    rules: 
+      - "java/inject/rule-PathTraversalIn"
+  - id: "PATH_TRAVERSAL_OUT"
+    rules: 
+      - "java/inject/rule-PathTraversalOut"
+  - id: "PATH_TRAVERSAL_OUT"
+    rules: 
+      - "java/inject/rule-PathTraversalOut"
+  - id: "PT_RELATIVE_PATH_TRAVERSAL"
+    rules: 
+      - "java/inject/rule-SpotbugsPathTraversalRelative"
+  - id: "PT_ABSOLUTE_PATH_TRAVERSAL"
+    rules: 
+      - "java/inject/rule-SpotbugsPathTraversalAbsolute"
+  - id: "OGNL_INJECTION"
+    rules:
+      - "java/inject/rule-OgnlInjection"
   
   # Cryptography
   - id: "BLOWFISH_KEY_SIZE"
@@ -176,6 +197,9 @@ find_sec_bugs:
   - id: "TDES_USAGE"
     rules: 
       - "java/crypto/rule-CipherDESedeInsecure"
+  - id: "HAZELCAST_SYMMETRIC_ENCRYPTION"
+    rules: 
+      - "java/crypto/rule-HazelcastSymmetricEncryption"
   - id: "RSA_KEY_SIZE"
     rules: 
       - "java/crypto/rule-InsufficientKeySizeRsa"
@@ -191,6 +215,9 @@ find_sec_bugs:
   - id: "WEAK_MESSAGE_DIGEST_SHA1"
     rules:
       - "java/crypto/rule-WeakMessageDigest"
+  - id: "NULL_CIPHER"
+    rules:
+      - "java/crypto/rule-NullCipher"
   
   # Cookie
   - id: "COOKIE_PERSISTENT"
@@ -205,6 +232,18 @@ find_sec_bugs:
   - id: "COOKIE_USAGE"
     rules: 
       - "java/cookie/rule-CookieUsage"
+  - id: "HTTP_RESPONSE_SPLITTING"
+    rules: 
+      - "java/cookie/rule-HttpResponseSplitting"
+  - id: "HRS_REQUEST_PARAMETER_TO_COOKIE"
+    rules: 
+      - "java/cookie/rule-RequestParamToCookie"
+  - id: "TRUST_BOUNDARY_VIOLATION"
+    rules: 
+      - "java/cookie/rule-TrustBoundaryViolation"
+  - id: "HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
+    rules: 
+      - "java/cookie/rule-RequestParamToHeader"
   
   # Password
   - id: "DMI_EMPTY_DB_PASSWORD"
@@ -229,6 +268,9 @@ find_sec_bugs:
   - id: "EXTERNAL_CONFIG_CONTROL"
     rules:
       - "java/unsafe/rule-ExternalConfigControl"
+  - id: "INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
+    rules:
+      - "java/unsafe/rule-InformationExposure"
 
   # File
   - id: "FILE_UPLOAD_FILENAME"
@@ -266,10 +308,6 @@ find_sec_bugs:
       - "java/script/rule-ScriptInjection"
 
   - id: "SEAM_LOG_INJECTION"
-    rules:
-      - "java/script/rule-ScriptInjection"
-
-  - id: "OGNL_INJECTION"
     rules:
       - "java/script/rule-ScriptInjection"
 
@@ -316,3 +354,18 @@ find_sec_bugs:
   - id: "WEAK_TRUST_MANAGER"
     rules:
       - "java/endpoint/rule-WeakHostNameVerification"
+
+  # Endpoint
+  - id: "JAXWS_ENDPOINT"
+    rules:
+      - "java/endpoint/rule-JaxWsEndpoint"
+  
+  - id: "JAXRS_ENDPOINT"
+    rules:
+      - "java/endpoint/rule-JaxRsEndpoint"
+
+  # Cors
+  - id: "PERMISSIVE_CORS"
+    rules: 
+      - "java/cors/rule-PermissiveCORS"
+      - "java/cors/rule-PermissiveCORSInjection"
