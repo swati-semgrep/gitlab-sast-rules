@@ -9,8 +9,9 @@ rules:
   - metavariable-regex:
       metavariable: "$ALG"
       regex: ".*NoPadding.*"
-  message: "The software uses the RSA algorithm but does not incorporate Optimal Asymmetric
-    Encryption\nPadding (OAEP), \nwhich might weaken the encryption.\n"
+  message: |
+    The software uses the RSA algorithm but does not incorporate Optimal Asymmetric
+    Encryption Padding (OAEP), which might weaken the encryption.
   metadata:
     cwe: "CWE-780: Use of RSA Algorithm without OAEP"
     owasp: "A3: Sensitive Data Exposure"

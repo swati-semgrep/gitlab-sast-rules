@@ -1,0 +1,31 @@
+# yamllint disable
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+rules:
+- id: "java/smtp/rule-InsecureSmtp"
+  patterns:
+  - pattern-either:
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.SimpleEmail(...);
+        ...
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.Email(...);
+        ...
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.MultiPartEmail(...);
+        ...
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.HtmlEmail(...);
+        ...
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.ImageHtmlEmail(...);
+        ...
+  - pattern-not: "$E.setSSLOnConnect(true);\n...\n$E.setSSLCheckServerIdentity(true);\n"
+  message: "Server identity verification is disabled when making SSL connections.
+    \n"
+  metadata:
+    cwe: "CWE-297: Improper Validation of Certificate with Host Mismatch"
+  severity: "WARNING"
+  languages:
+  - "java"

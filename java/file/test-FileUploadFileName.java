@@ -1,5 +1,4 @@
-// License: MIT (c) GitLab Inc.
-// scaffold: dependencies=commons-fileupload.commons-fileupload@1.4
+// License: LGPL-3.0 License (c) find-sec-bugs
 package file;
 
 import org.apache.commons.fileupload.FileItem;
