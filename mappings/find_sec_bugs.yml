@@ -10,6 +10,29 @@ find_sec_bugs:
     rules:
       - "java/random/rule-PseudoRandom"
   
+  # XXE
+  - id: "XXE_SAXPARSER"
+    rules:
+      - "java/xxe/rule-SaxParserXXE"
+  - id: "XXE_XMLREADER"
+    rules:
+      - "java/xxe/rule-XMLRdr"
+  - id: "XXE_XMLSTREAMREADER"
+    rules:
+      - "java/xxe/rule-XMLStreamRdr"
+  - id: "XXE_XPATH"
+    rules:
+      - "java/xxe/rule-XPathXXE"
+  - id: "XXE_XXE_DOCUMENT"
+    rules:
+      - "java/xxe/rule-XPathXXE"
+  - id: "XXE_DTD_TRANSFORM_FACTORY"
+    rules:
+      - "java/xxe/rule-Trans"
+  - id: "XXE_XSLT_TRANSFORM_FACTORY"
+    rules:
+      - "java/xxe/rule-Trans"
+
   # XSS
   - id: "XSS_SERVLET"
     rules:
@@ -21,7 +44,18 @@ find_sec_bugs:
   - id: "XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
     rules:
       - "java/xss/rule-XSSReqParamToServletWriter"
-  
+  - id: "WICKET_XSS1"
+    rules:
+      - "java/xss/rule-WicketXSS"
+  - id: "XSS_REQUEST_WRAPPER"
+    rules:
+      - "java/xss/rule-RequestWrapper"
+
+  # XPATHI
+  - id: "XPATH_INJECTION"
+    rules:
+      - "java/xpathi/rule-XpathInjection"
+
   # Strings
   - id: "NORMALIZATION_AFTER_VALIDATION"
     rules:
@@ -48,6 +82,11 @@ find_sec_bugs:
     rules:
       - "java/strings/rule-FormatStringManipulation"
 
+  # Form
+  - id: "STRUTS_FORM_VALIDATION"
+    rules:
+      - "java/form/rule-FormValidate"
+
   # XML 
   - id: "SAML_IGNORE_COMMENTS"
     rules:
@@ -55,6 +94,29 @@ find_sec_bugs:
   - id: "RPC_ENABLED_EXTENSIONS"
     rules:
       - "java/xml/rule-ApacheXmlRpc"
+  - id: "XML_DECODER"
+    rules:
+      - "java/xml/rule-XmlDecoder"
+
+  # SMTP
+  - id: "SMTP_HEADER_INJECTION"
+    rules:
+      - "java/smtp/rule-SmtpClient"
+  - id: "INSECURE_SMTP_SSL"
+    rules:
+      - "java/smtp/rule-InsecureSmtp"
+
+  - id: "TEMPLATE_INJECTION_PEBBLE"
+    rules:
+      - "java/templateinjection/rule-TemplateInjection"
+
+  - id: "TEMPLATE_INJECTION_FREEMARKER"
+    rules:
+      - "java/templateinjection/rule-TemplateInjection"
+
+  - id: "TEMPLATE_INJECTION_VELOCITY"
+    rules:
+      - "java/templateinjection/rule-TemplateInjection"
 
   # Injections    
   - id: "AWS_QUERY_INJECTION"
@@ -76,7 +138,16 @@ find_sec_bugs:
   - id: "EL_INJECTION"
     rules: 
       - "java/inject/rule-ELInjection"
+
   - id: "REQUESTDISPATCHER_FILE_DISCLOSURE"
+    rules: 
+      - "java/inject/rule-FileDisclosure"
+
+  - id: "STRUTS_FILE_DISCLOSURE"
+    rules: 
+      - "java/inject/rule-FileDisclosure"
+
+  - id: "SPRING_FILE_DISCLOSURE"
     rules: 
       - "java/inject/rule-FileDisclosure"
   
@@ -111,6 +182,15 @@ find_sec_bugs:
   - id: "RSA_NO_PADDING"
     rules:
       - "java/crypto/rule-RsaNoPadding"
+  - id: "SSL_CONTEXT"
+    rules:
+      - "java/crypto/rule-WeakTLSProtocol"
+  - id: "WEAK_MESSAGE_DIGEST_MD5"
+    rules:
+      - "java/crypto/rule-WeakMessageDigest"
+  - id: "WEAK_MESSAGE_DIGEST_SHA1"
+    rules:
+      - "java/crypto/rule-WeakMessageDigest"
   
   # Cookie
   - id: "COOKIE_PERSISTENT"
@@ -154,11 +234,28 @@ find_sec_bugs:
   - id: "FILE_UPLOAD_FILENAME"
     rules:
       - "java/file/rule-FileUploadFileName"
+  - id: "WEAK_FILENAMEUTILS"
+    rules:
+      - "java/file/rule-FilenameUtils"
+  
+  # SSRF
+  - id: "URLCONNECTION_SSRF_FD"
+    rules:
+      - "java/ssrf/rule-SSRF"
+  
+  # LDAP
+  - id: "LDAP_ANONYMOUS"
+    rules:
+      - "java/ldap/rule-AnonymousLDAP"
+  - id: "LDAP_ENTRY_POISONING"
+    rules:
+      - "java/ldap/rule-EntryPoisoning"
 
   # Script
   - id: "SCRIPT_ENGINE_INJECTION"
     rules:
       - "java/script/rule-ScriptInjection"
+      - "java/script/rule-SpelView"
 
   - id: "SPEL_INJECTION"
     rules:
@@ -180,31 +277,42 @@ find_sec_bugs:
   - id: "SERVLET_PARAMETER" 
     rules:
       - "java/endpoint/rule-InsecureServlet"
-
   - id: "SERVLET_CONTENT_TYPE"
     rules:
       - "java/endpoint/rule-InsecureServlet"
-
   - id: "SERVLET_SERVER_NAME"
     rules:
       - "java/endpoint/rule-InsecureServlet"
-
   - id: "SERVLET_SESSION_ID" 
     rules:
       - "java/endpoint/rule-InsecureServlet"
-
   - id: "SERVLET_QUERY_STRING" 
     rules:
       - "java/endpoint/rule-InsecureServlet"
-
   - id: "SERVLET_HEADER"
     rules:
       - "java/endpoint/rule-InsecureServlet"
-
   - id: "SERVLET_HEADER_REFERER"  
     rules:
       - "java/endpoint/rule-InsecureServlet"
-
   - id: "SERVLET_HEADER_USER_AGENT"
     rules:
       - "java/endpoint/rule-InsecureServlet"
+  - id: "UNENCRYPTED_SOCKET"
+    rules:
+      - "java/endpoint/rule-UnencryptedSocket"
+  - id: "UNENCRYPTED_SERVER_SOCKET"
+    rules:
+      - "java/endpoint/rule-UnencryptedSocket"
+  - id: "UNVALIDATED_REDIRECT"
+    rules:
+      - "java/endpoint/rule-UnvalidatedRedirect"
+  - id: "URL_REWRITING"
+    rules:
+      - "java/endpoint/rule-UnvalidatedRedirect"
+  - id: "WEAK_HOSTNAME_VERIFIER"
+    rules:
+      - "java/endpoint/rule-WeakHostNameVerification"
+  - id: "WEAK_TRUST_MANAGER"
+    rules:
+      - "java/endpoint/rule-WeakHostNameVerification"

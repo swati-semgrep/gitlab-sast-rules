@@ -1,0 +1,18 @@
+# yamllint disable
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+rules:
+- id: "java/crypto/rule-WeakTLSProtocol"
+  patterns:
+  - pattern-either:
+    - pattern: "new org.apache.http.impl.client.DefaultHttpClient();"
+    - pattern: "javax.net.ssl.SSLContext.getInstance(\"SSL\");"
+  message: "A HostnameVerifier that accept any host are often use because of certificate
+    \nreuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
+    \nattacks since the client will trust any certificate.\n"
+  metadata:
+    cwe: "CWE-295: Improper Certificate Validation"
+  severity: "WARNING"
+  languages:
+  - "java"
