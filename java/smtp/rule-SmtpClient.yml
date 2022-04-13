@@ -41,6 +41,5 @@ rules:
     to header injection.
   metadata:
     category: "security"
-    confidence: "HIGH"
     cwe: "CWE-77: Improper Neutralization of Special Elements used in a Command"
-  severity: "WARNING"
+  severity: "ERROR"

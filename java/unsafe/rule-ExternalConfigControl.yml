@@ -19,8 +19,5 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-15: External Control of System or Configuration Setting"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#EXTERNAL_CONFIG_CONTROL"
-    # yamllint enable
     technology:
     - "java"

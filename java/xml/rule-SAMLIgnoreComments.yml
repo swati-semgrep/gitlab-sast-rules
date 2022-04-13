@@ -10,9 +10,6 @@ rules:
   message: |
     Ignoring XML comments in SAML may lead to authentication bypass
   metadata:
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#SAML_IGNORE_COMMENTS"
-    # yamllint enable
+    cwe: "CWE-287: Improper Authentication"
     category: "security"
-    confidence: "HIGH"
   severity: "WARNING"

@@ -17,6 +17,5 @@ rules:
     context
   metadata:
     category: "security"
-    confidence: "HIGH"
     cwe: "CWE-20: Improper Input Validation"
-  severity: "ERROR"
+  severity: "WARNING"

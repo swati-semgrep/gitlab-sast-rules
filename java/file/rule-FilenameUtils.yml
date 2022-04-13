@@ -25,7 +25,7 @@ rules:
     arbitrary filesystem location could be read.
   languages:
   - "java"
-  severity: "WARNING"
+  severity: "ERROR"
   metadata:
     category: "security"
     cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path

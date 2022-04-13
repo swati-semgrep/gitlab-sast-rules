@@ -29,10 +29,10 @@ rules:
         ...
     - pattern: "$C.setValue(...);"
   message: |
-    "When an HTTP request contains unexpected CR and LF characters, the server may respond with an
+    When an HTTP request contains unexpected CR and LF characters, the server may respond with an
     output stream that is interpreted as two different HTTP responses (instead of one). An attacker
     can control the second response and mount attacks such as cross-site scripting and cache
-    poisoning attacks. "
+    poisoning attacks.
   languages:
   - "java"
   severity: "WARNING"
@@ -40,8 +40,5 @@ rules:
     category: "security"
     cwe: "CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
       Response Splitting')"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#HTTP_RESPONSE_SPLITTING"
-    # yamllint enable
     technology:
     - "java"

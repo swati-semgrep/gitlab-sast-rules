@@ -52,9 +52,6 @@ rules:
     attackers may change the format string to reveal this information.
   metadata:
     cwe: "CWE-134: Use of Externally-Controlled Format String"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#FORMAT_STRING_MANIPULATION"
-    # yamllint enable
     category: "security"
     confidence: "HIGH"
   severity: "ERROR"

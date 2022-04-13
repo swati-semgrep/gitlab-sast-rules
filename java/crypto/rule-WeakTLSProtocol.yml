@@ -8,10 +8,12 @@ rules:
   - pattern-either:
     - pattern: "new org.apache.http.impl.client.DefaultHttpClient();"
     - pattern: "javax.net.ssl.SSLContext.getInstance(\"SSL\");"
-  message: "A HostnameVerifier that accept any host are often use because of certificate
-    \nreuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
-    \nattacks since the client will trust any certificate.\n"
+  message: |
+    A HostnameVerifier that accept any host are often use because of certificate
+    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
+    attacks since the client will trust any certificate.
   metadata:
+    category: "security"
     cwe: "CWE-295: Improper Certificate Validation"
   severity: "WARNING"
   languages:

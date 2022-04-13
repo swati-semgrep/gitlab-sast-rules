@@ -140,8 +140,5 @@ rules:
   severity: "WARNING"
   metadata:
     category: "security"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#OGNL_INJECTION"
-    # yamllint enable
     technology:
     - "java"

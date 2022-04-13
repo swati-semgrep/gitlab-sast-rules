@@ -20,10 +20,10 @@ rules:
     - pattern: "$PAR + \"...\""
   languages:
   - "java"
-  message: "The Servlet can read GET and POST parameters from various methods. \nThe
-    value obtained should be considered unsafe.\n"
+  message: |
+    The Servlet can read GET and POST parameters from various methods. The
+    value obtained should be considered unsafe."
   metadata:
     category: "security"
-    confidence: "HIGH"
     cwe: "CWE-20: Improper Input Validation"
   severity: "WARNING"

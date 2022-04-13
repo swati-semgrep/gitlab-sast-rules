@@ -22,10 +22,10 @@ rules:
         $E = new org.apache.commons.mail.ImageHtmlEmail(...);
         ...
   - pattern-not: "$E.setSSLOnConnect(true);\n...\n$E.setSSLCheckServerIdentity(true);\n"
-  message: "Server identity verification is disabled when making SSL connections.
-    \n"
+  message: |
+    Server identity verification is disabled when making SSL connections.
   metadata:
     cwe: "CWE-297: Improper Validation of Certificate with Host Mismatch"
-  severity: "WARNING"
+  severity: "ERROR"
   languages:
   - "java"

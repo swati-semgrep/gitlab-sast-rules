@@ -40,8 +40,5 @@ rules:
     category: "security"
     cwe: "CWE-20: Improper Input Validation"
     owasp: "OWASP: Cross-Site Request Forgery"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#JAXWS_ENDPOINT"
-    # yamllint enable
     technology:
     - "java"

@@ -1,4 +1,4 @@
-// License: MIT (c) GitLab Inc.
+// License: LGPL-3.0 License (c) find-sec-bugs
 package strings;
 import java.util.Formatter;
 import java.util.Locale;

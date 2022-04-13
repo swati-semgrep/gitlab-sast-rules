@@ -20,9 +20,6 @@ rules:
   message: |
     Do not grant dangerous combinations of permissions.
   metadata:
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#DANGEROUS_PERMISSION_COMBINATION"
-    # yamllint enable
     category: "security"
     confidence: "HIGH"
-  severity: "ERROR"
+  severity: "WARNING"

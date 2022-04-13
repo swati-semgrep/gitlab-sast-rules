@@ -16,9 +16,6 @@ rules:
   message: |
     IDS01-J. Normalize strings before validating them
   metadata:
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#NORMALIZATION_AFTER_VALIDATION"
-    # yamllint enable
     category: "security"
     confidence: "HIGH"
   severity: "WARNING"

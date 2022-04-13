@@ -26,9 +26,10 @@ rules:
       metavariable: "$ST"
       pattern-either:
       - pattern: "(java.sql.Statement $ST)"
+      - pattern: "(org.apache.turbine.om.peer.BasePeer $ST)"
   message: |
-    "The method identified is susceptible to injection. The input should be validated and properly
-    escaped."
+    The method identified is susceptible to injection. The input should be validated and properly
+    escaped.
   languages:
   - "java"
   severity: "WARNING"
@@ -36,8 +37,5 @@ rules:
     category: "security"
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
       ('SQL Injection')"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#CUSTOM_INJECTION"
-    # yamllint enable
     technology:
     - "java"

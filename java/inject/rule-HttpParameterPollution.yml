@@ -26,9 +26,7 @@ rules:
   severity: "ERROR"
   metadata:
     category: "security"
-    capec: "CAPEC-460: HTTP Parameter Pollution (HPP)"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#HTTP_PARAMETER_POLLUTION"
-    # yamllint enable
+    cwe: "CWE-88: Improper Neutralization of Argument Delimiters in a Command ('Argument
+      Injection')"
     technology:
     - "java"

@@ -14,7 +14,6 @@ rules:
     Encryption Padding (OAEP), which might weaken the encryption.
   metadata:
     cwe: "CWE-780: Use of RSA Algorithm without OAEP"
-    owasp: "A3: Sensitive Data Exposure"
   severity: "WARNING"
   languages:
   - "java"

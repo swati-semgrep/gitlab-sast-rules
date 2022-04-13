@@ -26,6 +26,5 @@ rules:
     Such vulnerabilities can be used to facilitate phishing attacks.
   metadata:
     category: "security"
-    confidence: "HIGH"
     cwe: "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')"
-  severity: "WARNING"
+  severity: "ERROR"

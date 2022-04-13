@@ -105,8 +105,5 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-209: Information Exposure Through an Error Message"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
-    # yamllint enable
     technology:
     - "java"

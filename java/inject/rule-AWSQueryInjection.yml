@@ -38,16 +38,13 @@ rules:
         - pattern: "(AmazonSimpleDB $DB)"
         - pattern: "(AmazonSimpleDBClient $DB)"
   message: |
-    "Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
-    records."
+    Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
+    records.
   languages:
   - "java"
   severity: "ERROR"
   metadata:
     category: "security"
     cwe: "CWE-943: Improper Neutralization of Special Elements in Data Query Logic"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#AWS_QUERY_INJECTION"
-    # yamllint enable
     technology:
     - "java"

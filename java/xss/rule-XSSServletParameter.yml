@@ -34,15 +34,9 @@ rules:
     sensitive APIs
   languages:
   - "java"
-  severity: "ERROR"
+  severity: "WARNING"
   metadata:
     cwe: "CWE-20: Improper Input Validation"
-    owasp: "A7: Cross-Site Scripting (XSS)"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#SERVLET_PARAMETER"
-    # yamllint enable
     category: "security"
-    confidence: "LOW"
-    severity: "LOW"
     technology:
     - "java"

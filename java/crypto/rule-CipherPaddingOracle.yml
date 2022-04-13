@@ -11,18 +11,15 @@ rules:
   - pattern-not-regex: "^(RSA)/.*"
   - pattern-not-regex: "^(ECIES)$"
   message: |
-    "This specific mode of CBC with PKCS5Padding is susceptible to padding oracle attacks. An
+    This specific mode of CBC with PKCS5Padding is susceptible to padding oracle attacks. An
     adversary could potentially decrypt the message if the system exposed the difference between
     plaintext with invalid padding or valid padding. The distinction between valid and invalid
-    padding is usually revealed through distinct error messages being returned for each condition."
+    padding is usually revealed through distinct error messages being returned for each condition.
   languages:
   - "java"
   severity: "ERROR"
   metadata:
     category: "security"
     cwe: "CWE-696: Incorrect Behavior Order"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#PADDING_ORACLE"
-    # yamllint enable
     technology:
     - "java"

@@ -1,4 +1,4 @@
-// License: MIT (c) GitLab Inc.
+// License: LGPL-3.0 License (c) find-sec-bugs
 // scaffold: dependencies=io.vertx.vertx-core@4.2.6,io.vertx.vertx-web@4.2.6
 package password;
 

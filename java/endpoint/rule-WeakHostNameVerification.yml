@@ -37,6 +37,5 @@ rules:
     attacks since the client will trust any certificate.
   metadata:
     category: "security"
-    confidence: "HIGH"
     cwe: "CWE-295: Improper Certificate Validation"
   severity: "WARNING"

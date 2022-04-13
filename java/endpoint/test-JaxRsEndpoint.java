@@ -1,4 +1,4 @@
-// License: MIT (c) GitLab Inc.
+// License: LGPL-3.0 License (c) find-sec-bugs
 package endpoint;
 import javax.ws.rs.Path;
 import org.apache.commons.text.StringEscapeUtils;

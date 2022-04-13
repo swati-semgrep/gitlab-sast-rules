@@ -1,5 +1,4 @@
-// License: MIT (c) GitLab Inc.
-
+// License: LGPL-3.0 License (c) find-sec-bugs
 package inject;
 import org.springframework.ldap.core.DefaultNameClassPairMapper;
 import org.springframework.ldap.core.DirContextProcessor;

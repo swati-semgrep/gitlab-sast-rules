@@ -31,22 +31,16 @@ rules:
         new java.io.FileOutputStream($PATH, ...)
     - pattern: "$PATH"
   message: |
-    "A file is opened to write to its contents. The filename comes from an input parameter. If an
+    A file is opened to write to its contents. The filename comes from an input parameter. If an
     unfiltered parameter is passed to this file API, files at an arbitrary filesystem location
     could be modified. This rule identifies potential path traversal vulnerabilities. In many
-    cases, the constructed file path cannot be controlled by the user."
+    cases, the constructed file path cannot be controlled by the user.
   languages:
   - "java"
   severity: "ERROR"
   metadata:
     category: "security"
-    wasc: "WASC: Path Traversal"
-    capec: "CAPEC-126: Path Traversal"
-    owasp: "OWASP: Path Traversal"
     cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
       Traversal')"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#PATH_TRAVERSAL_OUT"
-    # yamllint enable
     technology:
     - "java"
