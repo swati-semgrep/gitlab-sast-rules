@@ -17,7 +17,7 @@ rules:
         metavariable: "$HEADER"
         regex: "(?i)(Access-Control-Allow-Origin)"
   message: |
-    "Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
+    Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
     JavaScript to access the contents of a Web page, both the JavaScript and the Web page must
     originate from the same domain. Without the Same Origin Policy, a malicious website could serve
     up JavaScript that loads sensitive information from other websites using a client's
@@ -27,14 +27,12 @@ rules:
     domains are allowed to access its domain using cross-origin requests. However, caution should
     be taken when defining the header because an overly permissive CORS policy will allow a
     malicious application to communicate with the victim application in an inappropriate way,
-    leading to spoofing, data theft, relay and other attacks."
+    leading to spoofing, data theft, relay and other attacks.
   languages:
   - "java"
   severity: "ERROR"
   metadata:
+    cwe: "CWE-942: Permissive Cross-domain Policy with Untrusted Domains"
     category: "security"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#PERMISSIVE_CORS"
-    # yamllint enable
     technology:
     - "java"

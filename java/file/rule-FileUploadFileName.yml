@@ -23,13 +23,10 @@ rules:
     file.
   languages:
   - "java"
-  severity: "WARNING"
+  severity: "ERROR"
   metadata:
     category: "security"
     cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
       Traversal')"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#FILE_UPLOAD_FILENAME"
-    # yamllint enable
     technology:
     - "java"

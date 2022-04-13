@@ -27,9 +27,6 @@ rules:
     Improper Handling of Unicode Encoding
   metadata:
     cwe: "CWE-176: Improper Handling of Unicode Encoding"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#IMPROPER_UNICODE"
-    # yamllint enable
     category: "security"
     confidence: "HIGH"
   severity: "ERROR"

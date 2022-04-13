@@ -23,17 +23,14 @@ rules:
     - pattern: "(Cookie $COOKIE).getValue();"
     - pattern: "(Cookie $COOKIE).getPath();"
   message: |
-    "The information stored in a custom cookie should not be sensitive or related to the session.
+    The information stored in a custom cookie should not be sensitive or related to the session.
     In most cases, sensitive data should only be stored in session and referenced by the user's
-    session cookie."
+    session cookie.
   languages:
   - "java"
   severity: "WARNING"
   metadata:
     category: "security"
     cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#COOKIE_USAGE"
-    # yamllint enable
     technology:
     - "java"

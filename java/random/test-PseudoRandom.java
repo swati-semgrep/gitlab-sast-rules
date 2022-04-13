@@ -1,4 +1,4 @@
-// License: MIT (c) GitLab Inc.
+// License: LGPL-3.0 License (c) find-sec-bugs
 package random;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;

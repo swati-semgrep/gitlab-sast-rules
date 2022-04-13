@@ -1,4 +1,4 @@
-// License: MIT (c) GitLab Inc.
+// License: LGPL-3.0 License (c) find-sec-bugs
 package perm;
 import java.lang.reflect.ReflectPermission;
 import java.security.CodeSource;

@@ -1,4 +1,4 @@
-// License: LGPL-3.0 License (c) findsecbugs
+// License: LGPL-3.0 License (c) find-sec-bugs
 // source: https://github.com/find-sec-bugs/find-sec-bugs/blob/master/findsecbugs-samples-java/src/test/java/testcode/file/FileDisclosure.java
 // hash: a7694d0
 

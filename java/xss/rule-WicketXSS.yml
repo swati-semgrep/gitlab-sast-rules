@@ -14,4 +14,4 @@ rules:
     category: "security"
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
       Scripting')"
-  severity: "ERROR"
+  severity: "WARNING"

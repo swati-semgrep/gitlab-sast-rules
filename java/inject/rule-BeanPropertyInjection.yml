@@ -26,18 +26,15 @@ rules:
       - pattern: "new BeanUtilsBean()"
       - pattern: "org.apache.commons.beanutils.BeanUtils"
   message: |
-    "An attacker can set arbitrary bean properties that can compromise system integrity. An
+    An attacker can set arbitrary bean properties that can compromise system integrity. An
     attacker can leverage this functionality to access special bean properties like
     class.classLoader that will allow them to override system properties and potentially execute
-    arbitrary code."
+    arbitrary code.
   languages:
   - "java"
   severity: "ERROR"
   metadata:
     category: "security"
     cwe: "CWE-15: External Control of System or Configuration Setting"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#BEAN_PROPERTY_INJECTION"
-    # yamllint enable
     technology:
     - "java"

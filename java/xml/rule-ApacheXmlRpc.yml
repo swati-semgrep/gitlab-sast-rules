@@ -18,13 +18,10 @@ rules:
       - pattern: "$VAR.setEnabledForExtensions(true);"
   languages:
   - "java"
-  message: "Enabling extensions in Apache XML RPC server or client can lead to \ndeserialization
-    vulnerability which would allow an attacker to execute arbitrary code.\n"
+  message: |
+    Enabling extensions in Apache XML RPC server or client can lead to deserialization
+    vulnerability which would allow an attacker to execute arbitrary code.
   metadata:
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#RPC_ENABLED_EXTENSIONS"
-    # yamllint enable
     category: "security"
-    confidence: "HIGH"
     cwe: "CWE-502: Deserialization of Untrusted Data"
   severity: "WARNING"

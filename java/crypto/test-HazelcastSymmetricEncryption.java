@@ -1,4 +1,4 @@
-// License: MIT (c) GitLab Inc.
+// License: LGPL-3.0 License (c) find-sec-bugs
 // scaffold: dependencies=com.hazelcast.hazelcast@3.12.12
 package crypto;
 import com.hazelcast.config.Config;

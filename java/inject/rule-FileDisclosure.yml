@@ -48,13 +48,11 @@ rules:
       - pattern: "$REQ.forward($FST, $SND)"
   languages:
   - "java"
-  message: "Constructing a server-side redirect path with user input could allow an
-    attacker \nto download application binaries (including application classes or
-    jar files) \nor view arbitrary files within protected directories.\n"
+  message: |
+    Constructing a server-side redirect path with user input could allow an
+    attacker to download application binaries (including application classes or
+    jar files) or view arbitrary files within protected directories.
   metadata:
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#REQUESTDISPATCHER_FILE_DISCLOSURE"
-    # yamllint enable
     category: "security"
     cwe: "CWE-552: Files or Directories Accessible to External Parties"
   severity: "ERROR"

@@ -50,8 +50,8 @@ rules:
     - pattern-not: "(ProcessBuilder $PB).command(\"...\",\"...\",\"...\",...);"
     - pattern-not: "(ProcessBuilder $PB).command(java.util.Arrays.asList(\"...\",\"...\",\"...\",...));\n"
   message: |
-    "The highlighted API is used to execute a system command. If unfiltered input is passed to this
-    API, it can lead to arbitrary command execution."
+    The highlighted API is used to execute a system command. If unfiltered input is passed to this
+    API, it can lead to arbitrary command execution.
   languages:
   - "java"
   severity: "WARNING"
@@ -59,8 +59,5 @@ rules:
     category: "security"
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#COMMAND_INJECTION"
-    # yamllint enable
     technology:
     - "java"

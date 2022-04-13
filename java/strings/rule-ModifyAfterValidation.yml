@@ -17,9 +17,6 @@ rules:
   message: |
     CERT: IDS11-J. Perform any string modifications before validation
   metadata:
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#MODIFICATION_AFTER_VALIDATION"
-    # yamllint enable
     category: "security"
     confidence: "HIGH"
   severity: "WARNING"

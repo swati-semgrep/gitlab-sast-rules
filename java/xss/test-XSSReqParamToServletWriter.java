@@ -1,7 +1,6 @@
-// License: MIT (c) GitLab Inc.
+// License: LGPL-3.0 License (c) find-sec-bugs
 // scaffold: dependencies=org.owasp.encoder.encoder@1.2.3
 package xss;
-
 
 import org.owasp.encoder.Encode;
 
@@ -15,7 +14,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.Map;
-
 
 // Also contains vulnerabilities found under ids: XSS_SERVLET,SERVLET_PARAMETER
 public class XSSReqParamToServletWriter extends HttpServlet {

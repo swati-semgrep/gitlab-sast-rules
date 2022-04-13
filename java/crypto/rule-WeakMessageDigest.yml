@@ -12,16 +12,13 @@ rules:
       metavariable: "$ALG"
       regex: ".*(MD5|MD4|MD2|SHA1|SHA-1).*"
   message: |
-    "DES is considered strong ciphers for modern applications. Currently, NIST recommends the usage
-    of AES block ciphers instead of DES."
+    DES is considered strong ciphers for modern applications. Currently, NIST recommends the usage
+    of AES block ciphers instead of DES.
   languages:
   - "java"
   severity: "WARNING"
   metadata:
     category: "security"
     cwe: "CWE-326: Inadequate Encryption Strength"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#DES_USAGE"
-    # yamllint enable
     technology:
     - "java"

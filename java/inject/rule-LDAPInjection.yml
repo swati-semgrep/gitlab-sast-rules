@@ -79,10 +79,10 @@ rules:
         - pattern: "(org.springframework.ldap.core.LdapTemplate $LT)"
         - pattern: "(org.springframework.ldap.core.LdapOperations $LO)"
   message: |
-    "Just like SQL, all inputs passed to an LDAP query need to be passed in safely. Unfortunately,
+    Just like SQL, all inputs passed to an LDAP query need to be passed in safely. Unfortunately,
     LDAP doesn't have prepared statement interfaces like SQL. Therefore, the primary defense
     against LDAP injection is strong input validation of any untrusted data before including it in
-    an LDAP query."
+    an LDAP query.
   languages:
   - "java"
   severity: "WARNING"
@@ -90,10 +90,5 @@ rules:
     category: "security"
     cwe: "CWE-90: Improper Neutralization of Special Elements used in an LDAP Query
       ('LDAP Injection')"
-    owasp: "OWASP: Top 10 A1:2017-Injection"
-    wasc: "WASC-29: LDAP Injection"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#LDAP_INJECTION"
-    # yamllint enable
     technology:
     - "java"

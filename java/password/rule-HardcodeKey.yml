@@ -43,17 +43,14 @@ rules:
         patterns:
         - pattern-not-regex: "(null)"
   message: |
-    "Cryptographic keys should not be kept in the source code. The source code can be widely shared
+    Cryptographic keys should not be kept in the source code. The source code can be widely shared
     in an enterprise environment, and is certainly shared in open source. To be managed safely,
-    passwords and secret keys should be stored in separate configuration files or keystores."
+    passwords and secret keys should be stored in separate configuration files or keystores.
   languages:
   - "java"
   severity: "ERROR"
   metadata:
     category: "security"
     cwe: "CWE-321: Use of Hard-coded Cryptographic Key"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#HARD_CODE_KEY"
-    # yamllint enable
     technology:
     - "java"

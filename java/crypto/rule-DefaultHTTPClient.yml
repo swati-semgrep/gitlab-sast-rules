@@ -7,14 +7,11 @@ rules:
   patterns:
   - pattern: "new org.apache.http.impl.client.DefaultHttpClient(...);"
   message: |
-    "DefaultHttpClient with default constructor is not compatible with TLS 1.2"
+    DefaultHttpClient with default constructor is not compatible with TLS 1.2
   languages:
   - "java"
   severity: "WARNING"
   metadata:
     category: "security"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#DEFAULT_HTTP_CLIENT"
-    # yamllint enable
     technology:
     - "java"

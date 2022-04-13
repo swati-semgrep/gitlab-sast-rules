@@ -1,6 +1,5 @@
-// License: MIT (c) GitLab Inc.
+// License: LGPL-3.0 License (c) find-sec-bugs
 // scaffold: dependencies=commons-beanutils.commons-beanutils@1.9.4
-
 package inject;
 
 import org.apache.commons.beanutils.BeanUtils;

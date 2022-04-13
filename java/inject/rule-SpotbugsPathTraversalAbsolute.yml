@@ -51,13 +51,7 @@ rules:
   severity: "WARNING"
   metadata:
     category: "security"
-    wasc: "WASC: Path Traversal"
-    capec: "CAPEC-126: Path Traversal"
-    owasp: "OWASP: Path Traversal"
     cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
       Traversal')"
-    # yamllint disable
-    source-rule-url: "https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#pt-absolute-path-traversal-in-servlet-pt-absolute-path-traversal"
-    # yamllint enable
     technology:
     - "java"

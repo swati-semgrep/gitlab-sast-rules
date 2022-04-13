@@ -1,5 +1,4 @@
-// License: MIT (c) GitLab Inc.
-
+// License: LGPL-3.0 License (c) find-sec-bugs
 package form;
 
 import org.apache.struts.validator.ValidatorForm;

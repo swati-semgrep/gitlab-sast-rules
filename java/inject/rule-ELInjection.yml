@@ -17,16 +17,13 @@ rules:
     - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),
         $EXPR, ...)"
   message: |
-    "An expression is built with a dynamic value. The source of the value(s) should be verified to
-    avoid that unfiltered values fall into this risky code evaluation."
+    An expression is built with a dynamic value. The source of the value(s) should be verified to
+    avoid that unfiltered values fall into this risky code evaluation.
   languages:
   - "java"
   severity: "WARNING"
   metadata:
     category: "security"
     cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#EL_INJECTION"
-    # yamllint enable
     technology:
     - "java"

@@ -26,8 +26,5 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-539: Information Exposure Through Persistent Cookies"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#INSECURE_COOKIE"
-    # yamllint enable
     technology:
     - "java"

@@ -11,16 +11,13 @@ rules:
       metavariable: "$ALG"
       regex: "^(DESede)/.*"
   message: |
-    "Triple DES (also known as 3DES or DESede) is considered strong ciphers for modern
-    applications. NIST recommends the usage of AES block ciphers instead of 3DES."
+    Triple DES (also known as 3DES or DESede) is considered strong ciphers for modern
+    applications. NIST recommends the usage of AES block ciphers instead of 3DES.
   languages:
   - "java"
   severity: "WARNING"
   metadata:
     category: "security"
     cwe: "CWE-326: Inadequate Encryption Strength"
-    # yamllint disable
-    source-rule-url: "https://find-sec-bugs.github.io/bugs.htm#TDES_USAGE"
-    # yamllint enable
     technology:
     - "java"

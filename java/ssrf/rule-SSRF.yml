@@ -30,4 +30,4 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-918: Server-Side Request Forgery (SSRF)"
-  severity: "WARNING"
+  severity: "ERROR"

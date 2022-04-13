@@ -33,14 +33,9 @@ rules:
     Servlet reflected cross site scripting vulnerability
   languages:
   - "java"
-  severity: "ERROR"
+  severity: "WARNING"
   metadata:
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation"
-    # yamllint disable
-    source-rule-url: "https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#xss-servlet-reflected-cross-site-scripting-vulnerability-xss-request-parameter-to-servlet-writer"
-    # yamllint enable
     category: "security"
-    confidence: "HIGH"
-    severity: "CRITICAL"
     technology:
     - "java"

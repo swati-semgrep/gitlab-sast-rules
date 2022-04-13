@@ -23,7 +23,7 @@ find_sec_bugs:
   - id: "XXE_XPATH"
     rules:
       - "java/xxe/rule-XPathXXE"
-  - id: "XXE_XXE_DOCUMENT"
+  - id: "XXE_DOCUMENT"
     rules:
       - "java/xxe/rule-XPathXXE"
   - id: "XXE_DTD_TRANSFORM_FACTORY"
@@ -51,7 +51,24 @@ find_sec_bugs:
     rules:
       - "java/xss/rule-RequestWrapper"
 
-  # XPATHI
+  # SQLI
+  - id: "SQL_INJECTION_SPRING_JDBC"
+    rules: 
+      - "java/inject/rule-SqlInjection"
+  - id: "SQL_INJECTION_JPA"
+    rules: 
+      - "java/inject/rule-SqlInjection"
+  - id: "SQL_INJECTION_JDO"
+    rules: 
+      - "java/inject/rule-SqlInjection"
+  - id: "SQL_INJECTION_JDBC"
+    rules: 
+      - "java/inject/rule-SqlInjection"
+  - id: "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"
+    rules: 
+      - "java/inject/rule-SqlInjection"
+
+    # XPATHI
   - id: "XPATH_INJECTION"
     rules:
       - "java/xpathi/rule-XpathInjection"
@@ -284,7 +301,12 @@ find_sec_bugs:
   - id: "URLCONNECTION_SSRF_FD"
     rules:
       - "java/ssrf/rule-SSRF"
-  
+
+  # HTTP_PARAMETER_POLLUTION
+  - id: "HTTP_PARAMETER_POLLUTION"
+    rules:
+      - "java/inject/rule-HttpParameterPollution"
+
   # LDAP
   - id: "LDAP_ANONYMOUS"
     rules:
