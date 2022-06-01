@@ -64,6 +64,7 @@ gosec:
   - id: "G402"
     rules:
       - "go/crypto/rule-badtlssettings"
+      - "go/crypto/rule-tlsversion"
   - id: "G403"
     rules:
       - "go/crypto/rule-weakkeystrength"
