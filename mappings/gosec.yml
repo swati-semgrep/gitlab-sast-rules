@@ -13,9 +13,6 @@ gosec:
   - id: "G103"
     rules:
       - "go/unsafe/rule-unsafe"
-  - id: "G104"
-    rules:
-      - "go/injection/rule-ssrf"
   - id: "G106"
     rules:
       - "go/crypto/rule-insecure_ignore_host_key"
