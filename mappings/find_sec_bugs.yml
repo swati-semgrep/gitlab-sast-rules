@@ -269,12 +269,6 @@ find_sec_bugs:
   - id: "DMI_CONSTANT_DB_PASSWORD"
     rules:
       - "java/password/rule-ConstantDBPassword"
-  - id: "HARD_CODE_KEY"
-    rules:
-      - "java/password/rule-HardcodeKey"
-      - "java/password/rule-HardcodeKeySuspiciousName"
-      - "java/password/rule-HardcodeKeySuspiciousValue"
-      - "java/password/rule-HardcodeKeyEquals"
   - id: "HARD_CODE_PASSWORD"
     rules:
       - "java/password/rule-HardcodePassword"
