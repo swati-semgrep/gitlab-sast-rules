@@ -146,7 +146,7 @@ We excluded the patterns below because they are overly verbose; they are trigger
 | `TAPESTRY_ENDPOINT` | [Found Tapestry page](https://find-sec-bugs.github.io/bugs.html#TAPESTRY_ENDPOINT) | :no_entry_sign: | We cannot cope with annotations; in addition endpoints should probably not end up in the final security report anyway. |
 | `JAXRS_ENDPOINT` | [Found JAX-RS REST endpoint](https://find-sec-bugs.github.io/bugs.html#JAXRS_ENDPOINT) | :no_entry_sign: |  the endpoint rules only provide general information about potential security issue which seems noisy -- I think we can skip them|
 | `JAXWS_ENDPOINT` | [Found JAX-WS SOAP endpoint](https://find-sec-bugs.github.io/bugs.html#JAXWS_ENDPOINT) | :no_entry_sign:| the endpoint rules only provide general information about potential security issue which seems noisy -- I think we can skip them |
-
+| `HARD_CODE_KEY` | Secret detection rule | :no_entry_sign:| Secret Detection is taken care of by a dedicated [analyzer](https://docs.gitlab.com/ee/user/application_security/secret_detection/)|
 
 #### Patterns we were unable to migrate (12)
 
