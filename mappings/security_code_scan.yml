@@ -1,0 +1,11 @@
+# yamllint disable
+# maps security-code-scan rule ids to semgrep rules
+# License: MIT (c) GitLab Inc.
+# yamllint enable
+---
+security_code_scan:
+  
+  # injection
+  - id: "SCS0001"
+    rules:
+      - "csharp/injection/rule-CommandInjection"
