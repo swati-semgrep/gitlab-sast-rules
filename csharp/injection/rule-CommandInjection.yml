@@ -4,7 +4,11 @@
 ---
 rules:
 - id: "csharp/injection/rule-CommandInjection"
-  pattern: "new Process()"
+  patterns:
+  - pattern-inside: |
+      var $P = new Process(...);
+      ...
+  - pattern: "$P.Start()"
   message: |
     The highlighted API is used to execute a system command. If unfiltered input is passed to this
     API, it can lead to arbitrary command execution.
