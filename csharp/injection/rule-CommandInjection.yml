@@ -8,7 +8,8 @@ rules:
   - pattern-inside: |
       var $P = new Process(...);
       ...
-  - pattern: "$P.Start()"
+  - pattern: "$P.StartInfo.Arguments = ...;"
+  - pattern-not: "$P.StartInfo.Arguments = \"...\";"
   message: |
     The highlighted API is used to execute a system command. If unfiltered input is passed to this
     API, it can lead to arbitrary command execution.
