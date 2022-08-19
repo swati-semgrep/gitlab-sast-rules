@@ -183,10 +183,10 @@ The patterns below could not be migrated, because they required features not sup
 
 | Rule ID | Description | Status | Comment  |
 | ------- | ----------- | ------ | ---------|
-| `SCS0021 - Request Validation Disabled (Configuration File)` | [Request Validation Disabled (Configuration File)](https://security-code-scan.github.io/#SCS0021) |  | |
-| `SCS0022 - Event Validation Disabled` | [Event Validation Disabled](https://security-code-scan.github.io/#SCS0022) | :no_entry_sign:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
-| `SCS0023 - View State Not Encrypted` | [View State Not Encrypted](https://security-code-scan.github.io/#ViewState) | :no_entry_sign:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
-| `SCS0024 - View State MAC Disabled ` | [View State MAC Disabled](https://security-code-scan.github.io/#SCS0024) | :no_entry_sign:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
+| `SCS0021` | [Request Validation Disabled (Configuration File)](https://security-code-scan.github.io/#SCS0021) | :no_entry_sign: | |
+| `SCS0022` | [Event Validation Disabled](https://security-code-scan.github.io/#SCS0022) | :no_entry_sign:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
+| `SCS0023` | [View State Not Encrypted](https://security-code-scan.github.io/#ViewState) | :no_entry_sign:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
+| `SCS0024` | [View State MAC Disabled](https://security-code-scan.github.io/#SCS0024) | :no_entry_sign:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
 | `SCS0008` | [Cookie Without SSL Flag](https://security-code-scan.github.io/#SCS0008) | :no_entry_sign: | The SCS rule also detects vulnerabilities in ASP.NET config files which is not supported by Semgrep. We also haven't been able to detect these with SCS within the `gapanalysis` job as the `HttpCookie` class requires .NET Framework. |
 | `SCS0009` | [Cookie Without HttpOnly Flag](https://security-code-scan.github.io/#SCS0009) | :no_entry_sign: | The SCS rule also detects vulnerabilities in ASP.NET config files which is not supported by Semgrep. We also haven't been able to detect these with SCS within the `gapanalysis` job as the `HttpCookie` class requires .NET Framework. |
 | `SCS0002` | [SQL Injection](https://security-code-scan.github.io/#SCS0002) | :no_entry_sign: | The SCS rule also detects vulnerabilities in ASP.NET UI code, which Semgrep does not support. |
