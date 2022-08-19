@@ -21,7 +21,10 @@ rules:
     - pattern-inside: |
         $E = new org.apache.commons.mail.ImageHtmlEmail(...);
         ...
-  - pattern-not: "$E.setSSLOnConnect(true);\n...\n$E.setSSLCheckServerIdentity(true);\n"
+  - pattern-not: |
+      $E.setSSLOnConnect(true);
+      ...
+      $E.setSSLCheckServerIdentity(true);
   message: |
     Server identity verification is disabled when making SSL connections.
   metadata:

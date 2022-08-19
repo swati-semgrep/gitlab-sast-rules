@@ -1,4 +1,5 @@
 // License: LGPL-3.0 License (c) security-code-scan
+
 using System.Diagnostics;
 
 class Test

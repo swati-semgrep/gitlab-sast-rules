@@ -8,7 +8,8 @@ rules:
   - patterns:
     - pattern: |
         <$X target="_blank" />
-    - pattern-not: "<$X target=\"_blank\" rel=\"...\" />\n"
+    - pattern-not: |
+        <$X target="_blank" rel="..." />
   - patterns:
     - pattern-inside: |
         <$X target="_blank" rel=... />
@@ -16,7 +17,8 @@ rules:
   - patterns:
     - pattern: |
         React.createElement($A, {target: '_blank'},...)
-    - pattern-not: "React.createElement($A, {rel: '...'},...)\n"
+    - pattern-not: |
+        React.createElement($A, {rel: '...'},...)
   - patterns:
     - pattern: |
         React.createElement($A, {target: '_blank', rel: $REL},...)
@@ -28,7 +30,10 @@ rules:
         $P = {target: '_blank'};
         ...
         React.createElement($A, $P,...);
-    - pattern-not: "$P = {rel: '...'};\n...\nReact.createElement($A, $P,...);\n"
+    - pattern-not: |
+        $P = {rel: '...'};
+        ...
+        React.createElement($A, $P,...);
   - patterns:
     - pattern: |
         $P = {target: '_blank', rel: $REL};

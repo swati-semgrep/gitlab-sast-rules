@@ -4,8 +4,42 @@
 # yamllint enable
 ---
 security_code_scan:
-  
-  # injection
   - id: "SCS0001"
     rules:
       - "csharp/injection/rule-CommandInjection"
+  - id: "SCS0018"
+    rules:
+      - "csharp/path/rule-PathTraversal"
+  - id: "SCS0016"
+    rules:
+      - "csharp/csrf/rule-Csrf"
+  - id: "SCS0017"
+    rules:
+      - "csharp/validation/rule-InputValidation"
+  - id: "SCS0019"
+    rules:
+      - "csharp/cache/rule-OutputCacheConflicts"
+  - id: "SCS0026"
+    rules:
+      - "csharp/injection/rule-LdapInjection"
+  - id: "SCS0031"
+    rules:
+      - "csharp/injection/rule-LdapInjection"
+  - id: "SCS0027"
+    rules:
+      - "csharp/endpoint/rule-UnvalidatedRedirect"
+  - id: "SCS0028"
+    rules:
+      - "csharp/deserialization/rule-InsecureDeserialization"
+  - id: "SCS0029"
+    rules:
+      - "csharp/xss/rule-Xss"
+  - id: "SCS0032"
+    rules:
+      - "csharp/password/rule-PasswordComplexity"
+  - id: "SCS0033"
+    rules:
+      - "csharp/password/rule-PasswordComplexity"
+  - id: "SCS0034"
+    rules:
+      - "csharp/password/rule-PasswordComplexity"
