@@ -6,10 +6,22 @@ rules:
 - id: "csharp/injection/rule-CommandInjection"
   patterns:
   - pattern-inside: |
-      var $P = new Process(...);
+      using System.Diagnostics;
       ...
-  - pattern: "$P.StartInfo.Arguments = ...;"
-  - pattern-not: "$P.StartInfo.Arguments = \"...\";"
+  - pattern-either:
+    - patterns:
+      - pattern: "Process.Start($ARG)"
+      - pattern-not: "Process.Start(\"...\")"
+    - pattern: "(Process $PROC).StartInfo.FileName = <...$ARG...>;"
+    - pattern: "(Process $PROC).StartInfo.Arguments = <...$ARG...>;"
+    - patterns:
+      - pattern-inside: |
+          $PSINFO = new ProcessStartInfo(...)
+          ...
+          Process.Start($PSINFO)
+      - pattern-either:
+        - pattern: "$PSINFO.Arguments = <...$ARG...>;"
+        - pattern: "$PSINFO.FileName = <...$ARG...>;"
   message: |
     The highlighted API is used to execute a system command. If unfiltered input is passed to this
     API, it can lead to arbitrary command execution.
