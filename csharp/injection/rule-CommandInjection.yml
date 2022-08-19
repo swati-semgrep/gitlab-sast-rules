@@ -15,10 +15,8 @@ rules:
     API, it can lead to arbitrary command execution.
   languages:
   - "csharp"
-  severity: "WARNING"
+  severity: "ERROR"
   metadata:
     category: "security"
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
-    technology:
-    - "csharp"

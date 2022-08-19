@@ -25,7 +25,8 @@ rules:
             metavariable: "$SHELL"
             regex: "(/.../)?(sh|bash|ksh|csh|tcsh|zsh)$"
     - pattern-not: "(Runtime $R).exec(\"...\",\"...\",\"...\",...);"
-    - pattern-not: "(Runtime $R).exec(new String[]{\"...\",\"...\",\"...\",...},...);\n"
+    - pattern-not: |
+        (Runtime $R).exec(new String[]{"...","...","...",...},...);
   - patterns:
     - pattern-inside: |
         $FUNC(...,String $PARAM, ...) {
@@ -48,7 +49,8 @@ rules:
             metavariable: "$SHELL"
             regex: "(/.../)?(sh|bash|ksh|csh|tcsh|zsh)$"
     - pattern-not: "(ProcessBuilder $PB).command(\"...\",\"...\",\"...\",...);"
-    - pattern-not: "(ProcessBuilder $PB).command(java.util.Arrays.asList(\"...\",\"...\",\"...\",...));\n"
+    - pattern-not: |
+        (ProcessBuilder $PB).command(java.util.Arrays.asList("...","...","...",...));
   message: |
     The highlighted API is used to execute a system command. If unfiltered input is passed to this
     API, it can lead to arbitrary command execution.

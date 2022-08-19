@@ -45,7 +45,7 @@ module AutoFormat
           v.plain = true
           v.style = Psych::Nodes::Scalar::LITERAL
           v.value = AutoFormat.wrap(v.value)
-        when 'pattern'
+        when 'pattern', 'pattern-not'
           v.style = if v.value.count("\n").zero?
                       Psych::Nodes::Scalar::DOUBLE_QUOTED
                     else
