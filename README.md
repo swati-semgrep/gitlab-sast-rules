@@ -95,15 +95,6 @@ is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Rules that are not covered at the moment
 
-### Security Code Scan
-
-| Rule ID | Description | Status | Comment  |
-| ------- | ----------- | ------ | ---------|
-| `SCS0021 - Request Validation Disabled (Configuration File)` | [Request Validation Disabled (Configuration File)](https://security-code-scan.github.io/#SCS0021) |  | |
-| `SCS0022 - Event Validation Disabled` | [Event Validation Disabled](https://security-code-scan.github.io/#SCS0022) | :x:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
-| `SCS0023 - View State Not Encrypted` | [View State Not Encrypted](https://security-code-scan.github.io/#ViewState) | :x:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
-| `SCS0024 - View State MAC Disabled ` | [View State MAC Disabled](https://security-code-scan.github.io/#SCS0024) | :x:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
-
 ### Gosec
 
 - G104: [Metavariable types not supported for go at the moment](https://github.com/returntocorp/semgrep-rules/issues/1149)
@@ -176,3 +167,28 @@ The patterns below could not be migrated, because they required features not sup
 | `OBJECT_DESERIALIZATION` | [Object deserialization is used](https://find-sec-bugs.github.io/bugs.html#OBJECT_DESERIALIZATION) | :no_entry_sign: | This problem is solved by determining Interface supersets and Annotation metadata. This cannot be accomplished in Semgrep |
 | `REDOS` | [Regex DOS (ReDOS)](https://find-sec-bugs.github.io/bugs.html#REDOS) | :no_entry_sign: | This problem is solved by applying set of conditional logic on each character of a target string. This cannot be accomplished in Semgrep |
 
+### security-code-scan
+
+#### Excluded patterns (1)
+
+We excluded the patterns below because they are overly verbose.
+
+| Rule ID | Description | Status | Comment  |
+| ------- | ----------- | ------ | ---------|
+| `SCS0015` | [Hardcoded Password](https://security-code-scan.github.io/#SCS0015) | :no_entry_sign: | This is better served by Secrets Detection as there are a multitude of ways that hardcoded passwords can be specified. |
+
+#### Patterns we were unable to migrate (5)
+
+The patterns below could not be migrated, because they required features not supported by semgrep.
+
+| Rule ID | Description | Status | Comment  |
+| ------- | ----------- | ------ | ---------|
+| `SCS0021 - Request Validation Disabled (Configuration File)` | [Request Validation Disabled (Configuration File)](https://security-code-scan.github.io/#SCS0021) |  | |
+| `SCS0022 - Event Validation Disabled` | [Event Validation Disabled](https://security-code-scan.github.io/#SCS0022) | :no_entry_sign:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
+| `SCS0023 - View State Not Encrypted` | [View State Not Encrypted](https://security-code-scan.github.io/#ViewState) | :no_entry_sign:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
+| `SCS0024 - View State MAC Disabled ` | [View State MAC Disabled](https://security-code-scan.github.io/#SCS0024) | :no_entry_sign:  | Unfortunately, we cannot implement this pattern as it examines XML configuration files. |
+| `SCS0008` | [Cookie Without SSL Flag](https://security-code-scan.github.io/#SCS0008) | :no_entry_sign: | The SCS rule also detects vulnerabilities in ASP.NET config files which is not supported by Semgrep. We also haven't been able to detect these with SCS within the `gapanalysis` job as the `HttpCookie` class requires .NET Framework. |
+| `SCS0009` | [Cookie Without HttpOnly Flag](https://security-code-scan.github.io/#SCS0009) | :no_entry_sign: | The SCS rule also detects vulnerabilities in ASP.NET config files which is not supported by Semgrep. We also haven't been able to detect these with SCS within the `gapanalysis` job as the `HttpCookie` class requires .NET Framework. |
+| `SCS0002` | [SQL Injection](https://security-code-scan.github.io/#SCS0002) | :no_entry_sign: | The SCS rule also detects vulnerabilities in ASP.NET UI code, which Semgrep does not support. |
+| `SCS0003` | [XPath Injection](https://security-code-scan.github.io/#SCS0003) | :no_entry_sign: | The SCS rule also detects vulnerabilities in ASP.NET UI code, which Semgrep does not support. |
+| `SCS0003` | [XPath Injection](https://security-code-scan.github.io/#SCS0003) | :no_entry_sign: | The SCS rule also detects vulnerabilities in ASP.NET UI code, which Semgrep does not support. |
