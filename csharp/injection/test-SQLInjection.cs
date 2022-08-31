@@ -12,8 +12,6 @@ class SQLInjection
         var cmd = "SELECT * FROM Users WHERE username = '" + input + "' and role='user'";
         ctx.Database.ExecuteSqlCommand(cmd);
         ctx.Database.ExecuteSqlCommandAsync(cmd);
-        ctx.Database.ExecuteSqlRaw(cmd);
-        ctx.Database.ExecuteSqlRawAsync(cmd);
     }
 
     static void QueryWithUserInputSqlClient(string input)
@@ -72,7 +70,7 @@ class SQLInjection
     static void SafeSanitisedSqlClient(string input)
     {
         var cmd = new SqlCommand("SELECT * FROM Users WHERE username = '@username' and role='user'");
-        cmd.Parameters.Add("@username", input);
+        cmd.Parameters.AddWithValue("@username", input);
         cmd.Parameters["@username"].Value = input;
         cmd.ExecuteReader();
     }

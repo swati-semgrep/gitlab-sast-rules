@@ -1,27 +1,22 @@
 // License: LGPL-3.0 License (c) security-code-scan
-using System.Web;
+
+using System.Net;
 
 class CookieWithoutHttpOnlyFlag
 {
   static void BadCookie()
   {
-    // default is left
-    var cookie = new HttpCookie("test");
-
-    Response.Cookies.Add(cookie);
-
-    // or explicitly set to false
-    HttpCookie cookie2 = new HttpCookie("test");
-    cookie2.HttpOnly = false;
-
-    Response.Cookies.Add(cookie2);
+    var cookie = new Cookie();
+    cookie.HttpOnly = true;
+    var request = (HttpWebRequest)WebRequest.Create("");
+    request.CookieContainer.Add(cookie);
   }
 
   static void GoodCookie()
   {
-    var cookie = new HttpCookie("test");
-    cookie.HttpOnly = true; //Add this flag
-
-    Response.Cookies.Add(cookie);
+    var cookie = new Cookie();
+    cookie.HttpOnly = false;
+    var request = (HttpWebRequest)WebRequest.Create("");
+    request.CookieContainer.Add(cookie);
   }
 }

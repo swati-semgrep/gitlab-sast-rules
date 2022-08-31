@@ -5,11 +5,13 @@ class AuthorizationBypassUnsafe : Controller
 {
   public ActionResult Login()
   {
+    return null;
   }
 
   [Authorize]
   public ActionResult Logout()
   {
+    return null;
   }
 }
 
@@ -18,10 +20,12 @@ class AuthorizationBypassSafe : Controller
 {
   public ActionResult Login()
   {
+    return null;
   }
 
   [Authorize]
   public ActionResult Logout()
   {
+    return null;
   }
 }
