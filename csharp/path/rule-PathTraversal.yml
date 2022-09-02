@@ -7,17 +7,21 @@ rules:
   mode: "taint"
   pattern-sources:
   - patterns:
-    - pattern: "$PARAM"
-    - metavariable-regex:
-        metavariable: "$HTTP_ANNO"
-        regex: "^(Http)"
     - pattern-inside: |
         public class $CLASS : Controller {
           ...
         }
-    - pattern-inside: |
-        [$HTTP_ANNO]
-        public string $METHOD(...,$PARAM,...){...}
+    - pattern: "$PARAM"
+    - pattern-either:
+      - patterns:
+        - metavariable-regex:
+            metavariable: "$HTTP_ANNO"
+            regex: "^(Http)"
+        - pattern-inside: |
+            [$HTTP_ANNO]
+            public string $METHOD(...,$PARAM,...){...}
+      - pattern-inside: |
+          public IActionResult $METHOD(...,$PARAM,...){...}
   pattern-sanitizers:
   - pattern-either:
     - pattern: "(Microsoft.Extensions.FileProviders.PhysicalFileProvider $E).GetFileInfo(...)"

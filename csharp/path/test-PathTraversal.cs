@@ -1,7 +1,8 @@
 // License: LGPL-3.0 License (c) security-code-scan
+using System;
 using System.Web;
-using System.Web.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 
 public class PathTraversal : Controller
 {
@@ -10,6 +11,12 @@ public class PathTraversal : Controller
     {
         byte[] fileBytes = System.IO.File.ReadAllBytes(myParam);
         return "ok";
+    }
+
+    public IActionResult Download(string fileName)
+    {
+        byte[] fileBytes = System.IO.File.ReadAllBytes(fileName);
+        return null;
     }
 }
 
