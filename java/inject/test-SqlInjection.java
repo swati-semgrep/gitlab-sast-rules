@@ -1,11 +1,16 @@
 // License: LGPL-3.0 License (c) find-sec-bugs
 package injection;
 
+import org.hibernate.Session;
+
 import javax.jdo.Extent;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
+
 
 public class SqlInjection {
 
@@ -66,5 +71,16 @@ public class SqlInjection {
 
         pm.newQuery((Extent) null,"id == 1");
 
+    }
+
+    public void testHibernate(String input) {
+        Session session = null;
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Object> query = null;
+        // should not be reported
+        session.createQuery(query);
+        // should be reported
+        session.createQuery(input);
+        CriteriaQuery<Object> cq = cb.createQuery(Object.class);
     }
 }
