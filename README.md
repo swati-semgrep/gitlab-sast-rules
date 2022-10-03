@@ -3,6 +3,8 @@
 This is the central semgrep rule repository that hosts the semgrep rules
 for the [GitLab semgrep analyzer](https://gitlab.com/gitlab-org/security-products/analyzers/semgrep).
 
+We follow the testing methodology laid out in this [blog post](https://about.gitlab.com/blog/2021/09/08/write-vulnerability-detection-rules/).
+
 The repository is structured as illustrated below:
 
 ``` bash
