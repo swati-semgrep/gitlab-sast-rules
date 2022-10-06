@@ -7,8 +7,9 @@ using System.Xml.XPath;
 
 class XPathInjection
 {
-    static void QueryWithUserInput(string input)
+    static void QueryWithUserInput()
     {
+        var input = Console.ReadLine();
         var doc = new XmlDocument {XmlResolver = null};
         doc.Load("/config.xml");
         
@@ -29,16 +30,18 @@ class XPathInjection
         navigator.SelectSingleNode(input);
     }
 
-    static void LinqExtensionQueryWithUserInput(string input)
+    static void LinqExtensionQueryWithUserInput()
     {
+        var input = Console.ReadLine();
         XDocument d = XDocument.Parse("");  
         d.XPathEvaluate("/root/" + input);  
         d.XPathSelectElement("/root/" + input);  
         d.XPathSelectElements("/root/" + input);  
     }
 
-    static void XPathWithUserInput(string input)
+    static void XPathWithUserInput()
     {
+        var input = Console.ReadLine();
         XmlSchemaXPath path = new XmlSchemaXPath
         {
             XPath = input
@@ -63,5 +66,7 @@ class XPathInjection
         d.XPathEvaluate("/root");
         d.XPathSelectElement("/root");
         d.XPathSelectElements("/root");
+
+        var cookieParameterNames = new HashSet<string>(cookieParameters.Select(c => c.Name));
     }
 }
