@@ -171,6 +171,12 @@ The patterns below could not be migrated, because they required features not sup
 
 ### security-code-scan
 
+#### Modified patterns (1)
+
+| Rule ID | Description | Comment  |
+| ------- | ----------- | ------ |
+| `SCS0018` | [Path Traversal](https://security-code-scan.github.io/#SCS0018) | - | We adapted the pattern to not cover arguments passed to `Main` as sources because this often lead to FPs for CLI apps. |
+
 #### Excluded patterns (1)
 
 We excluded the patterns below because they are overly verbose.
