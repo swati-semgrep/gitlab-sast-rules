@@ -13,8 +13,11 @@ rules:
       - metavariable-regex:
           metavariable: "$FUNC"
           regex: "^(SelectNodes|SelectSingleNode|Compile|Evaluate|Matches|Select|SelectAncestors|SelectChildren|SelectDescendants)$"
-      - pattern: "$VAR.$FUNC(<...$ARG...>, ...)"
-      - pattern-not: "$VAR.$FUNC(\"...\", ...)"
+      - metavariable-regex:
+          metavariable: "$TY"
+          regex: "^(XPathNavigator|XmlDocument|XmlNode|XmlDocumentXPathExtensions)$"
+      - pattern: "($TY $VAR).$FUNC(<...$ARG...>, ...)"
+      - pattern-not: "($TY $VAR).$FUNC(\"...\", ...)"
     - patterns:
       - pattern-inside: |
           using System.Xml.Linq;
@@ -34,6 +37,7 @@ rules:
           - pattern-not: "$VAR.XPath = \"...\""
         - patterns:
           - pattern: "new XmlSchemaXPath { XPath = <...$ARG...> };"
+          - focus-metavariable: "$ARG"
   message: |
     The method identified is susceptible to injection. The input should be validated and properly
     escaped.

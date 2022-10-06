@@ -1,13 +1,22 @@
 // License: LGPL-3.0 License (c) security-code-scan
 
 using System.DirectoryServices;
+using System.Web.Mvc;
 
-class LdapInjection
+public class LdapInjection: Controller
 {
-	static void Main(string input)
-	{
+  public void Do()
+  {
+        var input = Console.ReadLine();
         var searcher = new DirectorySearcher();
         searcher.Filter = "(cn=" + input + ")";
-        searcher.Filter = "(cn=" + "test" + ")";
-	}
+        searcher.Path = "(cn=" + input + ")";
+
+        searcher.FindAll();
+  }
+
+  private void AddPathParameter(UriBuilder uriBuilder)
+  {
+        uriBuilder.Path = "abc" + Console.ReadLine();
+  }
 }

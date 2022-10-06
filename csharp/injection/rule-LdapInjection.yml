@@ -4,20 +4,14 @@
 ---
 rules:
 - id: "csharp/injection/rule-LdapInjection"
-  mode: "taint"
-  pattern-sources:
-  - pattern: "$DIR"
-  - pattern-either:
-    - pattern: "$DIR = DirectorySearcher();"
-    - pattern: "$DIR = DirectoryEntry();"
-  pattern-sinks:
+  patterns:
   - pattern-either:
     - patterns:
-      - pattern: "$DIR.Filter = ..."
-      - pattern-not: "$DIR.Filter = \"...\""
+      - pattern: "(DirectorySearcher $SOURCE).Filter = ..."
+      - pattern-not: "(DirectorySearcher $SOURCE).Filter = \"...\""
     - patterns:
-      - pattern: "$DIR.Path = ..."
-      - pattern-not: "$DIR.Path = \"...\""
+      - pattern: "(DirectorySearcher $SOURCE).Path = ..."
+      - pattern-not: "(DirectorySearcher $SOURCE).Path = \"...\""
   message: |
     The software constructs all or part of an LDAP query using
     externally-influenced input from an upstream component, but it does not
