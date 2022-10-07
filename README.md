@@ -11,6 +11,8 @@ The repository is structured as illustrated below:
 .
 ├── mappings
 │   └── analyzer.yml
+├── dist
+│   └── pack.yml
 ├── c
 │   ├── buffer
 │   │   ├── rule-strcpy.yml
@@ -46,6 +48,10 @@ We can have multiple test cases per rule (all prefixed with `test-`) and rule
 files `rule-<rulename>.yml` that are prefixed with `rule-`; a rule file
 contains a single semgrep rule.  
 
+The `mappings` and `dist` directories include the rule-pack configuration which
+define the rules that should included into rule-packs and the resulting,
+assembled rule-packs.
+
 ## Formatting guidelines
 
 Rules contained in this repository have to adhere to the following format:
@@ -72,6 +78,32 @@ to perform an automated gap analysis; the goal of this analysis is to check
 whether there is an unexpected deviation between semgrep (with the rules in this repository) 
 and a given analyzer.
 
+In addition to that mappings are also used to automatically assemble
+rule-packs. The snippet below illustrates an example mapping files for the
+`bandit` analyzer. The `native_id` section includes some information about the
+native id mappings. The actual rule mappings are defined in the `mappings`
+section. Each mapping defines of which semgrep rules in this repository, a
+bandit rules is composed. Note that the order of the rules in the files are
+listed does matter at the moment, so that new mappings should be appended at
+the end.
+
+``` yaml
+bandit:
+  native_id:
+    type: "bandit_test_id"
+    name: "Bandit Test ID: $ID"
+    value: "$ID"
+  mappings:
+  - id: "B301"
+    rules:
+      - "python/deserialization/rule-cpickle"
+      - "python/deserialization/rule-shelve"
+      - "python/deserialization/rule-pickle"
+      - "python/deserialization/rule-dill"
+  - id: "B101"
+  # ...
+```
+
 ## Datasources
 
 The rules and test-cases in this repository are partially sourced from the
@@ -84,6 +116,12 @@ sources listed below:
 The details are listed in the headers of all the rule end test-files including
 the licensing information and proper attribution. 
 
+## Contribution instructions
+
+After making changes to rules or mappings, make sure to run `./ci/deploy.sh <semantic version>` 
+and commit your updates to the `/dist` directory where `<semantic version>`
+should correspond to the latest pusblished version in [CHANGELOG.md](./CHANGELOG.md)>
+
 ## Versioning and Changelog
 
 We apply the following semantic versioning scheme to this repository:
@@ -92,8 +130,7 @@ We apply the following semantic versioning scheme to this repository:
 1. minor version increment: backwards-compatible YAML schema changes (e.g., adding/removing optional fields).
 1. major version increment: non-backwards-compatible YAML schema changes (e.g., adding/removing required fields)
 
-All notable changes concerning minor and major updates are tracked in [the changelog](CHANGELOG.md) which 
-is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+## Rule deployment
 
 ## Rules that are not covered at the moment
 
