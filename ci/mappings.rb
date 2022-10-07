@@ -6,9 +6,9 @@ module MappingCheck
   def self.run
     ok = true
     Dir.glob('./mappings/*.yml').each do |file|
-      mfile = YAML.load(File.read(file))
-      _, mappings = mfile.first
-      mappings.each do |mp|
+      mappings = YAML.load(File.read(file))
+      base = File.basename(file, ".yml")
+      mappings[base]['mappings'].each do |mp|
         id = mp['id']
         mp['rules'].each do |rule|
           fname = "#{rule}.yml"
