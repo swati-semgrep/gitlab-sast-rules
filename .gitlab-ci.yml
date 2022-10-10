@@ -104,7 +104,6 @@ gapanalysis:
     UPSTREAM_BRANCH: $CI_COMMIT_REF_NAME
   trigger:
     project: gitlab-org/secure/gsoc-sast-vulnerability-rules/rule-testing-framework/rule-testing
-    branch: use-different-targets
   rules:
     - if: $CI_COMMIT_TAG
       when: never 
