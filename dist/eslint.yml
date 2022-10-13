@@ -1,14 +1,14 @@
 # yamllint disable
-# rule-set version: 1.1.0
+# rule-set version: 1.1.1
 # yamllint enable
 ---
 rules:
-- id: "security/detect-buffer-noassert-1"
+- id: "eslint.security/detect-buffer-noassert-1"
   metadata:
     cwe: "CWE-119: Improper Restriction of Operations within the Bounds of a Memory
       Buffer"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-buffer-noassert.js"
-    primary_identifier: "security/detect-buffer-noassert-1"
+    primary_identifier: "eslint.security/detect-buffer-noassert-1"
     secondary_identifiers:
     - name: "security/detect-buffer-noassert"
       type: "eslint_rule_id"
@@ -49,13 +49,13 @@ rules:
   languages:
   - "javascript"
   - "typescript"
-- id: "security/detect-no-csrf-before-method-override-1"
+- id: "eslint.security/detect-no-csrf-before-method-override-1"
   metadata:
     cwe: "CWE-352: Cross-Site Request Forgery (CSRF)"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-no-csrf-before-method-override.js"
     references:
     - "https://github.com/nodesecurity/eslint-plugin-security/blob/master/docs/bypass-connect-csrf-protection-by-abusing.md"
-    primary_identifier: "security/detect-no-csrf-before-method-override-1"
+    primary_identifier: "eslint.security/detect-no-csrf-before-method-override-1"
     secondary_identifiers:
     - name: "security/detect-no-csrf-before-method-override"
       type: "eslint_rule_id"
@@ -71,7 +71,7 @@ rules:
   languages:
   - "javascript"
   - "typescript"
-- id: "security/detect-non-literal-regexp-1"
+- id: "eslint.security/detect-non-literal-regexp-1"
   patterns:
   - pattern: |
       new RegExp(...)
@@ -86,18 +86,18 @@ rules:
   severity: "WARNING"
   metadata:
     cwe: "CWE-185: Incorrect Regular Expression"
-    primary_identifier: "security/detect-non-literal-regexp-1"
+    primary_identifier: "eslint.security/detect-non-literal-regexp-1"
     secondary_identifiers:
     - name: "security/detect-non-literal-regexp"
       type: "eslint_rule_id"
       value: "ESLint rule ID security/detect-non-literal-regexp"
-- id: "security/detect-eval-with-expression-1"
+- id: "eslint.security/detect-eval-with-expression-1"
   metadata:
     cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
       ('Eval Injection')"
     owasp: "A1: Injection"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-eval-with-expression.js"
-    primary_identifier: "security/detect-eval-with-expression-1"
+    primary_identifier: "eslint.security/detect-eval-with-expression-1"
     secondary_identifiers:
     - name: "security/detect-eval-with-expression"
       type: "eslint_rule_id"
@@ -111,13 +111,13 @@ rules:
   languages:
   - "javascript"
   - "typescript"
-- id: "security/detect-child-process-1"
+- id: "eslint.security/detect-child-process-1"
   metadata:
     cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
       ('Eval Injection')"
     owasp: "A1: Injection"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-child-process.js"
-    primary_identifier: "security/detect-child-process-1"
+    primary_identifier: "eslint.security/detect-child-process-1"
     secondary_identifiers:
     - name: "security/detect-child-process"
       type: "eslint_rule_id"
@@ -132,7 +132,7 @@ rules:
   languages:
   - "javascript"
   - "typescript"
-- id: "security/detect-non-literal-fs-filename-1"
+- id: "eslint.security/detect-non-literal-fs-filename-1"
   patterns:
   - pattern-not: "$MOD.appendFile(\"...\", ...)"
   - pattern-not: "$MOD.appendFileSync(\"...\", ...)"
@@ -243,12 +243,12 @@ rules:
   metadata:
     cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
       Traversal')"
-    primary_identifier: "security/detect-non-literal-fs-filename-1"
+    primary_identifier: "eslint.security/detect-non-literal-fs-filename-1"
     secondary_identifiers:
     - name: "security/detect-non-literal-fs-filename"
       type: "eslint_rule_id"
       value: "ESLint rule ID security/detect-non-literal-fs-filename"
-- id: "security/detect-object-injection-1"
+- id: "eslint.security/detect-object-injection-1"
   patterns:
   - pattern: "$V = $O[$ARG]"
   - pattern-not: "$O[\"...\"]"
@@ -268,16 +268,16 @@ rules:
   severity: "WARNING"
   metadata:
     cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    primary_identifier: "security/detect-object-injection-1"
+    primary_identifier: "eslint.security/detect-object-injection-1"
     secondary_identifiers:
     - name: "security/detect-object-injection"
       type: "eslint_rule_id"
       value: "ESLint rule ID security/detect-object-injection"
-- id: "security/detect-pseudoRandomBytes-1"
+- id: "eslint.security/detect-pseudoRandomBytes-1"
   metadata:
     cwe: "CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-pseudoRandomBytes.js"
-    primary_identifier: "security/detect-pseudoRandomBytes-1"
+    primary_identifier: "eslint.security/detect-pseudoRandomBytes-1"
     secondary_identifiers:
     - name: "security/detect-pseudoRandomBytes"
       type: "eslint_rule_id"
@@ -289,7 +289,7 @@ rules:
   languages:
   - "javascript"
   - "typescript"
-- id: "react/no-danger-with-children-2"
+- id: "eslint.react/no-danger-with-children-2"
   pattern-either:
   - pattern: |
       <$X dangerouslySetInnerHTML=... />
@@ -304,7 +304,7 @@ rules:
     owasp: "A7: Cross-site Scripting (XSS)"
     references:
     - "https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml"
-    primary_identifier: "react/no-danger-with-children-2"
+    primary_identifier: "eslint.react/no-danger-with-children-2"
     secondary_identifiers:
     - name: "react/no-danger-with-children"
       type: "eslint_rule_id"
@@ -313,7 +313,7 @@ rules:
   - "typescript"
   - "javascript"
   severity: "WARNING"
-- id: "react/no-danger-with-children-1"
+- id: "eslint.react/no-danger-with-children-1"
   pattern-either:
   - patterns:
     - pattern: |
@@ -362,7 +362,7 @@ rules:
     - "https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer"
     - "https://web.dev/external-anchors-use-rel-noopener/"
     - "https://owasp.org/www-community/attacks/Reverse_Tabnabbing"
-    primary_identifier: "react/no-danger-with-children-1"
+    primary_identifier: "eslint.react/no-danger-with-children-1"
     secondary_identifiers:
     - name: "react/no-danger-with-children"
       type: "eslint_rule_id"
@@ -371,13 +371,13 @@ rules:
   - "typescript"
   - "javascript"
   severity: "WARNING"
-- id: "security/detect-non-literal-require-1"
+- id: "eslint.security/detect-non-literal-require-1"
   metadata:
     cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
       ('Eval Injection')"
     owasp: "A1: Injection"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-require.js"
-    primary_identifier: "security/detect-non-literal-require-1"
+    primary_identifier: "eslint.security/detect-non-literal-require-1"
     secondary_identifiers:
     - name: "security/detect-non-literal-require"
       type: "eslint_rule_id"
@@ -392,7 +392,7 @@ rules:
   languages:
   - "javascript"
   - "typescript"
-- id: "security/detect-possible-timing-attacks-1"
+- id: "eslint.security/detect-possible-timing-attacks-1"
   patterns:
   - pattern-not: "if ($Z == null) { ... };"
   - pattern-not: "if ($Z === null) { ... };"
@@ -883,17 +883,17 @@ rules:
   severity: "WARNING"
   metadata:
     cwe: "CWE-208: Observable Timing Discrepancy"
-    primary_identifier: "security/detect-possible-timing-attacks-1"
+    primary_identifier: "eslint.security/detect-possible-timing-attacks-1"
     secondary_identifiers:
     - name: "security/detect-possible-timing-attacks"
       type: "eslint_rule_id"
       value: "ESLint rule ID security/detect-possible-timing-attacks"
-- id: "security/detect-disable-mustache-escape-1"
+- id: "eslint.security/detect-disable-mustache-escape-1"
   metadata:
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation (XSS)"
     owasp: "A7: Cross-Site Scripting XSS"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-disable-mustache-escape.js"
-    primary_identifier: "security/detect-disable-mustache-escape-1"
+    primary_identifier: "eslint.security/detect-disable-mustache-escape-1"
     secondary_identifiers:
     - name: "security/detect-disable-mustache-escape"
       type: "eslint_rule_id"

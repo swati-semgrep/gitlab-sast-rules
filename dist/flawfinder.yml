@@ -1,9 +1,9 @@
 # yamllint disable
-# rule-set version: 1.1.0
+# rule-set version: 1.1.1
 # yamllint enable
 ---
 rules:
-- id: "RpcImpersonateClient-1"
+- id: "flawfinder.RpcImpersonateClient-1.ImpersonateLoggedOnUser-1.CoImpersonateClient-1.ImpersonateNamedPipeClient-1.ImpersonateDdeClientWindow-1.ImpersonateSecurityContext-1.SetThreadToken-1"
   languages:
   - "c"
   message: |
@@ -11,140 +11,26 @@ rules:
   metadata:
     cwe: "CWE-250: If this call fails, the program could fail to drop heightened privileges
       (CWE-250)"
-    primary_identifier: "RpcImpersonateClient-1"
+    primary_identifier: "flawfinder.RpcImpersonateClient-1.ImpersonateLoggedOnUser-1.CoImpersonateClient-1.ImpersonateNamedPipeClient-1.ImpersonateDdeClientWindow-1.ImpersonateSecurityContext-1.SetThreadToken-1"
     secondary_identifiers:
     - name: "Flawfinder - RpcImpersonateClient"
       type: "flawfinder_func_name"
       value: "RpcImpersonateClient"
-  pattern-either:
-  - pattern: "RpcImpersonateClient(...)"
-  - pattern: "ImpersonateLoggedOnUser(...)"
-  - pattern: "CoImpersonateClient(...)"
-  - pattern: "ImpersonateNamedPipeClient(...)"
-  - pattern: "ImpersonateDdeClientWindow(...)"
-  - pattern: "ImpersonateSecurityContext(...)"
-  - pattern: "SetThreadToken(...)"
-  severity: "ERROR"
-- id: "ImpersonateLoggedOnUser-1"
-  languages:
-  - "c"
-  message: |
-    Make sure the return value is checked, and do not continue if a failure is reported.
-  metadata:
-    cwe: "CWE-250: If this call fails, the program could fail to drop heightened privileges
-      (CWE-250)"
-    primary_identifier: "ImpersonateLoggedOnUser-1"
-    secondary_identifiers:
     - name: "Flawfinder - ImpersonateLoggedOnUser"
       type: "flawfinder_func_name"
       value: "ImpersonateLoggedOnUser"
-  pattern-either:
-  - pattern: "RpcImpersonateClient(...)"
-  - pattern: "ImpersonateLoggedOnUser(...)"
-  - pattern: "CoImpersonateClient(...)"
-  - pattern: "ImpersonateNamedPipeClient(...)"
-  - pattern: "ImpersonateDdeClientWindow(...)"
-  - pattern: "ImpersonateSecurityContext(...)"
-  - pattern: "SetThreadToken(...)"
-  severity: "ERROR"
-- id: "CoImpersonateClient-1"
-  languages:
-  - "c"
-  message: |
-    Make sure the return value is checked, and do not continue if a failure is reported.
-  metadata:
-    cwe: "CWE-250: If this call fails, the program could fail to drop heightened privileges
-      (CWE-250)"
-    primary_identifier: "CoImpersonateClient-1"
-    secondary_identifiers:
     - name: "Flawfinder - CoImpersonateClient"
       type: "flawfinder_func_name"
       value: "CoImpersonateClient"
-  pattern-either:
-  - pattern: "RpcImpersonateClient(...)"
-  - pattern: "ImpersonateLoggedOnUser(...)"
-  - pattern: "CoImpersonateClient(...)"
-  - pattern: "ImpersonateNamedPipeClient(...)"
-  - pattern: "ImpersonateDdeClientWindow(...)"
-  - pattern: "ImpersonateSecurityContext(...)"
-  - pattern: "SetThreadToken(...)"
-  severity: "ERROR"
-- id: "ImpersonateNamedPipeClient-1"
-  languages:
-  - "c"
-  message: |
-    Make sure the return value is checked, and do not continue if a failure is reported.
-  metadata:
-    cwe: "CWE-250: If this call fails, the program could fail to drop heightened privileges
-      (CWE-250)"
-    primary_identifier: "ImpersonateNamedPipeClient-1"
-    secondary_identifiers:
     - name: "Flawfinder - ImpersonateNamedPipeClient"
       type: "flawfinder_func_name"
       value: "ImpersonateNamedPipeClient"
-  pattern-either:
-  - pattern: "RpcImpersonateClient(...)"
-  - pattern: "ImpersonateLoggedOnUser(...)"
-  - pattern: "CoImpersonateClient(...)"
-  - pattern: "ImpersonateNamedPipeClient(...)"
-  - pattern: "ImpersonateDdeClientWindow(...)"
-  - pattern: "ImpersonateSecurityContext(...)"
-  - pattern: "SetThreadToken(...)"
-  severity: "ERROR"
-- id: "ImpersonateDdeClientWindow-1"
-  languages:
-  - "c"
-  message: |
-    Make sure the return value is checked, and do not continue if a failure is reported.
-  metadata:
-    cwe: "CWE-250: If this call fails, the program could fail to drop heightened privileges
-      (CWE-250)"
-    primary_identifier: "ImpersonateDdeClientWindow-1"
-    secondary_identifiers:
     - name: "Flawfinder - ImpersonateDdeClientWindow"
       type: "flawfinder_func_name"
       value: "ImpersonateDdeClientWindow"
-  pattern-either:
-  - pattern: "RpcImpersonateClient(...)"
-  - pattern: "ImpersonateLoggedOnUser(...)"
-  - pattern: "CoImpersonateClient(...)"
-  - pattern: "ImpersonateNamedPipeClient(...)"
-  - pattern: "ImpersonateDdeClientWindow(...)"
-  - pattern: "ImpersonateSecurityContext(...)"
-  - pattern: "SetThreadToken(...)"
-  severity: "ERROR"
-- id: "ImpersonateSecurityContext-1"
-  languages:
-  - "c"
-  message: |
-    Make sure the return value is checked, and do not continue if a failure is reported.
-  metadata:
-    cwe: "CWE-250: If this call fails, the program could fail to drop heightened privileges
-      (CWE-250)"
-    primary_identifier: "ImpersonateSecurityContext-1"
-    secondary_identifiers:
     - name: "Flawfinder - ImpersonateSecurityContext"
       type: "flawfinder_func_name"
       value: "ImpersonateSecurityContext"
-  pattern-either:
-  - pattern: "RpcImpersonateClient(...)"
-  - pattern: "ImpersonateLoggedOnUser(...)"
-  - pattern: "CoImpersonateClient(...)"
-  - pattern: "ImpersonateNamedPipeClient(...)"
-  - pattern: "ImpersonateDdeClientWindow(...)"
-  - pattern: "ImpersonateSecurityContext(...)"
-  - pattern: "SetThreadToken(...)"
-  severity: "ERROR"
-- id: "SetThreadToken-1"
-  languages:
-  - "c"
-  message: |
-    Make sure the return value is checked, and do not continue if a failure is reported.
-  metadata:
-    cwe: "CWE-250: If this call fails, the program could fail to drop heightened privileges
-      (CWE-250)"
-    primary_identifier: "SetThreadToken-1"
-    secondary_identifiers:
     - name: "Flawfinder - SetThreadToken"
       type: "flawfinder_func_name"
       value: "SetThreadToken"
@@ -157,7 +43,7 @@ rules:
   - pattern: "ImpersonateSecurityContext(...)"
   - pattern: "SetThreadToken(...)"
   severity: "ERROR"
-- id: "umask-1"
+- id: "flawfinder.umask-1"
   languages:
   - "c"
   message: |
@@ -166,28 +52,28 @@ rules:
   metadata:
     cwe: "CWE-732: Ensure that umask is given most restrictive possible setting (e.g.,
       066 or 077) (CWE-732)"
-    primary_identifier: "umask-1"
+    primary_identifier: "flawfinder.umask-1"
     secondary_identifiers:
     - name: "Flawfinder - umask"
       type: "flawfinder_func_name"
       value: "umask"
   pattern: "umask(...)"
   severity: "INFO"
-- id: "MultiByteToWideChar-1"
+- id: "flawfinder.MultiByteToWideChar-1"
   languages:
   - "c"
   message: |
     The software does not properly handle when an input contains Unicode encoding.
   metadata:
     cwe: "CWE-120: Requires maximum length in CHARACTERS, not bytes (CWE-120)"
-    primary_identifier: "MultiByteToWideChar-1"
+    primary_identifier: "flawfinder.MultiByteToWideChar-1"
     secondary_identifiers:
     - name: "Flawfinder - MultiByteToWideChar"
       type: "flawfinder_func_name"
       value: "MultiByteToWideChar"
   pattern: "MultiByteToWideChar(...)"
   severity: "INFO"
-- id: "StrCat-1"
+- id: "flawfinder.StrCat-1.StrCatA-1.StrcatW-1.lstrcatA-1.lstrcatW-1.strCatBuff-1.StrCatBuffA-1.StrCatBuffW-1.StrCatChainW-1._tccat-1._mbccat-1._ftcscat-1.StrCatN-1.StrCatNA-1.StrCatNW-1.StrNCat-1.StrNCatA-1.StrNCatW-1.lstrncat-1.lstrcatnA-1.lstrcatnW-1"
   languages:
   - "c"
   message: |
@@ -195,728 +81,68 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
       [MS-banned] (CWE-120)"
-    primary_identifier: "StrCat-1"
+    primary_identifier: "flawfinder.StrCat-1.StrCatA-1.StrcatW-1.lstrcatA-1.lstrcatW-1.strCatBuff-1.StrCatBuffA-1.StrCatBuffW-1.StrCatChainW-1._tccat-1._mbccat-1._ftcscat-1.StrCatN-1.StrCatNA-1.StrCatNW-1.StrNCat-1.StrNCatA-1.StrNCatW-1.lstrncat-1.lstrcatnA-1.lstrcatnW-1"
     secondary_identifiers:
     - name: "Flawfinder - StrCat"
       type: "flawfinder_func_name"
       value: "StrCat"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrCatA-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCatA-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCatA"
       type: "flawfinder_func_name"
       value: "StrCatA"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrcatW-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrcatW-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrcatW"
       type: "flawfinder_func_name"
       value: "StrcatW"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "lstrcatA-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcatA-1"
-    secondary_identifiers:
     - name: "Flawfinder - lstrcatA"
       type: "flawfinder_func_name"
       value: "lstrcatA"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "lstrcatW-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcatW-1"
-    secondary_identifiers:
     - name: "Flawfinder - lstrcatW"
       type: "flawfinder_func_name"
       value: "lstrcatW"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "strCatBuff-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "strCatBuff-1"
-    secondary_identifiers:
     - name: "Flawfinder - strCatBuff"
       type: "flawfinder_func_name"
       value: "strCatBuff"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrCatBuffA-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCatBuffA-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCatBuffA"
       type: "flawfinder_func_name"
       value: "StrCatBuffA"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrCatBuffW-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCatBuffW-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCatBuffW"
       type: "flawfinder_func_name"
       value: "StrCatBuffW"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrCatChainW-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCatChainW-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCatChainW"
       type: "flawfinder_func_name"
       value: "StrCatChainW"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "_tccat-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_tccat-1"
-    secondary_identifiers:
     - name: "Flawfinder - _tccat"
       type: "flawfinder_func_name"
       value: "_tccat"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "_mbccat-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_mbccat-1"
-    secondary_identifiers:
     - name: "Flawfinder - _mbccat"
       type: "flawfinder_func_name"
       value: "_mbccat"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "_ftcscat-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_ftcscat-1"
-    secondary_identifiers:
     - name: "Flawfinder - _ftcscat"
       type: "flawfinder_func_name"
       value: "_ftcscat"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrCatN-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCatN-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCatN"
       type: "flawfinder_func_name"
       value: "StrCatN"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrCatNA-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCatNA-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCatNA"
       type: "flawfinder_func_name"
       value: "StrCatNA"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrCatNW-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCatNW-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCatNW"
       type: "flawfinder_func_name"
       value: "StrCatNW"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrNCat-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrNCat-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrNCat"
       type: "flawfinder_func_name"
       value: "StrNCat"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrNCatA-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrNCatA-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrNCatA"
       type: "flawfinder_func_name"
       value: "StrNCatA"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "StrNCatW-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrNCatW-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrNCatW"
       type: "flawfinder_func_name"
       value: "StrNCatW"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "lstrncat-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "lstrncat-1"
-    secondary_identifiers:
     - name: "Flawfinder - lstrncat"
       type: "flawfinder_func_name"
       value: "lstrncat"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "lstrcatnA-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcatnA-1"
-    secondary_identifiers:
     - name: "Flawfinder - lstrcatnA"
       type: "flawfinder_func_name"
       value: "lstrcatnA"
-  pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
-  - pattern: "StrcatW(...)"
-  - pattern: "lstrcatA(...)"
-  - pattern: "lstrcatW(...)"
-  - pattern: "strCatBuff(...)"
-  - pattern: "StrCatBuffA(...)"
-  - pattern: "StrCatBuffW(...)"
-  - pattern: "StrCatChainW(...)"
-  - pattern: "_tccat(...)"
-  - pattern: "_mbccat(...)"
-  - pattern: "_ftcscat(...)"
-  - pattern: "StrCatN(...)"
-  - pattern: "StrCatNA(...)"
-  - pattern: "StrCatNW(...)"
-  - pattern: "StrNCat(...)"
-  - pattern: "StrNCatA(...)"
-  - pattern: "StrNCatW(...)"
-  - pattern: "lstrncat(...)"
-  - pattern: "lstrcatnA(...)"
-  - pattern: "lstrcatnW(...)"
-  severity: "ERROR"
-- id: "lstrcatnW-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflow is not checked.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcatnW-1"
-    secondary_identifiers:
     - name: "Flawfinder - lstrcatnW"
       type: "flawfinder_func_name"
       value: "lstrcatnW"
@@ -943,7 +169,7 @@ rules:
   - pattern: "lstrcatnA(...)"
   - pattern: "lstrcatnW(...)"
   severity: "ERROR"
-- id: "char-1"
+- id: "flawfinder.char-1.TCHAR-1.wchar_t-1"
   languages:
   - "c"
   message: |
@@ -952,66 +178,14 @@ rules:
   metadata:
     cwe: "CWE-120: Statically-sized arrays can be improperly restricted, leading to
       potential overflows or other issues (CWE-119!/CWE-120)"
-    primary_identifier: "char-1"
+    primary_identifier: "flawfinder.char-1.TCHAR-1.wchar_t-1"
     secondary_identifiers:
     - name: "Flawfinder - char"
       type: "flawfinder_func_name"
       value: "char"
-  pattern-either:
-  - patterns:
-    - pattern-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[.*\\]"
-    - pattern-not-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
-  - patterns:
-    - pattern-regex: "(char) *[a-zA-Z0-9_]+\\[.*\\]"
-    - pattern-not-regex: "(char) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
-  - patterns:
-    - pattern-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[.*\\]"
-    - pattern-not-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
-  - patterns:
-    - pattern-regex: "static *(const)? *(wchar_t|char|TCHAR) *[a-zA-Z0-9_]+ *\\[.*\\]\\*(={.*})?"
-  - patterns:
-    - pattern-regex: "(.*|)(\\s|)\\=(\\s|)\\((char.*) (malloc)\\(.*\\[[0-9]+\\].*\\)"
-  severity: "INFO"
-- id: "TCHAR-1"
-  languages:
-  - "c"
-  message: |
-    Perform bounds checking, use functions that limit length, or ensure that the size is larger
-    than the maximum possible length.
-  metadata:
-    cwe: "CWE-120: Statically-sized arrays can be improperly restricted, leading to
-      potential overflows or other issues (CWE-119!/CWE-120)"
-    primary_identifier: "TCHAR-1"
-    secondary_identifiers:
     - name: "Flawfinder - TCHAR"
       type: "flawfinder_func_name"
       value: "TCHAR"
-  pattern-either:
-  - patterns:
-    - pattern-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[.*\\]"
-    - pattern-not-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
-  - patterns:
-    - pattern-regex: "(char) *[a-zA-Z0-9_]+\\[.*\\]"
-    - pattern-not-regex: "(char) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
-  - patterns:
-    - pattern-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[.*\\]"
-    - pattern-not-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
-  - patterns:
-    - pattern-regex: "static *(const)? *(wchar_t|char|TCHAR) *[a-zA-Z0-9_]+ *\\[.*\\]\\*(={.*})?"
-  - patterns:
-    - pattern-regex: "(.*|)(\\s|)\\=(\\s|)\\((char.*) (malloc)\\(.*\\[[0-9]+\\].*\\)"
-  severity: "INFO"
-- id: "wchar_t-1"
-  languages:
-  - "c"
-  message: |
-    Perform bounds checking, use functions that limit length, or ensure that the size is larger
-    than the maximum possible length.
-  metadata:
-    cwe: "CWE-120: Statically-sized arrays can be improperly restricted, leading to
-      potential overflows or other issues (CWE-119!/CWE-120)"
-    primary_identifier: "wchar_t-1"
-    secondary_identifiers:
     - name: "Flawfinder - wchar_t"
       type: "flawfinder_func_name"
       value: "wchar_t"
@@ -1030,7 +204,7 @@ rules:
   - patterns:
     - pattern-regex: "(.*|)(\\s|)\\=(\\s|)\\((char.*) (malloc)\\(.*\\[[0-9]+\\].*\\)"
   severity: "INFO"
-- id: "equal-1"
+- id: "flawfinder.equal-1.mismatch-1.is_permutation-1"
   languages:
   - "c"
   message: |
@@ -1040,48 +214,14 @@ rules:
   metadata:
     cwe: "CWE-126: Function does not check the second iterator for over-read conditions
       (CWE-126)"
-    primary_identifier: "equal-1"
+    primary_identifier: "flawfinder.equal-1.mismatch-1.is_permutation-1"
     secondary_identifiers:
     - name: "Flawfinder - equal"
       type: "flawfinder_func_name"
       value: "equal"
-  pattern-either:
-  - pattern: "equal(...)"
-  - pattern: "mismatch(...)"
-  - pattern: "is_permutation(...)"
-  severity: "INFO"
-- id: "mismatch-1"
-  languages:
-  - "c"
-  message: |
-    This function is often discouraged by most C++ coding standards in favor of its safer
-    alternatives provided since C++14. Consider using a form of this function that checks the
-    second iterator before potentially overflowing it.
-  metadata:
-    cwe: "CWE-126: Function does not check the second iterator for over-read conditions
-      (CWE-126)"
-    primary_identifier: "mismatch-1"
-    secondary_identifiers:
     - name: "Flawfinder - mismatch"
       type: "flawfinder_func_name"
       value: "mismatch"
-  pattern-either:
-  - pattern: "equal(...)"
-  - pattern: "mismatch(...)"
-  - pattern: "is_permutation(...)"
-  severity: "INFO"
-- id: "is_permutation-1"
-  languages:
-  - "c"
-  message: |
-    This function is often discouraged by most C++ coding standards in favor of its safer
-    alternatives provided since C++14. Consider using a form of this function that checks the
-    second iterator before potentially overflowing it.
-  metadata:
-    cwe: "CWE-126: Function does not check the second iterator for over-read conditions
-      (CWE-126)"
-    primary_identifier: "is_permutation-1"
-    secondary_identifiers:
     - name: "Flawfinder - is_permutation"
       type: "flawfinder_func_name"
       value: "is_permutation"
@@ -1090,7 +230,7 @@ rules:
   - pattern: "mismatch(...)"
   - pattern: "is_permutation(...)"
   severity: "INFO"
-- id: "fscanf-1"
+- id: "flawfinder.fscanf-1.sscanf-1.vsscanf-1.vfscanf-1._ftscanf-1.fwscanf-1.vfwscanf-1.vswscanf-1"
   languages:
   - "c"
   message: |
@@ -1098,169 +238,29 @@ rules:
   metadata:
     cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
       permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "fscanf-1"
+    primary_identifier: "flawfinder.fscanf-1.sscanf-1.vsscanf-1.vfscanf-1._ftscanf-1.fwscanf-1.vfwscanf-1.vswscanf-1"
     secondary_identifiers:
     - name: "Flawfinder - fscanf"
       type: "flawfinder_func_name"
       value: "fscanf"
-  pattern-either:
-  - pattern: "fscanf(...)"
-  - pattern: "sscanf(...)"
-  - pattern: "vsscanf(...)"
-  - pattern: "vfscanf(...)"
-  - pattern: "_ftscanf(...)"
-  - pattern: "fwscanf(...)"
-  - pattern: "vfwscanf(...)"
-  - pattern: "vswscanf(...)"
-  severity: "ERROR"
-- id: "sscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "sscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - sscanf"
       type: "flawfinder_func_name"
       value: "sscanf"
-  pattern-either:
-  - pattern: "fscanf(...)"
-  - pattern: "sscanf(...)"
-  - pattern: "vsscanf(...)"
-  - pattern: "vfscanf(...)"
-  - pattern: "_ftscanf(...)"
-  - pattern: "fwscanf(...)"
-  - pattern: "vfwscanf(...)"
-  - pattern: "vswscanf(...)"
-  severity: "ERROR"
-- id: "vsscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "vsscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vsscanf"
       type: "flawfinder_func_name"
       value: "vsscanf"
-  pattern-either:
-  - pattern: "fscanf(...)"
-  - pattern: "sscanf(...)"
-  - pattern: "vsscanf(...)"
-  - pattern: "vfscanf(...)"
-  - pattern: "_ftscanf(...)"
-  - pattern: "fwscanf(...)"
-  - pattern: "vfwscanf(...)"
-  - pattern: "vswscanf(...)"
-  severity: "ERROR"
-- id: "vfscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "vfscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vfscanf"
       type: "flawfinder_func_name"
       value: "vfscanf"
-  pattern-either:
-  - pattern: "fscanf(...)"
-  - pattern: "sscanf(...)"
-  - pattern: "vsscanf(...)"
-  - pattern: "vfscanf(...)"
-  - pattern: "_ftscanf(...)"
-  - pattern: "fwscanf(...)"
-  - pattern: "vfwscanf(...)"
-  - pattern: "vswscanf(...)"
-  severity: "ERROR"
-- id: "_ftscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "_ftscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _ftscanf"
       type: "flawfinder_func_name"
       value: "_ftscanf"
-  pattern-either:
-  - pattern: "fscanf(...)"
-  - pattern: "sscanf(...)"
-  - pattern: "vsscanf(...)"
-  - pattern: "vfscanf(...)"
-  - pattern: "_ftscanf(...)"
-  - pattern: "fwscanf(...)"
-  - pattern: "vfwscanf(...)"
-  - pattern: "vswscanf(...)"
-  severity: "ERROR"
-- id: "fwscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "fwscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - fwscanf"
       type: "flawfinder_func_name"
       value: "fwscanf"
-  pattern-either:
-  - pattern: "fscanf(...)"
-  - pattern: "sscanf(...)"
-  - pattern: "vsscanf(...)"
-  - pattern: "vfscanf(...)"
-  - pattern: "_ftscanf(...)"
-  - pattern: "fwscanf(...)"
-  - pattern: "vfwscanf(...)"
-  - pattern: "vswscanf(...)"
-  severity: "ERROR"
-- id: "vfwscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "vfwscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vfwscanf"
       type: "flawfinder_func_name"
       value: "vfwscanf"
-  pattern-either:
-  - pattern: "fscanf(...)"
-  - pattern: "sscanf(...)"
-  - pattern: "vsscanf(...)"
-  - pattern: "vfscanf(...)"
-  - pattern: "_ftscanf(...)"
-  - pattern: "fwscanf(...)"
-  - pattern: "vfwscanf(...)"
-  - pattern: "vswscanf(...)"
-  severity: "ERROR"
-- id: "vswscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "vswscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vswscanf"
       type: "flawfinder_func_name"
       value: "vswscanf"
@@ -1274,7 +274,7 @@ rules:
   - pattern: "vfwscanf(...)"
   - pattern: "vswscanf(...)"
   severity: "ERROR"
-- id: "g_get_home_dir-1"
+- id: "flawfinder.g_get_home_dir-1"
   languages:
   - "c"
   message: |
@@ -1283,14 +283,14 @@ rules:
     cwe: "CWE-20: This function is synonymous with 'getenv(\"HOME\")';it returns untrustable
       input if the environment can beset by an attacker.  It can have any content
       and length, and the same variable can be set more than once (CWE-807, CWE-20)"
-    primary_identifier: "g_get_home_dir-1"
+    primary_identifier: "flawfinder.g_get_home_dir-1"
     secondary_identifiers:
     - name: "Flawfinder - g_get_home_dir"
       type: "flawfinder_func_name"
       value: "g_get_home_dir"
   pattern: "g_get_home_dir(...)"
   severity: "WARNING"
-- id: "g_get_tmp_dir-1"
+- id: "flawfinder.g_get_tmp_dir-1"
   languages:
   - "c"
   message: |
@@ -1299,14 +299,14 @@ rules:
     cwe: "CWE-20: This function is synonymous with 'getenv(\"TMP\")';it returns untrustable
       input if the environment can beset by an attacker.  It can have any content
       and length, and the same variable can be set more than once (CWE-807, CWE-20)"
-    primary_identifier: "g_get_tmp_dir-1"
+    primary_identifier: "flawfinder.g_get_tmp_dir-1"
     secondary_identifiers:
     - name: "Flawfinder - g_get_tmp_dir"
       type: "flawfinder_func_name"
       value: "g_get_tmp_dir"
   pattern: "g_get_tmp_dir(...)"
   severity: "WARNING"
-- id: "getchar-1"
+- id: "flawfinder.getchar-1.fgetc-1.getc-1.read-1._gettc-1"
   languages:
   - "c"
   message: |
@@ -1314,88 +314,20 @@ rules:
   metadata:
     cwe: "CWE-20: Check buffer boundaries if used in a loop including recursive loops
       (CWE-120, CWE-20)"
-    primary_identifier: "getchar-1"
+    primary_identifier: "flawfinder.getchar-1.fgetc-1.getc-1.read-1._gettc-1"
     secondary_identifiers:
     - name: "Flawfinder - getchar"
       type: "flawfinder_func_name"
       value: "getchar"
-  pattern-either:
-  - pattern: "getchar(...)"
-  - pattern: "fgetc(...)"
-  - pattern: "getc(...)"
-  - pattern: "read(...)"
-  - pattern: "_gettc(...)"
-  severity: "INFO"
-- id: "fgetc-1"
-  languages:
-  - "c"
-  message: |
-    CWE-20: Check buffer boundaries if used in a loop including recursive loops
-  metadata:
-    cwe: "CWE-20: Check buffer boundaries if used in a loop including recursive loops
-      (CWE-120, CWE-20)"
-    primary_identifier: "fgetc-1"
-    secondary_identifiers:
     - name: "Flawfinder - fgetc"
       type: "flawfinder_func_name"
       value: "fgetc"
-  pattern-either:
-  - pattern: "getchar(...)"
-  - pattern: "fgetc(...)"
-  - pattern: "getc(...)"
-  - pattern: "read(...)"
-  - pattern: "_gettc(...)"
-  severity: "INFO"
-- id: "getc-1"
-  languages:
-  - "c"
-  message: |
-    CWE-20: Check buffer boundaries if used in a loop including recursive loops
-  metadata:
-    cwe: "CWE-20: Check buffer boundaries if used in a loop including recursive loops
-      (CWE-120, CWE-20)"
-    primary_identifier: "getc-1"
-    secondary_identifiers:
     - name: "Flawfinder - getc"
       type: "flawfinder_func_name"
       value: "getc"
-  pattern-either:
-  - pattern: "getchar(...)"
-  - pattern: "fgetc(...)"
-  - pattern: "getc(...)"
-  - pattern: "read(...)"
-  - pattern: "_gettc(...)"
-  severity: "INFO"
-- id: "read-1"
-  languages:
-  - "c"
-  message: |
-    CWE-20: Check buffer boundaries if used in a loop including recursive loops
-  metadata:
-    cwe: "CWE-20: Check buffer boundaries if used in a loop including recursive loops
-      (CWE-120, CWE-20)"
-    primary_identifier: "read-1"
-    secondary_identifiers:
     - name: "Flawfinder - read"
       type: "flawfinder_func_name"
       value: "read"
-  pattern-either:
-  - pattern: "getchar(...)"
-  - pattern: "fgetc(...)"
-  - pattern: "getc(...)"
-  - pattern: "read(...)"
-  - pattern: "_gettc(...)"
-  severity: "INFO"
-- id: "_gettc-1"
-  languages:
-  - "c"
-  message: |
-    CWE-20: Check buffer boundaries if used in a loop including recursive loops
-  metadata:
-    cwe: "CWE-20: Check buffer boundaries if used in a loop including recursive loops
-      (CWE-120, CWE-20)"
-    primary_identifier: "_gettc-1"
-    secondary_identifiers:
     - name: "Flawfinder - _gettc"
       type: "flawfinder_func_name"
       value: "_gettc"
@@ -1406,7 +338,7 @@ rules:
   - pattern: "read(...)"
   - pattern: "_gettc(...)"
   severity: "INFO"
-- id: "getenv-1"
+- id: "flawfinder.getenv-1.curl_getenv-1"
   languages:
   - "c"
   message: |
@@ -1415,26 +347,11 @@ rules:
     cwe: "CWE-20: Environment variables are untrustable input if they can be set by
       an attacker.  They can have any content and length, and the same variable can
       be set more than once (CWE-807, CWE-20)"
-    primary_identifier: "getenv-1"
+    primary_identifier: "flawfinder.getenv-1.curl_getenv-1"
     secondary_identifiers:
     - name: "Flawfinder - getenv"
       type: "flawfinder_func_name"
       value: "getenv"
-  pattern-either:
-  - pattern: "getenv(...)"
-  - pattern: "curl_getenv(...)"
-  severity: "WARNING"
-- id: "curl_getenv-1"
-  languages:
-  - "c"
-  message: |
-    Check environment variables carefully before using them.
-  metadata:
-    cwe: "CWE-20: Environment variables are untrustable input if they can be set by
-      an attacker.  They can have any content and length, and the same variable can
-      be set more than once (CWE-807, CWE-20)"
-    primary_identifier: "curl_getenv-1"
-    secondary_identifiers:
     - name: "Flawfinder - curl_getenv"
       type: "flawfinder_func_name"
       value: "curl_getenv"
@@ -1442,7 +359,7 @@ rules:
   - pattern: "getenv(...)"
   - pattern: "curl_getenv(...)"
   severity: "WARNING"
-- id: "getopt-1"
+- id: "flawfinder.getopt-1.getopt_long-1"
   languages:
   - "c"
   message: |
@@ -1450,25 +367,11 @@ rules:
   metadata:
     cwe: "CWE-120: Some older implementations do not protect against internal buffer
       overflows (CWE-120, CWE-20)"
-    primary_identifier: "getopt-1"
+    primary_identifier: "flawfinder.getopt-1.getopt_long-1"
     secondary_identifiers:
     - name: "Flawfinder - getopt"
       type: "flawfinder_func_name"
       value: "getopt"
-  pattern-either:
-  - pattern: "getopt(...)"
-  - pattern: "getopt_long(...)"
-  severity: "WARNING"
-- id: "getopt_long-1"
-  languages:
-  - "c"
-  message: |
-    Check implementation on installation, or limit the size of all string inputs.
-  metadata:
-    cwe: "CWE-120: Some older implementations do not protect against internal buffer
-      overflows (CWE-120, CWE-20)"
-    primary_identifier: "getopt_long-1"
-    secondary_identifiers:
     - name: "Flawfinder - getopt_long"
       type: "flawfinder_func_name"
       value: "getopt_long"
@@ -1476,7 +379,7 @@ rules:
   - pattern: "getopt(...)"
   - pattern: "getopt_long(...)"
   severity: "WARNING"
-- id: "getpw-1"
+- id: "flawfinder.getpw-1"
   languages:
   - "c"
   message: |
@@ -1486,38 +389,25 @@ rules:
       It extracts data from a 'protected' area, but most systems have many commands
       to let users modify the protected area, and it's not always clear what their
       limits are.  Best to avoid using this function altogether (CWE-676, CWE-120)"
-    primary_identifier: "getpw-1"
+    primary_identifier: "flawfinder.getpw-1"
     secondary_identifiers:
     - name: "Flawfinder - getpw"
       type: "flawfinder_func_name"
       value: "getpw"
   pattern: "getpw(...)"
   severity: "ERROR"
-- id: "gets-1"
+- id: "flawfinder.gets-1._getts-1"
   languages:
   - "c"
   message: |
     Use fgets() instead.
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "gets-1"
+    primary_identifier: "flawfinder.gets-1._getts-1"
     secondary_identifiers:
     - name: "Flawfinder - gets"
       type: "flawfinder_func_name"
       value: "gets"
-  pattern-either:
-  - pattern: "gets(...)"
-  - pattern: "_getts(...)"
-  severity: "ERROR"
-- id: "_getts-1"
-  languages:
-  - "c"
-  message: |
-    Use fgets() instead.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "_getts-1"
-    secondary_identifiers:
     - name: "Flawfinder - _getts"
       type: "flawfinder_func_name"
       value: "_getts"
@@ -1525,7 +415,7 @@ rules:
   - pattern: "gets(...)"
   - pattern: "_getts(...)"
   severity: "ERROR"
-- id: "getwd-1"
+- id: "flawfinder.getwd-1"
   languages:
   - "c"
   message: |
@@ -1533,14 +423,14 @@ rules:
   metadata:
     cwe: "CWE-120: This does not protect against buffer overflows by itself, so use
       with caution (CWE-120, CWE-20)"
-    primary_identifier: "getwd-1"
+    primary_identifier: "flawfinder.getwd-1"
     secondary_identifiers:
     - name: "Flawfinder - getwd"
       type: "flawfinder_func_name"
       value: "getwd"
   pattern: "getwd(...)"
   severity: "WARNING"
-- id: "lstrcat-1"
+- id: "flawfinder.lstrcat-1.wcscat-1._tcscat-1._mbscat-1"
   languages:
   - "c"
   message: |
@@ -1548,65 +438,17 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
       [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcat-1"
+    primary_identifier: "flawfinder.lstrcat-1.wcscat-1._tcscat-1._mbscat-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcat"
       type: "flawfinder_func_name"
       value: "lstrcat"
-  pattern-either:
-  - pattern: "lstrcat(...)"
-  - pattern: "wcscat(...)"
-  - pattern: "_tcscat(...)"
-  - pattern: "_mbscat(...)"
-  severity: "ERROR"
-- id: "wcscat-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflows is not checked
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "wcscat-1"
-    secondary_identifiers:
     - name: "Flawfinder - wcscat"
       type: "flawfinder_func_name"
       value: "wcscat"
-  pattern-either:
-  - pattern: "lstrcat(...)"
-  - pattern: "wcscat(...)"
-  - pattern: "_tcscat(...)"
-  - pattern: "_mbscat(...)"
-  severity: "ERROR"
-- id: "_tcscat-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflows is not checked
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_tcscat-1"
-    secondary_identifiers:
     - name: "Flawfinder - _tcscat"
       type: "flawfinder_func_name"
       value: "_tcscat"
-  pattern-either:
-  - pattern: "lstrcat(...)"
-  - pattern: "wcscat(...)"
-  - pattern: "_tcscat(...)"
-  - pattern: "_mbscat(...)"
-  severity: "ERROR"
-- id: "_mbscat-1"
-  languages:
-  - "c"
-  message: |
-    Buffer overflows is not checked
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_mbscat-1"
-    secondary_identifiers:
     - name: "Flawfinder - _mbscat"
       type: "flawfinder_func_name"
       value: "_mbscat"
@@ -1616,7 +458,7 @@ rules:
   - pattern: "_tcscat(...)"
   - pattern: "_mbscat(...)"
   severity: "ERROR"
-- id: "lstrcatn-1"
+- id: "flawfinder.lstrcatn-1.wcsncat-1._tcsncat-1._mbsnbcat-1"
   languages:
   - "c"
   message: |
@@ -1624,65 +466,17 @@ rules:
   metadata:
     cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
       maximum size to add) [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcatn-1"
+    primary_identifier: "flawfinder.lstrcatn-1.wcsncat-1._tcsncat-1._mbsnbcat-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcatn"
       type: "flawfinder_func_name"
       value: "lstrcatn"
-  pattern-either:
-  - pattern: "lstrcatn(...)"
-  - pattern: "wcsncat(...)"
-  - pattern: "_tcsncat(...)"
-  - pattern: "_mbsnbcat(...)"
-  severity: "INFO"
-- id: "wcsncat-1"
-  languages:
-  - "c"
-  message: |
-    Consider strcat_s, strlcat, or automatically resizing strings.
-  metadata:
-    cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
-      maximum size to add) [MS-banned] (CWE-120)"
-    primary_identifier: "wcsncat-1"
-    secondary_identifiers:
     - name: "Flawfinder - wcsncat"
       type: "flawfinder_func_name"
       value: "wcsncat"
-  pattern-either:
-  - pattern: "lstrcatn(...)"
-  - pattern: "wcsncat(...)"
-  - pattern: "_tcsncat(...)"
-  - pattern: "_mbsnbcat(...)"
-  severity: "INFO"
-- id: "_tcsncat-1"
-  languages:
-  - "c"
-  message: |
-    Consider strcat_s, strlcat, or automatically resizing strings.
-  metadata:
-    cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
-      maximum size to add) [MS-banned] (CWE-120)"
-    primary_identifier: "_tcsncat-1"
-    secondary_identifiers:
     - name: "Flawfinder - _tcsncat"
       type: "flawfinder_func_name"
       value: "_tcsncat"
-  pattern-either:
-  - pattern: "lstrcatn(...)"
-  - pattern: "wcsncat(...)"
-  - pattern: "_tcsncat(...)"
-  - pattern: "_mbsnbcat(...)"
-  severity: "INFO"
-- id: "_mbsnbcat-1"
-  languages:
-  - "c"
-  message: |
-    Consider strcat_s, strlcat, or automatically resizing strings.
-  metadata:
-    cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
-      maximum size to add) [MS-banned] (CWE-120)"
-    primary_identifier: "_mbsnbcat-1"
-    secondary_identifiers:
     - name: "Flawfinder - _mbsnbcat"
       type: "flawfinder_func_name"
       value: "_mbsnbcat"
@@ -1692,7 +486,7 @@ rules:
   - pattern: "_tcsncat(...)"
   - pattern: "_mbsnbcat(...)"
   severity: "INFO"
-- id: "lstrcpy-1"
+- id: "flawfinder.lstrcpy-1.wcscpy-1._tcscpy-1._mbscpy-1"
   languages:
   - "c"
   message: |
@@ -1700,65 +494,17 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcpy-1"
+    primary_identifier: "flawfinder.lstrcpy-1.wcscpy-1._tcscpy-1._mbscpy-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcpy"
       type: "flawfinder_func_name"
       value: "lstrcpy"
-  pattern-either:
-  - pattern: "lstrcpy(...)"
-  - pattern: "wcscpy(...)"
-  - pattern: "_tcscpy(...)"
-  - pattern: "_mbscpy(...)"
-  severity: "ERROR"
-- id: "wcscpy-1"
-  languages:
-  - "c"
-  message: |
-    Consider using a function version that stops copying at the end of the buffer.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "wcscpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - wcscpy"
       type: "flawfinder_func_name"
       value: "wcscpy"
-  pattern-either:
-  - pattern: "lstrcpy(...)"
-  - pattern: "wcscpy(...)"
-  - pattern: "_tcscpy(...)"
-  - pattern: "_mbscpy(...)"
-  severity: "ERROR"
-- id: "_tcscpy-1"
-  languages:
-  - "c"
-  message: |
-    Consider using a function version that stops copying at the end of the buffer.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_tcscpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - _tcscpy"
       type: "flawfinder_func_name"
       value: "_tcscpy"
-  pattern-either:
-  - pattern: "lstrcpy(...)"
-  - pattern: "wcscpy(...)"
-  - pattern: "_tcscpy(...)"
-  - pattern: "_mbscpy(...)"
-  severity: "ERROR"
-- id: "_mbscpy-1"
-  languages:
-  - "c"
-  message: |
-    Consider using a function version that stops copying at the end of the buffer.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_mbscpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - _mbscpy"
       type: "flawfinder_func_name"
       value: "_mbscpy"
@@ -1768,7 +514,7 @@ rules:
   - pattern: "_tcscpy(...)"
   - pattern: "_mbscpy(...)"
   severity: "ERROR"
-- id: "lstrcpyn-1"
+- id: "flawfinder.lstrcpyn-1.wcsncpy-1._tcsncpy-1._mbsnbcpy-1"
   languages:
   - "c"
   message: |
@@ -1776,65 +522,17 @@ rules:
   metadata:
     cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
       (CWE-120)"
-    primary_identifier: "lstrcpyn-1"
+    primary_identifier: "flawfinder.lstrcpyn-1.wcsncpy-1._tcsncpy-1._mbsnbcpy-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcpyn"
       type: "flawfinder_func_name"
       value: "lstrcpyn"
-  pattern-either:
-  - pattern: "lstrcpyn(...)"
-  - pattern: "wcsncpy(...)"
-  - pattern: "_tcsncpy(...)"
-  - pattern: "_mbsnbcpy(...)"
-  severity: "INFO"
-- id: "wcsncpy-1"
-  languages:
-  - "c"
-  message: |
-    Easily used incorrectly
-  metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-    primary_identifier: "wcsncpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - wcsncpy"
       type: "flawfinder_func_name"
       value: "wcsncpy"
-  pattern-either:
-  - pattern: "lstrcpyn(...)"
-  - pattern: "wcsncpy(...)"
-  - pattern: "_tcsncpy(...)"
-  - pattern: "_mbsnbcpy(...)"
-  severity: "INFO"
-- id: "_tcsncpy-1"
-  languages:
-  - "c"
-  message: |
-    Easily used incorrectly
-  metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-    primary_identifier: "_tcsncpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - _tcsncpy"
       type: "flawfinder_func_name"
       value: "_tcsncpy"
-  pattern-either:
-  - pattern: "lstrcpyn(...)"
-  - pattern: "wcsncpy(...)"
-  - pattern: "_tcsncpy(...)"
-  - pattern: "_mbsnbcpy(...)"
-  severity: "INFO"
-- id: "_mbsnbcpy-1"
-  languages:
-  - "c"
-  message: |
-    Easily used incorrectly
-  metadata:
-    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
-      (CWE-120)"
-    primary_identifier: "_mbsnbcpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - _mbsnbcpy"
       type: "flawfinder_func_name"
       value: "_mbsnbcpy"
@@ -1844,7 +542,7 @@ rules:
   - pattern: "_tcsncpy(...)"
   - pattern: "_mbsnbcpy(...)"
   severity: "INFO"
-- id: "memcpy-1"
+- id: "flawfinder.memcpy-1.CopyMemory-1.bcopy-1"
   languages:
   - "c"
   message: |
@@ -1852,44 +550,14 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       (CWE-120)"
-    primary_identifier: "memcpy-1"
+    primary_identifier: "flawfinder.memcpy-1.CopyMemory-1.bcopy-1"
     secondary_identifiers:
     - name: "Flawfinder - memcpy"
       type: "flawfinder_func_name"
       value: "memcpy"
-  pattern-either:
-  - pattern: "memcpy(...)"
-  - pattern: "CopyMemory(...)"
-  - pattern: "bcopy(...)"
-  severity: "INFO"
-- id: "CopyMemory-1"
-  languages:
-  - "c"
-  message: |
-    Make sure destination can always hold the source data.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      (CWE-120)"
-    primary_identifier: "CopyMemory-1"
-    secondary_identifiers:
     - name: "Flawfinder - CopyMemory"
       type: "flawfinder_func_name"
       value: "CopyMemory"
-  pattern-either:
-  - pattern: "memcpy(...)"
-  - pattern: "CopyMemory(...)"
-  - pattern: "bcopy(...)"
-  severity: "INFO"
-- id: "bcopy-1"
-  languages:
-  - "c"
-  message: |
-    Make sure destination can always hold the source data.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      (CWE-120)"
-    primary_identifier: "bcopy-1"
-    secondary_identifiers:
     - name: "Flawfinder - bcopy"
       type: "flawfinder_func_name"
       value: "bcopy"
@@ -1898,7 +566,7 @@ rules:
   - pattern: "CopyMemory(...)"
   - pattern: "bcopy(...)"
   severity: "INFO"
-- id: "realpath-1"
+- id: "flawfinder.realpath-1"
   languages:
   - "c"
   message: |
@@ -1908,14 +576,14 @@ rules:
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows, and some
       implementations can overflow internally (CWE-120/CWE-785!)"
-    primary_identifier: "realpath-1"
+    primary_identifier: "flawfinder.realpath-1"
     secondary_identifiers:
     - name: "Flawfinder - realpath"
       type: "flawfinder_func_name"
       value: "realpath"
   pattern: "realpath(...)"
   severity: "WARNING"
-- id: "scanf-1"
+- id: "flawfinder.scanf-1.vscanf-1.wscanf-1._tscanf-1.vwscanf-1"
   languages:
   - "c"
   message: |
@@ -1923,128 +591,20 @@ rules:
   metadata:
     cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
       permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "scanf-1"
+    primary_identifier: "flawfinder.scanf-1.vscanf-1.wscanf-1._tscanf-1.vwscanf-1"
     secondary_identifiers:
     - name: "Flawfinder - scanf"
       type: "flawfinder_func_name"
       value: "scanf"
-  pattern-either:
-  - patterns:
-    - pattern: "scanf($FMT, ...)"
-    - pattern-not: "scanf(\"...\", ...)"
-  - patterns:
-    - pattern: "vscanf($FMT, ...)"
-    - pattern-not: "vscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "wscanf($FMT, ...)"
-    - pattern-not: "wscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "_tscanf($FMT, ...)"
-    - pattern-not: "_tscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "vwscanf(FMT, ...)"
-    - pattern-not: "vwscanf(\"...\", ...)"
-  severity: "ERROR"
-- id: "vscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "vscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vscanf"
       type: "flawfinder_func_name"
       value: "vscanf"
-  pattern-either:
-  - patterns:
-    - pattern: "scanf($FMT, ...)"
-    - pattern-not: "scanf(\"...\", ...)"
-  - patterns:
-    - pattern: "vscanf($FMT, ...)"
-    - pattern-not: "vscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "wscanf($FMT, ...)"
-    - pattern-not: "wscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "_tscanf($FMT, ...)"
-    - pattern-not: "_tscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "vwscanf(FMT, ...)"
-    - pattern-not: "vwscanf(\"...\", ...)"
-  severity: "ERROR"
-- id: "wscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "wscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - wscanf"
       type: "flawfinder_func_name"
       value: "wscanf"
-  pattern-either:
-  - patterns:
-    - pattern: "scanf($FMT, ...)"
-    - pattern-not: "scanf(\"...\", ...)"
-  - patterns:
-    - pattern: "vscanf($FMT, ...)"
-    - pattern-not: "vscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "wscanf($FMT, ...)"
-    - pattern-not: "wscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "_tscanf($FMT, ...)"
-    - pattern-not: "_tscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "vwscanf(FMT, ...)"
-    - pattern-not: "vwscanf(\"...\", ...)"
-  severity: "ERROR"
-- id: "_tscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "_tscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _tscanf"
       type: "flawfinder_func_name"
       value: "_tscanf"
-  pattern-either:
-  - patterns:
-    - pattern: "scanf($FMT, ...)"
-    - pattern-not: "scanf(\"...\", ...)"
-  - patterns:
-    - pattern: "vscanf($FMT, ...)"
-    - pattern-not: "vscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "wscanf($FMT, ...)"
-    - pattern-not: "wscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "_tscanf($FMT, ...)"
-    - pattern-not: "_tscanf(\"...\", ...)"
-  - patterns:
-    - pattern: "vwscanf(FMT, ...)"
-    - pattern-not: "vwscanf(\"...\", ...)"
-  severity: "ERROR"
-- id: "vwscanf-1"
-  languages:
-  - "c"
-  message: |
-    Specify a limit to %s, or use a different input function.
-  metadata:
-    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
-      permits buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "vwscanf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vwscanf"
       type: "flawfinder_func_name"
       value: "vwscanf"
@@ -2065,115 +625,30 @@ rules:
     - pattern: "vwscanf(FMT, ...)"
     - pattern-not: "vwscanf(\"...\", ...)"
   severity: "ERROR"
-- id: "sprintf-1"
+- id: "flawfinder.sprintf-1.vsprintf-1.swprintf-1.vswprintf-1._stprintf-1._vstprintf-1"
   languages:
   - "c"
   message: |
     Use sprintf_s, snprintf, or vsnprintf.
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows (CWE-120)"
-    primary_identifier: "sprintf-1"
+    primary_identifier: "flawfinder.sprintf-1.vsprintf-1.swprintf-1.vswprintf-1._stprintf-1._vstprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - sprintf"
       type: "flawfinder_func_name"
       value: "sprintf"
-  pattern-either:
-  - pattern: "sprintf(...)"
-  - pattern: "vsprintf(...)"
-  - pattern: "swprintf(...)"
-  - pattern: "vswprintf(...)"
-  - pattern: "_stprintf(...)"
-  - pattern: "_vstprintf(...)"
-  severity: "ERROR"
-- id: "vsprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use sprintf_s, snprintf, or vsnprintf.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows (CWE-120)"
-    primary_identifier: "vsprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vsprintf"
       type: "flawfinder_func_name"
       value: "vsprintf"
-  pattern-either:
-  - pattern: "sprintf(...)"
-  - pattern: "vsprintf(...)"
-  - pattern: "swprintf(...)"
-  - pattern: "vswprintf(...)"
-  - pattern: "_stprintf(...)"
-  - pattern: "_vstprintf(...)"
-  severity: "ERROR"
-- id: "swprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use sprintf_s, snprintf, or vsnprintf.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows (CWE-120)"
-    primary_identifier: "swprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - swprintf"
       type: "flawfinder_func_name"
       value: "swprintf"
-  pattern-either:
-  - pattern: "sprintf(...)"
-  - pattern: "vsprintf(...)"
-  - pattern: "swprintf(...)"
-  - pattern: "vswprintf(...)"
-  - pattern: "_stprintf(...)"
-  - pattern: "_vstprintf(...)"
-  severity: "ERROR"
-- id: "vswprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use sprintf_s, snprintf, or vsnprintf.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows (CWE-120)"
-    primary_identifier: "vswprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vswprintf"
       type: "flawfinder_func_name"
       value: "vswprintf"
-  pattern-either:
-  - pattern: "sprintf(...)"
-  - pattern: "vsprintf(...)"
-  - pattern: "swprintf(...)"
-  - pattern: "vswprintf(...)"
-  - pattern: "_stprintf(...)"
-  - pattern: "_vstprintf(...)"
-  severity: "ERROR"
-- id: "_stprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use sprintf_s, snprintf, or vsnprintf.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows (CWE-120)"
-    primary_identifier: "_stprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _stprintf"
       type: "flawfinder_func_name"
       value: "_stprintf"
-  pattern-either:
-  - pattern: "sprintf(...)"
-  - pattern: "vsprintf(...)"
-  - pattern: "swprintf(...)"
-  - pattern: "vswprintf(...)"
-  - pattern: "_stprintf(...)"
-  - pattern: "_vstprintf(...)"
-  severity: "ERROR"
-- id: "_vstprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use sprintf_s, snprintf, or vsnprintf.
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows (CWE-120)"
-    primary_identifier: "_vstprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _vstprintf"
       type: "flawfinder_func_name"
       value: "_vstprintf"
@@ -2185,7 +660,7 @@ rules:
   - pattern: "_stprintf(...)"
   - pattern: "_vstprintf(...)"
   severity: "ERROR"
-- id: "strcat-1"
+- id: "flawfinder.strcat-1"
   languages:
   - "c"
   message: |
@@ -2193,38 +668,25 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
       [MS-banned] (CWE-120)"
-    primary_identifier: "strcat-1"
+    primary_identifier: "flawfinder.strcat-1"
     secondary_identifiers:
     - name: "Flawfinder - strcat"
       type: "flawfinder_func_name"
       value: "strcat"
   pattern: "strcat(...)"
   severity: "ERROR"
-- id: "strccpy-1"
+- id: "flawfinder.strccpy-1.strcadd-1"
   languages:
   - "c"
   message: |
     Ensure that destination buffer is sufficiently large.
   metadata:
     cwe: "CWE-120: Subject to buffer overflow if buffer is not as big as claimed (CWE-120)"
-    primary_identifier: "strccpy-1"
+    primary_identifier: "flawfinder.strccpy-1.strcadd-1"
     secondary_identifiers:
     - name: "Flawfinder - strccpy"
       type: "flawfinder_func_name"
       value: "strccpy"
-  pattern-either:
-  - pattern: "strccpy(...)"
-  - pattern: "strcadd(...)"
-  severity: "INFO"
-- id: "strcadd-1"
-  languages:
-  - "c"
-  message: |
-    Ensure that destination buffer is sufficiently large.
-  metadata:
-    cwe: "CWE-120: Subject to buffer overflow if buffer is not as big as claimed (CWE-120)"
-    primary_identifier: "strcadd-1"
-    secondary_identifiers:
     - name: "Flawfinder - strcadd"
       type: "flawfinder_func_name"
       value: "strcadd"
@@ -2232,7 +694,7 @@ rules:
   - pattern: "strccpy(...)"
   - pattern: "strcadd(...)"
   severity: "INFO"
-- id: "strcpy-1"
+- id: "flawfinder.strcpy-1"
   languages:
   - "c"
   message: |
@@ -2240,14 +702,14 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       [MS-banned] (CWE-120)"
-    primary_identifier: "strcpy-1"
+    primary_identifier: "flawfinder.strcpy-1"
     secondary_identifiers:
     - name: "Flawfinder - strcpy"
       type: "flawfinder_func_name"
       value: "strcpy"
   pattern: "strcpy(...)"
   severity: "ERROR"
-- id: "strcpyA-1"
+- id: "flawfinder.strcpyA-1.strcpyW-1.StrCpy-1.StrCpyA-1.lstrcpyA-1.lstrcpyW-1._tccpy-1._mbccpy-1._ftcscpy-1._mbsncpy-1.StrCpyN-1.StrCpyNA-1.StrCpyNW-1.StrNCpy-1.strcpynA-1.StrNCpyA-1.StrNCpyW-1.lstrcpynA-1.lstrcpynW-1"
   languages:
   - "c"
   message: |
@@ -2255,620 +717,62 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       [MS-banned] (CWE-120)"
-    primary_identifier: "strcpyA-1"
+    primary_identifier: "flawfinder.strcpyA-1.strcpyW-1.StrCpy-1.StrCpyA-1.lstrcpyA-1.lstrcpyW-1._tccpy-1._mbccpy-1._ftcscpy-1._mbsncpy-1.StrCpyN-1.StrCpyNA-1.StrCpyNW-1.StrNCpy-1.strcpynA-1.StrNCpyA-1.StrNCpyW-1.lstrcpynA-1.lstrcpynW-1"
     secondary_identifiers:
     - name: "Flawfinder - strcpyA"
       type: "flawfinder_func_name"
       value: "strcpyA"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "strcpyW-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "strcpyW-1"
-    secondary_identifiers:
     - name: "Flawfinder - strcpyW"
       type: "flawfinder_func_name"
       value: "strcpyW"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "StrCpy-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCpy"
       type: "flawfinder_func_name"
       value: "StrCpy"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "StrCpyA-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCpyA-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCpyA"
       type: "flawfinder_func_name"
       value: "StrCpyA"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "lstrcpyA-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcpyA-1"
-    secondary_identifiers:
     - name: "Flawfinder - lstrcpyA"
       type: "flawfinder_func_name"
       value: "lstrcpyA"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "lstrcpyW-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcpyW-1"
-    secondary_identifiers:
     - name: "Flawfinder - lstrcpyW"
       type: "flawfinder_func_name"
       value: "lstrcpyW"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "_tccpy-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_tccpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - _tccpy"
       type: "flawfinder_func_name"
       value: "_tccpy"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "_mbccpy-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_mbccpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - _mbccpy"
       type: "flawfinder_func_name"
       value: "_mbccpy"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "_ftcscpy-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_ftcscpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - _ftcscpy"
       type: "flawfinder_func_name"
       value: "_ftcscpy"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "_mbsncpy-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "_mbsncpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - _mbsncpy"
       type: "flawfinder_func_name"
       value: "_mbsncpy"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "StrCpyN-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCpyN-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCpyN"
       type: "flawfinder_func_name"
       value: "StrCpyN"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "StrCpyNA-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCpyNA-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCpyNA"
       type: "flawfinder_func_name"
       value: "StrCpyNA"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "StrCpyNW-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrCpyNW-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrCpyNW"
       type: "flawfinder_func_name"
       value: "StrCpyNW"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "StrNCpy-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrNCpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrNCpy"
       type: "flawfinder_func_name"
       value: "StrNCpy"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "strcpynA-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "strcpynA-1"
-    secondary_identifiers:
     - name: "Flawfinder - strcpynA"
       type: "flawfinder_func_name"
       value: "strcpynA"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "StrNCpyA-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrNCpyA-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrNCpyA"
       type: "flawfinder_func_name"
       value: "StrNCpyA"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "StrNCpyW-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "StrNCpyW-1"
-    secondary_identifiers:
     - name: "Flawfinder - StrNCpyW"
       type: "flawfinder_func_name"
       value: "StrNCpyW"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "lstrcpynA-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcpynA-1"
-    secondary_identifiers:
     - name: "Flawfinder - lstrcpynA"
       type: "flawfinder_func_name"
       value: "lstrcpynA"
-  pattern-either:
-  - pattern: "strcpyA(...)"
-  - pattern: "strcpyW(...)"
-  - pattern: "StrCpy(...)"
-  - pattern: "StrCpyA(...)"
-  - pattern: "lstrcpyA(...)"
-  - pattern: "lstrcpyW(...)"
-  - pattern: "_tccpy(...)"
-  - pattern: "_mbccpy(...)"
-  - pattern: "_ftcscpy(...)"
-  - pattern: "_mbsncpy(...)"
-  - pattern: "StrCpyN(...)"
-  - pattern: "StrCpyNA(...)"
-  - pattern: "StrCpyNW(...)"
-  - pattern: "StrNCpy(...)"
-  - pattern: "strcpynA(...)"
-  - pattern: "StrNCpyA(...)"
-  - pattern: "StrNCpyW(...)"
-  - pattern: "lstrcpynA(...)"
-  - pattern: "lstrcpynW(...)"
-  severity: "ERROR"
-- id: "lstrcpynW-1"
-  languages:
-  - "c"
-  message: |
-    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
-  metadata:
-    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
-      [MS-banned] (CWE-120)"
-    primary_identifier: "lstrcpynW-1"
-    secondary_identifiers:
     - name: "Flawfinder - lstrcpynW"
       type: "flawfinder_func_name"
       value: "lstrcpynW"
@@ -2893,31 +797,18 @@ rules:
   - pattern: "lstrcpynA(...)"
   - pattern: "lstrcpynW(...)"
   severity: "ERROR"
-- id: "streadd-1"
+- id: "flawfinder.streadd-1.strecpy-1"
   languages:
   - "c"
   message: |
     Ensure the destination has 4 times the size of the source, to leave room for expansion.
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
-    primary_identifier: "streadd-1"
+    primary_identifier: "flawfinder.streadd-1.strecpy-1"
     secondary_identifiers:
     - name: "Flawfinder - streadd"
       type: "flawfinder_func_name"
       value: "streadd"
-  pattern-either:
-  - pattern: "streadd(...)"
-  - pattern: "strecpy(...)"
-  severity: "ERROR"
-- id: "strecpy-1"
-  languages:
-  - "c"
-  message: |
-    Ensure the destination has 4 times the size of the source, to leave room for expansion.
-  metadata:
-    cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
-    primary_identifier: "strecpy-1"
-    secondary_identifiers:
     - name: "Flawfinder - strecpy"
       type: "flawfinder_func_name"
       value: "strecpy"
@@ -2925,7 +816,7 @@ rules:
   - pattern: "streadd(...)"
   - pattern: "strecpy(...)"
   severity: "ERROR"
-- id: "strlen-1"
+- id: "flawfinder.strlen-1.wcslen-1._tcslen-1._mbslen-1"
   languages:
   - "c"
   message: |
@@ -2933,65 +824,17 @@ rules:
   metadata:
     cwe: "CWE-126: Does not handle strings that are not \\0-terminated; if given one
       it may perform an over-read (it could cause a crash if unprotected) (CWE-126)"
-    primary_identifier: "strlen-1"
+    primary_identifier: "flawfinder.strlen-1.wcslen-1._tcslen-1._mbslen-1"
     secondary_identifiers:
     - name: "Flawfinder - strlen"
       type: "flawfinder_func_name"
       value: "strlen"
-  pattern-either:
-  - pattern: "strlen(...)"
-  - pattern: "wcslen(...)"
-  - pattern: "_tcslen(...)"
-  - pattern: "_mbslen(...)"
-  severity: "INFO"
-- id: "wcslen-1"
-  languages:
-  - "c"
-  message: |
-    Does not handle strings that are not \\0-terminated.
-  metadata:
-    cwe: "CWE-126: Does not handle strings that are not \\0-terminated; if given one
-      it may perform an over-read (it could cause a crash if unprotected) (CWE-126)"
-    primary_identifier: "wcslen-1"
-    secondary_identifiers:
     - name: "Flawfinder - wcslen"
       type: "flawfinder_func_name"
       value: "wcslen"
-  pattern-either:
-  - pattern: "strlen(...)"
-  - pattern: "wcslen(...)"
-  - pattern: "_tcslen(...)"
-  - pattern: "_mbslen(...)"
-  severity: "INFO"
-- id: "_tcslen-1"
-  languages:
-  - "c"
-  message: |
-    Does not handle strings that are not \\0-terminated.
-  metadata:
-    cwe: "CWE-126: Does not handle strings that are not \\0-terminated; if given one
-      it may perform an over-read (it could cause a crash if unprotected) (CWE-126)"
-    primary_identifier: "_tcslen-1"
-    secondary_identifiers:
     - name: "Flawfinder - _tcslen"
       type: "flawfinder_func_name"
       value: "_tcslen"
-  pattern-either:
-  - pattern: "strlen(...)"
-  - pattern: "wcslen(...)"
-  - pattern: "_tcslen(...)"
-  - pattern: "_mbslen(...)"
-  severity: "INFO"
-- id: "_mbslen-1"
-  languages:
-  - "c"
-  message: |
-    Does not handle strings that are not \\0-terminated.
-  metadata:
-    cwe: "CWE-126: Does not handle strings that are not \\0-terminated; if given one
-      it may perform an over-read (it could cause a crash if unprotected) (CWE-126)"
-    primary_identifier: "_mbslen-1"
-    secondary_identifiers:
     - name: "Flawfinder - _mbslen"
       type: "flawfinder_func_name"
       value: "_mbslen"
@@ -3001,7 +844,7 @@ rules:
   - pattern: "_tcslen(...)"
   - pattern: "_mbslen(...)"
   severity: "INFO"
-- id: "strncat-1"
+- id: "flawfinder.strncat-1"
   languages:
   - "c"
   message: |
@@ -3009,14 +852,14 @@ rules:
   metadata:
     cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
       maximum size to add) [MS-banned] (CWE-120)"
-    primary_identifier: "strncat-1"
+    primary_identifier: "flawfinder.strncat-1"
     secondary_identifiers:
     - name: "Flawfinder - strncat"
       type: "flawfinder_func_name"
       value: "strncat"
   pattern: "strncat(...)"
   severity: "INFO"
-- id: "strncpy-1"
+- id: "flawfinder.strncpy-1"
   languages:
   - "c"
   message: |
@@ -3024,28 +867,28 @@ rules:
   metadata:
     cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
       (CWE-120)"
-    primary_identifier: "strncpy-1"
+    primary_identifier: "flawfinder.strncpy-1"
     secondary_identifiers:
     - name: "Flawfinder - strncpy"
       type: "flawfinder_func_name"
       value: "strncpy"
   pattern: "strncpy(...)"
   severity: "INFO"
-- id: "strtrns-1"
+- id: "flawfinder.strtrns-1"
   languages:
   - "c"
   message: |
     Ensure that destination is at least as long as the source.
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
-    primary_identifier: "strtrns-1"
+    primary_identifier: "flawfinder.strtrns-1"
     secondary_identifiers:
     - name: "Flawfinder - strtrns"
       type: "flawfinder_func_name"
       value: "strtrns"
   pattern: "strtrns(...)"
   severity: "WARNING"
-- id: "EVP_des_ecb-1"
+- id: "flawfinder.EVP_des_ecb-1.EVP_des_cbc-1.EVP_des_cfb-1.EVP_des_ofb-1.EVP_desx_cbc-1"
   languages:
   - "c"
   message: |
@@ -3053,88 +896,20 @@ rules:
   metadata:
     cwe: "CWE-327: DES only supports a 56-bit keysize, which is too small given today's
       computers (CWE-327)"
-    primary_identifier: "EVP_des_ecb-1"
+    primary_identifier: "flawfinder.EVP_des_ecb-1.EVP_des_cbc-1.EVP_des_cfb-1.EVP_des_ofb-1.EVP_desx_cbc-1"
     secondary_identifiers:
     - name: "Flawfinder - EVP_des_ecb"
       type: "flawfinder_func_name"
       value: "EVP_des_ecb"
-  pattern-either:
-  - pattern: "EVP_des_ecb(...)"
-  - pattern: "EVP_des_cbc(...)"
-  - pattern: "EVP_des_cfb(...)"
-  - pattern: "EVP_des_ofb(...)"
-  - pattern: "EVP_desx_cbc(...)"
-  severity: "ERROR"
-- id: "EVP_des_cbc-1"
-  languages:
-  - "c"
-  message: |
-    Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
-  metadata:
-    cwe: "CWE-327: DES only supports a 56-bit keysize, which is too small given today's
-      computers (CWE-327)"
-    primary_identifier: "EVP_des_cbc-1"
-    secondary_identifiers:
     - name: "Flawfinder - EVP_des_cbc"
       type: "flawfinder_func_name"
       value: "EVP_des_cbc"
-  pattern-either:
-  - pattern: "EVP_des_ecb(...)"
-  - pattern: "EVP_des_cbc(...)"
-  - pattern: "EVP_des_cfb(...)"
-  - pattern: "EVP_des_ofb(...)"
-  - pattern: "EVP_desx_cbc(...)"
-  severity: "ERROR"
-- id: "EVP_des_cfb-1"
-  languages:
-  - "c"
-  message: |
-    Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
-  metadata:
-    cwe: "CWE-327: DES only supports a 56-bit keysize, which is too small given today's
-      computers (CWE-327)"
-    primary_identifier: "EVP_des_cfb-1"
-    secondary_identifiers:
     - name: "Flawfinder - EVP_des_cfb"
       type: "flawfinder_func_name"
       value: "EVP_des_cfb"
-  pattern-either:
-  - pattern: "EVP_des_ecb(...)"
-  - pattern: "EVP_des_cbc(...)"
-  - pattern: "EVP_des_cfb(...)"
-  - pattern: "EVP_des_ofb(...)"
-  - pattern: "EVP_desx_cbc(...)"
-  severity: "ERROR"
-- id: "EVP_des_ofb-1"
-  languages:
-  - "c"
-  message: |
-    Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
-  metadata:
-    cwe: "CWE-327: DES only supports a 56-bit keysize, which is too small given today's
-      computers (CWE-327)"
-    primary_identifier: "EVP_des_ofb-1"
-    secondary_identifiers:
     - name: "Flawfinder - EVP_des_ofb"
       type: "flawfinder_func_name"
       value: "EVP_des_ofb"
-  pattern-either:
-  - pattern: "EVP_des_ecb(...)"
-  - pattern: "EVP_des_cbc(...)"
-  - pattern: "EVP_des_cfb(...)"
-  - pattern: "EVP_des_ofb(...)"
-  - pattern: "EVP_desx_cbc(...)"
-  severity: "ERROR"
-- id: "EVP_desx_cbc-1"
-  languages:
-  - "c"
-  message: |
-    Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
-  metadata:
-    cwe: "CWE-327: DES only supports a 56-bit keysize, which is too small given today's
-      computers (CWE-327)"
-    primary_identifier: "EVP_desx_cbc-1"
-    secondary_identifiers:
     - name: "Flawfinder - EVP_desx_cbc"
       type: "flawfinder_func_name"
       value: "EVP_desx_cbc"
@@ -3145,49 +920,21 @@ rules:
   - pattern: "EVP_des_ofb(...)"
   - pattern: "EVP_desx_cbc(...)"
   severity: "ERROR"
-- id: "EVP_rc4_40-1"
+- id: "flawfinder.EVP_rc4_40-1.EVP_rc2_40_cbc-1.EVP_rc2_64_cbc-1"
   languages:
   - "c"
   message: |
     Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
   metadata:
     cwe: "CWE-327: These keysizes are too small given today's computers (CWE-327)"
-    primary_identifier: "EVP_rc4_40-1"
+    primary_identifier: "flawfinder.EVP_rc4_40-1.EVP_rc2_40_cbc-1.EVP_rc2_64_cbc-1"
     secondary_identifiers:
     - name: "Flawfinder - EVP_rc4_40"
       type: "flawfinder_func_name"
       value: "EVP_rc4_40"
-  pattern-either:
-  - pattern: "EVP_rc4_40(...)"
-  - pattern: "EVP_rc2_40_cbc(...)"
-  - pattern: "EVP_rc2_64_cbc(...)"
-  severity: "ERROR"
-- id: "EVP_rc2_40_cbc-1"
-  languages:
-  - "c"
-  message: |
-    Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
-  metadata:
-    cwe: "CWE-327: These keysizes are too small given today's computers (CWE-327)"
-    primary_identifier: "EVP_rc2_40_cbc-1"
-    secondary_identifiers:
     - name: "Flawfinder - EVP_rc2_40_cbc"
       type: "flawfinder_func_name"
       value: "EVP_rc2_40_cbc"
-  pattern-either:
-  - pattern: "EVP_rc4_40(...)"
-  - pattern: "EVP_rc2_40_cbc(...)"
-  - pattern: "EVP_rc2_64_cbc(...)"
-  severity: "ERROR"
-- id: "EVP_rc2_64_cbc-1"
-  languages:
-  - "c"
-  message: |
-    Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
-  metadata:
-    cwe: "CWE-327: These keysizes are too small given today's computers (CWE-327)"
-    primary_identifier: "EVP_rc2_64_cbc-1"
-    secondary_identifiers:
     - name: "Flawfinder - EVP_rc2_64_cbc"
       type: "flawfinder_func_name"
       value: "EVP_rc2_64_cbc"
@@ -3196,7 +943,7 @@ rules:
   - pattern: "EVP_rc2_40_cbc(...)"
   - pattern: "EVP_rc2_64_cbc(...)"
   severity: "ERROR"
-- id: "crypt-1"
+- id: "flawfinder.crypt-1.crypt_r-1"
   languages:
   - "c"
   message: |
@@ -3206,27 +953,11 @@ rules:
       they only accept passwords of 8 characters or fewer and only a two-byte salt,
       they are excessively vulnerable to dictionary attacks given today's faster computing
       equipment (CWE-327)"
-    primary_identifier: "crypt-1"
+    primary_identifier: "flawfinder.crypt-1.crypt_r-1"
     secondary_identifiers:
     - name: "Flawfinder - crypt"
       type: "flawfinder_func_name"
       value: "crypt"
-  pattern-either:
-  - pattern: "crypt(...)"
-  - pattern: "crypt_r(...)"
-  severity: "ERROR"
-- id: "crypt_r-1"
-  languages:
-  - "c"
-  message: |
-    Use a different algorithm, such as SHA-256, with a larger, non-repeating salt.
-  metadata:
-    cwe: "CWE-327: The crypt functions use a poor one-way hashing algorithm; since
-      they only accept passwords of 8 characters or fewer and only a two-byte salt,
-      they are excessively vulnerable to dictionary attacks given today's faster computing
-      equipment (CWE-327)"
-    primary_identifier: "crypt_r-1"
-    secondary_identifiers:
     - name: "Flawfinder - crypt_r"
       type: "flawfinder_func_name"
       value: "crypt_r"
@@ -3234,7 +965,7 @@ rules:
   - pattern: "crypt(...)"
   - pattern: "crypt_r(...)"
   severity: "ERROR"
-- id: "fprintf-1"
+- id: "flawfinder.fprintf-1.vfprintf-1._ftprintf-1._vftprintf-1.fwprintf-1.fvwprintf-1"
   languages:
   - "c"
   message: |
@@ -3242,158 +973,23 @@ rules:
   metadata:
     cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
       exploited (CWE-134)"
-    primary_identifier: "fprintf-1"
+    primary_identifier: "flawfinder.fprintf-1.vfprintf-1._ftprintf-1._vftprintf-1.fwprintf-1.fvwprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - fprintf"
       type: "flawfinder_func_name"
       value: "fprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "fprintf($FD, $FMT, ...)"
-    - pattern-not: "fprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "vfprintf($FMT, $ARGS, ...)"
-    - pattern-not: "vfprintf(\"...\", $ARGS, ...)"
-  - patterns:
-    - pattern: "_ftprintf($FD, $FMT, ...)"
-    - pattern-not: "_ftprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fwprintf($FD, $FMT, ...)"
-    - pattern-not: "fwprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fvwprintf($FD, $FMT, ...)"
-    - pattern-not: "fvwprintf($FD, \"...\", ...)"
-  severity: "ERROR"
-- id: "vfprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "vfprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vfprintf"
       type: "flawfinder_func_name"
       value: "vfprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "fprintf($FD, $FMT, ...)"
-    - pattern-not: "fprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "vfprintf($FMT, $ARGS, ...)"
-    - pattern-not: "vfprintf(\"...\", $ARGS, ...)"
-  - patterns:
-    - pattern: "_ftprintf($FD, $FMT, ...)"
-    - pattern-not: "_ftprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fwprintf($FD, $FMT, ...)"
-    - pattern-not: "fwprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fvwprintf($FD, $FMT, ...)"
-    - pattern-not: "fvwprintf($FD, \"...\", ...)"
-  severity: "ERROR"
-- id: "_ftprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "_ftprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _ftprintf"
       type: "flawfinder_func_name"
       value: "_ftprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "fprintf($FD, $FMT, ...)"
-    - pattern-not: "fprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "vfprintf($FMT, $ARGS, ...)"
-    - pattern-not: "vfprintf(\"...\", $ARGS, ...)"
-  - patterns:
-    - pattern: "_ftprintf($FD, $FMT, ...)"
-    - pattern-not: "_ftprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fwprintf($FD, $FMT, ...)"
-    - pattern-not: "fwprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fvwprintf($FD, $FMT, ...)"
-    - pattern-not: "fvwprintf($FD, \"...\", ...)"
-  severity: "ERROR"
-- id: "_vftprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "_vftprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _vftprintf"
       type: "flawfinder_func_name"
       value: "_vftprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "fprintf($FD, $FMT, ...)"
-    - pattern-not: "fprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "vfprintf($FMT, $ARGS, ...)"
-    - pattern-not: "vfprintf(\"...\", $ARGS, ...)"
-  - patterns:
-    - pattern: "_ftprintf($FD, $FMT, ...)"
-    - pattern-not: "_ftprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fwprintf($FD, $FMT, ...)"
-    - pattern-not: "fwprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fvwprintf($FD, $FMT, ...)"
-    - pattern-not: "fvwprintf($FD, \"...\", ...)"
-  severity: "ERROR"
-- id: "fwprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "fwprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - fwprintf"
       type: "flawfinder_func_name"
       value: "fwprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "fprintf($FD, $FMT, ...)"
-    - pattern-not: "fprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "vfprintf($FMT, $ARGS, ...)"
-    - pattern-not: "vfprintf(\"...\", $ARGS, ...)"
-  - patterns:
-    - pattern: "_ftprintf($FD, $FMT, ...)"
-    - pattern-not: "_ftprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fwprintf($FD, $FMT, ...)"
-    - pattern-not: "fwprintf($FD, \"...\", ...)"
-  - patterns:
-    - pattern: "fvwprintf($FD, $FMT, ...)"
-    - pattern-not: "fvwprintf($FD, \"...\", ...)"
-  severity: "ERROR"
-- id: "fvwprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "fvwprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - fvwprintf"
       type: "flawfinder_func_name"
       value: "fvwprintf"
@@ -3414,7 +1010,7 @@ rules:
     - pattern: "fvwprintf($FD, $FMT, ...)"
     - pattern-not: "fvwprintf($FD, \"...\", ...)"
   severity: "ERROR"
-- id: "printf-1"
+- id: "flawfinder.printf-1.vprintf-1.vwprintf-1.vfwprintf-1._vtprintf-1.wprintf-1"
   languages:
   - "c"
   message: |
@@ -3422,173 +1018,23 @@ rules:
   metadata:
     cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
       exploited (CWE-134)"
-    primary_identifier: "printf-1"
+    primary_identifier: "flawfinder.printf-1.vprintf-1.vwprintf-1.vfwprintf-1._vtprintf-1.wprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - printf"
       type: "flawfinder_func_name"
       value: "printf"
-  pattern-either:
-  - patterns:
-    - pattern: "printf(...)"
-    - pattern-not: "printf(\"...\",...)"
-  - patterns:
-    - pattern: "vprintf($FMT, ...)"
-    - pattern-not: "vprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vwprintf($FMT, ...)"
-    - pattern-not: "vwprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vfwprintf($FILE, $FMT, ...)"
-    - pattern-not: "vfwprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "_vtprintf($FILE, $FMT, ...)"
-    - pattern-not: "_vtprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "wprintf($FMT, ...)"
-    - pattern-not: "wprintf(\"...\", ...)"
-  severity: "ERROR"
-- id: "vprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "vprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vprintf"
       type: "flawfinder_func_name"
       value: "vprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "printf(...)"
-    - pattern-not: "printf(\"...\",...)"
-  - patterns:
-    - pattern: "vprintf($FMT, ...)"
-    - pattern-not: "vprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vwprintf($FMT, ...)"
-    - pattern-not: "vwprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vfwprintf($FILE, $FMT, ...)"
-    - pattern-not: "vfwprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "_vtprintf($FILE, $FMT, ...)"
-    - pattern-not: "_vtprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "wprintf($FMT, ...)"
-    - pattern-not: "wprintf(\"...\", ...)"
-  severity: "ERROR"
-- id: "vwprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "vwprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vwprintf"
       type: "flawfinder_func_name"
       value: "vwprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "printf(...)"
-    - pattern-not: "printf(\"...\",...)"
-  - patterns:
-    - pattern: "vprintf($FMT, ...)"
-    - pattern-not: "vprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vwprintf($FMT, ...)"
-    - pattern-not: "vwprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vfwprintf($FILE, $FMT, ...)"
-    - pattern-not: "vfwprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "_vtprintf($FILE, $FMT, ...)"
-    - pattern-not: "_vtprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "wprintf($FMT, ...)"
-    - pattern-not: "wprintf(\"...\", ...)"
-  severity: "ERROR"
-- id: "vfwprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "vfwprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vfwprintf"
       type: "flawfinder_func_name"
       value: "vfwprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "printf(...)"
-    - pattern-not: "printf(\"...\",...)"
-  - patterns:
-    - pattern: "vprintf($FMT, ...)"
-    - pattern-not: "vprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vwprintf($FMT, ...)"
-    - pattern-not: "vwprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vfwprintf($FILE, $FMT, ...)"
-    - pattern-not: "vfwprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "_vtprintf($FILE, $FMT, ...)"
-    - pattern-not: "_vtprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "wprintf($FMT, ...)"
-    - pattern-not: "wprintf(\"...\", ...)"
-  severity: "ERROR"
-- id: "_vtprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "_vtprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _vtprintf"
       type: "flawfinder_func_name"
       value: "_vtprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "printf(...)"
-    - pattern-not: "printf(\"...\",...)"
-  - patterns:
-    - pattern: "vprintf($FMT, ...)"
-    - pattern-not: "vprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vwprintf($FMT, ...)"
-    - pattern-not: "vwprintf(\"...\", ...)"
-  - patterns:
-    - pattern: "vfwprintf($FILE, $FMT, ...)"
-    - pattern-not: "vfwprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "_vtprintf($FILE, $FMT, ...)"
-    - pattern-not: "_vtprintf($FILE, \"...\", ...)"
-  - patterns:
-    - pattern: "wprintf($FMT, ...)"
-    - pattern-not: "wprintf(\"...\", ...)"
-  severity: "ERROR"
-- id: "wprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited (CWE-134)"
-    primary_identifier: "wprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - wprintf"
       type: "flawfinder_func_name"
       value: "wprintf"
@@ -3612,7 +1058,7 @@ rules:
     - pattern: "wprintf($FMT, ...)"
     - pattern-not: "wprintf(\"...\", ...)"
   severity: "ERROR"
-- id: "snprintf-1"
+- id: "flawfinder.snprintf-1.vsnprintf-1._snprintf-1._sntprintf-1._vsntprintf-1"
   languages:
   - "c"
   message: |
@@ -3620,128 +1066,20 @@ rules:
   metadata:
     cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
       exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
-    primary_identifier: "snprintf-1"
+    primary_identifier: "flawfinder.snprintf-1.vsnprintf-1._snprintf-1._sntprintf-1._vsntprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - snprintf"
       type: "flawfinder_func_name"
       value: "snprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "snprintf($BUF,$SIZ,$FMT,...)"
-    - pattern-not: "snprintf($BUF,$SIZ,\"...\",...)"
-  - patterns:
-    - pattern: "vsnprintf($BUF,$SIZ,$FMT)"
-    - pattern-not: "vsnprintf($BUF,$SIZ,\"...\",...)"
-  - patterns:
-    - pattern: "_snprintf($BUF,$SIZ,$FMT,...)"
-    - pattern-not: "_snprintf($BUF,$SIZ,$FMT,\"...\",...)"
-  - patterns:
-    - pattern: "_sntprintf($VAR,$FMT,...)"
-    - pattern-not: "sntprintf($VAR,\"...\",...)"
-  - patterns:
-    - pattern: "_vsntprintf($VAR,$FMT,...)"
-    - pattern-not: "_vsntprintf($VAR,\"...\",...)"
-  severity: "ERROR"
-- id: "vsnprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
-    primary_identifier: "vsnprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - vsnprintf"
       type: "flawfinder_func_name"
       value: "vsnprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "snprintf($BUF,$SIZ,$FMT,...)"
-    - pattern-not: "snprintf($BUF,$SIZ,\"...\",...)"
-  - patterns:
-    - pattern: "vsnprintf($BUF,$SIZ,$FMT)"
-    - pattern-not: "vsnprintf($BUF,$SIZ,\"...\",...)"
-  - patterns:
-    - pattern: "_snprintf($BUF,$SIZ,$FMT,...)"
-    - pattern-not: "_snprintf($BUF,$SIZ,$FMT,\"...\",...)"
-  - patterns:
-    - pattern: "_sntprintf($VAR,$FMT,...)"
-    - pattern-not: "sntprintf($VAR,\"...\",...)"
-  - patterns:
-    - pattern: "_vsntprintf($VAR,$FMT,...)"
-    - pattern-not: "_vsntprintf($VAR,\"...\",...)"
-  severity: "ERROR"
-- id: "_snprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
-    primary_identifier: "_snprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _snprintf"
       type: "flawfinder_func_name"
       value: "_snprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "snprintf($BUF,$SIZ,$FMT,...)"
-    - pattern-not: "snprintf($BUF,$SIZ,\"...\",...)"
-  - patterns:
-    - pattern: "vsnprintf($BUF,$SIZ,$FMT)"
-    - pattern-not: "vsnprintf($BUF,$SIZ,\"...\",...)"
-  - patterns:
-    - pattern: "_snprintf($BUF,$SIZ,$FMT,...)"
-    - pattern-not: "_snprintf($BUF,$SIZ,$FMT,\"...\",...)"
-  - patterns:
-    - pattern: "_sntprintf($VAR,$FMT,...)"
-    - pattern-not: "sntprintf($VAR,\"...\",...)"
-  - patterns:
-    - pattern: "_vsntprintf($VAR,$FMT,...)"
-    - pattern-not: "_vsntprintf($VAR,\"...\",...)"
-  severity: "ERROR"
-- id: "_sntprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
-    primary_identifier: "_sntprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _sntprintf"
       type: "flawfinder_func_name"
       value: "_sntprintf"
-  pattern-either:
-  - patterns:
-    - pattern: "snprintf($BUF,$SIZ,$FMT,...)"
-    - pattern-not: "snprintf($BUF,$SIZ,\"...\",...)"
-  - patterns:
-    - pattern: "vsnprintf($BUF,$SIZ,$FMT)"
-    - pattern-not: "vsnprintf($BUF,$SIZ,\"...\",...)"
-  - patterns:
-    - pattern: "_snprintf($BUF,$SIZ,$FMT,...)"
-    - pattern-not: "_snprintf($BUF,$SIZ,$FMT,\"...\",...)"
-  - patterns:
-    - pattern: "_sntprintf($VAR,$FMT,...)"
-    - pattern-not: "sntprintf($VAR,\"...\",...)"
-  - patterns:
-    - pattern: "_vsntprintf($VAR,$FMT,...)"
-    - pattern-not: "_vsntprintf($VAR,\"...\",...)"
-  severity: "ERROR"
-- id: "_vsntprintf-1"
-  languages:
-  - "c"
-  message: |
-    Use a constant for the format specification.
-  metadata:
-    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
-      exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
-    primary_identifier: "_vsntprintf-1"
-    secondary_identifiers:
     - name: "Flawfinder - _vsntprintf"
       type: "flawfinder_func_name"
       value: "_vsntprintf"
@@ -3762,7 +1100,7 @@ rules:
     - pattern: "_vsntprintf($VAR,$FMT,...)"
     - pattern-not: "_vsntprintf($VAR,\"...\",...)"
   severity: "ERROR"
-- id: "syslog-1"
+- id: "flawfinder.syslog-1"
   languages:
   - "c"
   message: |
@@ -3770,7 +1108,7 @@ rules:
   metadata:
     cwe: "CWE-134: If syslog's format strings can be influenced by an attacker, they
       can be exploited (CWE-134)"
-    primary_identifier: "syslog-1"
+    primary_identifier: "flawfinder.syslog-1"
     secondary_identifiers:
     - name: "Flawfinder - syslog"
       type: "flawfinder_func_name"
@@ -3780,7 +1118,7 @@ rules:
     - pattern: "syslog($FUNC,...)"
     - pattern-not: "syslog($FUNC,\"...\",...)"
   severity: "ERROR"
-- id: "memalign-1"
+- id: "flawfinder.memalign-1"
   languages:
   - "c"
   message: |
@@ -3792,7 +1130,7 @@ rules:
       free() results from memalign() may fail. This may, on a few systems, be exploitable.
       \ Also note that memalign() may not check that the boundary parameter is correct
       (CWE-676)"
-    primary_identifier: "memalign-1"
+    primary_identifier: "flawfinder.memalign-1"
     secondary_identifiers:
     - name: "Flawfinder - memalign"
       type: "flawfinder_func_name"
@@ -3801,7 +1139,7 @@ rules:
   - pattern: "memalign(...)"
   - pattern-regex: "(void)\\s\\*(\\s|)(memalign)\\;"
   severity: "INFO"
-- id: "atoi-1"
+- id: "flawfinder.atoi-1.atol-1._wtoi-1._wtoi64-1"
   languages:
   - "c"
   message: |
@@ -3811,71 +1149,17 @@ rules:
   metadata:
     cwe: "CWE-190: Unless checked, the resulting number can exceed the expected range
       (CWE-190)"
-    primary_identifier: "atoi-1"
+    primary_identifier: "flawfinder.atoi-1.atol-1._wtoi-1._wtoi64-1"
     secondary_identifiers:
     - name: "Flawfinder - atoi"
       type: "flawfinder_func_name"
       value: "atoi"
-  pattern-either:
-  - pattern: "atoi(...)"
-  - pattern: "atol(...)"
-  - pattern: "_wtoi(...)"
-  - pattern: "_wtoi64(...)"
-  severity: "INFO"
-- id: "atol-1"
-  languages:
-  - "c"
-  message: |
-    If source untrusted, check both minimum and maximum, even if the input had no minus sign (large
-    numbers can roll over into negative number; consider saving to an unsigned value if that is
-    intended).
-  metadata:
-    cwe: "CWE-190: Unless checked, the resulting number can exceed the expected range
-      (CWE-190)"
-    primary_identifier: "atol-1"
-    secondary_identifiers:
     - name: "Flawfinder - atol"
       type: "flawfinder_func_name"
       value: "atol"
-  pattern-either:
-  - pattern: "atoi(...)"
-  - pattern: "atol(...)"
-  - pattern: "_wtoi(...)"
-  - pattern: "_wtoi64(...)"
-  severity: "INFO"
-- id: "_wtoi-1"
-  languages:
-  - "c"
-  message: |
-    If source untrusted, check both minimum and maximum, even if the input had no minus sign (large
-    numbers can roll over into negative number; consider saving to an unsigned value if that is
-    intended).
-  metadata:
-    cwe: "CWE-190: Unless checked, the resulting number can exceed the expected range
-      (CWE-190)"
-    primary_identifier: "_wtoi-1"
-    secondary_identifiers:
     - name: "Flawfinder - _wtoi"
       type: "flawfinder_func_name"
       value: "_wtoi"
-  pattern-either:
-  - pattern: "atoi(...)"
-  - pattern: "atol(...)"
-  - pattern: "_wtoi(...)"
-  - pattern: "_wtoi64(...)"
-  severity: "INFO"
-- id: "_wtoi64-1"
-  languages:
-  - "c"
-  message: |
-    If source untrusted, check both minimum and maximum, even if the input had no minus sign (large
-    numbers can roll over into negative number; consider saving to an unsigned value if that is
-    intended).
-  metadata:
-    cwe: "CWE-190: Unless checked, the resulting number can exceed the expected range
-      (CWE-190)"
-    primary_identifier: "_wtoi64-1"
-    secondary_identifiers:
     - name: "Flawfinder - _wtoi64"
       type: "flawfinder_func_name"
       value: "_wtoi64"
@@ -3885,7 +1169,7 @@ rules:
   - pattern: "_wtoi(...)"
   - pattern: "_wtoi64(...)"
   severity: "INFO"
-- id: "AddAccessAllowedAce-1"
+- id: "flawfinder.AddAccessAllowedAce-1"
   languages:
   - "c"
   message: |
@@ -3893,28 +1177,28 @@ rules:
   metadata:
     cwe: "CWE-732: This doesn't set the inheritance bits in the access control entry
       (ACE) header (CWE-732)"
-    primary_identifier: "AddAccessAllowedAce-1"
+    primary_identifier: "flawfinder.AddAccessAllowedAce-1"
     secondary_identifiers:
     - name: "Flawfinder - AddAccessAllowedAce"
       type: "flawfinder_func_name"
       value: "AddAccessAllowedAce"
   pattern: "AddAccessAllowedAce(...)"
   severity: "WARNING"
-- id: "InitializeCriticalSection-1"
+- id: "flawfinder.InitializeCriticalSection-1"
   languages:
   - "c"
   message: |
     Use InitializeCriticalSectionAndSpinCount instead.
   metadata:
     cwe: "CWE-754: Exceptions can be thrown in low-memory situations"
-    primary_identifier: "InitializeCriticalSection-1"
+    primary_identifier: "flawfinder.InitializeCriticalSection-1"
     secondary_identifiers:
     - name: "Flawfinder - InitializeCriticalSection"
       type: "flawfinder_func_name"
       value: "InitializeCriticalSection"
   pattern: "InitializeCriticalSection(...)"
   severity: "WARNING"
-- id: "LoadLibrary-1"
+- id: "flawfinder.LoadLibrary-1"
   languages:
   - "c"
   message: |
@@ -3923,14 +1207,14 @@ rules:
   metadata:
     cwe: "CWE-20: Ensure that the full path to the library is specified, or current
       directory may be used (CWE-829, CWE-20)"
-    primary_identifier: "LoadLibrary-1"
+    primary_identifier: "flawfinder.LoadLibrary-1"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibrary"
       type: "flawfinder_func_name"
       value: "LoadLibrary"
   pattern: "LoadLibrary(...)"
   severity: "WARNING"
-- id: "LoadLibraryEx-1"
+- id: "flawfinder.LoadLibraryEx-1"
   languages:
   - "c"
   message: |
@@ -3939,14 +1223,14 @@ rules:
   metadata:
     cwe: "CWE-20: Ensure that the full path to the library is specified, or current
       directory may be used (CWE-829, CWE-20)"
-    primary_identifier: "LoadLibraryEx-1"
+    primary_identifier: "flawfinder.LoadLibraryEx-1"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibraryEx"
       type: "flawfinder_func_name"
       value: "LoadLibraryEx"
   pattern: "LoadLibraryEx(...)"
   severity: "WARNING"
-- id: "SetSecurityDescriptorDacl-1"
+- id: "flawfinder.SetSecurityDescriptorDacl-1"
   languages:
   - "c"
   message: |
@@ -3955,14 +1239,14 @@ rules:
   metadata:
     cwe: "CWE-732: Never create NULL ACLs; an attacker can set it to Everyone (Deny
       All Access), which would even forbid administrator access (CWE-732)"
-    primary_identifier: "SetSecurityDescriptorDacl-1"
+    primary_identifier: "flawfinder.SetSecurityDescriptorDacl-1"
     secondary_identifiers:
     - name: "Flawfinder - SetSecurityDescriptorDacl"
       type: "flawfinder_func_name"
       value: "SetSecurityDescriptorDacl"
   pattern: "SetSecurityDescriptorDacl(...)"
   severity: "ERROR"
-- id: "chroot-1"
+- id: "flawfinder.chroot-1"
   languages:
   - "c"
   message: |
@@ -3971,14 +1255,14 @@ rules:
   metadata:
     cwe: "CWE-22: chroot can be very helpful, but is hard to use correctly (CWE-250,
       CWE-22)"
-    primary_identifier: "chroot-1"
+    primary_identifier: "flawfinder.chroot-1"
     secondary_identifiers:
     - name: "Flawfinder - chroot"
       type: "flawfinder_func_name"
       value: "chroot"
   pattern: "chroot(...)"
   severity: "WARNING"
-- id: "cuserid-1"
+- id: "flawfinder.cuserid-1"
   languages:
   - "c"
   message: |
@@ -3990,14 +1274,14 @@ rules:
       function was included in the 1988 version of POSIX, but removed from the 1990
       version).  Also, if passed a non-null parameter, there's a risk of a buffer
       overflow if the passed-in buffer is not at least L_cuserid characters long (CWE-120)"
-    primary_identifier: "cuserid-1"
+    primary_identifier: "flawfinder.cuserid-1"
     secondary_identifiers:
     - name: "Flawfinder - cuserid"
       type: "flawfinder_func_name"
       value: "cuserid"
   pattern: "cuserid(...)"
   severity: "ERROR"
-- id: "fopen-1"
+- id: "flawfinder.fopen-1.open-1"
   languages:
   - "c"
   message: |
@@ -4006,26 +1290,11 @@ rules:
     cwe: "CWE-362: Check when opening files - can an attacker redirect it (via symlinks),
       force the opening of special file type (e.g., device files), move things around
       to create a race condition, control its ancestors, or change its contents? (CWE-362)"
-    primary_identifier: "fopen-1"
+    primary_identifier: "flawfinder.fopen-1.open-1"
     secondary_identifiers:
     - name: "Flawfinder - fopen"
       type: "flawfinder_func_name"
       value: "fopen"
-  pattern-either:
-  - pattern: "fopen(...)"
-  - pattern: "open(...)"
-  severity: "INFO"
-- id: "open-1"
-  languages:
-  - "c"
-  message: |
-    Check when opening files - can an attacker redirect it (via symlinks).
-  metadata:
-    cwe: "CWE-362: Check when opening files - can an attacker redirect it (via symlinks),
-      force the opening of special file type (e.g., device files), move things around
-      to create a race condition, control its ancestors, or change its contents? (CWE-362)"
-    primary_identifier: "open-1"
-    secondary_identifiers:
     - name: "Flawfinder - open"
       type: "flawfinder_func_name"
       value: "open"
@@ -4033,7 +1302,7 @@ rules:
   - pattern: "fopen(...)"
   - pattern: "open(...)"
   severity: "INFO"
-- id: "getlogin-1"
+- id: "flawfinder.getlogin-1"
   languages:
   - "c"
   message: |
@@ -4044,14 +1313,14 @@ rules:
       first 8 characters of the login name. The user currently logged in on the controlling
       tty of our program need not be the user who started it.  Avoid getlogin() for
       security-related purposes (CWE-807)"
-    primary_identifier: "getlogin-1"
+    primary_identifier: "flawfinder.getlogin-1"
     secondary_identifiers:
     - name: "Flawfinder - getlogin"
       type: "flawfinder_func_name"
       value: "getlogin"
   pattern: "getlogin(...)"
   severity: "ERROR"
-- id: "getpass-1"
+- id: "flawfinder.getpass-1"
   languages:
   - "c"
   message: |
@@ -4064,14 +1333,14 @@ rules:
       particularly in where its prompt is displayed and where it gets its data (e.g.,
       /dev/tty, stdin, stderr, etc.). In addition, some implementations overflow buffers.
       (CWE-676, CWE-120, CWE-20)"
-    primary_identifier: "getpass-1"
+    primary_identifier: "flawfinder.getpass-1"
     secondary_identifiers:
     - name: "Flawfinder - getpass"
       type: "flawfinder_func_name"
       value: "getpass"
   pattern: "getpass(...)"
   severity: "ERROR"
-- id: "gsignal-1"
+- id: "flawfinder.gsignal-1.ssignal-1"
   languages:
   - "c"
   message: |
@@ -4081,27 +1350,11 @@ rules:
       non-portable (Linux-based systems handle them radically different, basically
       if gsignal/ssignal were the same as raise/signal respectively, while System
       V considers them a separate set and obsolete) (CWE-676)"
-    primary_identifier: "gsignal-1"
+    primary_identifier: "flawfinder.gsignal-1.ssignal-1"
     secondary_identifiers:
     - name: "Flawfinder - gsignal"
       type: "flawfinder_func_name"
       value: "gsignal"
-  pattern-either:
-  - pattern: "gsignal(...)"
-  - pattern: "ssignal(...)"
-  severity: "INFO"
-- id: "ssignal-1"
-  languages:
-  - "c"
-  message: |
-    Switch to raise/signal, or some other signalling approach.
-  metadata:
-    cwe: "CWE-676: These functions are considered obsolete on most systems, and very
-      non-portable (Linux-based systems handle them radically different, basically
-      if gsignal/ssignal were the same as raise/signal respectively, while System
-      V considers them a separate set and obsolete) (CWE-676)"
-    primary_identifier: "ssignal-1"
-    secondary_identifiers:
     - name: "Flawfinder - ssignal"
       type: "flawfinder_func_name"
       value: "ssignal"
@@ -4109,7 +1362,7 @@ rules:
   - pattern: "gsignal(...)"
   - pattern: "ssignal(...)"
   severity: "INFO"
-- id: "ulimit-1"
+- id: "flawfinder.ulimit-1"
   languages:
   - "c"
   message: |
@@ -4117,14 +1370,14 @@ rules:
   metadata:
     cwe: "CWE-676: This C routine is considered obsolete (as opposed to the shell
       command by the same name, which is NOT obsolete) (CWE-676)"
-    primary_identifier: "ulimit-1"
+    primary_identifier: "flawfinder.ulimit-1"
     secondary_identifiers:
     - name: "Flawfinder - ulimit"
       type: "flawfinder_func_name"
       value: "ulimit"
   pattern: "ulimit(...)"
   severity: "INFO"
-- id: "usleep-1"
+- id: "flawfinder.usleep-1"
   languages:
   - "c"
   message: |
@@ -4134,14 +1387,14 @@ rules:
       command by the same name).   The interaction of this function with SIGALRM and
       other timer functions such as sleep(), alarm(), setitimer(), and nanosleep()
       is unspecified (CWE-676)"
-    primary_identifier: "usleep-1"
+    primary_identifier: "flawfinder.usleep-1"
     secondary_identifiers:
     - name: "Flawfinder - usleep"
       type: "flawfinder_func_name"
       value: "usleep"
   pattern: "usleep(...)"
   severity: "INFO"
-- id: "access-1"
+- id: "flawfinder.access-1"
   languages:
   - "c"
   message: |
@@ -4150,14 +1403,14 @@ rules:
     cwe: "CWE-362: This usually indicates a security flaw.  If an attacker can change
       anything along the path between the call to access() and the file's actual use
       (e.g., by moving files), the attacker can exploit the race condition (CWE-362/CWE-367!)"
-    primary_identifier: "access-1"
+    primary_identifier: "flawfinder.access-1"
     secondary_identifiers:
     - name: "Flawfinder - access"
       type: "flawfinder_func_name"
       value: "access"
   pattern: "access(...)"
   severity: "ERROR"
-- id: "chgrp-1"
+- id: "flawfinder.chgrp-1"
   languages:
   - "c"
   message: |
@@ -4165,14 +1418,14 @@ rules:
   metadata:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
-    primary_identifier: "chgrp-1"
+    primary_identifier: "flawfinder.chgrp-1"
     secondary_identifiers:
     - name: "Flawfinder - chgrp"
       type: "flawfinder_func_name"
       value: "chgrp"
   pattern: "chgrp(...)"
   severity: "ERROR"
-- id: "chmod-1"
+- id: "flawfinder.chmod-1"
   languages:
   - "c"
   message: |
@@ -4180,14 +1433,14 @@ rules:
   metadata:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
-    primary_identifier: "chmod-1"
+    primary_identifier: "flawfinder.chmod-1"
     secondary_identifiers:
     - name: "Flawfinder - chmod"
       type: "flawfinder_func_name"
       value: "chmod"
   pattern: "chmod(...)"
   severity: "ERROR"
-- id: "chown-1"
+- id: "flawfinder.chown-1"
   languages:
   - "c"
   message: |
@@ -4195,14 +1448,14 @@ rules:
   metadata:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
-    primary_identifier: "chown-1"
+    primary_identifier: "flawfinder.chown-1"
     secondary_identifiers:
     - name: "Flawfinder - chown"
       type: "flawfinder_func_name"
       value: "chown"
   pattern: "chown(...)"
   severity: "ERROR"
-- id: "readlink-1"
+- id: "flawfinder.readlink-1"
   languages:
   - "c"
   message: |
@@ -4211,14 +1464,14 @@ rules:
     cwe: "CWE-20: This accepts filename arguments; if an attacker can move those files
       or change the link content, a race condition results.  Also, it does not terminate
       with ASCII NUL. (CWE-362, CWE-20)"
-    primary_identifier: "readlink-1"
+    primary_identifier: "flawfinder.readlink-1"
     secondary_identifiers:
     - name: "Flawfinder - readlink"
       type: "flawfinder_func_name"
       value: "readlink"
   pattern: "readlink(...)"
   severity: "ERROR"
-- id: "vfork-1"
+- id: "flawfinder.vfork-1"
   languages:
   - "c"
   message: |
@@ -4226,14 +1479,14 @@ rules:
   metadata:
     cwe: "CWE-362: On some old systems, vfork() permits race conditions, and it's
       very difficult to use correctly (CWE-362)"
-    primary_identifier: "vfork-1"
+    primary_identifier: "flawfinder.vfork-1"
     secondary_identifiers:
     - name: "Flawfinder - vfork"
       type: "flawfinder_func_name"
       value: "vfork"
   pattern: "vfork(...)"
   severity: "INFO"
-- id: "drand48-1"
+- id: "flawfinder.drand48-1.erand48-1.jrand48-1.lcong48-1.lrand48-1.mrand48-1.nrand48-1.random-1.seed48-1.setstate-1.srand-1.strfry-1.srandom-1.g_rand_boolean-1.g_rand_int-1.g_rand_int_range-1.g_rand_double-1.g_rand_double_range-1.g_random_boolean-1.g_random_int-1.g_random_int_range-1.g_random_double-1.g_random_double_range-1"
   languages:
   - "c"
   message: |
@@ -4241,866 +1494,74 @@ rules:
   metadata:
     cwe: "CWE-327: This function is not sufficiently random for security-related functions
       such as key and nonce creation (CWE-327)"
-    primary_identifier: "drand48-1"
+    primary_identifier: "flawfinder.drand48-1.erand48-1.jrand48-1.lcong48-1.lrand48-1.mrand48-1.nrand48-1.random-1.seed48-1.setstate-1.srand-1.strfry-1.srandom-1.g_rand_boolean-1.g_rand_int-1.g_rand_int_range-1.g_rand_double-1.g_rand_double_range-1.g_random_boolean-1.g_random_int-1.g_random_int_range-1.g_random_double-1.g_random_double_range-1"
     secondary_identifiers:
     - name: "Flawfinder - drand48"
       type: "flawfinder_func_name"
       value: "drand48"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "erand48-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "erand48-1"
-    secondary_identifiers:
     - name: "Flawfinder - erand48"
       type: "flawfinder_func_name"
       value: "erand48"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "jrand48-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "jrand48-1"
-    secondary_identifiers:
     - name: "Flawfinder - jrand48"
       type: "flawfinder_func_name"
       value: "jrand48"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "lcong48-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "lcong48-1"
-    secondary_identifiers:
     - name: "Flawfinder - lcong48"
       type: "flawfinder_func_name"
       value: "lcong48"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "lrand48-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "lrand48-1"
-    secondary_identifiers:
     - name: "Flawfinder - lrand48"
       type: "flawfinder_func_name"
       value: "lrand48"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "mrand48-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "mrand48-1"
-    secondary_identifiers:
     - name: "Flawfinder - mrand48"
       type: "flawfinder_func_name"
       value: "mrand48"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "nrand48-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "nrand48-1"
-    secondary_identifiers:
     - name: "Flawfinder - nrand48"
       type: "flawfinder_func_name"
       value: "nrand48"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "random-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "random-1"
-    secondary_identifiers:
     - name: "Flawfinder - random"
       type: "flawfinder_func_name"
       value: "random"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "seed48-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "seed48-1"
-    secondary_identifiers:
     - name: "Flawfinder - seed48"
       type: "flawfinder_func_name"
       value: "seed48"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "setstate-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "setstate-1"
-    secondary_identifiers:
     - name: "Flawfinder - setstate"
       type: "flawfinder_func_name"
       value: "setstate"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "srand-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "srand-1"
-    secondary_identifiers:
     - name: "Flawfinder - srand"
       type: "flawfinder_func_name"
       value: "srand"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "strfry-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "strfry-1"
-    secondary_identifiers:
     - name: "Flawfinder - strfry"
       type: "flawfinder_func_name"
       value: "strfry"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "srandom-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "srandom-1"
-    secondary_identifiers:
     - name: "Flawfinder - srandom"
       type: "flawfinder_func_name"
       value: "srandom"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_rand_boolean-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_rand_boolean-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_rand_boolean"
       type: "flawfinder_func_name"
       value: "g_rand_boolean"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_rand_int-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_rand_int-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_rand_int"
       type: "flawfinder_func_name"
       value: "g_rand_int"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_rand_int_range-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_rand_int_range-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_rand_int_range"
       type: "flawfinder_func_name"
       value: "g_rand_int_range"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_rand_double-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_rand_double-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_rand_double"
       type: "flawfinder_func_name"
       value: "g_rand_double"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_rand_double_range-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_rand_double_range-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_rand_double_range"
       type: "flawfinder_func_name"
       value: "g_rand_double_range"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_random_boolean-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_random_boolean-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_random_boolean"
       type: "flawfinder_func_name"
       value: "g_random_boolean"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_random_int-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_random_int-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_random_int"
       type: "flawfinder_func_name"
       value: "g_random_int"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_random_int_range-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_random_int_range-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_random_int_range"
       type: "flawfinder_func_name"
       value: "g_random_int_range"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_random_double-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_random_double-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_random_double"
       type: "flawfinder_func_name"
       value: "g_random_double"
-  pattern-either:
-  - pattern: "drand48(...)"
-  - pattern: "erand48(...)"
-  - pattern: "jrand48(...)"
-  - pattern: "lcong48(...)"
-  - pattern: "lrand48(...)"
-  - pattern: "mrand48(...)"
-  - pattern: "nrand48(...)"
-  - pattern: "random(...)"
-  - pattern: "seed48(...)"
-  - pattern: "setstate(...)"
-  - pattern: "srand(...)"
-  - pattern: "strfry(...)"
-  - pattern: "srandom(...)"
-  - pattern: "g_rand_boolean(...)"
-  - pattern: "g_rand_int(...)"
-  - pattern: "g_rand_int_range(...)"
-  - pattern: "g_rand_double(...)"
-  - pattern: "g_rand_double_range(...)"
-  - pattern: "g_random_boolean(...)"
-  - pattern: "g_random_int(...)"
-  - pattern: "g_random_int_range(...)"
-  - pattern: "g_random_double(...)"
-  - pattern: "g_random_double_range(...)"
-  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
-  severity: "WARNING"
-- id: "g_random_double_range-1"
-  languages:
-  - "c"
-  message: |
-    Use a more secure technique for acquiring random values.
-  metadata:
-    cwe: "CWE-327: This function is not sufficiently random for security-related functions
-      such as key and nonce creation (CWE-327)"
-    primary_identifier: "g_random_double_range-1"
-    secondary_identifiers:
     - name: "Flawfinder - g_random_double_range"
       type: "flawfinder_func_name"
       value: "g_random_double_range"
@@ -5130,7 +1591,7 @@ rules:
   - pattern: "g_random_double_range(...)"
   - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
   severity: "WARNING"
-- id: "CreateProcess-1"
+- id: "flawfinder.CreateProcess-1"
   languages:
   - "c"
   message: |
@@ -5139,14 +1600,14 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new process to execute and is difficult to use safely
       (CWE-78)"
-    primary_identifier: "CreateProcess-1"
+    primary_identifier: "flawfinder.CreateProcess-1"
     secondary_identifiers:
     - name: "Flawfinder - CreateProcess"
       type: "flawfinder_func_name"
       value: "CreateProcess"
   pattern: "CreateProcess(...)"
   severity: "WARNING"
-- id: "CreateProcessAsUser-1"
+- id: "flawfinder.CreateProcessAsUser-1.CreateProcessWithLogon-1"
   languages:
   - "c"
   message: |
@@ -5154,25 +1615,11 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new process to execute and is difficult to use safely
       (CWE-78)"
-    primary_identifier: "CreateProcessAsUser-1"
+    primary_identifier: "flawfinder.CreateProcessAsUser-1.CreateProcessWithLogon-1"
     secondary_identifiers:
     - name: "Flawfinder - CreateProcessAsUser"
       type: "flawfinder_func_name"
       value: "CreateProcessAsUser"
-  pattern-either:
-  - pattern: "CreateProcessAsUser(...)"
-  - pattern: "CreateProcessWithLogon(...)"
-  severity: "WARNING"
-- id: "CreateProcessWithLogon-1"
-  languages:
-  - "c"
-  message: |
-    Especially watch out for embedded spaces.
-  metadata:
-    cwe: "CWE-78: This causes a new process to execute and is difficult to use safely
-      (CWE-78)"
-    primary_identifier: "CreateProcessWithLogon-1"
-    secondary_identifiers:
     - name: "Flawfinder - CreateProcessWithLogon"
       type: "flawfinder_func_name"
       value: "CreateProcessWithLogon"
@@ -5180,7 +1627,7 @@ rules:
   - pattern: "CreateProcessAsUser(...)"
   - pattern: "CreateProcessWithLogon(...)"
   severity: "WARNING"
-- id: "execl-1"
+- id: "flawfinder.execl-1.execlp-1.execle-1.execv-1.execvp-1.popen-1.WinExec-1.ShellExecute-1"
   languages:
   - "c"
   message: |
@@ -5188,169 +1635,29 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
       (CWE-78)"
-    primary_identifier: "execl-1"
+    primary_identifier: "flawfinder.execl-1.execlp-1.execle-1.execv-1.execvp-1.popen-1.WinExec-1.ShellExecute-1"
     secondary_identifiers:
     - name: "Flawfinder - execl"
       type: "flawfinder_func_name"
       value: "execl"
-  pattern-either:
-  - pattern: "execl(...)"
-  - pattern: "execlp(...)"
-  - pattern: "execle(...)"
-  - pattern: "execv(...)"
-  - pattern: "execvp(...)"
-  - pattern: "popen(...)"
-  - pattern: "WinExec(...)"
-  - pattern: "ShellExecute(...)"
-  severity: "ERROR"
-- id: "execlp-1"
-  languages:
-  - "c"
-  message: |
-    try using a library call that implements the same functionality if available.
-  metadata:
-    cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
-      (CWE-78)"
-    primary_identifier: "execlp-1"
-    secondary_identifiers:
     - name: "Flawfinder - execlp"
       type: "flawfinder_func_name"
       value: "execlp"
-  pattern-either:
-  - pattern: "execl(...)"
-  - pattern: "execlp(...)"
-  - pattern: "execle(...)"
-  - pattern: "execv(...)"
-  - pattern: "execvp(...)"
-  - pattern: "popen(...)"
-  - pattern: "WinExec(...)"
-  - pattern: "ShellExecute(...)"
-  severity: "ERROR"
-- id: "execle-1"
-  languages:
-  - "c"
-  message: |
-    try using a library call that implements the same functionality if available.
-  metadata:
-    cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
-      (CWE-78)"
-    primary_identifier: "execle-1"
-    secondary_identifiers:
     - name: "Flawfinder - execle"
       type: "flawfinder_func_name"
       value: "execle"
-  pattern-either:
-  - pattern: "execl(...)"
-  - pattern: "execlp(...)"
-  - pattern: "execle(...)"
-  - pattern: "execv(...)"
-  - pattern: "execvp(...)"
-  - pattern: "popen(...)"
-  - pattern: "WinExec(...)"
-  - pattern: "ShellExecute(...)"
-  severity: "ERROR"
-- id: "execv-1"
-  languages:
-  - "c"
-  message: |
-    try using a library call that implements the same functionality if available.
-  metadata:
-    cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
-      (CWE-78)"
-    primary_identifier: "execv-1"
-    secondary_identifiers:
     - name: "Flawfinder - execv"
       type: "flawfinder_func_name"
       value: "execv"
-  pattern-either:
-  - pattern: "execl(...)"
-  - pattern: "execlp(...)"
-  - pattern: "execle(...)"
-  - pattern: "execv(...)"
-  - pattern: "execvp(...)"
-  - pattern: "popen(...)"
-  - pattern: "WinExec(...)"
-  - pattern: "ShellExecute(...)"
-  severity: "ERROR"
-- id: "execvp-1"
-  languages:
-  - "c"
-  message: |
-    try using a library call that implements the same functionality if available.
-  metadata:
-    cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
-      (CWE-78)"
-    primary_identifier: "execvp-1"
-    secondary_identifiers:
     - name: "Flawfinder - execvp"
       type: "flawfinder_func_name"
       value: "execvp"
-  pattern-either:
-  - pattern: "execl(...)"
-  - pattern: "execlp(...)"
-  - pattern: "execle(...)"
-  - pattern: "execv(...)"
-  - pattern: "execvp(...)"
-  - pattern: "popen(...)"
-  - pattern: "WinExec(...)"
-  - pattern: "ShellExecute(...)"
-  severity: "ERROR"
-- id: "popen-1"
-  languages:
-  - "c"
-  message: |
-    try using a library call that implements the same functionality if available.
-  metadata:
-    cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
-      (CWE-78)"
-    primary_identifier: "popen-1"
-    secondary_identifiers:
     - name: "Flawfinder - popen"
       type: "flawfinder_func_name"
       value: "popen"
-  pattern-either:
-  - pattern: "execl(...)"
-  - pattern: "execlp(...)"
-  - pattern: "execle(...)"
-  - pattern: "execv(...)"
-  - pattern: "execvp(...)"
-  - pattern: "popen(...)"
-  - pattern: "WinExec(...)"
-  - pattern: "ShellExecute(...)"
-  severity: "ERROR"
-- id: "WinExec-1"
-  languages:
-  - "c"
-  message: |
-    try using a library call that implements the same functionality if available.
-  metadata:
-    cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
-      (CWE-78)"
-    primary_identifier: "WinExec-1"
-    secondary_identifiers:
     - name: "Flawfinder - WinExec"
       type: "flawfinder_func_name"
       value: "WinExec"
-  pattern-either:
-  - pattern: "execl(...)"
-  - pattern: "execlp(...)"
-  - pattern: "execle(...)"
-  - pattern: "execv(...)"
-  - pattern: "execvp(...)"
-  - pattern: "popen(...)"
-  - pattern: "WinExec(...)"
-  - pattern: "ShellExecute(...)"
-  severity: "ERROR"
-- id: "ShellExecute-1"
-  languages:
-  - "c"
-  message: |
-    try using a library call that implements the same functionality if available.
-  metadata:
-    cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
-      (CWE-78)"
-    primary_identifier: "ShellExecute-1"
-    secondary_identifiers:
     - name: "Flawfinder - ShellExecute"
       type: "flawfinder_func_name"
       value: "ShellExecute"
@@ -5364,7 +1671,7 @@ rules:
   - pattern: "WinExec(...)"
   - pattern: "ShellExecute(...)"
   severity: "ERROR"
-- id: "system-1"
+- id: "flawfinder.system-1"
   languages:
   - "c"
   message: |
@@ -5372,14 +1679,14 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
       (CWE-78)"
-    primary_identifier: "system-1"
+    primary_identifier: "flawfinder.system-1"
     secondary_identifiers:
     - name: "Flawfinder - system"
       type: "flawfinder_func_name"
       value: "system"
   pattern: "system(...)"
   severity: "ERROR"
-- id: "GetTempFileName-1"
+- id: "flawfinder.GetTempFileName-1"
   languages:
   - "c"
   message: |
@@ -5387,14 +1694,14 @@ rules:
   metadata:
     cwe: "CWE-377: Temporary file race condition in certain cases (e.g., if run as
       SYSTEM in many versions of Windows) (CWE-377)"
-    primary_identifier: "GetTempFileName-1"
+    primary_identifier: "flawfinder.GetTempFileName-1"
     secondary_identifiers:
     - name: "Flawfinder - GetTempFileName"
       type: "flawfinder_func_name"
       value: "GetTempFileName"
   pattern: "GetTempFileName(...)"
   severity: "WARNING"
-- id: "mkstemp-1"
+- id: "flawfinder.mkstemp-1"
   languages:
   - "c"
   message: |
@@ -5404,14 +1711,14 @@ rules:
     O_EXCL is used by the library.
   metadata:
     cwe: "CWE-377: Potential for temporary file vulnerability in some circumstances."
-    primary_identifier: "mkstemp-1"
+    primary_identifier: "flawfinder.mkstemp-1"
     secondary_identifiers:
     - name: "Flawfinder - mkstemp"
       type: "flawfinder_func_name"
       value: "mkstemp"
   pattern: "mkstemp(...)"
   severity: "INFO"
-- id: "mktemp-1"
+- id: "flawfinder.mktemp-1"
   languages:
   - "c"
   message: |
@@ -5419,14 +1726,14 @@ rules:
     attack (CWE-377).
   metadata:
     cwe: "CWE-377: Temporary file race condition (CWE-377)"
-    primary_identifier: "mktemp-1"
+    primary_identifier: "flawfinder.mktemp-1"
     secondary_identifiers:
     - name: "Flawfinder - mktemp"
       type: "flawfinder_func_name"
       value: "mktemp"
   pattern: "mktemp(...)"
   severity: "ERROR"
-- id: "tmpfile-1"
+- id: "flawfinder.tmpfile-1"
   languages:
   - "c"
   message: |
@@ -5435,14 +1742,14 @@ rules:
   metadata:
     cwe: "CWE-377: Function tmpfile() has a security flaw on some systems (e.g., older
       System V systems) (CWE-377)"
-    primary_identifier: "tmpfile-1"
+    primary_identifier: "flawfinder.tmpfile-1"
     secondary_identifiers:
     - name: "Flawfinder - tmpfile"
       type: "flawfinder_func_name"
       value: "tmpfile"
   pattern: "tmpfile(...)"
   severity: "INFO"
-- id: "tmpnam-1"
+- id: "flawfinder.tmpnam-1.tempnam-1"
   languages:
   - "c"
   message: |
@@ -5450,25 +1757,11 @@ rules:
     attack.
   metadata:
     cwe: "CWE-377: Temporary file race condition (CWE-377)"
-    primary_identifier: "tmpnam-1"
+    primary_identifier: "flawfinder.tmpnam-1.tempnam-1"
     secondary_identifiers:
     - name: "Flawfinder - tmpnam"
       type: "flawfinder_func_name"
       value: "tmpnam"
-  pattern-either:
-  - pattern: "tmpnam(...)"
-  - pattern: "tempnam(...)"
-  severity: "WARNING"
-- id: "tempnam-1"
-  languages:
-  - "c"
-  message: |
-    Creating and using insecure temporary files can leave application and system data vulnerable to
-    attack.
-  metadata:
-    cwe: "CWE-377: Temporary file race condition (CWE-377)"
-    primary_identifier: "tempnam-1"
-    secondary_identifiers:
     - name: "Flawfinder - tempnam"
       type: "flawfinder_func_name"
       value: "tempnam"
