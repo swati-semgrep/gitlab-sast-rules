@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.2
+- Remove security prefix (!94)
+
 ## v1.1.1
 - Moving the previous id representation; adding more meta information (!93)
 
