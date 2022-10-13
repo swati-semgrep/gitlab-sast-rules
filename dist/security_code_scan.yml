@@ -1,9 +1,9 @@
 # yamllint disable
-# rule-set version: 1.1.0
+# rule-set version: 1.1.1
 # yamllint enable
 ---
 rules:
-- id: "SCS0019-1"
+- id: "security_code_scan.SCS0019-1"
   patterns:
   - pattern-inside: |
       [Authorize]
@@ -25,12 +25,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-524: Use of Cache Containing Sensitive Information"
-    primary_identifier: "SCS0019-1"
+    primary_identifier: "security_code_scan.SCS0019-1"
     secondary_identifiers:
     - name: "SCS0019"
       type: "security_code_scan_rule_id"
       value: "SCS0019"
-- id: "SCS0009-1"
+- id: "security_code_scan.SCS0009-1"
   mode: "taint"
   pattern-sources:
   - pattern: |
@@ -48,12 +48,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-1004: Sensitive Cookie Without 'HttpOnly' Flag"
-    primary_identifier: "SCS0009-1"
+    primary_identifier: "security_code_scan.SCS0009-1"
     secondary_identifiers:
     - name: "SCS0009"
       type: "security_code_scan_rule_id"
       value: "SCS0009"
-- id: "SCS0008-1"
+- id: "security_code_scan.SCS0008-1"
   mode: "taint"
   pattern-sources:
   - pattern: |
@@ -71,12 +71,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without ‘Secure’ Attribute"
-    primary_identifier: "SCS0008-1"
+    primary_identifier: "security_code_scan.SCS0008-1"
     secondary_identifiers:
     - name: "SCS0008"
       type: "security_code_scan_rule_id"
       value: "SCS0008"
-- id: "SCS0004-1"
+- id: "security_code_scan.SCS0004-1"
   patterns:
   - pattern-inside: |
       using System.Net;
@@ -99,12 +99,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-295: Improper Certificate Validation"
-    primary_identifier: "SCS0004-1"
+    primary_identifier: "security_code_scan.SCS0004-1"
     secondary_identifiers:
     - name: "SCS0004"
       type: "security_code_scan_rule_id"
       value: "SCS0004"
-- id: "SCS0010-1"
+- id: "security_code_scan.SCS0010-1"
   patterns:
   - pattern-inside: |
       using System.Security.Cryptography;
@@ -125,12 +125,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
-    primary_identifier: "SCS0010-1"
+    primary_identifier: "security_code_scan.SCS0010-1"
     secondary_identifiers:
     - name: "SCS0010"
       type: "security_code_scan_rule_id"
       value: "SCS0010"
-- id: "SCS0013-1"
+- id: "security_code_scan.SCS0013-1"
   patterns:
   - pattern-inside: |
       using System.Security.Cryptography;
@@ -150,12 +150,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
-    primary_identifier: "SCS0013-1"
+    primary_identifier: "security_code_scan.SCS0013-1"
     secondary_identifiers:
     - name: "SCS0013"
       type: "security_code_scan_rule_id"
       value: "SCS0013"
-- id: "SCS0006-1"
+- id: "security_code_scan.SCS0006-1"
   patterns:
   - pattern-either:
     - patterns:
@@ -177,12 +177,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
-    primary_identifier: "SCS0006-1"
+    primary_identifier: "security_code_scan.SCS0006-1"
     secondary_identifiers:
     - name: "SCS0006"
       type: "security_code_scan_rule_id"
       value: "SCS0006"
-- id: "SCS0005-1"
+- id: "security_code_scan.SCS0005-1"
   patterns:
   - pattern: "(Random $RNG).$METHOD(...);"
   - focus-metavariable: "$RNG"
@@ -195,12 +195,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"
-    primary_identifier: "SCS0005-1"
+    primary_identifier: "security_code_scan.SCS0005-1"
     secondary_identifiers:
     - name: "SCS0005"
       type: "security_code_scan_rule_id"
       value: "SCS0005"
-- id: "SCS0016-1"
+- id: "security_code_scan.SCS0016-1"
   patterns:
   - pattern: |
       [HttpPost]
@@ -228,12 +228,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-352: Cross-Site Request Forgery (CSRF)"
-    primary_identifier: "SCS0016-1"
+    primary_identifier: "security_code_scan.SCS0016-1"
     secondary_identifiers:
     - name: "SCS0016"
       type: "security_code_scan_rule_id"
       value: "SCS0016"
-- id: "SCS0028-1"
+- id: "security_code_scan.SCS0028-1"
   patterns:
   - pattern-not: "$OBJ.Deserialize(\"...\")"
   - pattern-not: "$OBJ.UnsafeDeserialize(\"...\")"
@@ -276,13 +276,13 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-502: Deserialization of Untrusted Data"
-    primary_identifier: "SCS0028-1"
+    primary_identifier: "security_code_scan.SCS0028-1"
     secondary_identifiers:
     - name: "SCS0028"
       type: "security_code_scan_rule_id"
       value: "SCS0028"
   severity: "WARNING"
-- id: "SCS0027-1"
+- id: "security_code_scan.SCS0027-1"
   mode: "taint"
   pattern-sources:
   - patterns:
@@ -324,13 +324,13 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')"
-    primary_identifier: "SCS0027-1"
+    primary_identifier: "security_code_scan.SCS0027-1"
     secondary_identifiers:
     - name: "SCS0027"
       type: "security_code_scan_rule_id"
       value: "SCS0027"
   severity: "WARNING"
-- id: "SCS0001-1"
+- id: "security_code_scan.SCS0001-1"
   patterns:
   - pattern-inside: |
       using System.Diagnostics;
@@ -359,12 +359,12 @@ rules:
     category: "security"
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
-    primary_identifier: "SCS0001-1"
+    primary_identifier: "security_code_scan.SCS0001-1"
     secondary_identifiers:
     - name: "SCS0001"
       type: "security_code_scan_rule_id"
       value: "SCS0001"
-- id: "SCS0026-1"
+- id: "security_code_scan.SCS0026-1.SCS0031-1"
   patterns:
   - pattern-either:
     - patterns:
@@ -385,38 +385,15 @@ rules:
     category: "security"
     cwe: "CWE-90: Improper Neutralization of Special Elements used in an LDAP Query
       (‘LDAP Injection’)"
-    primary_identifier: "SCS0026-1"
+    primary_identifier: "security_code_scan.SCS0026-1.SCS0031-1"
     secondary_identifiers:
     - name: "SCS0026"
       type: "security_code_scan_rule_id"
       value: "SCS0026"
-- id: "SCS0031-1"
-  patterns:
-  - pattern-either:
-    - patterns:
-      - pattern: "(DirectorySearcher $SOURCE).Filter = ..."
-      - pattern-not: "(DirectorySearcher $SOURCE).Filter = \"...\""
-    - patterns:
-      - pattern: "(DirectorySearcher $SOURCE).Path = ..."
-      - pattern-not: "(DirectorySearcher $SOURCE).Path = \"...\""
-  message: |
-    The software constructs all or part of an LDAP query using
-    externally-influenced input from an upstream component, but it does not
-    neutralize or incorrectly neutralizes special elements that could modify
-    the intended LDAP query when it is sent to a downstream component.
-  languages:
-  - "csharp"
-  severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-90: Improper Neutralization of Special Elements used in an LDAP Query
-      (‘LDAP Injection’)"
-    primary_identifier: "SCS0031-1"
-    secondary_identifiers:
     - name: "SCS0031"
       type: "security_code_scan_rule_id"
       value: "SCS0031"
-- id: "SCS0002-1"
+- id: "security_code_scan.SCS0002-1"
   patterns:
   - pattern-either:
     - patterns:
@@ -468,12 +445,12 @@ rules:
     category: "security"
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
       (‘SQL Injection’)"
-    primary_identifier: "SCS0002-1"
+    primary_identifier: "security_code_scan.SCS0002-1"
     secondary_identifiers:
     - name: "SCS0002"
       type: "security_code_scan_rule_id"
       value: "SCS0002"
-- id: "SCS0003-1"
+- id: "security_code_scan.SCS0003-1"
   patterns:
   - pattern-inside: |
       using System.Xml;
@@ -518,12 +495,12 @@ rules:
     category: "security"
     cwe: "CWE-643: Improper Neutralization of Data within XPath Expressions (‘XPath
       Injection’)"
-    primary_identifier: "SCS0003-1"
+    primary_identifier: "security_code_scan.SCS0003-1"
     secondary_identifiers:
     - name: "SCS0003"
       type: "security_code_scan_rule_id"
       value: "SCS0003"
-- id: "SCS0007-1"
+- id: "security_code_scan.SCS0007-1"
   mode: "taint"
   pattern-sanitizers:
   - pattern: "(XmlReaderSettings $SETTINGS).ProhibitDtd = true;"
@@ -546,12 +523,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference (‘XXE’)"
-    primary_identifier: "SCS0007-1"
+    primary_identifier: "security_code_scan.SCS0007-1"
     secondary_identifiers:
     - name: "SCS0007"
       type: "security_code_scan_rule_id"
       value: "SCS0007"
-- id: "SCS0012-1"
+- id: "security_code_scan.SCS0012-1"
   patterns:
   - pattern-inside: |
       using System.Web.Mvc;
@@ -577,12 +554,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-284: Improper Access Control"
-    primary_identifier: "SCS0012-1"
+    primary_identifier: "security_code_scan.SCS0012-1"
     secondary_identifiers:
     - name: "SCS0012"
       type: "security_code_scan_rule_id"
       value: "SCS0012"
-- id: "SCS0011-1"
+- id: "security_code_scan.SCS0011-1"
   patterns:
   - pattern-either:
     - pattern: "new XsltSettings() {EnableScript = true};"
@@ -599,12 +576,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
-    primary_identifier: "SCS0011-1"
+    primary_identifier: "security_code_scan.SCS0011-1"
     secondary_identifiers:
     - name: "SCS0011"
       type: "security_code_scan_rule_id"
       value: "SCS0011"
-- id: "SCS0032-1"
+- id: "security_code_scan.SCS0032-1.SCS0033-1.SCS0034-1"
   patterns:
   - pattern: |
       new PasswordValidator
@@ -658,130 +635,18 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-521: Weak Password Requirements"
-    primary_identifier: "SCS0032-1"
+    primary_identifier: "security_code_scan.SCS0032-1.SCS0033-1.SCS0034-1"
     secondary_identifiers:
     - name: "SCS0032"
       type: "security_code_scan_rule_id"
       value: "SCS0032"
-- id: "SCS0033-1"
-  patterns:
-  - pattern: |
-      new PasswordValidator
-      {
-        ...,
-      };
-  - pattern: |
-      new PasswordValidator
-      {
-        ...,
-        RequiredLength = $LEN,
-        ...,
-      };
-  - pattern-not: |
-      new PasswordValidator
-      {
-        ...,
-        RequireNonLetterOrDigit = true,
-        ...,
-      };
-  - pattern-not: |
-      new PasswordValidator
-      {
-        ...,
-        RequireDigit = true,
-        ...,
-      };
-  - pattern-not: |
-      new PasswordValidator
-      {
-        ...,
-        RequireLowercase = true,
-        ...,
-      };
-  - pattern-not: |
-      new PasswordValidator
-      {
-        ...,
-        RequireUppercase = true,
-        ...,
-      };
-  - metavariable-comparison:
-      metavariable: "$LEN"
-      comparison: "$LEN < 8"
-  message: |
-    The product does not require that users should have strong passwords, which
-    makes it easier for attackers to compromise user accounts.
-  languages:
-  - "csharp"
-  severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-521: Weak Password Requirements"
-    primary_identifier: "SCS0033-1"
-    secondary_identifiers:
     - name: "SCS0033"
       type: "security_code_scan_rule_id"
       value: "SCS0033"
-- id: "SCS0034-1"
-  patterns:
-  - pattern: |
-      new PasswordValidator
-      {
-        ...,
-      };
-  - pattern: |
-      new PasswordValidator
-      {
-        ...,
-        RequiredLength = $LEN,
-        ...,
-      };
-  - pattern-not: |
-      new PasswordValidator
-      {
-        ...,
-        RequireNonLetterOrDigit = true,
-        ...,
-      };
-  - pattern-not: |
-      new PasswordValidator
-      {
-        ...,
-        RequireDigit = true,
-        ...,
-      };
-  - pattern-not: |
-      new PasswordValidator
-      {
-        ...,
-        RequireLowercase = true,
-        ...,
-      };
-  - pattern-not: |
-      new PasswordValidator
-      {
-        ...,
-        RequireUppercase = true,
-        ...,
-      };
-  - metavariable-comparison:
-      metavariable: "$LEN"
-      comparison: "$LEN < 8"
-  message: |
-    The product does not require that users should have strong passwords, which
-    makes it easier for attackers to compromise user accounts.
-  languages:
-  - "csharp"
-  severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-521: Weak Password Requirements"
-    primary_identifier: "SCS0034-1"
-    secondary_identifiers:
     - name: "SCS0034"
       type: "security_code_scan_rule_id"
       value: "SCS0034"
-- id: "SCS0018-1"
+- id: "security_code_scan.SCS0018-1"
   mode: "taint"
   pattern-sources:
   - patterns:
@@ -876,7 +741,7 @@ rules:
   metadata:
     cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
       Traversal')"
-    primary_identifier: "SCS0018-1"
+    primary_identifier: "security_code_scan.SCS0018-1"
     secondary_identifiers:
     - name: "SCS0018"
       type: "security_code_scan_rule_id"
@@ -884,7 +749,7 @@ rules:
   severity: "WARNING"
   languages:
   - "csharp"
-- id: "SCS0017-1"
+- id: "security_code_scan.SCS0017-1"
   patterns:
   - pattern: |
       [ValidateInput(false)]
@@ -902,12 +767,12 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-554: ASP.NET Misconfiguration: Not Using Input Validation Framework"
-    primary_identifier: "SCS0017-1"
+    primary_identifier: "security_code_scan.SCS0017-1"
     secondary_identifiers:
     - name: "SCS0017"
       type: "security_code_scan_rule_id"
       value: "SCS0017"
-- id: "SCS0029-1"
+- id: "security_code_scan.SCS0029-1"
   mode: "taint"
   pattern-sources:
   - patterns:
@@ -968,7 +833,7 @@ rules:
     category: "security"
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation (‘Cross-site
       Scripting’)"
-    primary_identifier: "SCS0029-1"
+    primary_identifier: "security_code_scan.SCS0029-1"
     secondary_identifiers:
     - name: "SCS0029"
       type: "security_code_scan_rule_id"

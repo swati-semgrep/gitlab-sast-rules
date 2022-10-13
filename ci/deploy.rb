@@ -55,21 +55,21 @@ Dir.glob('mappings/*.yml').each do |mappings|
     # back to the original anlyzer -- note that we have n:m mappings multiple
     # native ids can be mapped to a collection of semgrep rules and vice versa
     # every rule gets coordinates: original_rule_id-array index number
+    suffix = ids.map { |id| "#{id}-#{id2rules[id].find_index(rfil) + 1}" }.join('.')
+    newid = "#{prefix}.#{suffix}"
+    rulefromfile['id'] = newid
+    rulez[newid] = rulefromfile
+    secondary_ids = []
     ids.uniq.each do |id|
-      newid = "#{id}-#{id2rules[id].find_index(rfil) + 1}"
       rule = Marshal.load( Marshal.dump(rulefromfile) )
-      rule['id'] = newid
-      rulez[newid] = rule
-
-      secondary_id = { 
+      secondary_ids << { 
         'name' => native_id['name'].gsub("$ID", id),
         'type' => native_id['type'].gsub("$ID", id),
         'value' => native_id['value'].gsub("$ID", id)
       } 
-
-      rulez[newid]['metadata'].merge!('primary_identifier' => "#{newid}")
-      rulez[newid]['metadata'].merge!('secondary_identifiers' => [secondary_id])
     end
+    rulez[newid]['metadata'].merge!('primary_identifier' => "#{newid}")
+    rulez[newid]['metadata'].merge!('secondary_identifiers' => secondary_ids)
   end
 
   outdict = { 'rules' => rulez.values }
