@@ -52,7 +52,7 @@ Dir.glob('mappings/*.yml').each do |mappings|
     rulefromfile = rulefiledict['rules'].first
     ids = rule2ids[rfil]
     # generate a unique rule hash that makes it possible to map results
-    # back to the original anlyzer -- note that we have n:m mappings multiple
+    # back to the original analyzer -- note that we have n:m mappings multiple
     # native ids can be mapped to a collection of semgrep rules and vice versa
     # every rule gets coordinates: original_rule_id-array index number
     suffix = ids.map { |id| "#{id}-#{id2rules[id].find_index(rfil) + 1}" }.join('.')
@@ -68,7 +68,8 @@ Dir.glob('mappings/*.yml').each do |mappings|
         'value' => native_id['value'].gsub("$ID", id)
       } 
     end
-    rulez[newid]['metadata'].merge!('primary_identifier' => "#{newid}")
+    primary_id = ids.one? ? newid.delete_suffix('-1') : newid
+    rulez[newid]['metadata'].merge!('primary_identifier' => primary_id)
     rulez[newid]['metadata'].merge!('secondary_identifiers' => secondary_ids)
   end
 

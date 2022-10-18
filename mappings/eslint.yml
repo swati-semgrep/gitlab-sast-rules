@@ -1,18 +1,20 @@
 # yamllint disable
-# maps bandit rule ids to semgrep rules
+# maps eslint rule ids to semgrep rules
 # License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 eslint:
   native_id:
     type: "eslint_rule_id"
-    name: "$ID"
+    name: "security/$ID"
     value: "ESLint rule ID $ID"
   mappings:
-  - id: "react/no-danger-with-children"
+  - id: "react-dangerouslysetinnerhtml"
+    rules:
+    - "javascript/react/rule-dangerouslysetinnerhtml"
+  - id: "react-missing-noopener"
     rules:
     - "javascript/react/rule-missing_noopener"
-    - "javascript/react/rule-dangerouslysetinnerhtml"
   - id: "detect-no-csrf-before-method-override"
     rules:
     - "javascript/csrf/rule-no_csrf_before_method_override"

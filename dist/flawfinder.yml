@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: 1.1.2
+# rule-set version: 1.1.3
 # yamllint enable
 ---
 rules:
@@ -52,7 +52,7 @@ rules:
   metadata:
     cwe: "CWE-732: Ensure that umask is given most restrictive possible setting (e.g.,
       066 or 077) (CWE-732)"
-    primary_identifier: "flawfinder.umask-1"
+    primary_identifier: "flawfinder.umask"
     secondary_identifiers:
     - name: "Flawfinder - umask"
       type: "flawfinder_func_name"
@@ -66,7 +66,7 @@ rules:
     The software does not properly handle when an input contains Unicode encoding.
   metadata:
     cwe: "CWE-120: Requires maximum length in CHARACTERS, not bytes (CWE-120)"
-    primary_identifier: "flawfinder.MultiByteToWideChar-1"
+    primary_identifier: "flawfinder.MultiByteToWideChar"
     secondary_identifiers:
     - name: "Flawfinder - MultiByteToWideChar"
       type: "flawfinder_func_name"
@@ -283,7 +283,7 @@ rules:
     cwe: "CWE-20: This function is synonymous with 'getenv(\"HOME\")';it returns untrustable
       input if the environment can beset by an attacker.  It can have any content
       and length, and the same variable can be set more than once (CWE-807, CWE-20)"
-    primary_identifier: "flawfinder.g_get_home_dir-1"
+    primary_identifier: "flawfinder.g_get_home_dir"
     secondary_identifiers:
     - name: "Flawfinder - g_get_home_dir"
       type: "flawfinder_func_name"
@@ -299,7 +299,7 @@ rules:
     cwe: "CWE-20: This function is synonymous with 'getenv(\"TMP\")';it returns untrustable
       input if the environment can beset by an attacker.  It can have any content
       and length, and the same variable can be set more than once (CWE-807, CWE-20)"
-    primary_identifier: "flawfinder.g_get_tmp_dir-1"
+    primary_identifier: "flawfinder.g_get_tmp_dir"
     secondary_identifiers:
     - name: "Flawfinder - g_get_tmp_dir"
       type: "flawfinder_func_name"
@@ -389,7 +389,7 @@ rules:
       It extracts data from a 'protected' area, but most systems have many commands
       to let users modify the protected area, and it's not always clear what their
       limits are.  Best to avoid using this function altogether (CWE-676, CWE-120)"
-    primary_identifier: "flawfinder.getpw-1"
+    primary_identifier: "flawfinder.getpw"
     secondary_identifiers:
     - name: "Flawfinder - getpw"
       type: "flawfinder_func_name"
@@ -423,7 +423,7 @@ rules:
   metadata:
     cwe: "CWE-120: This does not protect against buffer overflows by itself, so use
       with caution (CWE-120, CWE-20)"
-    primary_identifier: "flawfinder.getwd-1"
+    primary_identifier: "flawfinder.getwd"
     secondary_identifiers:
     - name: "Flawfinder - getwd"
       type: "flawfinder_func_name"
@@ -576,7 +576,7 @@ rules:
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows, and some
       implementations can overflow internally (CWE-120/CWE-785!)"
-    primary_identifier: "flawfinder.realpath-1"
+    primary_identifier: "flawfinder.realpath"
     secondary_identifiers:
     - name: "Flawfinder - realpath"
       type: "flawfinder_func_name"
@@ -668,7 +668,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
       [MS-banned] (CWE-120)"
-    primary_identifier: "flawfinder.strcat-1"
+    primary_identifier: "flawfinder.strcat"
     secondary_identifiers:
     - name: "Flawfinder - strcat"
       type: "flawfinder_func_name"
@@ -702,7 +702,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       [MS-banned] (CWE-120)"
-    primary_identifier: "flawfinder.strcpy-1"
+    primary_identifier: "flawfinder.strcpy"
     secondary_identifiers:
     - name: "Flawfinder - strcpy"
       type: "flawfinder_func_name"
@@ -852,7 +852,7 @@ rules:
   metadata:
     cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
       maximum size to add) [MS-banned] (CWE-120)"
-    primary_identifier: "flawfinder.strncat-1"
+    primary_identifier: "flawfinder.strncat"
     secondary_identifiers:
     - name: "Flawfinder - strncat"
       type: "flawfinder_func_name"
@@ -867,7 +867,7 @@ rules:
   metadata:
     cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
       (CWE-120)"
-    primary_identifier: "flawfinder.strncpy-1"
+    primary_identifier: "flawfinder.strncpy"
     secondary_identifiers:
     - name: "Flawfinder - strncpy"
       type: "flawfinder_func_name"
@@ -881,7 +881,7 @@ rules:
     Ensure that destination is at least as long as the source.
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
-    primary_identifier: "flawfinder.strtrns-1"
+    primary_identifier: "flawfinder.strtrns"
     secondary_identifiers:
     - name: "Flawfinder - strtrns"
       type: "flawfinder_func_name"
@@ -1108,7 +1108,7 @@ rules:
   metadata:
     cwe: "CWE-134: If syslog's format strings can be influenced by an attacker, they
       can be exploited (CWE-134)"
-    primary_identifier: "flawfinder.syslog-1"
+    primary_identifier: "flawfinder.syslog"
     secondary_identifiers:
     - name: "Flawfinder - syslog"
       type: "flawfinder_func_name"
@@ -1130,7 +1130,7 @@ rules:
       free() results from memalign() may fail. This may, on a few systems, be exploitable.
       \ Also note that memalign() may not check that the boundary parameter is correct
       (CWE-676)"
-    primary_identifier: "flawfinder.memalign-1"
+    primary_identifier: "flawfinder.memalign"
     secondary_identifiers:
     - name: "Flawfinder - memalign"
       type: "flawfinder_func_name"
@@ -1177,7 +1177,7 @@ rules:
   metadata:
     cwe: "CWE-732: This doesn't set the inheritance bits in the access control entry
       (ACE) header (CWE-732)"
-    primary_identifier: "flawfinder.AddAccessAllowedAce-1"
+    primary_identifier: "flawfinder.AddAccessAllowedAce"
     secondary_identifiers:
     - name: "Flawfinder - AddAccessAllowedAce"
       type: "flawfinder_func_name"
@@ -1191,7 +1191,7 @@ rules:
     Use InitializeCriticalSectionAndSpinCount instead.
   metadata:
     cwe: "CWE-754: Exceptions can be thrown in low-memory situations"
-    primary_identifier: "flawfinder.InitializeCriticalSection-1"
+    primary_identifier: "flawfinder.InitializeCriticalSection"
     secondary_identifiers:
     - name: "Flawfinder - InitializeCriticalSection"
       type: "flawfinder_func_name"
@@ -1207,7 +1207,7 @@ rules:
   metadata:
     cwe: "CWE-20: Ensure that the full path to the library is specified, or current
       directory may be used (CWE-829, CWE-20)"
-    primary_identifier: "flawfinder.LoadLibrary-1"
+    primary_identifier: "flawfinder.LoadLibrary"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibrary"
       type: "flawfinder_func_name"
@@ -1223,7 +1223,7 @@ rules:
   metadata:
     cwe: "CWE-20: Ensure that the full path to the library is specified, or current
       directory may be used (CWE-829, CWE-20)"
-    primary_identifier: "flawfinder.LoadLibraryEx-1"
+    primary_identifier: "flawfinder.LoadLibraryEx"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibraryEx"
       type: "flawfinder_func_name"
@@ -1239,7 +1239,7 @@ rules:
   metadata:
     cwe: "CWE-732: Never create NULL ACLs; an attacker can set it to Everyone (Deny
       All Access), which would even forbid administrator access (CWE-732)"
-    primary_identifier: "flawfinder.SetSecurityDescriptorDacl-1"
+    primary_identifier: "flawfinder.SetSecurityDescriptorDacl"
     secondary_identifiers:
     - name: "Flawfinder - SetSecurityDescriptorDacl"
       type: "flawfinder_func_name"
@@ -1255,7 +1255,7 @@ rules:
   metadata:
     cwe: "CWE-22: chroot can be very helpful, but is hard to use correctly (CWE-250,
       CWE-22)"
-    primary_identifier: "flawfinder.chroot-1"
+    primary_identifier: "flawfinder.chroot"
     secondary_identifiers:
     - name: "Flawfinder - chroot"
       type: "flawfinder_func_name"
@@ -1274,7 +1274,7 @@ rules:
       function was included in the 1988 version of POSIX, but removed from the 1990
       version).  Also, if passed a non-null parameter, there's a risk of a buffer
       overflow if the passed-in buffer is not at least L_cuserid characters long (CWE-120)"
-    primary_identifier: "flawfinder.cuserid-1"
+    primary_identifier: "flawfinder.cuserid"
     secondary_identifiers:
     - name: "Flawfinder - cuserid"
       type: "flawfinder_func_name"
@@ -1313,7 +1313,7 @@ rules:
       first 8 characters of the login name. The user currently logged in on the controlling
       tty of our program need not be the user who started it.  Avoid getlogin() for
       security-related purposes (CWE-807)"
-    primary_identifier: "flawfinder.getlogin-1"
+    primary_identifier: "flawfinder.getlogin"
     secondary_identifiers:
     - name: "Flawfinder - getlogin"
       type: "flawfinder_func_name"
@@ -1333,7 +1333,7 @@ rules:
       particularly in where its prompt is displayed and where it gets its data (e.g.,
       /dev/tty, stdin, stderr, etc.). In addition, some implementations overflow buffers.
       (CWE-676, CWE-120, CWE-20)"
-    primary_identifier: "flawfinder.getpass-1"
+    primary_identifier: "flawfinder.getpass"
     secondary_identifiers:
     - name: "Flawfinder - getpass"
       type: "flawfinder_func_name"
@@ -1370,7 +1370,7 @@ rules:
   metadata:
     cwe: "CWE-676: This C routine is considered obsolete (as opposed to the shell
       command by the same name, which is NOT obsolete) (CWE-676)"
-    primary_identifier: "flawfinder.ulimit-1"
+    primary_identifier: "flawfinder.ulimit"
     secondary_identifiers:
     - name: "Flawfinder - ulimit"
       type: "flawfinder_func_name"
@@ -1387,7 +1387,7 @@ rules:
       command by the same name).   The interaction of this function with SIGALRM and
       other timer functions such as sleep(), alarm(), setitimer(), and nanosleep()
       is unspecified (CWE-676)"
-    primary_identifier: "flawfinder.usleep-1"
+    primary_identifier: "flawfinder.usleep"
     secondary_identifiers:
     - name: "Flawfinder - usleep"
       type: "flawfinder_func_name"
@@ -1403,7 +1403,7 @@ rules:
     cwe: "CWE-362: This usually indicates a security flaw.  If an attacker can change
       anything along the path between the call to access() and the file's actual use
       (e.g., by moving files), the attacker can exploit the race condition (CWE-362/CWE-367!)"
-    primary_identifier: "flawfinder.access-1"
+    primary_identifier: "flawfinder.access"
     secondary_identifiers:
     - name: "Flawfinder - access"
       type: "flawfinder_func_name"
@@ -1418,7 +1418,7 @@ rules:
   metadata:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
-    primary_identifier: "flawfinder.chgrp-1"
+    primary_identifier: "flawfinder.chgrp"
     secondary_identifiers:
     - name: "Flawfinder - chgrp"
       type: "flawfinder_func_name"
@@ -1433,7 +1433,7 @@ rules:
   metadata:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
-    primary_identifier: "flawfinder.chmod-1"
+    primary_identifier: "flawfinder.chmod"
     secondary_identifiers:
     - name: "Flawfinder - chmod"
       type: "flawfinder_func_name"
@@ -1448,7 +1448,7 @@ rules:
   metadata:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
-    primary_identifier: "flawfinder.chown-1"
+    primary_identifier: "flawfinder.chown"
     secondary_identifiers:
     - name: "Flawfinder - chown"
       type: "flawfinder_func_name"
@@ -1464,7 +1464,7 @@ rules:
     cwe: "CWE-20: This accepts filename arguments; if an attacker can move those files
       or change the link content, a race condition results.  Also, it does not terminate
       with ASCII NUL. (CWE-362, CWE-20)"
-    primary_identifier: "flawfinder.readlink-1"
+    primary_identifier: "flawfinder.readlink"
     secondary_identifiers:
     - name: "Flawfinder - readlink"
       type: "flawfinder_func_name"
@@ -1479,7 +1479,7 @@ rules:
   metadata:
     cwe: "CWE-362: On some old systems, vfork() permits race conditions, and it's
       very difficult to use correctly (CWE-362)"
-    primary_identifier: "flawfinder.vfork-1"
+    primary_identifier: "flawfinder.vfork"
     secondary_identifiers:
     - name: "Flawfinder - vfork"
       type: "flawfinder_func_name"
@@ -1600,7 +1600,7 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new process to execute and is difficult to use safely
       (CWE-78)"
-    primary_identifier: "flawfinder.CreateProcess-1"
+    primary_identifier: "flawfinder.CreateProcess"
     secondary_identifiers:
     - name: "Flawfinder - CreateProcess"
       type: "flawfinder_func_name"
@@ -1679,7 +1679,7 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
       (CWE-78)"
-    primary_identifier: "flawfinder.system-1"
+    primary_identifier: "flawfinder.system"
     secondary_identifiers:
     - name: "Flawfinder - system"
       type: "flawfinder_func_name"
@@ -1694,7 +1694,7 @@ rules:
   metadata:
     cwe: "CWE-377: Temporary file race condition in certain cases (e.g., if run as
       SYSTEM in many versions of Windows) (CWE-377)"
-    primary_identifier: "flawfinder.GetTempFileName-1"
+    primary_identifier: "flawfinder.GetTempFileName"
     secondary_identifiers:
     - name: "Flawfinder - GetTempFileName"
       type: "flawfinder_func_name"
@@ -1711,7 +1711,7 @@ rules:
     O_EXCL is used by the library.
   metadata:
     cwe: "CWE-377: Potential for temporary file vulnerability in some circumstances."
-    primary_identifier: "flawfinder.mkstemp-1"
+    primary_identifier: "flawfinder.mkstemp"
     secondary_identifiers:
     - name: "Flawfinder - mkstemp"
       type: "flawfinder_func_name"
@@ -1726,7 +1726,7 @@ rules:
     attack (CWE-377).
   metadata:
     cwe: "CWE-377: Temporary file race condition (CWE-377)"
-    primary_identifier: "flawfinder.mktemp-1"
+    primary_identifier: "flawfinder.mktemp"
     secondary_identifiers:
     - name: "Flawfinder - mktemp"
       type: "flawfinder_func_name"
@@ -1742,7 +1742,7 @@ rules:
   metadata:
     cwe: "CWE-377: Function tmpfile() has a security flaw on some systems (e.g., older
       System V systems) (CWE-377)"
-    primary_identifier: "flawfinder.tmpfile-1"
+    primary_identifier: "flawfinder.tmpfile"
     secondary_identifiers:
     - name: "Flawfinder - tmpfile"
       type: "flawfinder_func_name"

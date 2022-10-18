@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: 1.1.2
+# rule-set version: 1.1.3
 # yamllint enable
 ---
 rules:
@@ -28,7 +28,7 @@ rules:
     code.
   metadata:
     cwe: "CWE-754: Improper Check for Unusual or Exceptional Conditions"
-    primary_identifier: "bandit.B101-1"
+    primary_identifier: "bandit.B101"
     secondary_identifiers:
     - name: "Bandit Test ID: B101"
       type: "bandit_test_id"
@@ -59,7 +59,7 @@ rules:
   metadata:
     cwe: "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
     owasp: "A6: Security Misconfiguration"
-    primary_identifier: "bandit.B104-1"
+    primary_identifier: "bandit.B104"
     secondary_identifiers:
     - name: "Bandit Test ID: B104"
       type: "bandit_test_id"
@@ -76,7 +76,7 @@ rules:
   metadata:
     cwe: "CWE-284: Improper Access Control"
     owasp: "A5: Broken Access Control"
-    primary_identifier: "bandit.B412-1"
+    primary_identifier: "bandit.B412"
     secondary_identifiers:
     - name: "Bandit Test ID: B412"
       type: "bandit_test_id"
@@ -92,7 +92,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B305-1"
+    primary_identifier: "bandit.B305"
     secondary_identifiers:
     - name: "Bandit Test ID: B305"
       type: "bandit_test_id"
@@ -222,7 +222,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B304-1"
+    primary_identifier: "bandit.B304"
     secondary_identifiers:
     - name: "Bandit Test ID: B304"
       type: "bandit_test_id"
@@ -265,7 +265,7 @@ rules:
   metadata:
     cwe: "CWE-326: Inadequate Encryption Strength"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B505-1"
+    primary_identifier: "bandit.B505"
     secondary_identifiers:
     - name: "Bandit Test ID: B505"
       type: "bandit_test_id"
@@ -390,7 +390,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B303-1"
+    primary_identifier: "bandit.B303"
     secondary_identifiers:
     - name: "Bandit Test ID: B303"
       type: "bandit_test_id"
@@ -467,7 +467,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B324-1"
+    primary_identifier: "bandit.B324"
     secondary_identifiers:
     - name: "Bandit Test ID: B324"
       type: "bandit_test_id"
@@ -491,7 +491,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B413-1"
+    primary_identifier: "bandit.B413"
     secondary_identifiers:
     - name: "Bandit Test ID: B413"
       type: "bandit_test_id"
@@ -509,7 +509,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8: Insecure Deserialization"
-    primary_identifier: "bandit.B301-1"
+    primary_identifier: "bandit.B301"
     secondary_identifiers:
     - name: "Bandit Test ID: B301"
       type: "bandit_test_id"
@@ -548,7 +548,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8: Insecure Deserialization"
-    primary_identifier: "bandit.B302-1"
+    primary_identifier: "bandit.B302"
     secondary_identifiers:
     - name: "Bandit Test ID: B302"
       type: "bandit_test_id"
@@ -608,7 +608,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8: Insecure Deserialization"
-    primary_identifier: "bandit.B506-1"
+    primary_identifier: "bandit.B506"
     secondary_identifiers:
     - name: "Bandit Test ID: B506"
       type: "bandit_test_id"
@@ -629,7 +629,7 @@ rules:
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
       ('SQL Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B610-1"
+    primary_identifier: "bandit.B610"
     secondary_identifiers:
     - name: "Bandit Test ID: B610"
       type: "bandit_test_id"
@@ -649,7 +649,7 @@ rules:
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
       ('SQL Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B611-1"
+    primary_identifier: "bandit.B611"
     secondary_identifiers:
     - name: "Bandit Test ID: B611"
       type: "bandit_test_id"
@@ -674,7 +674,7 @@ rules:
   metadata:
     cwe: "CWE-116: Improper Encoding or Escaping of Output"
     owasp: "A7: Cross-Site Scripting (XSS)"
-    primary_identifier: "bandit.B701-1"
+    primary_identifier: "bandit.B701"
     secondary_identifiers:
     - name: "Bandit Test ID: B701"
       type: "bandit_test_id"
@@ -723,7 +723,7 @@ rules:
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
       Scripting')"
     owasp: "A7: Cross-Site Scripting (XSS)"
-    primary_identifier: "bandit.B702-1"
+    primary_identifier: "bandit.B702"
     secondary_identifiers:
     - name: "Bandit Test ID: B702"
       type: "bandit_test_id"
@@ -744,7 +744,7 @@ rules:
     cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
       ('Eval Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B307-1"
+    primary_identifier: "bandit.B307"
     secondary_identifiers:
     - name: "Bandit Test ID: B307"
       type: "bandit_test_id"
@@ -763,7 +763,7 @@ rules:
     Try, Except, Continue
   metadata:
     cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
-    primary_identifier: "bandit.B112-1"
+    primary_identifier: "bandit.B112"
     secondary_identifiers:
     - name: "Bandit Test ID: B112"
       type: "bandit_test_id"
@@ -782,7 +782,7 @@ rules:
     Try, Except, Pass
   metadata:
     cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
-    primary_identifier: "bandit.B110-1"
+    primary_identifier: "bandit.B110"
     secondary_identifiers:
     - name: "Bandit Test ID: B110"
       type: "bandit_test_id"
@@ -800,7 +800,7 @@ rules:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B102-1"
+    primary_identifier: "bandit.B102"
     secondary_identifiers:
     - name: "Bandit Test ID: B102"
       type: "bandit_test_id"
@@ -817,7 +817,7 @@ rules:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
     owasp: "A8: Insecure Deserialization"
-    primary_identifier: "bandit.B404-1"
+    primary_identifier: "bandit.B404"
     secondary_identifiers:
     - name: "Bandit Test ID: B404"
       type: "bandit_test_id"
@@ -848,7 +848,7 @@ rules:
   metadata:
     cwe: "CWE-155: Improper Neutralization of Wildcards or Matching Symbols"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B609-1"
+    primary_identifier: "bandit.B609"
     secondary_identifiers:
     - name: "Bandit Test ID: B609"
       type: "bandit_test_id"
@@ -878,7 +878,7 @@ rules:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B605-1"
+    primary_identifier: "bandit.B605"
     secondary_identifiers:
     - name: "Bandit Test ID: B605"
       type: "bandit_test_id"
@@ -899,7 +899,7 @@ rules:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B601-1"
+    primary_identifier: "bandit.B601"
     secondary_identifiers:
     - name: "Bandit Test ID: B601"
       type: "bandit_test_id"
@@ -961,7 +961,7 @@ rules:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B607-1"
+    primary_identifier: "bandit.B607"
     secondary_identifiers:
     - name: "Bandit Test ID: B607"
       type: "bandit_test_id"
@@ -1002,7 +1002,7 @@ rules:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B606-1"
+    primary_identifier: "bandit.B606"
     secondary_identifiers:
     - name: "Bandit Test ID: B606"
       type: "bandit_test_id"
@@ -1032,7 +1032,7 @@ rules:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B603-1"
+    primary_identifier: "bandit.B603"
     secondary_identifiers:
     - name: "Bandit Test ID: B603"
       type: "bandit_test_id"
@@ -1064,7 +1064,7 @@ rules:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B602-1"
+    primary_identifier: "bandit.B602"
     secondary_identifiers:
     - name: "Bandit Test ID: B602"
       type: "bandit_test_id"
@@ -1082,7 +1082,7 @@ rules:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B604-1"
+    primary_identifier: "bandit.B604"
     secondary_identifiers:
     - name: "Bandit Test ID: B604"
       type: "bandit_test_id"
@@ -1101,7 +1101,7 @@ rules:
   metadata:
     cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
     owasp: "A6: Security Misconfiguration"
-    primary_identifier: "bandit.B103-1"
+    primary_identifier: "bandit.B103"
     secondary_identifiers:
     - name: "Bandit Test ID: B103"
       type: "bandit_test_id"
@@ -1123,7 +1123,7 @@ rules:
   metadata:
     cwe: "CWE-489: Active Debug Code"
     owasp: "A6: Security Misconfiguration"
-    primary_identifier: "bandit.B201-1"
+    primary_identifier: "bandit.B201"
     secondary_identifiers:
     - name: "Bandit Test ID: B201"
       type: "bandit_test_id"
@@ -1139,7 +1139,7 @@ rules:
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B321-1"
+    primary_identifier: "bandit.B321"
     secondary_identifiers:
     - name: "Bandit Test ID: B321"
       type: "bandit_test_id"
@@ -1159,7 +1159,7 @@ rules:
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B402-1"
+    primary_identifier: "bandit.B402"
     secondary_identifiers:
     - name: "Bandit Test ID: B402"
       type: "bandit_test_id"
@@ -1181,7 +1181,7 @@ rules:
   metadata:
     cwe: "CWE-295: Improper Certificate Validation"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B309-1"
+    primary_identifier: "bandit.B309"
     secondary_identifiers:
     - name: "Bandit Test ID: B309"
       type: "bandit_test_id"
@@ -1202,7 +1202,7 @@ rules:
   metadata:
     cwe: "CWE-330: Use of Insufficiently Random Values"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B311-1"
+    primary_identifier: "bandit.B311"
     secondary_identifiers:
     - name: "Bandit Test ID: B311"
       type: "bandit_test_id"
@@ -1221,7 +1221,7 @@ rules:
   metadata:
     cwe: "CWE-259: Use of Hard-coded Password"
     owasp: "A3: Broken Authentication and Session Management"
-    primary_identifier: "bandit.B107-1"
+    primary_identifier: "bandit.B107"
     secondary_identifiers:
     - name: "Bandit Test ID: B107"
       type: "bandit_test_id"
@@ -1240,7 +1240,7 @@ rules:
   metadata:
     cwe: "CWE-259: Use of Hard-coded Password"
     owasp: "A3: Broken Authentication and Session Management"
-    primary_identifier: "bandit.B106-1"
+    primary_identifier: "bandit.B106"
     secondary_identifiers:
     - name: "Bandit Test ID: B106"
       type: "bandit_test_id"
@@ -1262,7 +1262,7 @@ rules:
   metadata:
     cwe: "CWE-259: Use of Hard-coded Password"
     owasp: "A3: Broken Authentication and Session Management"
-    primary_identifier: "bandit.B105-1"
+    primary_identifier: "bandit.B105"
     secondary_identifiers:
     - name: "Bandit Test ID: B105"
       type: "bandit_test_id"
@@ -1295,7 +1295,7 @@ rules:
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
       ('SQL Injection')"
     owasp: "A1: Injection"
-    primary_identifier: "bandit.B608-1"
+    primary_identifier: "bandit.B608"
     secondary_identifiers:
     - name: "Bandit Test ID: B608"
       type: "bandit_test_id"
@@ -1320,7 +1320,7 @@ rules:
   metadata:
     cwe: "CWE-322: Key Exchange without Entity Authentication"
     owasp: "A5: Broken Access Control"
-    primary_identifier: "bandit.B507-1"
+    primary_identifier: "bandit.B507"
     secondary_identifiers:
     - name: "Bandit Test ID: B507"
       type: "bandit_test_id"
@@ -1345,7 +1345,7 @@ rules:
   metadata:
     cwe: "CWE-295: Improper Certificate Validation"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B501-1"
+    primary_identifier: "bandit.B501"
     secondary_identifiers:
     - name: "Bandit Test ID: B501"
       type: "bandit_test_id"
@@ -1362,7 +1362,7 @@ rules:
   metadata:
     cwe: "CWE-326: Inadequate Encryption Strength"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B504-1"
+    primary_identifier: "bandit.B504"
     secondary_identifiers:
     - name: "Bandit Test ID: B504"
       type: "bandit_test_id"
@@ -1408,7 +1408,7 @@ rules:
   metadata:
     cwe: "CWE-295: Improper Certificate Validation"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B323-1"
+    primary_identifier: "bandit.B323"
     secondary_identifiers:
     - name: "Bandit Test ID: B323"
       type: "bandit_test_id"
@@ -1425,7 +1425,7 @@ rules:
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B401-1"
+    primary_identifier: "bandit.B401"
     secondary_identifiers:
     - name: "Bandit Test ID: B401"
       type: "bandit_test_id"
@@ -1440,7 +1440,7 @@ rules:
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B312-1"
+    primary_identifier: "bandit.B312"
     secondary_identifiers:
     - name: "Bandit Test ID: B312"
       type: "bandit_test_id"
@@ -1472,7 +1472,7 @@ rules:
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B306-1"
+    primary_identifier: "bandit.B306"
     secondary_identifiers:
     - name: "Bandit Test ID: B306"
       type: "bandit_test_id"
@@ -1487,7 +1487,7 @@ rules:
     Probable insecure usage of temp file/directory.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
-    primary_identifier: "bandit.B108-1"
+    primary_identifier: "bandit.B108"
     secondary_identifiers:
     - name: "Bandit Test ID: B108"
       type: "bandit_test_id"
@@ -1503,7 +1503,7 @@ rules:
     The Python `os` `tempnam|tmpnam` functions are vulnerable to symlink attacks
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
-    primary_identifier: "bandit.B325-1"
+    primary_identifier: "bandit.B325"
     secondary_identifiers:
     - name: "Bandit Test ID: B325"
       type: "bandit_test_id"
@@ -1548,7 +1548,7 @@ rules:
   metadata:
     cwe: "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
     owasp: "A5: Broken Access Control"
-    primary_identifier: "bandit.B310-1"
+    primary_identifier: "bandit.B310"
     secondary_identifiers:
     - name: "Bandit Test ID: B310"
       type: "bandit_test_id"
@@ -1599,7 +1599,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8: Insecure Deserialization"
-    primary_identifier: "bandit.B403-1"
+    primary_identifier: "bandit.B403"
     secondary_identifiers:
     - name: "Bandit Test ID: B403"
       type: "bandit_test_id"
@@ -1615,7 +1615,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8: Insecure Deserialization"
-    primary_identifier: "bandit.B411-1"
+    primary_identifier: "bandit.B411"
     secondary_identifiers:
     - name: "Bandit Test ID: B411"
       type: "bandit_test_id"
@@ -1637,7 +1637,7 @@ rules:
   metadata:
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
     owasp: "A4: XML External Entities (XXE)"
-    primary_identifier: "bandit.B317-1"
+    primary_identifier: "bandit.B317"
     secondary_identifiers:
     - name: "Bandit Test ID: B317"
       type: "bandit_test_id"

@@ -1,5 +1,5 @@
 # yamllint disable
-# maps bandit rule ids to semgrep rules
+# maps gosec rule ids to semgrep rules
 # License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
