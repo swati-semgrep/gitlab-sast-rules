@@ -111,6 +111,7 @@ sources listed below:
 1. https://github.com/returntocorp/semgrep-rules
 1. https://github.com/PyCQA/bandit
 1. https://github.com/nodesecurity/eslint-plugin-security
+1. https://github.com/jsx-eslint/eslint-plugin-react
 1. https://github.com/david-a-wheeler/flawfinder/blob/master/flawfinder.py
 
 The details are listed in the headers of all the rule end test-files including

@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.3
+- Include eslint security prefix for secondary identifiers only (!95)
+
 ## v1.1.2
 - Remove security prefix (!94)
 
