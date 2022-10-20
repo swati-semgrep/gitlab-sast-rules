@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.4
+- Eliminate FPs for SpotBugs hardcoded password rule (!96)
+
 ## v1.1.3
 - Include eslint security prefix for secondary identifiers only (!95)
 
