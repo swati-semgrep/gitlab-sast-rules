@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.5
+- Eliminate FPs for SQLi rule (!95)
+
 ## v1.1.4
 - Eliminate FPs for SpotBugs hardcoded password rule (!96)
 
