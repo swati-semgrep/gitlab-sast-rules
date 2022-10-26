@@ -16,8 +16,8 @@ rules:
         ...
       }
   - metavariable-regex:
-      metavariable: $HTTPMETHOD
-      regex: Http(Post|Delete|Patch|Put)
+      metavariable: "$HTTPMETHOD"
+      regex: "Http(Post|Delete|Patch|Put)"
   message: |
     An attacker could send a link to the victim. By visiting the
     malicious link, a web page would trigger a POST request (because it is a
