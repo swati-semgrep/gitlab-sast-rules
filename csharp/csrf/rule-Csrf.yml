@@ -5,11 +5,27 @@
 rules:
 - id: "csharp/csrf/rule-Csrf"
   patterns:
-  - pattern: |
-      [HttpPost]
-      public $RET $FOO(...) {
-        ...
-      }
+  - pattern-either:
+    - pattern: |
+        [HttpPost]
+        public $RET $FOO(...) {
+          ...
+        }
+    - pattern: |
+        [HttpDelete]
+        public $RET $FOO(...) {
+          ...
+        }
+    - pattern: |
+        [HttpPatch]
+        public $RET $FOO(...) {
+          ...
+        }
+    - pattern: |
+        [HttpPut]
+        public $RET $FOO(...) {
+          ...
+        }
   - pattern-not: |
       [ValidateAntiForgeryToken]
       public $RET $FOO(...) {
