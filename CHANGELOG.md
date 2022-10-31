@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.6
+- C# rule refinement (community contribution from @masakura) (!100)
+
 ## v1.1.5
 - Eliminate FPs for SQLi rule (!95)
 

@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.1.5
+# rule-set version: v1.1.6
 # yamllint enable
 ---
 rules:
@@ -203,7 +203,7 @@ rules:
 - id: "security_code_scan.SCS0016-1"
   patterns:
   - pattern: |
-      [HttpPost]
+      [$HTTPMETHOD]
       public $RET $FOO(...) {
         ...
       }
@@ -212,6 +212,9 @@ rules:
       public $RET $FOO(...) {
         ...
       }
+  - metavariable-regex:
+      metavariable: "$HTTPMETHOD"
+      regex: "Http(Post|Delete|Patch|Put)"
   message: |
     An attacker could send a link to the victim. By visiting the
     malicious link, a web page would trigger a POST request (because it is a
