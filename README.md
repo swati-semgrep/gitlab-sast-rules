@@ -117,6 +117,12 @@ sources listed below:
 The details are listed in the headers of all the rule end test-files including
 the licensing information and proper attribution. 
 
+## Contributing
+
+If you know about a vulnerability that isn't listed in this repo,
+you can contribute by opening an issue,
+or even submit an improvement to the rule files/test cases in this repository.
+
 ## Contribution instructions
 
 After making changes to rules or mappings, make sure to run `./ci/deploy.sh <semantic version>` 
@@ -130,6 +136,16 @@ We apply the following semantic versioning scheme to this repository:
 1. patch version increment: for updated/patched/added rules.
 1. minor version increment: backwards-compatible YAML schema changes (e.g., adding/removing optional fields).
 1. major version increment: non-backwards-compatible YAML schema changes (e.g., adding/removing required fields)
+
+## Credits 
+
+We would like to thank the following authors very much for their valuable
+contributions.
+
+| Author         | MRs/Issues            |
+| -------------- | --------------------- |
+| @masakura      | !99                   |
+
 
 ## Rule deployment
 
