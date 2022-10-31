@@ -119,10 +119,10 @@ the licensing information and proper attribution.
 
 ## Contributing
 
-If you know about a vulnerability that isn't present in this repo or
-refinements that could be applied to the rules in this repository, you can
-contribute by opening an issue, or even submit an improvement to the rule
-files/test cases in this repository. 
+If you know about a pattern that isn't present in this repo or refinements that
+could be applied to the rules in this repository, you can contribute by opening
+an issue, or even submit an improvement to the rule files/test cases in this
+repository. 
 
 ## Contribution instructions
 
