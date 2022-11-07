@@ -10,18 +10,18 @@ if ARGV.empty?
   exit 1
 end
 
-dest = "dist"
+dest = 'dist'
 version = ARGV[0]
 
-unless version.match?(/[0-9.]{1,15}/) 
-  puts "only semver version strings allowed"
+unless version.match?(/[0-9.]{1,15}/)
+  puts 'only semver version strings allowed'
   exit 1
 end
 
-Dir.mkdir(dest) unless Dir.exists?(dest)
+Dir.mkdir(dest) unless Dir.exist?(dest)
 
 Dir.glob('mappings/*.yml').each do |mappings|
-  prefix = File.basename(mappings, ".yml")
+  prefix = File.basename(mappings, '.yml')
 
   dict = YAML.safe_load(File.read(mappings))
 
@@ -44,7 +44,7 @@ Dir.glob('mappings/*.yml').each do |mappings|
       rulefiles << rule
     end
   end
-  
+
   rulefiles.sort!.uniq!
 
   rulefiles.each do |rfil|
@@ -61,12 +61,11 @@ Dir.glob('mappings/*.yml').each do |mappings|
     rulez[newid] = rulefromfile
     secondary_ids = []
     ids.uniq.each do |id|
-      rule = Marshal.load( Marshal.dump(rulefromfile) )
-      secondary_ids << { 
-        'name' => native_id['name'].gsub("$ID", id),
-        'type' => native_id['type'].gsub("$ID", id),
-        'value' => native_id['value'].gsub("$ID", id)
-      } 
+      secondary_ids << {
+        'name' => native_id['name'].gsub('$ID', id),
+        'type' => native_id['type'].gsub('$ID', id),
+        'value' => native_id['value'].gsub('$ID', id)
+      }
     end
     primary_id = ids.one? ? newid.delete_suffix('-1') : newid
     rulez[newid]['metadata'].merge!('primary_identifier' => primary_id)
@@ -77,10 +76,10 @@ Dir.glob('mappings/*.yml').each do |mappings|
   formatted = AutoFormat.reformat_yaml('', outdict)
 
   puts("writing #{prefix}.yml")
-  File.open("#{dest}/#{prefix}.yml", 'w') { |file| 
+  File.open("#{dest}/#{prefix}.yml", 'w') do |file|
     file.puts('# yamllint disable')
     file.puts("# rule-set version: #{version}")
     file.puts('# yamllint enable')
-    file.write(formatted) 
-  }
+    file.write(formatted)
+  end
 end
