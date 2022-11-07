@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.7
+- Incorporating feedback to improve bandit rule-set (!88)
+
 ## v1.1.6
 - C# rule refinement (community contribution from @masakura) (!100)
 
