@@ -155,10 +155,10 @@ contributions.
 ### Bandit
 
 #### Excluded patterns (1)
-- B308:[django.utils.safestring.mark_safe](https://bandit.readthedocs.io/en/1.7.1/blacklists/blacklist_calls.html#b308-mark-safe) This rule is basically redundant with [B703]https://bandit.readthedocs.io/en/latest/plugins/b703_django_mark_safe.html)
+- B308: [django.utils.safestring.mark_safe](https://bandit.readthedocs.io/en/1.7.1/blacklists/blacklist_calls.html#b308-mark-safe) This rule is basically redundant with [B703](https://bandit.readthedocs.io/en/latest/plugins/b703_django_mark_safe.html)
 
 #### Adusted patterns (1)
-- B503:[ssl_with_bad_defaults](https://bandit.readthedocs.io/en/latest/plugins/b503_ssl_with_bad_defaults.html) Our semgrep pattern captures both B503 and B502 because they are very similar and are both practically capturing insecure setting using outdated versions of encryption algorithms.
+- B503: [ssl_with_bad_defaults](https://bandit.readthedocs.io/en/latest/plugins/b503_ssl_with_bad_defaults.html) Our semgrep pattern captures both B503 and B502 because they are very similar and are both practically capturing insecure setting using outdated versions of encryption algorithms.
 
 ### Gosec
 
