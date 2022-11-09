@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.8
+- Use single primary id (!101)
+
 ## v1.1.7
 - Incorporating feedback to improve bandit rule-set (!88)
 

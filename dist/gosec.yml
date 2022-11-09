@@ -151,7 +151,7 @@ rules:
   metadata:
     cwe: "CWE-310: Cryptographic Issues"
     owasp: "A05:2021: Security Misconfiguration"
-    primary_identifier: "gosec.G402-2"
+    primary_identifier: "gosec.G402"
     secondary_identifiers:
     - name: "Gosec Rule ID G402"
       type: "gosec_rule_id"
