@@ -109,7 +109,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B303-2"
+    primary_identifier: "bandit.B303"
     secondary_identifiers:
     - name: "Bandit Test ID: B303"
       type: "bandit_test_id"
@@ -126,7 +126,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B303-4"
+    primary_identifier: "bandit.B303"
     secondary_identifiers:
     - name: "Bandit Test ID: B303"
       type: "bandit_test_id"
@@ -145,7 +145,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B304-7"
+    primary_identifier: "bandit.B304"
     secondary_identifiers:
     - name: "Bandit Test ID: B304"
       type: "bandit_test_id"
@@ -165,7 +165,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B304-6"
+    primary_identifier: "bandit.B304"
     secondary_identifiers:
     - name: "Bandit Test ID: B304"
       type: "bandit_test_id"
@@ -184,7 +184,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B304-5"
+    primary_identifier: "bandit.B304"
     secondary_identifiers:
     - name: "Bandit Test ID: B304"
       type: "bandit_test_id"
@@ -203,7 +203,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B304-8"
+    primary_identifier: "bandit.B304"
     secondary_identifiers:
     - name: "Bandit Test ID: B304"
       type: "bandit_test_id"
@@ -283,7 +283,7 @@ rules:
   metadata:
     cwe: "CWE-326: Inadequate Encryption Strength"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B505-2"
+    primary_identifier: "bandit.B505"
     secondary_identifiers:
     - name: "Bandit Test ID: B505"
       type: "bandit_test_id"
@@ -303,7 +303,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B303-3"
+    primary_identifier: "bandit.B303"
     secondary_identifiers:
     - name: "Bandit Test ID: B303"
       type: "bandit_test_id"
@@ -323,7 +323,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B303-6"
+    primary_identifier: "bandit.B303"
     secondary_identifiers:
     - name: "Bandit Test ID: B303"
       type: "bandit_test_id"
@@ -339,7 +339,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B304-2"
+    primary_identifier: "bandit.B304"
     secondary_identifiers:
     - name: "Bandit Test ID: B304"
       type: "bandit_test_id"
@@ -355,7 +355,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B304-4"
+    primary_identifier: "bandit.B304"
     secondary_identifiers:
     - name: "Bandit Test ID: B304"
       type: "bandit_test_id"
@@ -371,7 +371,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B304-3"
+    primary_identifier: "bandit.B304"
     secondary_identifiers:
     - name: "Bandit Test ID: B304"
       type: "bandit_test_id"
@@ -409,7 +409,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B303-7"
+    primary_identifier: "bandit.B303"
     secondary_identifiers:
     - name: "Bandit Test ID: B303"
       type: "bandit_test_id"
@@ -426,7 +426,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B303-5"
+    primary_identifier: "bandit.B303"
     secondary_identifiers:
     - name: "Bandit Test ID: B303"
       type: "bandit_test_id"
@@ -443,7 +443,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3: Sensitive Data Exposure"
-    primary_identifier: "bandit.B303-8"
+    primary_identifier: "bandit.B303"
     secondary_identifiers:
     - name: "Bandit Test ID: B303"
       type: "bandit_test_id"
@@ -528,7 +528,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8: Insecure Deserialization"
-    primary_identifier: "bandit.B301-4"
+    primary_identifier: "bandit.B301"
     secondary_identifiers:
     - name: "Bandit Test ID: B301"
       type: "bandit_test_id"
@@ -568,7 +568,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8: Insecure Deserialization"
-    primary_identifier: "bandit.B301-3"
+    primary_identifier: "bandit.B301"
     secondary_identifiers:
     - name: "Bandit Test ID: B301"
       type: "bandit_test_id"
@@ -587,7 +587,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8: Insecure Deserialization"
-    primary_identifier: "bandit.B301-2"
+    primary_identifier: "bandit.B301"
     secondary_identifiers:
     - name: "Bandit Test ID: B301"
       type: "bandit_test_id"
@@ -1418,7 +1418,7 @@ rules:
     Detected hardcoded temp directory. Consider using `tempfile.TemporaryFile` instead.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
-    primary_identifier: "bandit.B108-2"
+    primary_identifier: "bandit.B108"
     secondary_identifiers:
     - name: "Bandit Test ID: B108"
       type: "bandit_test_id"
@@ -1547,7 +1547,7 @@ rules:
   metadata:
     cwe: "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
     owasp: "A5: Broken Access Control"
-    primary_identifier: "bandit.B310-2"
+    primary_identifier: "bandit.B310"
     secondary_identifiers:
     - name: "Bandit Test ID: B310"
       type: "bandit_test_id"

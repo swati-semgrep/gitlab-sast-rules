@@ -51,6 +51,8 @@ Dir.glob('mappings/*.yml').each do |mappings|
     rulefiledict = YAML.safe_load(File.read("#{rfil}.yml"))
     rulefromfile = rulefiledict['rules'].first
     ids = rule2ids[rfil]
+
+    primary_id = "#{prefix}.#{ids.first}"
     # generate a unique rule hash that makes it possible to map results
     # back to the original analyzer -- note that we have n:m mappings multiple
     # native ids can be mapped to a collection of semgrep rules and vice versa
@@ -67,7 +69,6 @@ Dir.glob('mappings/*.yml').each do |mappings|
         'value' => native_id['value'].gsub('$ID', id)
       }
     end
-    primary_id = ids.one? ? newid.delete_suffix('-1') : newid
     rulez[newid]['metadata'].merge!('primary_identifier' => primary_id)
     rulez[newid]['metadata'].merge!('secondary_identifiers' => secondary_ids)
   end
