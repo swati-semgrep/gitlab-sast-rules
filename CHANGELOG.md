@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.9
+- Remove extra colon in bandit rules (!98)
+
 ## v1.1.8
 - Use single primary id (!101)
 
