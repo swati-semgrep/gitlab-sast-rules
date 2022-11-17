@@ -9,20 +9,9 @@ rules:
   - pattern-not-inside: |
       import pytest
       ...
-      assert(...)
   - pattern-not-inside: |
       import unittest
       ...
-      assert(...)
-  - pattern: "assert(\"...\")"
-  - pattern-not-inside: |
-      import pytest
-      ...
-      assert("...")
-  - pattern-not-inside: |
-      import unittest
-      ...
-      assert("...")
   message: |
     Use of assert detected. The enclosed code will be removed when compiling to optimised byte
     code.
