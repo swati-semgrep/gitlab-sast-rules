@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.10
+- Fix Bandit B101 rule coverage (!102)
+
 ## v1.1.9
 - Remove extra colon in bandit rules (!98)
 
