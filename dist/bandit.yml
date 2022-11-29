@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.1.20
+# rule-set version: v1.1.11
 # yamllint enable
 ---
 rules:
@@ -607,15 +607,18 @@ rules:
   - "python"
 - id: "bandit.B610-1"
   patterns:
-  - pattern-either:
-    - pattern: "$X.objects. ... .extra($...Y)"
+  - pattern: "$X.objects. ... .extra(..., $K = $V, ...)"
   - metavariable-pattern:
-      language: "generic"
-      metavariable: "$...Y"
+      metavariable: "$V"
       patterns:
-      - pattern: "$K = $V"
-      - pattern-not: "$K = \"...\""
-      - pattern-not: "$K = '...'"
+      - pattern: "$V"
+      - pattern-not: "[..., '...', ...]"
+      - pattern-not: "{..., '...': '...', ...}"
+      - pattern-not: "\"...\""
+      - pattern-not: "[..., \"...\" % \"...\", ...]"
+      - pattern-not: "{..., $L: \"...\" % \"...\", ...}"
+      - pattern-not: "{..., $L: \"...\".format(\"...\"), ...}"
+      - pattern-not: "[..., \"...\".format(\"...\"), ...]"
   message: |
     This is a last resort. You should be careful when using `QuerySet.extra` due
     to SQLi.
@@ -630,7 +633,7 @@ rules:
       value: "B610"
   severity: "ERROR"
   languages:
-  - "generic"
+  - "python"
 - id: "bandit.B611-1"
   patterns:
   - pattern-either:
@@ -741,42 +744,6 @@ rules:
   severity: "WARNING"
   languages:
   - "python"
-- id: "bandit.B112-1"
-  pattern-either:
-  - pattern: |
-      except ...:
-        continue
-  - pattern: "except ... continue"
-  message: |
-    Try, Except, Continue
-  metadata:
-    cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
-    primary_identifier: "bandit.B112"
-    secondary_identifiers:
-    - name: "Bandit Test ID B112"
-      type: "bandit_test_id"
-      value: "B112"
-  severity: "INFO"
-  languages:
-  - "generic"
-- id: "bandit.B110-1"
-  pattern-either:
-  - pattern: |
-      except ...:
-        pass
-  - pattern: "except ... pass"
-  message: |
-    Try, Except, Pass
-  metadata:
-    cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
-    primary_identifier: "bandit.B110"
-    secondary_identifiers:
-    - name: "Bandit Test ID B110"
-      type: "bandit_test_id"
-      value: "B110"
-  severity: "INFO"
-  languages:
-  - "generic"
 - id: "bandit.B102-1"
   pattern-either:
   - pattern: "exec(...)"
