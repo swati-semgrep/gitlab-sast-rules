@@ -1,22 +1,22 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/django/security/audit/query-set-extra.yaml
-# hash: acdabdb
-# id: avoid-query-set-extra
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/django/rule-django_extra_used"
   patterns:
-  - pattern-either:
-    - pattern: "$X.objects. ... .extra($...Y)"
+  - pattern: "$X.objects. ... .extra(..., $K = $V, ...)"
   - metavariable-pattern:
-      language: "generic"
-      metavariable: "$...Y"
+      metavariable: "$V"
       patterns:
-      - pattern: "$K = $V"
-      - pattern-not: "$K = \"...\""
-      - pattern-not: "$K = '...'"
+      - pattern: "$V"
+      - pattern-not: "[..., '...', ...]"
+      - pattern-not: "{..., '...': '...', ...}"
+      - pattern-not: "\"...\""
+      - pattern-not: "[..., \"...\" % \"...\", ...]"
+      - pattern-not: "{..., $L: \"...\" % \"...\", ...}"
+      - pattern-not: "{..., $L: \"...\".format(\"...\"), ...}"
+      - pattern-not: "[..., \"...\".format(\"...\"), ...]"
   message: |
     This is a last resort. You should be careful when using `QuerySet.extra` due
     to SQLi.
@@ -26,4 +26,4 @@ rules:
     owasp: "A1: Injection"
   severity: "ERROR"
   languages:
-  - "generic"
+  - "python"
