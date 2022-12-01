@@ -6,6 +6,9 @@ rules:
 - id: "python/django/rule-django_extra_used"
   patterns:
   - pattern: "$X.objects. ... .extra(..., $K = $V, ...)"
+  - pattern-not-inside: |
+      $V = ['...']
+      ...
   - metavariable-pattern:
       metavariable: "$V"
       patterns:

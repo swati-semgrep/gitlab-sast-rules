@@ -22,6 +22,7 @@ User.objects.filter(username='admin').extra(select={'test': '{}secure'.format('n
 
 where_var = ['1=1) OR 1=1 AND (1=1']
 User.objects.filter(username='admin').extra(where=where_var)
+User.objects.filter(username='admin').extra(where=userinput)
 where_str = '1=1) OR 1=1 AND (1=1'
 User.objects.filter(username='admin').extra(where=[where_str])
 User.objects.filter(username='admin').extra(where=['%secure' % 'nos'])
