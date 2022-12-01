@@ -34,6 +34,12 @@ bandit:
     rules:
     - "python/tmpdir/rule-specialdir"
     - "python/tmpdir/rule-hardcodedtmp"
+  - id: "B110"
+    rules:
+    - "python/exception/rule-try_except_pass"
+  - id: "B112"
+    rules:
+    - "python/exception/rule-try_except_continue"
   - id: "B201"
     rules:
     - "python/flask/rule-app_debug"
