@@ -608,6 +608,9 @@ rules:
 - id: "bandit.B610-1"
   patterns:
   - pattern: "$X.objects. ... .extra(..., $K = $V, ...)"
+  - pattern-not-inside: |
+      $V = ['...']
+      ...
   - metavariable-pattern:
       metavariable: "$V"
       patterns:
@@ -793,7 +796,7 @@ rules:
       value: "B112"
   severity: "INFO"
   languages:
-  - "generic"
+  - "python"
 - id: "bandit.B110-1"
   pattern-either:
   - pattern: |
@@ -843,7 +846,7 @@ rules:
       value: "B110"
   severity: "INFO"
   languages:
-  - "generic"
+  - "python"
 - id: "bandit.B102-1"
   pattern-either:
   - pattern: "exec(...)"
