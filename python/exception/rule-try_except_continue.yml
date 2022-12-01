@@ -47,4 +47,4 @@ rules:
     cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
   severity: "INFO"
   languages:
-  - "generic"
+  - "python"
