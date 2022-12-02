@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.11
+- Eliminate rules that use the `generic` feature (!105)
+
 ## v1.1.10
 - Fix Bandit B101 rule coverage (!102)
 

@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.1.20
+# rule-set version: v1.1.11
 # yamllint enable
 ---
 rules:
@@ -607,15 +607,21 @@ rules:
   - "python"
 - id: "bandit.B610-1"
   patterns:
-  - pattern-either:
-    - pattern: "$X.objects. ... .extra($...Y)"
+  - pattern: "$X.objects. ... .extra(..., $K = $V, ...)"
+  - pattern-not-inside: |
+      $V = ['...']
+      ...
   - metavariable-pattern:
-      language: "generic"
-      metavariable: "$...Y"
+      metavariable: "$V"
       patterns:
-      - pattern: "$K = $V"
-      - pattern-not: "$K = \"...\""
-      - pattern-not: "$K = '...'"
+      - pattern: "$V"
+      - pattern-not: "[..., '...', ...]"
+      - pattern-not: "{..., '...': '...', ...}"
+      - pattern-not: "\"...\""
+      - pattern-not: "[..., \"...\" % \"...\", ...]"
+      - pattern-not: "{..., $L: \"...\" % \"...\", ...}"
+      - pattern-not: "{..., $L: \"...\".format(\"...\"), ...}"
+      - pattern-not: "[..., \"...\".format(\"...\"), ...]"
   message: |
     This is a last resort. You should be careful when using `QuerySet.extra` due
     to SQLi.
@@ -630,7 +636,7 @@ rules:
       value: "B610"
   severity: "ERROR"
   languages:
-  - "generic"
+  - "python"
 - id: "bandit.B611-1"
   patterns:
   - pattern-either:
@@ -744,9 +750,41 @@ rules:
 - id: "bandit.B112-1"
   pattern-either:
   - pattern: |
-      except ...:
-        continue
-  - pattern: "except ... continue"
+      try: ...
+      except $EXCEPTION: continue
+  - pattern: |
+      try: ...
+      except $EXCEPTION as $X: continue
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION: continue
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION as $X: continue
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION: continue
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: continue
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION: continue
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: continue
   message: |
     Try, Except, Continue
   metadata:
@@ -758,13 +796,45 @@ rules:
       value: "B112"
   severity: "INFO"
   languages:
-  - "generic"
+  - "python"
 - id: "bandit.B110-1"
   pattern-either:
   - pattern: |
-      except ...:
-        pass
-  - pattern: "except ... pass"
+      try: ...
+      except $EXCEPTION: pass
+  - pattern: |
+      try: ...
+      except $EXCEPTION as $X: pass
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION: pass
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION: pass
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION: pass
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
   message: |
     Try, Except, Pass
   metadata:
@@ -776,7 +846,7 @@ rules:
       value: "B110"
   severity: "INFO"
   languages:
-  - "generic"
+  - "python"
 - id: "bandit.B102-1"
   pattern-either:
   - pattern: "exec(...)"

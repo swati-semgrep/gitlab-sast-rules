@@ -1,8 +1,5 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/django/security/audit/raw-query.yaml
-# hash: acdabdb
-# id: avoid-raw-sql
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
