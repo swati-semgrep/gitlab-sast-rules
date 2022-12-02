@@ -8,4 +8,7 @@ except Exception:
 except Exception: pass
 except Exception as e:
     pass
+except Exception as k:
+    logging.info("Info level logging")
+
 
