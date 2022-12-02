@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.1.12
+- Cover more permutations for try...except.. cases (!106)
+
 ## v1.1.11
 - Eliminate rules that use the `generic` feature (!105)
 
