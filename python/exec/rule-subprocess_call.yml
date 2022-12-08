@@ -1,8 +1,5 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (modified): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/dangerous-system-call.yaml
-# hash: acdabdb
-# id: dangerous-system-call
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:

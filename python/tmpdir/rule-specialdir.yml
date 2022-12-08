@@ -1,8 +1,5 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/best-practice/hardcoded-tmp-path.yaml
-# hash: acdabdb
-# id: hardcoded-tmp-path
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
