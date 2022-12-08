@@ -1,8 +1,5 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/contrib/dlint/dlint-equivalent.yaml
-# hash: acdabdb
-# id: insecure-xml-use
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
