@@ -4,6 +4,9 @@ using System.Data.Entity.Core.EntityClient;
 using System.Data.Odbc;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
+using Npgsql;
+using Oracle.ManagedDataAccess.Client;
 
 class SQLInjection
 {
@@ -26,7 +29,22 @@ class SQLInjection
         sqlCmd.CommandText = "SELECT * FROM Users WHERE username = '" + input + "' and role='user'";
         sqlCmd.CommandText = "abc";
         sqlCmd.ExecuteReader();
-        
+
+        var oracleCmd = new OracleCommand();
+        oracleCmd.CommandText = "SELECT * FROM Users WHERE username = '" + input + "' and role='user'";
+        oracleCmd.CommandText = "abc";
+        oracleCmd.ExecuteReader();
+
+        var npgsqlCmd = new NpgsqlCommand();
+        npgsqlCmd.CommandText = "SELECT * FROM Users WHERE username = '" + input + "' and role='user'";
+        npgsqlCmd.CommandText = "abc";
+        npgsqlCmd.ExecuteReader();
+
+        var mySqlCmd = new MySqlCommand();
+        mySqlCmd.CommandText = "SELECT * FROM Users WHERE username = '" + input + "' and role='user'";
+        mySqlCmd.CommandText = "abc";
+        mySqlCmd.ExecuteReader();
+
         var entityCmd = new EntityCommand();
         entityCmd.CommandText = "SELECT * FROM Users WHERE username = '" + input + "' and role='user'";
         entityCmd.CommandText = "abc";
