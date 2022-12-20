@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.1.12
+# rule-set version: v1.2.0
 # yamllint enable
 ---
 rules:
@@ -50,8 +50,8 @@ rules:
         (HttpServletResponse $RESP).addCookie($C);
   - pattern: "(javax.servlet.http.Cookie $C).setSecure(false);"
   message: |
-    "Storing sensitive data in a persistent cookie for an extended period can lead to a breach of
-    confidentiality or account compromise."
+    "A new cookie is created without the Secure flag set. The Secure flag is a directive to the
+    browser to make sure that the cookie is not sent for insecure communication (http://)"
   languages:
   - "java"
   severity: "WARNING"
@@ -73,8 +73,8 @@ rules:
       metavariable: "$AGE"
       comparison: "$AGE >= 31536000"
   message: |
-    A new cookie is created without the Secure flag set. The Secure flag is a directive to the
-    browser to make sure that the cookie is not sent for insecure communication (http://)
+    Storing sensitive data in a persistent cookie for an extended period can lead to a breach of
+    confidentiality or account compromise.
   languages:
   - "java"
   severity: "WARNING"
@@ -3304,6 +3304,12 @@ rules:
       ...
   - pattern-not-inside: |
       $SF.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+      ...
+  - pattern-not-inside: |
+      $SF.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
+      ...
+  - pattern-not-inside: |
+      $SF.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
       ...
   - pattern: "$SF.createXMLStreamReader(...)"
   languages:

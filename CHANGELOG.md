@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.2.0
+- Scala support (!109)
+
 ## v1.1.12
 - Cover more permutations for try...except.. cases (!106)
 

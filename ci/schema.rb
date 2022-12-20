@@ -72,7 +72,7 @@ end
 
 num_errors = 0
 ARGV.flat_map { |path| obtain_yaml_files(path) }.each do |yaml_file|
-  next if %w[bandit eslint flawfinder gosec find_sec_bugs security_code_scan scaffold].include?(File.basename(yaml_file, '.yml'))
+  next if %w[bandit eslint flawfinder gosec find_sec_bugs find_sec_bugs_scala security_code_scan scaffold].include?(File.basename(yaml_file, '.yml'))
 
   errors = validation_errors(yaml_file)
   next unless errors.any?
