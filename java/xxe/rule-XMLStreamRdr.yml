@@ -14,6 +14,12 @@ rules:
   - pattern-not-inside: |
       $SF.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
       ...
+  - pattern-not-inside: |
+      $SF.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
+      ...
+  - pattern-not-inside: |
+      $SF.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
+      ...
   - pattern: "$SF.createXMLStreamReader(...)"
   languages:
   - "java"

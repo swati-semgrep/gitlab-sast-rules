@@ -171,6 +171,8 @@ contributions.
 
 ### find-sec-bugs
 
+Java, Scala
+
 #### Out of scope patterns (25)
 
 Out of scope patterns w.r.t. https://gitlab.com/gitlab-org/gitlab/-/issues/354762#rules-with-completion-status are all those patterns that are unrelated to Java.
