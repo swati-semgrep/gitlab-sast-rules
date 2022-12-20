@@ -145,7 +145,7 @@ contributions.
 
 | Author         | MRs/Issues            |
 | -------------- | --------------------- |
-| @masakura      | !99                   |
+| @masakura      | !99, !107             |
 
 
 ## Rule deployment
