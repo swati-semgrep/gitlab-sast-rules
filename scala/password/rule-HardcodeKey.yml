@@ -10,9 +10,6 @@ rules:
         def $FUNC(...,$KEY_BYTES: Array[Byte], ...): $TYPE = {
             ...
         }
-    - pattern-inside: |
-        $KEY = Array[Byte](...)
-        ...
     - pattern-either:
       - pattern: "new DESKeySpec($KEY)"
       - pattern: "new DESedeKeySpec($KEY)"
@@ -28,15 +25,15 @@ rules:
             ...
         }
     - pattern-either:
-      - pattern: "new DSAPrivateKeySpec($PRIVATE_KEY: BigInteger, ...);"
-      - pattern: "new DSAPublicKeySpec($PRIVATE_KEY: BigInteger, ...);"
-      - pattern: "new DHPrivateKeySpec($PRIVATE_KEY: BigInteger, ...);"
-      - pattern: "new DHPublicKeySpec($PRIVATE_KEY: BigInteger, ...);"
-      - pattern: "new ECPrivateKeySpec($PRIVATE_KEY: BigInteger, ...);"
-      - pattern: "new RSAPrivateKeySpec($PRIVATE_KEY: BigInteger, ...);"
-      - pattern: "new RSAMultiPrimePrivateCrtKeySpec($PRIVATE_KEY: BigInteger, ...);"
-      - pattern: "new RSAPrivateCrtKeySpec($PRIVATE_KEY: BigInteger, ...);"
-      - pattern: "new RSAPublicKeySpec($PRIVATE_KEY: BigInteger, ...);"
+      - pattern: "new DSAPrivateKeySpec($PRIVATE_KEY: BigInteger, ...)"
+      - pattern: "new DSAPublicKeySpec($PRIVATE_KEY: BigInteger, ...)"
+      - pattern: "new DHPrivateKeySpec($PRIVATE_KEY: BigInteger, ...)"
+      - pattern: "new DHPublicKeySpec($PRIVATE_KEY: BigInteger, ...)"
+      - pattern: "new ECPrivateKeySpec($PRIVATE_KEY: BigInteger, ...)"
+      - pattern: "new RSAPrivateKeySpec($PRIVATE_KEY: BigInteger, ...)"
+      - pattern: "new RSAMultiPrimePrivateCrtKeySpec($PRIVATE_KEY: BigInteger, ...)"
+      - pattern: "new RSAPrivateCrtKeySpec($PRIVATE_KEY: BigInteger, ...)"
+      - pattern: "new RSAPublicKeySpec($PRIVATE_KEY: BigInteger, ...)"
   message: |
     Cryptographic keys should not be kept in the source code. The source code can be widely shared
     in an enterprise environment, and is certainly shared in open source. To be managed safely,
