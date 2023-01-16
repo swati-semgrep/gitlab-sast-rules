@@ -1,5 +1,7 @@
 sast-rules changelog
 
+## v1.2.2
+- Rule refinements for Scala (!113)
 
 ## v1.2.1
 - Support Oracle, Postgres and MySql in .net (community contribution from @masakura) (!107)
