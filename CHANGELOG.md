@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.2.3
+- Rule refinements for Go (!115)
+
 ## v1.2.2
 - Rule refinements for Scala (!113)
 

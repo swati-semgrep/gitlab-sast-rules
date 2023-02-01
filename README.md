@@ -143,9 +143,10 @@ We apply the following semantic versioning scheme to this repository:
 We would like to thank the following authors very much for their valuable
 contributions.
 
-| Author         | MRs/Issues            |
-| -------------- | --------------------- |
-| @masakura      | !99, !107             |
+| Author                 | MRs/Issues            |
+| ---------------------- | --------------------- |
+| @masakura              | !99, !107             |
+| @gregory.mcdaniel      | #32                   |
 
 
 ## Rule deployment
