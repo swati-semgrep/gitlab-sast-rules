@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.2.3
+# rule-set version: v1.2.4
 # yamllint enable
 ---
 rules:
@@ -259,7 +259,7 @@ rules:
     - name: "Bandit Test ID B505"
       type: "bandit_test_id"
       value: "B505"
-  severity: "WARNING"
+  severity: "ERROR"
   languages:
   - "python"
 - id: "bandit.B505-2"
@@ -277,7 +277,7 @@ rules:
     - name: "Bandit Test ID B505"
       type: "bandit_test_id"
       value: "B505"
-  severity: "WARNING"
+  severity: "ERROR"
   languages:
   - "python"
 - id: "bandit.B303-3"
@@ -634,7 +634,7 @@ rules:
     - name: "Bandit Test ID B610"
       type: "bandit_test_id"
       value: "B610"
-  severity: "ERROR"
+  severity: "WARNING"
   languages:
   - "python"
 - id: "bandit.B611-1"
@@ -723,7 +723,7 @@ rules:
     - name: "Bandit Test ID B702"
       type: "bandit_test_id"
       value: "B702"
-  severity: "INFO"
+  severity: "WARNING"
   languages:
   - "python"
 - id: "bandit.B307-1"
@@ -1265,7 +1265,7 @@ rules:
     - name: "Bandit Test ID B604"
       type: "bandit_test_id"
       value: "B604"
-  severity: "INFO"
+  severity: "WARNING"
   languages:
   - "python"
 - id: "bandit.B103-1"
@@ -1423,7 +1423,7 @@ rules:
     - name: "Bandit Test ID B106"
       type: "bandit_test_id"
       value: "B106"
-  severity: "INFO"
+  severity: "WARNING"
   languages:
   - "python"
 - id: "bandit.B105-1"
@@ -1445,7 +1445,7 @@ rules:
     - name: "Bandit Test ID B105"
       type: "bandit_test_id"
       value: "B105"
-  severity: "INFO"
+  severity: "WARNING"
   languages:
   - "python"
 - id: "bandit.B608-1"
@@ -1503,7 +1503,7 @@ rules:
     - name: "Bandit Test ID B507"
       type: "bandit_test_id"
       value: "B507"
-  severity: "WARNING"
+  severity: "ERROR"
   languages:
   - "python"
 - id: "bandit.B501-1"
@@ -1545,7 +1545,7 @@ rules:
     - name: "Bandit Test ID B504"
       type: "bandit_test_id"
       value: "B504"
-  severity: "INFO"
+  severity: "WARNING"
   languages:
   - "python"
 - id: "bandit.B502-1"
@@ -1572,7 +1572,7 @@ rules:
     - name: "Bandit Test ID B502"
       type: "bandit_test_id"
       value: "B502"
-  severity: "WARNING"
+  severity: "ERROR"
   languages:
   - "python"
 - id: "bandit.B323-1"
