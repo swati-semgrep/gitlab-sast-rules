@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.2.4
+- Adjust bandit severity (!116)
+
 ## v1.2.3
 - Rule refinements for Go (!115)
 
