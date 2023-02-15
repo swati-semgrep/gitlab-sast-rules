@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.2.6
+- Synchronize bandit upstream rules in the ruleset (!119)
+
 ## v1.2.5
 - Synchronize new upstream rules in the ruleset (!112)
 
