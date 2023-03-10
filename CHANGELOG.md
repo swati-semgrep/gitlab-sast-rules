@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.2.7
+- Fix Bandit B113 positional arguments FPs (!122)
+
 ## v1.2.6
 - Synchronize bandit upstream rules in the ruleset (!119)
 
