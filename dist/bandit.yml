@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.2.6
+# rule-set version: v1.2.7
 # yamllint enable
 ---
 rules:
@@ -1470,7 +1470,7 @@ rules:
           metavariable: "$VAL"
           regex: "(^None)"
     - patterns:
-      - pattern-not: "requests.$METHOD('...', timeout=$VAL)"
+      - pattern-not: "requests.$METHOD('...', timeout=$VAL, ...)"
       - pattern-either:
         - pattern: "requests.$METHOD('...', ...)"
         - pattern: "requests.$METHOD('...')"
