@@ -73,7 +73,7 @@ installing the gems `psych yaml fileutils` with `gem install psych yaml fileutil
 
 The mappings directory in this repository contains YAML configuration files
 that map native analyzer ids to the corresponding semgrep rules. These mappings
-are digested by the [testing framework](https://gitlab.com/gitlab-org/secure/gsoc-sast-vulnerability-rules/rule-testing-framework/rule-testing)
+are digested by the [testing framework](https://gitlab.com/gitlab-org/security-products/sast-rule-testing-framework/rule-testing)
 to perform an automated gap analysis; the goal of this analysis is to check
 whether there is an unexpected deviation between semgrep (with the rules in this repository)
 and a given analyzer.
