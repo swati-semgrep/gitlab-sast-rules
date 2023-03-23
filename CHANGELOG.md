@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.2.8
+- Improve B608 to work with control flow (!126)
+
 ## v1.2.7
 - Fix Bandit B113 positional arguments FPs (!122)
 
