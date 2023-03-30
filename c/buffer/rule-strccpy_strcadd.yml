@@ -12,6 +12,7 @@ rules:
     Ensure that destination buffer is sufficiently large.
   metadata:
     cwe: "CWE-120: Subject to buffer overflow if buffer is not as big as claimed (CWE-120)"
+    owasp: "A01:2017 - Injection"
   pattern-either:
   - pattern: "strccpy(...)"
   - pattern: "strcadd(...)"

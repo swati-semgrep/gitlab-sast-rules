@@ -12,6 +12,7 @@ rules:
     Use fgets() instead.
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows (CWE-120, CWE-20)"
+    owasp: "A01:2017 - Injection"
   pattern-either:
   - pattern: "gets(...)"
   - pattern: "_getts(...)"

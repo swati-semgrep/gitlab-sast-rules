@@ -13,5 +13,6 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
       [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
   pattern: "strcat(...)"
   severity: "ERROR"

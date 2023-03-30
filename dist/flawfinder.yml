@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.2.8
+# rule-set version: v1.3.0
 # yamllint enable
 ---
 rules:
@@ -11,6 +11,7 @@ rules:
   metadata:
     cwe: "CWE-250: If this call fails, the program could fail to drop heightened privileges
       (CWE-250)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.RpcImpersonateClient"
     secondary_identifiers:
     - name: "Flawfinder - RpcImpersonateClient"
@@ -52,6 +53,7 @@ rules:
   metadata:
     cwe: "CWE-732: Ensure that umask is given most restrictive possible setting (e.g.,
       066 or 077) (CWE-732)"
+    owasp: "A06:2017 - Security Misconfiguration"
     primary_identifier: "flawfinder.umask"
     secondary_identifiers:
     - name: "Flawfinder - umask"
@@ -66,6 +68,7 @@ rules:
     The software does not properly handle when an input contains Unicode encoding.
   metadata:
     cwe: "CWE-120: Requires maximum length in CHARACTERS, not bytes (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.MultiByteToWideChar"
     secondary_identifiers:
     - name: "Flawfinder - MultiByteToWideChar"
@@ -81,6 +84,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
       [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.StrCat"
     secondary_identifiers:
     - name: "Flawfinder - StrCat"
@@ -178,6 +182,7 @@ rules:
   metadata:
     cwe: "CWE-120: Statically-sized arrays can be improperly restricted, leading to
       potential overflows or other issues (CWE-119!/CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.char"
     secondary_identifiers:
     - name: "Flawfinder - char"
@@ -238,6 +243,7 @@ rules:
   metadata:
     cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
       permits buffer overflows (CWE-120, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.fscanf"
     secondary_identifiers:
     - name: "Flawfinder - fscanf"
@@ -283,6 +289,7 @@ rules:
     cwe: "CWE-20: This function is synonymous with 'getenv(\"HOME\")';it returns untrustable
       input if the environment can beset by an attacker.  It can have any content
       and length, and the same variable can be set more than once (CWE-807, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.g_get_home_dir"
     secondary_identifiers:
     - name: "Flawfinder - g_get_home_dir"
@@ -299,6 +306,7 @@ rules:
     cwe: "CWE-20: This function is synonymous with 'getenv(\"TMP\")';it returns untrustable
       input if the environment can beset by an attacker.  It can have any content
       and length, and the same variable can be set more than once (CWE-807, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.g_get_tmp_dir"
     secondary_identifiers:
     - name: "Flawfinder - g_get_tmp_dir"
@@ -314,6 +322,7 @@ rules:
   metadata:
     cwe: "CWE-20: Check buffer boundaries if used in a loop including recursive loops
       (CWE-120, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.getchar"
     secondary_identifiers:
     - name: "Flawfinder - getchar"
@@ -347,6 +356,7 @@ rules:
     cwe: "CWE-20: Environment variables are untrustable input if they can be set by
       an attacker.  They can have any content and length, and the same variable can
       be set more than once (CWE-807, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.getenv"
     secondary_identifiers:
     - name: "Flawfinder - getenv"
@@ -367,6 +377,7 @@ rules:
   metadata:
     cwe: "CWE-120: Some older implementations do not protect against internal buffer
       overflows (CWE-120, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.getopt"
     secondary_identifiers:
     - name: "Flawfinder - getopt"
@@ -389,6 +400,7 @@ rules:
       It extracts data from a 'protected' area, but most systems have many commands
       to let users modify the protected area, and it's not always clear what their
       limits are.  Best to avoid using this function altogether (CWE-676, CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.getpw"
     secondary_identifiers:
     - name: "Flawfinder - getpw"
@@ -403,6 +415,7 @@ rules:
     Use fgets() instead.
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows (CWE-120, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.gets"
     secondary_identifiers:
     - name: "Flawfinder - gets"
@@ -423,6 +436,7 @@ rules:
   metadata:
     cwe: "CWE-120: This does not protect against buffer overflows by itself, so use
       with caution (CWE-120, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.getwd"
     secondary_identifiers:
     - name: "Flawfinder - getwd"
@@ -438,6 +452,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
       [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.lstrcat"
     secondary_identifiers:
     - name: "Flawfinder - lstrcat"
@@ -466,6 +481,7 @@ rules:
   metadata:
     cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
       maximum size to add) [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.lstrcatn"
     secondary_identifiers:
     - name: "Flawfinder - lstrcatn"
@@ -494,6 +510,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.lstrcpy"
     secondary_identifiers:
     - name: "Flawfinder - lstrcpy"
@@ -522,6 +539,7 @@ rules:
   metadata:
     cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
       (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.lstrcpyn"
     secondary_identifiers:
     - name: "Flawfinder - lstrcpyn"
@@ -550,6 +568,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.memcpy"
     secondary_identifiers:
     - name: "Flawfinder - memcpy"
@@ -570,12 +589,13 @@ rules:
   languages:
   - "c"
   message: |
-    Ensure that the destination buffer is at least of size MAXPATHLEN, andto protect against
+    Ensure that the destination buffer is at least of size MAXPATHLEN, and to protect against
     implementation problems, the input argument should also be checked to ensure it is no larger
     than MAXPATHLEN.
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows, and some
       implementations can overflow internally (CWE-120/CWE-785!)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.realpath"
     secondary_identifiers:
     - name: "Flawfinder - realpath"
@@ -591,6 +611,7 @@ rules:
   metadata:
     cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
       permits buffer overflows (CWE-120, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.scanf"
     secondary_identifiers:
     - name: "Flawfinder - scanf"
@@ -632,6 +653,7 @@ rules:
     Use sprintf_s, snprintf, or vsnprintf.
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.sprintf"
     secondary_identifiers:
     - name: "Flawfinder - sprintf"
@@ -668,6 +690,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
       [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.strcat"
     secondary_identifiers:
     - name: "Flawfinder - strcat"
@@ -682,6 +705,7 @@ rules:
     Ensure that destination buffer is sufficiently large.
   metadata:
     cwe: "CWE-120: Subject to buffer overflow if buffer is not as big as claimed (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.strccpy"
     secondary_identifiers:
     - name: "Flawfinder - strccpy"
@@ -702,6 +726,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.strcpy"
     secondary_identifiers:
     - name: "Flawfinder - strcpy"
@@ -717,6 +742,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.strcpyA"
     secondary_identifiers:
     - name: "Flawfinder - strcpyA"
@@ -804,6 +830,7 @@ rules:
     Ensure the destination has 4 times the size of the source, to leave room for expansion.
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.streadd"
     secondary_identifiers:
     - name: "Flawfinder - streadd"
@@ -824,6 +851,7 @@ rules:
   metadata:
     cwe: "CWE-126: Does not handle strings that are not \\0-terminated; if given one
       it may perform an over-read (it could cause a crash if unprotected) (CWE-126)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.strlen"
     secondary_identifiers:
     - name: "Flawfinder - strlen"
@@ -852,6 +880,7 @@ rules:
   metadata:
     cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
       maximum size to add) [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.strncat"
     secondary_identifiers:
     - name: "Flawfinder - strncat"
@@ -867,6 +896,7 @@ rules:
   metadata:
     cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
       (CWE-120)"
+    owasp: "A06:2017 - Security Misconfiguration"
     primary_identifier: "flawfinder.strncpy"
     secondary_identifiers:
     - name: "Flawfinder - strncpy"
@@ -881,6 +911,7 @@ rules:
     Ensure that destination is at least as long as the source.
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.strtrns"
     secondary_identifiers:
     - name: "Flawfinder - strtrns"
@@ -896,6 +927,7 @@ rules:
   metadata:
     cwe: "CWE-327: DES only supports a 56-bit keysize, which is too small given today's
       computers (CWE-327)"
+    owasp: "A03:2017 - Sensitive Data Exposure"
     primary_identifier: "flawfinder.EVP_des_ecb"
     secondary_identifiers:
     - name: "Flawfinder - EVP_des_ecb"
@@ -927,6 +959,7 @@ rules:
     Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
   metadata:
     cwe: "CWE-327: These keysizes are too small given today's computers (CWE-327)"
+    owasp: "A03:2017 - Sensitive Data Exposure"
     primary_identifier: "flawfinder.EVP_rc4_40"
     secondary_identifiers:
     - name: "Flawfinder - EVP_rc4_40"
@@ -953,6 +986,7 @@ rules:
       they only accept passwords of 8 characters or fewer and only a two-byte salt,
       they are excessively vulnerable to dictionary attacks given today's faster computing
       equipment (CWE-327)"
+    owasp: "A03:2017 - Sensitive Data Exposure"
     primary_identifier: "flawfinder.crypt"
     secondary_identifiers:
     - name: "Flawfinder - crypt"
@@ -973,6 +1007,7 @@ rules:
   metadata:
     cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
       exploited (CWE-134)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.fprintf"
     secondary_identifiers:
     - name: "Flawfinder - fprintf"
@@ -1018,6 +1053,7 @@ rules:
   metadata:
     cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
       exploited (CWE-134)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.printf"
     secondary_identifiers:
     - name: "Flawfinder - printf"
@@ -1066,6 +1102,7 @@ rules:
   metadata:
     cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
       exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.snprintf"
     secondary_identifiers:
     - name: "Flawfinder - snprintf"
@@ -1108,6 +1145,7 @@ rules:
   metadata:
     cwe: "CWE-134: If syslog's format strings can be influenced by an attacker, they
       can be exploited (CWE-134)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.syslog"
     secondary_identifiers:
     - name: "Flawfinder - syslog"
@@ -1130,6 +1168,7 @@ rules:
       free() results from memalign() may fail. This may, on a few systems, be exploitable.
       \ Also note that memalign() may not check that the boundary parameter is correct
       (CWE-676)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.memalign"
     secondary_identifiers:
     - name: "Flawfinder - memalign"
@@ -1149,6 +1188,7 @@ rules:
   metadata:
     cwe: "CWE-190: Unless checked, the resulting number can exceed the expected range
       (CWE-190)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.atoi"
     secondary_identifiers:
     - name: "Flawfinder - atoi"
@@ -1177,6 +1217,7 @@ rules:
   metadata:
     cwe: "CWE-732: This doesn't set the inheritance bits in the access control entry
       (ACE) header (CWE-732)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.AddAccessAllowedAce"
     secondary_identifiers:
     - name: "Flawfinder - AddAccessAllowedAce"
@@ -1207,6 +1248,7 @@ rules:
   metadata:
     cwe: "CWE-20: Ensure that the full path to the library is specified, or current
       directory may be used (CWE-829, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.LoadLibrary"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibrary"
@@ -1223,6 +1265,7 @@ rules:
   metadata:
     cwe: "CWE-20: Ensure that the full path to the library is specified, or current
       directory may be used (CWE-829, CWE-20)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.LoadLibraryEx"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibraryEx"
@@ -1239,6 +1282,7 @@ rules:
   metadata:
     cwe: "CWE-732: Never create NULL ACLs; an attacker can set it to Everyone (Deny
       All Access), which would even forbid administrator access (CWE-732)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.SetSecurityDescriptorDacl"
     secondary_identifiers:
     - name: "Flawfinder - SetSecurityDescriptorDacl"
@@ -1255,6 +1299,7 @@ rules:
   metadata:
     cwe: "CWE-22: chroot can be very helpful, but is hard to use correctly (CWE-250,
       CWE-22)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.chroot"
     secondary_identifiers:
     - name: "Flawfinder - chroot"
@@ -1290,6 +1335,7 @@ rules:
     cwe: "CWE-362: Check when opening files - can an attacker redirect it (via symlinks),
       force the opening of special file type (e.g., device files), move things around
       to create a race condition, control its ancestors, or change its contents? (CWE-362)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.fopen"
     secondary_identifiers:
     - name: "Flawfinder - fopen"
@@ -1403,6 +1449,7 @@ rules:
     cwe: "CWE-362: This usually indicates a security flaw.  If an attacker can change
       anything along the path between the call to access() and the file's actual use
       (e.g., by moving files), the attacker can exploit the race condition (CWE-362/CWE-367!)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.access"
     secondary_identifiers:
     - name: "Flawfinder - access"
@@ -1418,6 +1465,7 @@ rules:
   metadata:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.chgrp"
     secondary_identifiers:
     - name: "Flawfinder - chgrp"
@@ -1433,6 +1481,7 @@ rules:
   metadata:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.chmod"
     secondary_identifiers:
     - name: "Flawfinder - chmod"
@@ -1448,6 +1497,7 @@ rules:
   metadata:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.chown"
     secondary_identifiers:
     - name: "Flawfinder - chown"
@@ -1464,6 +1514,7 @@ rules:
     cwe: "CWE-20: This accepts filename arguments; if an attacker can move those files
       or change the link content, a race condition results.  Also, it does not terminate
       with ASCII NUL. (CWE-362, CWE-20)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.readlink"
     secondary_identifiers:
     - name: "Flawfinder - readlink"
@@ -1494,6 +1545,7 @@ rules:
   metadata:
     cwe: "CWE-327: This function is not sufficiently random for security-related functions
       such as key and nonce creation (CWE-327)"
+    owasp: "A03:2017 - Sensitive Data Exposure"
     primary_identifier: "flawfinder.drand48"
     secondary_identifiers:
     - name: "Flawfinder - drand48"
@@ -1600,6 +1652,7 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new process to execute and is difficult to use safely
       (CWE-78)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.CreateProcess"
     secondary_identifiers:
     - name: "Flawfinder - CreateProcess"
@@ -1615,6 +1668,7 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new process to execute and is difficult to use safely
       (CWE-78)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.CreateProcessAsUser"
     secondary_identifiers:
     - name: "Flawfinder - CreateProcessAsUser"
@@ -1635,6 +1689,7 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
       (CWE-78)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.execl"
     secondary_identifiers:
     - name: "Flawfinder - execl"
@@ -1679,6 +1734,7 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
       (CWE-78)"
+    owasp: "A01:2017 - Injection"
     primary_identifier: "flawfinder.system"
     secondary_identifiers:
     - name: "Flawfinder - system"
@@ -1694,6 +1750,7 @@ rules:
   metadata:
     cwe: "CWE-377: Temporary file race condition in certain cases (e.g., if run as
       SYSTEM in many versions of Windows) (CWE-377)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.GetTempFileName"
     secondary_identifiers:
     - name: "Flawfinder - GetTempFileName"
@@ -1711,6 +1768,7 @@ rules:
     O_EXCL is used by the library.
   metadata:
     cwe: "CWE-377: Potential for temporary file vulnerability in some circumstances."
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.mkstemp"
     secondary_identifiers:
     - name: "Flawfinder - mkstemp"
@@ -1726,6 +1784,7 @@ rules:
     attack (CWE-377).
   metadata:
     cwe: "CWE-377: Temporary file race condition (CWE-377)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.mktemp"
     secondary_identifiers:
     - name: "Flawfinder - mktemp"
@@ -1742,6 +1801,7 @@ rules:
   metadata:
     cwe: "CWE-377: Function tmpfile() has a security flaw on some systems (e.g., older
       System V systems) (CWE-377)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.tmpfile"
     secondary_identifiers:
     - name: "Flawfinder - tmpfile"
@@ -1757,6 +1817,7 @@ rules:
     attack.
   metadata:
     cwe: "CWE-377: Temporary file race condition (CWE-377)"
+    owasp: "A05:2017 - Broken Access Control"
     primary_identifier: "flawfinder.tmpnam"
     secondary_identifiers:
     - name: "Flawfinder - tmpnam"

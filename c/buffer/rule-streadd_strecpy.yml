@@ -12,6 +12,7 @@ rules:
     Ensure the destination has 4 times the size of the source, to leave room for expansion.
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
+    owasp: "A01:2017 - Injection"
   pattern-either:
   - pattern: "streadd(...)"
   - pattern: "strecpy(...)"

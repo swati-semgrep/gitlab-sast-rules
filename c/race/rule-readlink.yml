@@ -14,5 +14,6 @@ rules:
     cwe: "CWE-20: This accepts filename arguments; if an attacker can move those files
       or change the link content, a race condition results.  Also, it does not terminate
       with ASCII NUL. (CWE-362, CWE-20)"
+    owasp: "A05:2017 - Broken Access Control"
   pattern: "readlink(...)"
   severity: "ERROR"

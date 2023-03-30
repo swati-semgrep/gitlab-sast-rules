@@ -13,6 +13,7 @@ rules:
   metadata:
     cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
       permits buffer overflows (CWE-120, CWE-20)"
+    owasp: "A01:2017 - Injection"
   pattern-either:
   - patterns:
     - pattern: "scanf($FMT, ...)"

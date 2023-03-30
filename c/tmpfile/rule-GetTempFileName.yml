@@ -13,5 +13,6 @@ rules:
   metadata:
     cwe: "CWE-377: Temporary file race condition in certain cases (e.g., if run as
       SYSTEM in many versions of Windows) (CWE-377)"
+    owasp: "A05:2017 - Broken Access Control"
   pattern: "GetTempFileName(...)"
   severity: "WARNING"

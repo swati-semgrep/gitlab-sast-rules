@@ -12,6 +12,7 @@ rules:
     Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
   metadata:
     cwe: "CWE-327: These keysizes are too small given today's computers (CWE-327)"
+    owasp: "A03:2017 - Sensitive Data Exposure"
   pattern-either:
   - pattern: "EVP_rc4_40(...)"
   - pattern: "EVP_rc2_40_cbc(...)"

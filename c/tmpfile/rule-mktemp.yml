@@ -13,5 +13,6 @@ rules:
     attack (CWE-377).
   metadata:
     cwe: "CWE-377: Temporary file race condition (CWE-377)"
+    owasp: "A05:2017 - Broken Access Control"
   pattern: "mktemp(...)"
   severity: "ERROR"

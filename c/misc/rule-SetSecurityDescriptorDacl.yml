@@ -14,5 +14,6 @@ rules:
   metadata:
     cwe: "CWE-732: Never create NULL ACLs; an attacker can set it to Everyone (Deny
       All Access), which would even forbid administrator access (CWE-732)"
+    owasp: "A05:2017 - Broken Access Control"
   pattern: "SetSecurityDescriptorDacl(...)"
   severity: "ERROR"

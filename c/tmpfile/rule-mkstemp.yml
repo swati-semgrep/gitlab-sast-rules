@@ -15,5 +15,6 @@ rules:
     O_EXCL is used by the library.
   metadata:
     cwe: "CWE-377: Potential for temporary file vulnerability in some circumstances."
+    owasp: "A05:2017 - Broken Access Control"
   pattern: "mkstemp(...)"
   severity: "INFO"

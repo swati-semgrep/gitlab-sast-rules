@@ -13,5 +13,6 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
       (CWE-78)"
+    owasp: "A01:2017 - Injection"
   pattern: "system(...)"
   severity: "ERROR"

@@ -13,6 +13,7 @@ rules:
   metadata:
     cwe: "CWE-327: DES only supports a 56-bit keysize, which is too small given today's
       computers (CWE-327)"
+    owasp: "A03:2017 - Sensitive Data Exposure"
   pattern-either:
   - pattern: "EVP_des_ecb(...)"
   - pattern: "EVP_des_cbc(...)"
