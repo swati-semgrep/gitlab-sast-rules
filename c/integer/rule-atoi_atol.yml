@@ -15,6 +15,7 @@ rules:
   metadata:
     cwe: "CWE-190: Unless checked, the resulting number can exceed the expected range
       (CWE-190)"
+    owasp: "A01:2017 - Injection"
   pattern-either:
   - pattern: "atoi(...)"
   - pattern: "atol(...)"

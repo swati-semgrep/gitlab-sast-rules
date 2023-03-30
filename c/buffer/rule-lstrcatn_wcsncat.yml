@@ -13,6 +13,7 @@ rules:
   metadata:
     cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
       maximum size to add) [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
   pattern-either:
   - pattern: "lstrcatn(...)"
   - pattern: "wcsncat(...)"

@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.2.8
+# rule-set version: v1.3.0
 # yamllint enable
 ---
 rules:
@@ -733,7 +733,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-20: Improper Input Validation"
-    owasp: "OWASP: Cross-Site Request Forgery"
+    owasp: "A07:2017 - Cross-Site Scripting (XSS)"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs_scala.JAXWS_ENDPOINT"

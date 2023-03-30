@@ -14,5 +14,6 @@ rules:
   metadata:
     cwe: "CWE-78: This causes a new process to execute and is difficult to use safely
       (CWE-78)"
+    owasp: "A01:2017 - Injection"
   pattern: "CreateProcess(...)"
   severity: "WARNING"

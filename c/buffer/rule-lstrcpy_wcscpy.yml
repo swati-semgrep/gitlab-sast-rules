@@ -13,6 +13,7 @@ rules:
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows when copying to destination
       [MS-banned] (CWE-120)"
+    owasp: "A01:2017 - Injection"
   pattern-either:
   - pattern: "lstrcpy(...)"
   - pattern: "wcscpy(...)"

@@ -9,11 +9,12 @@ rules:
   languages:
   - "c"
   message: |
-    Ensure that the destination buffer is at least of size MAXPATHLEN, andto protect against
+    Ensure that the destination buffer is at least of size MAXPATHLEN, and to protect against
     implementation problems, the input argument should also be checked to ensure it is no larger
     than MAXPATHLEN.
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows, and some
       implementations can overflow internally (CWE-120/CWE-785!)"
+    owasp: "A01:2017 - Injection"
   pattern: "realpath(...)"
   severity: "WARNING"

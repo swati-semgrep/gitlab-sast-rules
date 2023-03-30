@@ -14,6 +14,7 @@ rules:
     cwe: "CWE-20: Environment variables are untrustable input if they can be set by
       an attacker.  They can have any content and length, and the same variable can
       be set more than once (CWE-807, CWE-20)"
+    owasp: "A01:2017 - Injection"
   pattern-either:
   - pattern: "getenv(...)"
   - pattern: "curl_getenv(...)"

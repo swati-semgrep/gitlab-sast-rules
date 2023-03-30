@@ -13,6 +13,7 @@ rules:
   metadata:
     cwe: "CWE-327: This function is not sufficiently random for security-related functions
       such as key and nonce creation (CWE-327)"
+    owasp: "A03:2017 - Sensitive Data Exposure"
   pattern-either:
   - pattern: "drand48(...)"
   - pattern: "erand48(...)"

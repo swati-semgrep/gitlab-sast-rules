@@ -12,5 +12,6 @@ rules:
     Ensure that destination is at least as long as the source.
   metadata:
     cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
+    owasp: "A01:2017 - Injection"
   pattern: "strtrns(...)"
   severity: "WARNING"

@@ -14,5 +14,6 @@ rules:
     cwe: "CWE-362: This usually indicates a security flaw.  If an attacker can change
       anything along the path between the call to access() and the file's actual use
       (e.g., by moving files), the attacker can exploit the race condition (CWE-362/CWE-367!)"
+    owasp: "A05:2017 - Broken Access Control"
   pattern: "access(...)"
   severity: "ERROR"

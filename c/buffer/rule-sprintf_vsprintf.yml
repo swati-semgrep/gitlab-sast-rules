@@ -12,6 +12,7 @@ rules:
     Use sprintf_s, snprintf, or vsnprintf.
   metadata:
     cwe: "CWE-120: Does not check for buffer overflows (CWE-120)"
+    owasp: "A01:2017 - Injection"
   pattern-either:
   - pattern: "sprintf(...)"
   - pattern: "vsprintf(...)"

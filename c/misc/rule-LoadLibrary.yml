@@ -14,5 +14,6 @@ rules:
   metadata:
     cwe: "CWE-20: Ensure that the full path to the library is specified, or current
       directory may be used (CWE-829, CWE-20)"
+    owasp: "A01:2017 - Injection"
   pattern: "LoadLibrary(...)"
   severity: "WARNING"

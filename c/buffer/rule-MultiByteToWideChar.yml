@@ -12,5 +12,6 @@ rules:
     The software does not properly handle when an input contains Unicode encoding.
   metadata:
     cwe: "CWE-120: Requires maximum length in CHARACTERS, not bytes (CWE-120)"
+    owasp: "A01:2017 - Injection"
   pattern: "MultiByteToWideChar(...)"
   severity: "INFO"

@@ -15,5 +15,6 @@ rules:
       It extracts data from a 'protected' area, but most systems have many commands
       to let users modify the protected area, and it's not always clear what their
       limits are.  Best to avoid using this function altogether (CWE-676, CWE-120)"
+    owasp: "A01:2017 - Injection"
   pattern: "getpw(...)"
   severity: "ERROR"

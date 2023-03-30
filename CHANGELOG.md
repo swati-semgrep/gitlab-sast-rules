@@ -1,5 +1,10 @@
 sast-rules changelog
 
+## v1.3.0
+- Add missing OWASP Top10 2017 Categories to C rulesets (!123)
+- Fix java/scala OWASP Categories to include missing numerical identifier (!123)
+- Add owasp metadata validation to schema (!123)
+
 ## v1.2.8
 - Improve B608 to work with control flow (!126)
 
