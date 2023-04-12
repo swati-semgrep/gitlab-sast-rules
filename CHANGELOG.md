@@ -1,5 +1,10 @@
 sast-rules changelog
 
+## v1.3.1
+- Enhance C ruleset descriptions and titles (!128)
+- Add shortDescription titles to C rulesets (!128)
+- Add valdiation to confirm that either cwe tag contains title, or shortDescription is defined (!128)
+
 ## v1.3.0
 - Add missing OWASP Top10 2017 Categories to C rulesets (!123)
 - Fix java/scala OWASP Categories to include missing numerical identifier (!123)
