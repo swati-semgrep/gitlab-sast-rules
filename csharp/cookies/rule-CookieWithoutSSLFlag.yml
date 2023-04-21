@@ -13,11 +13,27 @@ rules:
   pattern-sanitizers:
   - pattern: "$COOKIE.Secure = true;"
   message: |
-    The Secure attribute for sensitive cookies in HTTPS sessions is not set, which could cause the
-    user agent to send those cookies in plaintext over an HTTP session.
+    The `Secure` directive when set to `true` protects the cookie value from being being transmitted over clear text
+    communication paths such as HTTP. By enabling this protection, the cookie will only be sent over HTTPS.
+
+    Example of protecting an HttpCookie:
+    ```
+    // Create an HttpOnly cookie.
+    HttpCookie someCookie = new HttpCookie("SomeCookieName", "SomeValue");
+    someCookie.Secure = true;
+    ```
+
+    For more information please see: https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.httponly
+    
+    Session cookies should be configured with the following security directives:
+
+    - [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
+    - [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
   languages:
   - "csharp"
   severity: "WARNING"
   metadata:
+    shortDescription: "Sensitive cookie in HTTPS session without ‘Secure’ attribute"
     category: "security"
-    cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without ‘Secure’ Attribute"
+    cwe: "CWE-614"

@@ -4,15 +4,28 @@
 ---
 rules:
 - id: "csharp/crypto/rule-WeakRNG"
+  languages:
+  - "csharp"
   patterns:
   - pattern: "(Random $RNG).$METHOD(...);"
   - focus-metavariable: "$RNG"
   message: |
-    The use of a predictable random value can lead to vulnerabilities when used in certain security
-    critical contexts.
-  languages:
-  - "csharp"
+    Depending on the context, generating weak random numbers may expose cryptographic functions
+    which rely on these numbers to be exploitable. When generating cryptographically strong random 
+    numbers, it is recommended that the `RandomNumberGenerator` class be used.
+
+    Example RandomNumberGenerator usage:
+    ```
+    Int32 randInt = RandomNumberGenerator.GetInt32(32000);
+    byte[] randomBytes = new byte[64];
+    RandomNumberGenerator.Fill(randomBytes);
+    Console.WriteLine("Random Int32: {0}", randInt);
+    Console.WriteLine("Random Bytes: {0}", BitConverter.ToString(randomBytes).Replace("-", ""));
+    ```
+
+    For more information please see: https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.randomnumbergenerator
   severity: "WARNING"
   metadata:
+    shortDescription: "Use of cryptographically weak Pseudo-Random Number Generator (PRNG)"
     category: "security"
-    cwe: "CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"
+    cwe: "CWE-338"
