@@ -46,12 +46,55 @@ rules:
       - pattern: "(Session $SESS).Execute($ARG, ...);"
       - pattern-not: "(Session $SESS).Execute(\"...\", ...);"
   message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
+    SQL Injection is a critical vulnerability that can lead to a data or system compromise. By
+    dynamically generating SQL queries, user input may be able to influence the logic of the SQL
+    statement. This could lead to a malicious user accessing information they should not have 
+    access to, or in some circumstances, being able to execute OS functionality or code.
+
+    Replace all dynamically generated SQL queries with parameterized queries. In situations where 
+    dynamic queries must be created, never use direct user input, but instead use a map or 
+    dictionary of valid values and resolve them using a user supplied key.
+
+    For example, some database drivers do not allow parameterized queries for `>` or `<` comparison
+    operators. In these cases, do not use a user supplied `>` or `<` value, but rather have the user
+    supply a `gt` or `lt` value. The alphabetical values are then used to look up the `>` and `<` 
+    values to be used in the construction of the dynamic query. The same goes for other queries where 
+    column or table names are required but can not be parameterized.
+
+    It is recommended that newer applications switch to using the `Microsoft.Data.SqlClient` assembly
+    instead of the `System.Data.SqlClient`.
+
+    Example using parameterized queries with `SqlCommand`:
+    ```
+    string commandText = "UPDATE Sales.Store SET Demographics = @demographics "
+        + "WHERE CustomerID = @ID;";
+
+    using (SqlConnection connection = new SqlConnection(connectionString))
+    {
+        SqlCommand command = new SqlCommand(commandText, connection);
+        command.Parameters.Add("@ID", SqlDbType.Int);
+        command.Parameters["@ID"].Value = customerID;
+
+        // Use AddWithValue to assign Demographics.
+        // SQL Server will implicitly convert strings into XML.
+        command.Parameters.AddWithValue("@demographics", demoXml);
+
+        try
+        {
+            connection.Open();
+            Int32 rowsAffected = command.ExecuteNonQuery();
+            Console.WriteLine("RowsAffected: {0}", rowsAffected);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+    ```
   languages:
   - "csharp"
   severity: "ERROR"
   metadata:
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL Command 'SQL Injection'"
     category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      (‘SQL Injection’)"
+    cwe: "CWE-89"

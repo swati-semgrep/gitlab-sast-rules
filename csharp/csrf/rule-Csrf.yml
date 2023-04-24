@@ -46,7 +46,7 @@ rules:
     [Top level navigations](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis-08#section-8.8.2) section
     of the SameSite RFC.
     
-    For more information on CSRF please see OWASPs guide: https://owasp.org/www-community/attacks/csrf
+    For more information on CSRF please see OWASP's guide: https://owasp.org/www-community/attacks/csrf
   severity: "WARNING"
   metadata:
     shortDescription: "Potential Cross-Site Request Forgery (CSRF)"
