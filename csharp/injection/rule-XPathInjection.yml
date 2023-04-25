@@ -46,7 +46,7 @@ rules:
     extracting unauthorized information or in rare cases bypassing authorization checks.
 
     It is recommended that LINQ to XML is used instead of XPath for querying XML documents. Care
-    must be taken to _not_ call the LINQ functions with user input as they can still lead to XPath 
+    must be taken to **not** call the LINQ functions with user input as they can still lead to XPath 
     injection:
 
     - `XPathEvaluate`
