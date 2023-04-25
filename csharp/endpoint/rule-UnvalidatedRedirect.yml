@@ -39,7 +39,8 @@ rules:
       - pattern: "RedirectToRoutePermanent(...)"
       - pattern: "new RedirectResult(...)"
   message: |
-    The application was found to allow open redirects from user supplied input. Open redirects are
+    The application may allow open redirects if created using user supplied input. Open redirects
+    are
     commonly
     abused in phishing attacks where the original domain or URL looks like a legitimate link, but
     then

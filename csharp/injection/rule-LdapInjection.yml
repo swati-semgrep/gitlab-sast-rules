@@ -16,7 +16,7 @@ rules:
       - pattern-not: "(DirectorySearcher $SOURCE).Path = \"...\""
   message: |
     LDAP injection attacks exploit LDAP queries to influence how data is returned by
-    the LDAP, or in this case Active Directory server.
+    the LDAP, or in this case an Active Directory server.
 
     It is recommended that newer applications use the `System.DirectoryServices.AccountManagement`
     API instead of `DirectorySearcher` API as it hides the complexity of querying LDAP directly.

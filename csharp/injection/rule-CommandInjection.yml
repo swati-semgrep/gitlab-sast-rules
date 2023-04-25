@@ -25,8 +25,9 @@ rules:
         - pattern: "$PSINFO.Arguments = <...$ARG...>;"
         - pattern: "$PSINFO.FileName = <...$ARG...>;"
   message: |
-    OS Command Injection is a critical vulnerability that can lead to a full system
-    compromise.
+    OS command injection is a critical vulnerability that can lead to a full system
+    compromise as it may allow users to pass in arbitrary commands or arguments
+    to be executed.
 
     User input should never be used in constructing commands or command arguments
     to functions which execute OS commands. This includes filenames supplied by
@@ -52,9 +53,9 @@ rules:
 
     Example of safely executing an OS command:
     ```
-    public static void ExecuteCommand(string userFileData) {
+    public void ExecuteCommand(string userFileData) {
         // generate a random filename, do not using user input
-        string fileName = "/tmp/some_randomly_generated_file.txt";
+        string fileName = "C:\\Temp\\" + Guid.NewGuid();
         File.WriteAllText(fileName, userFileData);
         using (Process myProcess = new Process())
         {
@@ -82,7 +83,7 @@ rules:
     }
     ```
 
-    For more information on OS Command Injection, see OWASP's guide:
+    For more information on OS command injection, see OWASP's guide:
     https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html
   severity: "ERROR"
   metadata:
