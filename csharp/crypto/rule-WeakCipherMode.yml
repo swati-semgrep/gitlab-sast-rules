@@ -17,10 +17,11 @@ rules:
   message: |
     Cryptographic algorithms provide many different modes of operation, only some of which provide
     message integrity. Without message integrity it could be possible for an adversary to attempt
-    to tamper with the ciphertext which could lead to compromising the encryption key. Newer algorithms
-    apply message integrity to validate ciphertext has not been tampered with.  
-    
-    If using dotnet framework >6.0 consider using `ChaCha20Poly1305` instead as it is easier 
+    to tamper with the ciphertext which could lead to compromising the encryption key. Newer
+    algorithms
+    apply message integrity to validate ciphertext has not been tampered with.
+
+    If using dotnet framework >6.0 consider using `ChaCha20Poly1305` instead as it is easier
     and faster than the alternatives such as AES-256-GCM.
 
     For older applications, AES-256-GCM is recommended, however it has many drawbacks:

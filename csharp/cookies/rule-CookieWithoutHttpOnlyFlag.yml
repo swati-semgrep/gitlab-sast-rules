@@ -15,9 +15,12 @@ rules:
   pattern-sanitizers:
   - pattern: "$COOKIE.HttpOnly = true;"
   message: |
-    The HttpOnly directive when set to `true` protects the cookie value from being accessed by client side JavaScript such
-    as reading the `document.cookie` values. By enabling this protection, a website that is vulnerable to 
-    Cross-Site Scripting (XSS) will be able to block malicious script from being able to access the cookie value from 
+    The HttpOnly directive when set to `true` protects the cookie value from being accessed by
+    client side JavaScript such
+    as reading the `document.cookie` values. By enabling this protection, a website that is
+    vulnerable to
+    Cross-Site Scripting (XSS) will be able to block malicious script from being able to access
+    the cookie value from
     JavaScript.
 
     Example of protecting an HttpCookie:
@@ -27,12 +30,15 @@ rules:
     someCookie.HttpOnly = true;
     ```
 
-    For more information please see: https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.httponly
-    
+    For more information please see:
+    https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.httponly
+
     Session cookies should be configured with the following security directives:
 
-    - [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
-    - [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    -
+    [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    -
+    [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
     - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
   severity: "WARNING"
   metadata:

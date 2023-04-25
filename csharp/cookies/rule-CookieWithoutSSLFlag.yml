@@ -15,8 +15,10 @@ rules:
   pattern-sanitizers:
   - pattern: "$COOKIE.Secure = true;"
   message: |
-    The `Secure` directive when set to `true` protects the cookie value from being being transmitted over clear text
-    communication paths such as HTTP. By enabling this protection, the cookie will only be sent over HTTPS.
+    The `Secure` directive when set to `true` protects the cookie value from being being
+    transmitted over clear text
+    communication paths such as HTTP. By enabling this protection, the cookie will only be sent
+    over HTTPS.
 
     Example of protecting an HttpCookie:
     ```
@@ -25,13 +27,16 @@ rules:
     someCookie.Secure = true;
     ```
 
-    For more information please see: https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.httponly
-    
+    For more information please see:
+    https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.httponly
+
     Session cookies should be configured with the following security directives:
 
-    - [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    -
+    [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
     - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
-    - [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    -
+    [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
   severity: "WARNING"
   metadata:
     shortDescription: "Sensitive cookie in HTTPS session without 'Secure' attribute"

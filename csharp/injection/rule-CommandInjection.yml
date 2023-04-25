@@ -46,9 +46,9 @@ rules:
     the same functionality be used instead of using OS system commands, due to the
     risk of unknown attacks against third party commands.
 
-    When specifying the OS command, ensure the application uses the the full path 
+    When specifying the OS command, ensure the application uses the the full path
     information, otherwise the OS may attempt to look up which process to execute
-    and could be vulnerable to untrusted search path vulnerabilities (CWE-426). 
+    and could be vulnerable to untrusted search path vulnerabilities (CWE-426).
 
     Example of safely executing an OS command:
     ```
@@ -71,7 +71,7 @@ rules:
 
             StreamReader errReader = myProcess.StandardError;
             string error = errReader.ReadToEnd();
-            if (error != "") 
+            if (error != "")
             {
                 Console.WriteLine(error);
             }
@@ -82,9 +82,11 @@ rules:
     }
     ```
 
-    For more information on OS Command Injection, see OWASP's guide: https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html
+    For more information on OS Command Injection, see OWASP's guide:
+    https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html
   severity: "ERROR"
   metadata:
-    shortDescription: "Improper neutralization of special elements used in an OS command 'OS Command Injection'"
+    shortDescription: "Improper neutralization of special elements used in an OS command
+      'OS Command Injection'"
     category: "security"
     cwe: "CWE-78"

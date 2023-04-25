@@ -21,8 +21,8 @@ rules:
       metavariable: "$HTTPMETHOD"
       regex: "Http(Post|Delete|Patch|Put)"
   message: |
-    The application failed to protect against Cross-Site Request Forgery (CSRF) 
-    due to not including the `[ValidateAntiForgeryToken]` annotation above an 
+    The application failed to protect against Cross-Site Request Forgery (CSRF)
+    due to not including the `[ValidateAntiForgeryToken]` annotation above an
     HTTP method that could change user state (usually in the form of POST or PUT
     methods).
 
@@ -33,20 +33,24 @@ rules:
     user state (such as updating a database with a new value). This is especially true for
     functionality such as updating passwords or other security sensitive functions.
 
-    Alternatively, applications can enable a global [AutoValidateAntiforgeryTokenAttribute](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.autovalidateantiforgerytokenattribute)
+    Alternatively, applications can enable a global
+    [AutoValidateAntiforgeryTokenAttribute](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.autovalidateantiforgerytokenattribute)
     filter.
 
-    For more information on ValidateAntiForgeryToken and other CSRF protections in .NET 
-    please see the following URL: 
+    For more information on ValidateAntiForgeryToken and other CSRF protections in .NET
+    please see the following URL:
     https://learn.microsoft.com/en-us/aspnet/core/security/anti-request-forgery
 
-    Additionally, consider setting all session cookies to have the `SameSite=Strict` attribute. 
+    Additionally, consider setting all session cookies to have the `SameSite=Strict` attribute.
     It should be noted that this may impact usability when sharing links across other mediums.
     It is recommended that a two cookie based approach is taken, as outlined in the
-    [Top level navigations](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis-08#section-8.8.2) section
+    [Top level
+    navigations](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis-08#section-8.8.2)
+    section
     of the SameSite RFC.
-    
-    For more information on CSRF please see OWASP's guide: https://owasp.org/www-community/attacks/csrf
+
+    For more information on CSRF please see OWASP's guide:
+    https://owasp.org/www-community/attacks/csrf
   severity: "WARNING"
   metadata:
     shortDescription: "Potential Cross-Site Request Forgery (CSRF)"
