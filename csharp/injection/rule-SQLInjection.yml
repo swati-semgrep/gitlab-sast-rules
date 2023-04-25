@@ -4,6 +4,8 @@
 ---
 rules:
 - id: "csharp/injection/rule-SQLInjection"
+  languages:
+  - "csharp"
   patterns:
   - pattern-either:
     - patterns:
@@ -46,10 +48,10 @@ rules:
       - pattern: "(Session $SESS).Execute($ARG, ...);"
       - pattern-not: "(Session $SESS).Execute(\"...\", ...);"
   message: |
-    SQL Injection is a critical vulnerability that can lead to a data or system compromise. By
-    dynamically generating SQL queries, user input may be able to influence the logic of the SQL
-    statement. This could lead to a malicious user accessing information they should not have 
-    access to, or in some circumstances, being able to execute OS functionality or code.
+    SQL Injection is a critical vulnerability that can lead to data or system compromise. By
+    dynamically generating SQL query strings, user input may be able to influence the logic of 
+    the SQL statement. This could lead to a malicious user accessing information they should 
+    not have access to, or in some circumstances, being able to execute OS functionality or code.
 
     Replace all dynamically generated SQL queries with parameterized queries. In situations where 
     dynamic queries must be created, never use direct user input, but instead use a map or 
@@ -62,37 +64,37 @@ rules:
     column or table names are required but can not be parameterized.
 
     It is recommended that newer applications switch to using the `Microsoft.Data.SqlClient` assembly
-    instead of the `System.Data.SqlClient`.
+    instead of `System.Data.SqlClient`.
 
     Example using parameterized queries with `SqlCommand`:
     ```
-    string commandText = "UPDATE Sales.Store SET Demographics = @demographics "
-        + "WHERE CustomerID = @ID;";
-
-    using (SqlConnection connection = new SqlConnection(connectionString))
+    try 
     {
-        SqlCommand command = new SqlCommand(commandText, connection);
-        command.Parameters.Add("@ID", SqlDbType.Int);
-        command.Parameters["@ID"].Value = customerID;
-
-        // Use AddWithValue to assign Demographics.
-        // SQL Server will implicitly convert strings into XML.
-        command.Parameters.AddWithValue("@demographics", demoXml);
-
-        try
+        string userInput = "someUserInput";
+        using (SqlConnection connection = new SqlConnection("Server=example.dev\\SQLServer;Database=prod;Trusted_Connection=True;"))
         {
-            connection.Open();
-            Int32 rowsAffected = command.ExecuteNonQuery();
-            Console.WriteLine("RowsAffected: {0}", rowsAffected);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
+            connection.Open();       
+            String sql = "SELECT name, value FROM table where name=@Name";
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@Name", System.Data.SqlDbType.NVarChar);
+                command.Parameters["@Name"].Value = userInput;
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
+                    }
+                }
+            }                    
         }
     }
+    catch (SqlException e)
+    {
+        Console.WriteLine(e.ToString());
+    }
     ```
-  languages:
-  - "csharp"
   severity: "ERROR"
   metadata:
     shortDescription: "Improper Neutralization of Special Elements used in an SQL Command 'SQL Injection'"

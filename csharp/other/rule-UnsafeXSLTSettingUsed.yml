@@ -14,6 +14,9 @@ rules:
   message: |
     The method identified is susceptible to injection. The input should be validated and properly
     escaped.
+
+    
+    https://learn.microsoft.com/en-us/dotnet/standard/data/xml/xslt-security-considerations
   languages:
   - "csharp"
   severity: "WARNING"
