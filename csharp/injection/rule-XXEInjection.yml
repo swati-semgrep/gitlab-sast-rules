@@ -35,11 +35,10 @@ rules:
     ```
     XmlDocument document = new XmlDocument();
     document.XmlResolver = null;
-    document.Load("books.xml");  
-    Console.WriteLine(document.InnerText);    
+    document.Load("users.xml");
     ```
 
-    For more information on XML security see OWASP's guide: https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#net
+    For more information on XML security, see OWASP's guide: https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#net
   severity: "WARNING"
   metadata:
     shortDescription: "Improper restriction of XML external entity reference 'XXE'"
