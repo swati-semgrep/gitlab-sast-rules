@@ -55,11 +55,73 @@ rules:
   languages:
   - "csharp"
   message: |
-    A potential XSS was found. The endpoint returns a variable from the client
-    input that has not been encoded. To protect against stored XSS attacks, make
-    sure any dynamic content coming from user or data store cannot be used to
-    inject JavaScript on a page. Most modern frameworks will escape dynamic content
-    by default automatically (Razor for example)
+    Cross Site Scripting (XSS) is an attack which exploits a web application or system to treat user input
+    as markup or script code. It is important to encode the data depending on the specific context it
+    is used in. There are at least six context types:
+
+    - Inside HTML tags `<div>context 1</div>`
+    - Inside attributes: ```<div class="context 2"></div>```
+    - Inside event attributes ```<button onclick="context 3">button</button>```
+    - Inside script blocks: ```<script>var x = "context 4"</script>```
+    - Unsafe element HTML assignment: ```element.innerHTML = "context 5"```
+    - Inside URLs: ```<iframe src="context 6"></iframe><a href="context 6">link</a>```
+
+    Script blocks alone have multiple ways they need to be encoded. Extra care must be taken if user input
+    is ever output inside of script tags.
+
+    User input that is displayed with in the application must be encoded, sanitized or validated
+    to ensure it can not be treated as HTML or executed as Javascript code. Care must also be taken 
+    to not mix server side templating with client side templating, as the server side templating will 
+    not encode things like {{ 7*7 }} which may execute client side templating features.
+
+    It is _NOT_ advised to encode user input prior to inserting into a data store. The data will need to be 
+    encoded depending on context of where it is output. It is much safer to force the displaying system to 
+    handle the encoding and not attempt to guess how it should be encoded.
+
+    Consider using built in framework capabilities for automatically encoding user input. If this can not be
+    done, care must be taken to use the proper output encoding depending on context. Note the below encoding
+    advice is a best effort and may not work under all circumstances depending on the applications
+    requirements. 
+
+    - Encode the following inside HTML tags, *excluding* `script`: 
+      - `<` to `&lt;`
+      - `>` to `&gt;`
+      - `'` to `&apos;` 
+      - `"` to `&quot;`
+      - `=` to `&#61;`
+    - Encode the following inside attributes, *excluding* event attributes:
+      - `<` to `&lt;`
+      - `>` to `&gt;`
+      - `'` to `&apos;` 
+      - `"` to `&quot;`
+      - `=` to `&#61;`
+    - Encode the following inside event attributes, script blocks, and unsafe HTML assignment:
+      - (literal tab `\t`) to `\\t` 
+      - (literal new line `\n`) to `\\n`
+      - (literal vertical tab `\v`) to `\u000b`
+      - (literal form feed `\f`) to `\\f`
+      - (literal carriage return `\r`) to `\\r`
+      - (literal equal sign `=`) to \\u0061
+      - (literal back tick `) to `\u0060`
+      - (literal double quote `"`) to `\u0022`
+      - (literal ampersand `&`) to `\u0026`
+      - (literal single quote `'`) to `\u0027`
+      - (literal plus symbol `+`) to `\u002b`
+      - (literal forward slash `/`) to `\/`
+      - (literal less than symbol `<`) to `\u003c`
+      - (literal greater than symbol `>`) to `\u003e`
+      - (literal open paranthesis `(`) to `\u0028`
+      - (literal close paranthesis `)`) to `\u0029`
+      - (literal open bracket `[`) to `\u005b`
+      - (literal close bracket `]`) to `\u005d`
+      - (literal open brace `{`) to `\u007b`
+      - (literal close brace `}`) to `\u007d`
+      - (literal back slash `\`) to `\\`
+      - Note this list is not exhaustive and additional characters may need to be encoded depending on 
+        context.
+    
+    For more information on protecting ASP.NET Core applications from XSS please see:
+    https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting
   metadata:
     category: "security"
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation (‘Cross-site
