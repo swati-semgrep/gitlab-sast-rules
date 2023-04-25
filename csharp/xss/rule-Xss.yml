@@ -72,7 +72,7 @@ rules:
     user input
     is ever output inside of script tags.
 
-    User input that is displayed with in the application must be encoded, sanitized or validated
+    User input that is displayed within the application must be encoded, sanitized or validated
     to ensure it can not be treated as HTML or executed as Javascript code. Care must also be
     taken
     to not mix server side templating with client side templating, as the server side templating
@@ -130,7 +130,7 @@ rules:
     depending on
         context.
 
-    For more information on protecting ASP.NET Core applications from XSS please see:
+    For more information on protecting ASP.NET Core applications from XSS see:
     https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting
   metadata:
     category: "security"

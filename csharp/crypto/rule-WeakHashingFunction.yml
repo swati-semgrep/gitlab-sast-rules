@@ -48,7 +48,7 @@ rules:
         Console.WriteLine("hashes are equal");
     }
     ```
-    For more information on PBKDF2 please see:
+    For more information on PBKDF2 see:
     https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rfc2898derivebytes
 
     For more information on secure password storage see OWASP:

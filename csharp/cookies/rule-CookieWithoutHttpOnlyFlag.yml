@@ -15,7 +15,7 @@ rules:
   pattern-sanitizers:
   - pattern: "$COOKIE.HttpOnly = true;"
   message: |
-    The HttpOnly directive when set to `true` protects the cookie value from being accessed by
+    The `HttpOnly` attribute when set to `true` protects the cookie value from being accessed by
     client side JavaScript such
     as reading the `document.cookie` values. By enabling this protection, a website that is
     vulnerable to
@@ -30,7 +30,7 @@ rules:
     someCookie.HttpOnly = true;
     ```
 
-    For more information please see:
+    For more information see:
     https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.httponly
 
     Session cookies should be configured with the following security directives:

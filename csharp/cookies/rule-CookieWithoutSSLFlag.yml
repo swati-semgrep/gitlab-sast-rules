@@ -15,7 +15,7 @@ rules:
   pattern-sanitizers:
   - pattern: "$COOKIE.Secure = true;"
   message: |
-    The `Secure` directive when set to `true` protects the cookie value from being being
+    The `Secure` attribute when set to `true` protects the cookie value from being being
     transmitted over clear text
     communication paths such as HTTP. By enabling this protection, the cookie will only be sent
     over HTTPS.
@@ -27,8 +27,8 @@ rules:
     someCookie.Secure = true;
     ```
 
-    For more information please see:
-    https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.httponly
+    For more information see:
+    https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.secure
 
     Session cookies should be configured with the following security directives:
 

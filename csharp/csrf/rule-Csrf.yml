@@ -26,7 +26,7 @@ rules:
     HTTP method that could change user state (usually in the form of POST or PUT
     methods).
 
-    The vulnerability can be exploited by an attacker creating a link or form on a third
+    The vulnerability can be exploited by an adversary creating a link or form on a third
     party site and tricking an authenticated victim to access them.
 
     Add the `[ValidateAntiForgeryToken]` to all methods which take in user data and change
@@ -38,7 +38,7 @@ rules:
     filter.
 
     For more information on ValidateAntiForgeryToken and other CSRF protections in .NET
-    please see the following URL:
+    see the following URL:
     https://learn.microsoft.com/en-us/aspnet/core/security/anti-request-forgery
 
     Additionally, consider setting all session cookies to have the `SameSite=Strict` attribute.
@@ -49,7 +49,7 @@ rules:
     section
     of the SameSite RFC.
 
-    For more information on CSRF please see OWASP's guide:
+    For more information on CSRF see OWASP's guide:
     https://owasp.org/www-community/attacks/csrf
   severity: "WARNING"
   metadata:

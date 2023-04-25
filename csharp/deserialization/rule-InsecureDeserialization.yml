@@ -42,7 +42,7 @@ rules:
   - "csharp"
   message: |
     Deserialization attacks exploit the process of reading serialized data and turning it back
-    into an object. By constructing malicious objects and serializing them, an attacker may
+    into an object. By constructing malicious objects and serializing them, an adversary may
     attempt to:
 
     - Inject code that is executed upon object construction, which occurs during the

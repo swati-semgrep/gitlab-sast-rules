@@ -26,7 +26,7 @@ rules:
         - pattern: "$PSINFO.FileName = <...$ARG...>;"
   message: |
     OS command injection is a critical vulnerability that can lead to a full system
-    compromise as it may allow users to pass in arbitrary commands or arguments
+    compromise as it may allow an adversary to pass in arbitrary commands or arguments
     to be executed.
 
     User input should never be used in constructing commands or command arguments

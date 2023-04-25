@@ -58,7 +58,7 @@ rules:
     would
     then be used to redirect the user, using the 301 response code and `Location` header.
 
-    For more information on open redirects please see OWASP's guide:
+    For more information on open redirects see OWASP's guide:
     https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html
   metadata:
     shortDescription: "URL redirection to untrusted site 'open redirect'"

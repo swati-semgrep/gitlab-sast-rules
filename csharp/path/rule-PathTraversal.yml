@@ -138,7 +138,7 @@ rules:
     }
     ```
 
-    For more information on path traversal issues please see OWASP:
+    For more information on path traversal issues see OWASP:
     https://owasp.org/www-community/attacks/Path_Traversal
   metadata:
     shortDescription: "Improper limitation of a pathname to a restricted directory

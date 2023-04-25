@@ -21,10 +21,10 @@ rules:
 
     If possible, re-enable validation by using `ValidateInput(true)`.
     In some cases this may not be possible, in which case ensure how the
-    request data is used is validated and this method does not directly
+    request data is used is validated and this method does not
     output user input directly into the view.
 
-    For more information on protecting ASP.NET Core applications from XSS please see:
+    For more information on protecting ASP.NET Core applications from XSS see:
     https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting
 
     Example of enabling `ValidateInput` annotation:
@@ -38,7 +38,7 @@ rules:
     }
     ```
 
-    For more information on ASP.NET request validation please see OWASP:
+    For more information on ASP.NET request validation see OWASP:
     https://owasp.org/www-community/ASP-NET_Request_Validation
   severity: "WARNING"
   metadata:
