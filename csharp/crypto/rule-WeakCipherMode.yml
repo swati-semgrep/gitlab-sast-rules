@@ -21,15 +21,15 @@ rules:
     algorithms
     apply message integrity to validate ciphertext has not been tampered with.
 
-    If using dotnet framework >6.0 consider using `ChaCha20Poly1305` instead as it is easier
-    and faster than the alternatives such as AES-256-GCM.
+    Instead of using an algorithm that requires configuring a `CipherMode`, an algorithm
+    that has built in message integrity should be used. If using dotnet framework greater 
+    than version 6.0 consider using `ChaCha20Poly1305` or `AES-256-GCM`.
 
-    For older applications, AES-256-GCM is recommended, however it has many drawbacks:
-    - Slower than ChaCha20Poly1305
-    - More difficult to use
+    For older applications, `AES-256-GCM` is recommended, however it has many drawbacks:
+    - Slower than `ChaCha20Poly1305`
     - Catastrophic failure if nonce values are re-used.
 
-    Example using ChaChaPoly20:
+    Example using `ChaCha20Poly1305`:
     ```
     // Generate a random key
     byte[] key = new byte[32];
@@ -51,7 +51,7 @@ rules:
     Console.WriteLine("Output: {0}", System.Text.Encoding.UTF8.GetString(output));
     ```
 
-    Example using AesGCM:
+    Example using `AES-256-GCM`:
     ```
     var plaintextBytes = Encoding.UTF8.GetBytes("Secret text to encrypt");
     var key = new byte[32];

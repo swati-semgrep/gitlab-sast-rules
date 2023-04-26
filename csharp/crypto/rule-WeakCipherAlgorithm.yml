@@ -17,15 +17,14 @@ rules:
     - pattern: "new RC2CryptoServiceProvider();"
   message: |
     DES, TripleDES and RC2 are all considered broken or insecure cryptographic algorithms.
-    If using dotnet framework >6.0 consider using `ChaCha20Poly1305` instead as it is easier
-    and faster than the alternatives such as AES-256-GCM.
+    If using dotnet framework greater than version 6.0 consider using `ChaCha20Poly1305` 
+    instead as it is easier and faster than the alternatives such as `AES-256-GCM`.
 
-    For older applications, AES-256-GCM is recommended, however it has many drawbacks:
-    - Slower than ChaCha20Poly1305
-    - More difficult to use
+    For older applications, `AES-256-GCM` is recommended, however it has many drawbacks:
+    - Slower than `ChaCha20Poly1305`
     - Catastrophic failure if nonce values are re-used.
 
-    Example using ChaChaPoly20:
+    Example using `ChaCha20Poly1305`:
     ```
     // Generate a random key
     byte[] key = new byte[32];
@@ -53,7 +52,7 @@ rules:
     }
     ```
 
-    Example using AesGCM:
+    Example using `AES-256-GCM`:
     ```
     // Generate a random key
     byte[] key = new byte[32];

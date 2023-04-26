@@ -11,10 +11,11 @@ rules:
   - focus-metavariable: "$RNG"
   message: |
     Depending on the context, generating weak random numbers may expose cryptographic functions
-    which rely on these numbers to be exploitable. When generating cryptographically strong random
-    numbers, it is recommended that the `RandomNumberGenerator` class be used.
+    which rely on these numbers to be exploitable. When generating numbers for sensitive values 
+    such as tokens, nonces, and cryptographic keys, it is recommended that the 
+    `RandomNumberGenerator` class be used. 
 
-    Example RandomNumberGenerator usage:
+    Example `RandomNumberGenerator` usage:
     ```
     Int32 randInt = RandomNumberGenerator.GetInt32(32000);
     byte[] randomBytes = new byte[64];
