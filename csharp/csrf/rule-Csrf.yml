@@ -22,8 +22,8 @@ rules:
       regex: "Http(Post|Delete|Patch|Put)"
   message: |
     The application failed to protect against Cross-Site Request Forgery (CSRF)
-    due to not including the `[ValidateAntiForgeryToken]` annotation above an
-    HTTP method that could change user state (usually in the form of POST or PUT
+    due to not including the `[ValidateAntiForgeryToken]` attribute on an
+    HTTP method handler that could change user state (usually in the form of POST or PUT
     methods).
 
     The vulnerability can be exploited by an adversary creating a link or form on a third

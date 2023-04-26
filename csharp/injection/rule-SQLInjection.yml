@@ -74,8 +74,9 @@ rules:
     try
     {
         string userInput = "someUserInput";
+        string connectionString = ...;
         using (SqlConnection connection = new
-    SqlConnection("Server=example.dev\\SQLServer;Database=prod;Trusted_Connection=True;"))
+    SqlConnection(connectionString))
         {
             connection.Open();
             String sql = "SELECT name, value FROM table where name=@Name";

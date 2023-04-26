@@ -14,7 +14,7 @@ rules:
         ...
       }
   message: |
-    By using the `[ValidateInput(false)]` annotation in a controller
+    By using the `[ValidateInput(false)]` attribute in a controller
     class, the application will disable request validation for that
     method. This disables asp.net from examining request for injection
     attacks such as Cross-Site-Scripting (XSS).
@@ -27,7 +27,7 @@ rules:
     For more information on protecting ASP.NET Core applications from XSS see:
     https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting
 
-    Example of enabling `ValidateInput` annotation:
+    Example of enabling `ValidateInput` attribute:
     ```
     class ControllerClass
     {
