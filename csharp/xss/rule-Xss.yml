@@ -119,8 +119,8 @@ rules:
       - (literal forward slash `/`) to `\/`
       - (literal less than symbol `<`) to `\u003c`
       - (literal greater than symbol `>`) to `\u003e`
-      - (literal open paranthesis `(`) to `\u0028`
-      - (literal close paranthesis `)`) to `\u0029`
+      - (literal open parenthesis `(`) to `\u0028`
+      - (literal close parenthesis `)`) to `\u0029`
       - (literal open bracket `[`) to `\u005b`
       - (literal close bracket `]`) to `\u005d`
       - (literal open brace `{`) to `\u007b`
