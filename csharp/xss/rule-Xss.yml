@@ -85,52 +85,9 @@ rules:
     system to
     handle the encoding and not attempt to guess how it should be encoded.
 
-    Consider using built in framework capabilities for automatically encoding user input. If this
-    can not be
-    done, care must be taken to use the proper output encoding depending on context. Note the
-    below encoding
-    advice is a best effort and may not work under all circumstances depending on the applications
-    requirements.
-
-    - Encode the following inside HTML tags, *excluding* `script`:
-      - `<` to `&lt;`
-      - `>` to `&gt;`
-      - `'` to `&apos;`
-      - `"` to `&quot;`
-      - `=` to `&#61;`
-    - Encode the following inside attributes, *excluding* event attributes:
-      - `<` to `&lt;`
-      - `>` to `&gt;`
-      - `'` to `&apos;`
-      - `"` to `&quot;`
-      - `=` to `&#61;`
-    - Encode the following inside event attributes, script blocks, and unsafe HTML assignment:
-      - (literal tab `\t`) to `\\t`
-      - (literal new line `\n`) to `\\n`
-      - (literal vertical tab `\v`) to `\u000b`
-      - (literal form feed `\f`) to `\\f`
-      - (literal carriage return `\r`) to `\\r`
-      - (literal equal sign `=`) to \\u0061
-      - (literal back tick `) to `\u0060`
-      - (literal double quote `"`) to `\u0022`
-      - (literal ampersand `&`) to `\u0026`
-      - (literal single quote `'`) to `\u0027`
-      - (literal plus symbol `+`) to `\u002b`
-      - (literal forward slash `/`) to `\/`
-      - (literal less than symbol `<`) to `\u003c`
-      - (literal greater than symbol `>`) to `\u003e`
-      - (literal open parenthesis `(`) to `\u0028`
-      - (literal close parenthesis `)`) to `\u0029`
-      - (literal open bracket `[`) to `\u005b`
-      - (literal close bracket `]`) to `\u005d`
-      - (literal open brace `{`) to `\u007b`
-      - (literal close brace `}`) to `\u007d`
-      - (literal back slash `\`) to `\\`
-      - Note this list is not exhaustive and additional characters may need to be encoded
-    depending on
-        context.
-
-    Depending on output context consider using the following `System.Text.Encodings.Web` encoders:
+    Consider using built in framework capabilities for automatically encoding user input.
+    Depending
+    on output context, consider using the following `System.Text.Encodings.Web` encoders:
 
     -
     [HtmlEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.htmlencoder)
@@ -142,7 +99,8 @@ rules:
     For more information on protecting ASP.NET Core applications from XSS see:
     https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting#accessing-encoders-in-code
   metadata:
+    shortDescription: "Improper neutralization of input during web page generation
+      'Cross-site Scripting'"
     category: "security"
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation (‘Cross-site
-      Scripting’)"
+    cwe: "CWE-79"
   severity: "WARNING"
