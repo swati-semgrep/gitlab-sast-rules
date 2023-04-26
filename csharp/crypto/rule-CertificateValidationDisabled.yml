@@ -18,7 +18,7 @@ rules:
         - pattern: "$RETURNTYPE $FUNC(...) { return true; }"
         - pattern: "(...) => true;"
   message: |
-    The `ServicePointManager.ServerCertificateValidationCallback` event has been used
+    The `ServicePointManager.ServerCertificateValidationCallback` event has been set
     to always return `true`, which effectively disables the validation of server
     certificates.
 
