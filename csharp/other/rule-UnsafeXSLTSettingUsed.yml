@@ -12,7 +12,8 @@ rules:
         ...
         $SETTINGS.EnableScript = true;
   message: |
-    By setting `XsltSettings.EnableScript` to true, an adversary who is able to influence the loaded
+    By setting `XsltSettings.EnableScript` to true, an adversary who is able to influence the
+    loaded
     XSL document, could directly inject code to compromise the system. It is strongly
     recommended that an alternative approach is used to work with XML data.
 

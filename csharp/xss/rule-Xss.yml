@@ -130,8 +130,17 @@ rules:
     depending on
         context.
 
+    Depending on output context consider using the following `System.Text.Encodings.Web` encoders:
+
+    -
+    [HtmlEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.htmlencoder)
+    -
+    [JavaScriptEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.javascriptencoder)
+    -
+    [UrlEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.urlencoder)
+
     For more information on protecting ASP.NET Core applications from XSS see:
-    https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting
+    https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting#accessing-encoders-in-code
   metadata:
     category: "security"
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation (‘Cross-site

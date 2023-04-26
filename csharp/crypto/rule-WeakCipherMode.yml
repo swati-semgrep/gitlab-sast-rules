@@ -22,7 +22,7 @@ rules:
     apply message integrity to validate ciphertext has not been tampered with.
 
     Instead of using an algorithm that requires configuring a `CipherMode`, an algorithm
-    that has built in message integrity should be used. If using dotnet framework greater 
+    that has built in message integrity should be used. If using dotnet framework greater
     than version 6.0 consider using `ChaCha20Poly1305` or `AES-256-GCM`.
 
     For older applications, `AES-256-GCM` is recommended, however it has many drawbacks:

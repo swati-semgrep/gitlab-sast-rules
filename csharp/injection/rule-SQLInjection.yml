@@ -65,39 +65,27 @@ rules:
     where
     column or table names are required but can not be parameterized.
 
-    It is recommended that newer applications switch to using the `Microsoft.Data.SqlClient`
-    assembly
-    instead of `System.Data.SqlClient`.
-
     Example using parameterized queries with `SqlCommand`:
     ```
-    try
+    string userInput = "someUserInput";
+    string connectionString = ...;
+    using (SqlConnection connection = new SqlConnection(connectionString))
     {
-        string userInput = "someUserInput";
-        string connectionString = ...;
-        using (SqlConnection connection = new
-    SqlConnection(connectionString))
-        {
-            connection.Open();
-            String sql = "SELECT name, value FROM table where name=@Name";
+        connection.Open();
+        String sql = "SELECT name, value FROM table where name=@Name";
 
-            using (SqlCommand command = new SqlCommand(sql, connection))
+        using (SqlCommand command = new SqlCommand(sql, connection))
+        {
+            command.Parameters.Add("@Name", System.Data.SqlDbType.NVarChar);
+            command.Parameters["@Name"].Value = userInput;
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                command.Parameters.Add("@Name", System.Data.SqlDbType.NVarChar);
-                command.Parameters["@Name"].Value = userInput;
-                using (SqlDataReader reader = command.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
-                    }
+                    Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
                 }
             }
         }
-    }
-    catch (SqlException e)
-    {
-        Console.WriteLine(e.ToString());
     }
     ```
   severity: "ERROR"

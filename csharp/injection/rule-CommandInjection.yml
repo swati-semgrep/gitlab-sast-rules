@@ -57,28 +57,16 @@ rules:
         // generate a random filename, do not using user input
         string fileName = "C:\\Temp\\" + Guid.NewGuid();
         File.WriteAllText(fileName, userFileData);
-        using (Process myProcess = new Process())
+
+        using (Process process = new Process())
         {
             // hardcode the full process path
-            ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("C:\\App\\FileReader.exe");
+            ProcessStartInfo processInfo = new ProcessStartInfo("C:\\App\\FileReader.exe");
             // only pass in trust arguments, and never direct user input.
-            myProcessStartInfo.Arguments = fileName;
-            myProcessStartInfo.UseShellExecute = false;
-            // only use if you wish to capture stderr/stdout
-            myProcessStartInfo.RedirectStandardError = true;
-            myProcessStartInfo.RedirectStandardOutput = true;
-            myProcess.StartInfo = myProcessStartInfo;
-            myProcess.Start();
-
-            StreamReader errReader = myProcess.StandardError;
-            string error = errReader.ReadToEnd();
-            if (error != "")
-            {
-                Console.WriteLine(error);
-            }
-            StreamReader outReader = myProcess.StandardOutput;
-            string result = outReader.ReadToEnd();
-            Console.WriteLine(result);
+            processInfo.Arguments = fileName;
+            processInfo.UseShellExecute = false;
+            process.StartInfo = processInfo;
+            process.Start();
         }
     }
     ```
