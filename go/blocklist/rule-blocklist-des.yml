@@ -20,7 +20,7 @@ rules:
     - Smaller nonce value size compared to `XChaCha20Poly1305`
     - Catastrophic failure if nonce values are re-used.
 
-    Example using `XChaCha20Poly1305`:
+    Example using [XChaCha20Poly1305](https://pkg.go.dev/golang.org/x/crypto/chacha20poly1305#NewX):
     ```
     key := make([]byte, chacha20poly1305.KeySize)
     if _, err := io.ReadFull(rand.Reader, key); err != nil {
@@ -61,7 +61,7 @@ rules:
     }
     ```
 
-    Example using `AES-256-GCM`:
+    Example using [AES-256-GCM](https://pkg.go.dev/crypto/cipher#NewGCM):
     ```
     // 32 byte keys will configure AES-256
     key := make([]byte, 32)

@@ -29,7 +29,7 @@ rules:
     fmt.Printf("%s\n", hex.EncodeToString(hashedValue))
     ```
 
-    Hashing and securely comparing passwords using Argon2id:
+    Hashing and securely comparing passwords using [Argon2id](https://pkg.go.dev/golang.org/x/crypto/argon2#hdr-Argon2id):
     ```
     type argonParameters struct {
       variant     string

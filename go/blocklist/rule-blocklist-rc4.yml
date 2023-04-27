@@ -5,6 +5,8 @@
 ---
 rules:
 - id: "go/blocklist/rule-blocklist-rc4"
+  languages:
+  - "go"
   patterns:
   - pattern: |
       import "crypto/rc4"
@@ -18,7 +20,7 @@ rules:
     - Smaller nonce value size compared to `XChaCha20Poly1305`
     - Catastrophic failure if nonce values are re-used.
 
-    Example using `XChaCha20Poly1305`:
+    Example using [XChaCha20Poly1305](https://pkg.go.dev/golang.org/x/crypto/chacha20poly1305#NewX):
     ```
     key := make([]byte, chacha20poly1305.KeySize)
     if _, err := io.ReadFull(rand.Reader, key); err != nil {
@@ -59,7 +61,7 @@ rules:
     }
     ```
 
-    Example using `AES-256-GCM`:
+    Example using [AES-256-GCM](https://pkg.go.dev/crypto/cipher#NewGCM):
     ```
     // 32 byte keys will configure AES-256
     key := make([]byte, 32)
@@ -101,8 +103,7 @@ rules:
     }
     ```
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    shortDescription: "Use of a broken or risky cryptographic algorithm"
+    cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
   severity: "WARNING"
-  languages:
-  - "go"
