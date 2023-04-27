@@ -16,7 +16,7 @@ rules:
     It is recommended that generated RSA keys are at least 2048 bits in length.
   metadata:
     cwe: "CWE-326: Inadequate Encryption Strength"
-    owasp: "A3: Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "WARNING"
   languages:
   - "go"

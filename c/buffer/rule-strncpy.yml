@@ -21,6 +21,6 @@ rules:
     shortDescription: "Function does not handle null terminated strings or invalid
       pointers properly"
     cwe: "CWE-120"
-    owasp: "A06:2017 - Security Misconfiguration"
+    owasp: "A6:2017-Security Misconfiguration"
   pattern: "strncpy(...)"
   severity: "INFO"

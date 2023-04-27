@@ -22,7 +22,7 @@ rules:
     insecure servers. Re-enable certification validation.
   metadata:
     cwe: "CWE-295: Improper Certificate Validation"
-    owasp: "A3: Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "ERROR"
   languages:
   - "python"

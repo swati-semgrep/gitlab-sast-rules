@@ -19,7 +19,7 @@ rules:
   metadata:
     shortDescription: "Function does not check for buffer overflows when copying"
     cwe: "CWE-120"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern-either:
   - pattern: "memcpy(...)"
   - pattern: "CopyMemory(...)"

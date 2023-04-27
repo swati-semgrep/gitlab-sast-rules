@@ -20,7 +20,7 @@ rules:
   metadata:
     shortDescription: "Insecure stream cipher (RC4)"
     cwe: "CWE-327"
-    owasp: "A03:2017 - Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   pattern-either:
   - pattern: "EVP_rc4_40(...)"
   - pattern: "EVP_rc2_40_cbc(...)"

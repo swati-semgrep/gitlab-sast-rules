@@ -26,7 +26,7 @@ rules:
   metadata:
     shortDescription: "scanf() functions may allow format string based overflows"
     cwe: "CWE-120"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern-either:
   - patterns:
     - pattern: "scanf($FMT, ...)"

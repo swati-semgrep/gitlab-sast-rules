@@ -17,6 +17,6 @@ rules:
   metadata:
     shortDescription: "Ensure restrictive umask values"
     cwe: "CWE-732"
-    owasp: "A06:2017 - Security Misconfiguration"
+    owasp: "A6:2017-Security Misconfiguration"
   pattern: "umask(...)"
   severity: "INFO"

@@ -20,7 +20,7 @@ rules:
   metadata:
     shortDescription: "Insecure hashing algorithm"
     cwe: "CWE-327"
-    owasp: "A03:2017 - Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   pattern-either:
   - pattern: "crypt(...)"
   - pattern: "crypt_r(...)"

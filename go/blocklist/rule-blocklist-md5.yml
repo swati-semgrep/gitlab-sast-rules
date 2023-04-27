@@ -94,8 +94,10 @@ rules:
       }
     }
     ```
+
+    For more information on password storage see OWASP's guide: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
   metadata:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
-    owasp: "A9: Using Components with Known Vulnerabilities"
+    owasp: "A9:2017-Using Components with Known Vulnerabilities"
   severity: "WARNING"

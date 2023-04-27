@@ -24,7 +24,7 @@ rules:
   metadata:
     shortDescription: "Potential time of check time of use vulnerability (open/fopen)"
     cwe: "CWE-362"
-    owasp: "A05:2017 - Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   pattern-either:
   - pattern: "fopen(...)"
   - pattern: "open(...)"

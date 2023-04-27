@@ -72,6 +72,16 @@ assemble:
   rules:
     - when: always
 
+owasp-name-check:
+  stage: verify
+  script:
+    - ./ci/update_owasp_names.rb
+    - git diff --exit-code
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never 
+    - when: always
+
 semgrep-check:
   image: python:3
   stage: verify 

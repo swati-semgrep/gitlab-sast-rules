@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.2
+- Update `metadata.owasp` to adhere to the pattern `A{number}:{year}-{Title}` (!136)
+
 ## v1.3.1
 - Enhance C ruleset descriptions and titles (!128)
 - Add shortDescription titles to C rulesets (!128)

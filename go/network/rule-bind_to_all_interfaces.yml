@@ -20,7 +20,7 @@ rules:
     indicate a hardcoded binding to all network interfaces.
   metadata:
     cwe: "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
-    owasp: "A6: Security Misconfiguration"
+    owasp: "A6:2017-Security Misconfiguration"
   severity: "WARNING"
   languages:
   - "go"

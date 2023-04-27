@@ -22,7 +22,7 @@ rules:
     Use of weak random number generator (math/rand instead of crypto/rand)
   metadata:
     cwe: "CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"
-    owasp: "A3: Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "WARNING"
   languages:
   - "go"

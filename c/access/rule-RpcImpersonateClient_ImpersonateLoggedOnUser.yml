@@ -21,7 +21,7 @@ rules:
   metadata:
     shortDescription: "Ensure return values are checked when attempting to drop privileges"
     cwe: "CWE-250"
-    owasp: "A05:2017 - Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   pattern-either:
   - pattern: "RpcImpersonateClient(...)"
   - pattern: "ImpersonateLoggedOnUser(...)"
