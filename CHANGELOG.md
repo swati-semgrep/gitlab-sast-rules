@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.4
+- Add `generic_error_disclosure` rule for node.js (!124)
+
 ## v1.3.3
 - Enhance C# ruleset descriptions and titles (!134)
 
