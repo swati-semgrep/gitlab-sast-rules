@@ -21,7 +21,7 @@ rules:
     It is recommended that newer applications use the `System.DirectoryServices.AccountManagement`
     API instead of `DirectorySearcher` API as it hides the complexity of querying LDAP directly.
     However,
-    The AccountManagement API is still susceptible to LDAP injection if a user inputs LDAP queries
+    the AccountManagement API is still susceptible to LDAP injection if a user inputs LDAP queries,
     including LDAP filter characters such as `*`.
 
     It is recommended that all input passed to LDAP querying systems encode the following values:

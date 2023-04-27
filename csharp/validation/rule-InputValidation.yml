@@ -16,12 +16,12 @@ rules:
   message: |
     By using the `[ValidateInput(false)]` attribute in a controller
     class, the application will disable request validation for that
-    method. This disables asp.net from examining request for injection
+    method. This disables ASP.NET from examining requests for injection
     attacks such as Cross-Site-Scripting (XSS).
 
     If possible, re-enable validation by using `ValidateInput(true)`.
     In some cases this may not be possible, in which case ensure how the
-    request data is used is validated and this method does not
+    request data used is validated and this method does not
     output user input directly into the view.
 
     For more information on protecting ASP.NET Core applications from XSS see:

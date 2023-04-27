@@ -63,7 +63,7 @@ rules:
     supply a `gt` or `lt` value. The alphabetical values are then used to look up the `>` and `<`
     values to be used in the construction of the dynamic query. The same goes for other queries
     where
-    column or table names are required but can not be parameterized.
+    column or table names are required but cannot be parameterized.
 
     Example using parameterized queries with `SqlCommand`:
     ```

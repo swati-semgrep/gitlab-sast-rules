@@ -47,7 +47,7 @@ rules:
 
     - Inject code that is executed upon object construction, which occurs during the
     deserialization process.
-    - Exploit mass assignment by including fields that are not normally apart of the serialized
+    - Exploit mass assignment by including fields that are not normally a part of the serialized
     data but are read in during deserialization.
 
     Microsoft recommends no longer using the following serialization formats:

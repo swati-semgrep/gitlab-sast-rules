@@ -26,7 +26,7 @@ rules:
     than version 6.0 consider using `ChaCha20Poly1305` or `AES-256-GCM`.
 
     For older applications, `AES-256-GCM` is recommended, however it has many drawbacks:
-    - Slower than `ChaCha20Poly1305`
+    - Slower than `ChaCha20Poly1305`.
     - Catastrophic failure if nonce values are re-used.
 
     Example using `ChaCha20Poly1305`:
@@ -37,7 +37,7 @@ rules:
 
     ChaCha20Poly1305 encryptor = new ChaCha20Poly1305(key);
 
-    // Note nonce values _must_ be re-generated every time it is used.
+    // Note nonce values _must_ be regenerated every time they are used.
     var nonce = new byte[12];
     RandomNumberGenerator.Fill(nonce);
 

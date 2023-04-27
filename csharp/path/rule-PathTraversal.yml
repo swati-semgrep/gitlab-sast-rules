@@ -128,7 +128,7 @@ rules:
             // resolve the full path, but only use our random generated id
             string fullPath = Path.GetFullPath(basePath + data.id);
 
-            // verify the path is contained with in our basePath
+            // verify the path is contained within our basePath
             if (!fullPath.StartsWith(basePath)) {
                 Console.WriteLine("Invalid path specified!");
                 return;

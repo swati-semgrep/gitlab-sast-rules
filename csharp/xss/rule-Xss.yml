@@ -73,9 +73,9 @@ rules:
     is ever output inside of script tags.
 
     User input that is displayed within the application must be encoded, sanitized or validated
-    to ensure it can not be treated as HTML or executed as Javascript code. Care must also be
+    to ensure it cannot be treated as HTML or executed as Javascript code. Care must also be
     taken
-    to not mix server side templating with client side templating, as the server side templating
+    to not mix server-side templating with client-side templating, as the server-side templating
     will
     not encode things like {{ 7*7 }} which may execute client side templating features.
 

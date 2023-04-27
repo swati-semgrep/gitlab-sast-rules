@@ -14,12 +14,12 @@ rules:
   message: |
     By setting `XsltSettings.EnableScript` to true, an adversary who is able to influence the
     loaded
-    XSL document, could directly inject code to compromise the system. It is strongly
+    XSL document could directly inject code to compromise the system. It is strongly
     recommended that an alternative approach is used to work with XML data.
 
     For increased security:
 
-    - Never process user supplied XSL style sheets
+    - Never process user-supplied XSL style sheets
     - Ensure `XsltSettings.EnableScript` is set to false
     - Ensure `XsltSettings.EnableDocumentFunction` is set to false
 
