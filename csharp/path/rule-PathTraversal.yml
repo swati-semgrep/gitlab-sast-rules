@@ -142,6 +142,6 @@ rules:
     https://owasp.org/www-community/attacks/Path_Traversal
   metadata:
     shortDescription: "Improper limitation of a pathname to a restricted directory
-      'Path Traversal'"
+      ('Path Traversal')"
     cwe: "CWE-22"
   severity: "WARNING"

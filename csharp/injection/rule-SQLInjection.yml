@@ -91,6 +91,6 @@ rules:
   severity: "ERROR"
   metadata:
     shortDescription: "Improper Neutralization of Special Elements used in an SQL
-      Command 'SQL Injection'"
+      Command ('SQL Injection')"
     category: "security"
     cwe: "CWE-89"

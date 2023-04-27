@@ -21,7 +21,8 @@ rules:
     It is recommended that newer applications use the `System.DirectoryServices.AccountManagement`
     API instead of `DirectorySearcher` API as it hides the complexity of querying LDAP directly.
     However,
-    the AccountManagement API is still susceptible to LDAP injection if a user inputs LDAP queries,
+    the `AccountManagement` API is still susceptible to LDAP injection if a user inputs LDAP
+    queries,
     including LDAP filter characters such as `*`.
 
     It is recommended that all input passed to LDAP querying systems encode the following values:
@@ -32,7 +33,8 @@ rules:
     - Any occurrence of the asterisk character must be escaped as “\2a”.
     - Any occurrence of the backslash character must be escaped as “\5c”.
 
-    Example code that safely encodes input for use in an LDAP query using:
+    Example code that safely encodes input for use in an LDAP query using the `AccountManagement`
+    API:
     ```
     using System.DirectoryServices.AccountManagement;
 
@@ -82,6 +84,6 @@ rules:
   severity: "WARNING"
   metadata:
     shortDescription: "Improper neutralization of special elements used in an LDAP
-      query 'LDAP Injection'"
+      query ('LDAP Injection')"
     category: "security"
     cwe: "CWE-90"

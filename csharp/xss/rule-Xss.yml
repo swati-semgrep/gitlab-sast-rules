@@ -62,11 +62,11 @@ rules:
     is used in. There are at least six context types:
 
     - Inside HTML tags `<div>context 1</div>`
-    - Inside attributes: ```<div class="context 2"></div>```
-    - Inside event attributes ```<button onclick="context 3">button</button>```
-    - Inside script blocks: ```<script>var x = "context 4"</script>```
-    - Unsafe element HTML assignment: ```element.innerHTML = "context 5"```
-    - Inside URLs: ```<iframe src="context 6"></iframe><a href="context 6">link</a>```
+    - Inside attributes: `<div class="context 2"></div>`
+    - Inside event attributes `<button onclick="context 3">button</button>`
+    - Inside script blocks: `<script>var x = "context 4"</script>`
+    - Unsafe element HTML assignment: `element.innerHTML = "context 5"`
+    - Inside URLs: `<iframe src="context 6"></iframe><a href="context 6">link</a>`
 
     Script blocks alone have multiple ways they need to be encoded. Extra care must be taken if
     user input
@@ -77,7 +77,7 @@ rules:
     taken
     to not mix server-side templating with client-side templating, as the server-side templating
     will
-    not encode things like {{ 7*7 }} which may execute client side templating features.
+    not encode things like {{ 7*7 }} which may execute client-side templating features.
 
     It is _NOT_ advised to encode user input prior to inserting into a data store. The data will
     need to be
@@ -85,7 +85,7 @@ rules:
     system to
     handle the encoding and not attempt to guess how it should be encoded.
 
-    Consider using built in framework capabilities for automatically encoding user input.
+    Consider using built-in framework capabilities for automatically encoding user input.
     Depending
     on output context, consider using the following `System.Text.Encodings.Web` encoders:
 
@@ -100,7 +100,7 @@ rules:
     https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting#accessing-encoders-in-code
   metadata:
     shortDescription: "Improper neutralization of input during web page generation
-      'Cross-site Scripting'"
+      ('Cross-site Scripting')"
     category: "security"
     cwe: "CWE-79"
   severity: "WARNING"
