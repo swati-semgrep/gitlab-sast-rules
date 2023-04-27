@@ -22,7 +22,7 @@ rules:
   metadata:
     shortDescription: "Potential time of check time of use vulnerability (tmpnam/tempnam)"
     cwe: "CWE-377"
-    owasp: "A05:2017 - Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   pattern-either:
   - pattern: "tmpnam(...)"
   - pattern: "tempnam(...)"

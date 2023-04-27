@@ -21,7 +21,7 @@ rules:
     shortDescription: "Insecure functions do not always null terminate or check invalid
       pointers"
     cwe: "CWE-120"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern-either:
   - pattern: "lstrcpyn(...)"
   - pattern: "wcsncpy(...)"

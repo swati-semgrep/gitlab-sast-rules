@@ -27,6 +27,6 @@ rules:
   metadata:
     shortDescription: "Potential time of check time of use vulnerability (access)"
     cwe: "CWE-362"
-    owasp: "A05:2017 - Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   pattern: "access(...)"
   severity: "ERROR"

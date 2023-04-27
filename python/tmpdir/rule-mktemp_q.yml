@@ -15,7 +15,7 @@ rules:
     punch.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
-    owasp: "A3: Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   languages:
   - "python"
   severity: "ERROR"

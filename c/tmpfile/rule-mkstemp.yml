@@ -20,6 +20,6 @@ rules:
   metadata:
     shortDescription: "Potential file permissions issue (mkstemp)"
     cwe: "CWE-377"
-    owasp: "A05:2017 - Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   pattern: "mkstemp(...)"
   severity: "INFO"

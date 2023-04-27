@@ -16,7 +16,7 @@ rules:
     vulnerabilities. Use AES instead.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
-    owasp: "A3: Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "WARNING"
   languages:
   - "python"

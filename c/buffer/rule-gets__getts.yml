@@ -22,7 +22,7 @@ rules:
   metadata:
     shortDescription: "Use of deprecated function (gets)"
     cwe: "CWE-120"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern-either:
   - pattern: "gets(...)"
   - pattern: "_getts(...)"

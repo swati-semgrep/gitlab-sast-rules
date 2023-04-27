@@ -22,6 +22,6 @@ rules:
     shortDescription: "Null ACL when calling SetSecurityDescriptorDacl may allow all
       access to objects"
     cwe: "CWE-732"
-    owasp: "A05:2017 - Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   pattern: "SetSecurityDescriptorDacl(...)"
   severity: "ERROR"

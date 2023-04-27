@@ -19,7 +19,7 @@ rules:
     will not verify SSL certificates by default.
   metadata:
     cwe: "CWE-295: Improper Certificate Validation"
-    owasp: "A3: Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "WARNING"
   languages:
   - "python"

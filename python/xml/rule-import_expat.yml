@@ -13,7 +13,7 @@ rules:
     or make sure defusedxml.defuse_stdlib() is called.
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
-    owasp: "A8: Insecure Deserialization"
+    owasp: "A8:2017-Insecure Deserialization"
   severity: "INFO"
   languages:
   - "python"
