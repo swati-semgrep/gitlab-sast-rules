@@ -18,7 +18,7 @@ rules:
     cryptographic hashes instead. For password based cryptographic hashes,  consider using the 
     bcrypt or Argon2id family of cryptographic hashes.
 
-    Hashing values using BLAKE2:
+    Hashing values using [BLAKE2](https://pkg.go.dev/golang.org/x/crypto/blake2b):
     ```
     fileContents := []byte("some file contents to create hash for")
     blake2bHasher, err := blake2b.New512(nil)
