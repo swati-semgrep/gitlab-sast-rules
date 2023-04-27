@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.3
+- Enhance C# ruleset descriptions and titles (!134)
+
 ## v1.3.2
 - Update `metadata.owasp` to adhere to the pattern `A{number}:{year}-{Title}` (!136)
 
