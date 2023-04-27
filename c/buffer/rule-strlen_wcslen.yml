@@ -22,7 +22,7 @@ rules:
   metadata:
     shortDescription: "Function does not handle null terminated strings properly"
     cwe: "CWE-126"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern-either:
   - pattern: "strlen(...)"
   - pattern: "wcslen(...)"

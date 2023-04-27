@@ -22,7 +22,7 @@ rules:
   metadata:
     shortDescription: "Possible executable path hijacking (CreateProcessAsUser/CreateProcessWithLogon)"
     cwe: "CWE-78"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern-either:
   - pattern: "CreateProcessAsUser(...)"
   - pattern: "CreateProcessWithLogon(...)"

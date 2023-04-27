@@ -16,7 +16,7 @@ rules:
     Chmod setting a permissive mask on file.
   metadata:
     cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
-    owasp: "A6: Security Misconfiguration"
+    owasp: "A6:2017-Security Misconfiguration"
   severity: "WARNING"
   languages:
   - "python"

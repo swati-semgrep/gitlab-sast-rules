@@ -21,7 +21,7 @@ rules:
   metadata:
     shortDescription: "Insecure encryption algorithm (DES)"
     cwe: "CWE-327"
-    owasp: "A03:2017 - Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   pattern-either:
   - pattern: "EVP_des_ecb(...)"
   - pattern: "EVP_des_cbc(...)"

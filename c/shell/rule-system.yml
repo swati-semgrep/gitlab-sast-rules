@@ -22,6 +22,6 @@ rules:
   metadata:
     shortDescription: "Potential for OS command injection"
     cwe: "CWE-78"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern: "system(...)"
   severity: "ERROR"

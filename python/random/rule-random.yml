@@ -15,7 +15,7 @@ rules:
     Standard pseudo-random generators are not suitable for security/cryptographic purposes.
   metadata:
     cwe: "CWE-330: Use of Insufficiently Random Values"
-    owasp: "A3: Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "INFO"
   languages:
   - "python"

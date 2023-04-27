@@ -9,7 +9,7 @@ rules:
     Telnet does not encrypt communications. Use SSH instead.
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
-    owasp: "A3: Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "WARNING"
   languages:
   - "python"

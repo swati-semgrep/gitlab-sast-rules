@@ -17,7 +17,7 @@ rules:
   metadata:
     shortDescription: "Possible integer overflow or underflow"
     cwe: "CWE-190"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern-either:
   - pattern: "atoi(...)"
   - pattern: "atol(...)"

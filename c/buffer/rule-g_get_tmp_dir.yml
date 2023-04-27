@@ -20,6 +20,6 @@ rules:
   metadata:
     shortDescription: "Possible use of untrusted environment variable"
     cwe: "CWE-20"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern: "g_get_tmp_dir(...)"
   severity: "WARNING"
