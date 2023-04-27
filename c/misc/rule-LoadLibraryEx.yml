@@ -34,6 +34,6 @@ rules:
   metadata:
     shortDescription: "Potential for DLL hijacking (LoadLibraryEx)"
     cwe: "CWE-20"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern: "LoadLibraryEx(...)"
   severity: "WARNING"

@@ -14,7 +14,7 @@ rules:
     a key size of 224 or higher. For example, use 'ec.SECP256R1'.
   metadata:
     cwe: "CWE-326: Inadequate Encryption Strength"
-    owasp: "A3: Sensitive Data Exposure"
+    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "ERROR"
   languages:
   - "python"

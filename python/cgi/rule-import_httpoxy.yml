@@ -11,7 +11,7 @@ rules:
     Consider possible security implications associated with httpoxy module.
   metadata:
     cwe: "CWE-284: Improper Access Control"
-    owasp: "A5: Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   severity: "ERROR"
   languages:
   - "python"

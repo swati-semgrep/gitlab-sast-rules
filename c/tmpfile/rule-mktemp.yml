@@ -23,6 +23,6 @@ rules:
   metadata:
     shortDescription: "Use of deprecated function (mktemp)"
     cwe: "CWE-377"
-    owasp: "A05:2017 - Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   pattern: "mktemp(...)"
   severity: "ERROR"

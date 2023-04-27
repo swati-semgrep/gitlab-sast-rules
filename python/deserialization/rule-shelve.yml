@@ -16,7 +16,7 @@ rules:
     relevant data as JSON or a similar text-based serialization format.
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
-    owasp: "A8: Insecure Deserialization"
+    owasp: "A8:2017-Insecure Deserialization"
   severity: "WARNING"
   languages:
   - "python"

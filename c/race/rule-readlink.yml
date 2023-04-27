@@ -24,6 +24,6 @@ rules:
   metadata:
     shortDescription: "Potential time of check time of use vulnerability (readlink)"
     cwe: "CWE-20"
-    owasp: "A05:2017 - Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   pattern: "readlink(...)"
   severity: "ERROR"

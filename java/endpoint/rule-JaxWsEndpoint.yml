@@ -39,6 +39,6 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-20: Improper Input Validation"
-    owasp: "A07:2017 - Cross-Site Scripting (XSS)"
+    owasp: "A7:2017-Cross-Site Scripting (XSS)"
     technology:
     - "java"

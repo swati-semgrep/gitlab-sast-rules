@@ -22,6 +22,6 @@ rules:
   metadata:
     shortDescription: "Possible executable path hijacking (CreateProcess)"
     cwe: "CWE-78"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern: "CreateProcess(...)"
   severity: "WARNING"

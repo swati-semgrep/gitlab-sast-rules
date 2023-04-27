@@ -28,7 +28,7 @@ rules:
     environment variable or configuration file.
   metadata:
     cwe: "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
-    owasp: "A6: Security Misconfiguration"
+    owasp: "A6:2017-Security Misconfiguration"
   severity: "INFO"
   languages:
   - "python"

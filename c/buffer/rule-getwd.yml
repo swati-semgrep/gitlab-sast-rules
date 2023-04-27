@@ -17,6 +17,6 @@ rules:
   metadata:
     shortDescription: "Insufficient protection against buffer overflow (getwd)"
     cwe: "CWE-120"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern: "getwd(...)"
   severity: "WARNING"

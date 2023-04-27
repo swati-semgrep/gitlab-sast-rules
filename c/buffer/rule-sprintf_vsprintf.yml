@@ -21,7 +21,7 @@ rules:
   metadata:
     shortDescription: "Insecure function unable to limit / check buffer sizes"
     cwe: "CWE-120"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern-either:
   - pattern: "sprintf(...)"
   - pattern: "vsprintf(...)"

@@ -21,7 +21,7 @@ rules:
   metadata:
     shortDescription: "Potential format string vulnerability in syslog call"
     cwe: "CWE-134"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern-either:
   - patterns:
     - pattern: "syslog($FUNC,...)"

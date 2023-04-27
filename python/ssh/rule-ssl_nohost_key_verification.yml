@@ -22,7 +22,7 @@ rules:
     instead.
   metadata:
     cwe: "CWE-322: Key Exchange without Entity Authentication"
-    owasp: "A5: Broken Access Control"
+    owasp: "A5:2017-Broken Access Control"
   severity: "ERROR"
   languages:
   - "python"

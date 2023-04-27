@@ -33,6 +33,6 @@ rules:
     shortDescription: "Function does not ensure destination buffer length is sufficient
       before copying"
     cwe: "CWE-120"
-    owasp: "A01:2017 - Injection"
+    owasp: "A1:2017-Injection"
   pattern: "realpath(...)"
   severity: "WARNING"

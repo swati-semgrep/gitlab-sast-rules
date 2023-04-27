@@ -14,7 +14,7 @@ rules:
   metadata:
     cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
-    owasp: "A8: Insecure Deserialization"
+    owasp: "A8:2017-Insecure Deserialization"
   languages:
   - "python"
   severity: "WARNING"

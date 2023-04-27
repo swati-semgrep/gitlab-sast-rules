@@ -17,7 +17,7 @@ rules:
     data. Never unmarshal data received from anuntrusted or unauthenticated source.
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
-    owasp: "A8: Insecure Deserialization"
+    owasp: "A8:2017-Insecure Deserialization"
   severity: "WARNING"
   languages:
   - "python"

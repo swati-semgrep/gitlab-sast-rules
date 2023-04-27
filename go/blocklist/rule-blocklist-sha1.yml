@@ -16,7 +16,7 @@ rules:
     of cryptographic hashes.
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
-    owasp: "A9: Using Components with Known Vulnerabilities"
+    owasp: "A9:2017-Using Components with Known Vulnerabilities"
   severity: "WARNING"
   languages:
   - "go"
