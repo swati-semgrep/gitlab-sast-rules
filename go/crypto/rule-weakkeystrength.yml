@@ -32,7 +32,7 @@ rules:
     func generate() {
       key, err := rsa.GenerateKey(rand.Reader, 2048)
       if err != nil {
-        panic(err)
+        log.Fatal(err)
       }
     }
     ```

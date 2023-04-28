@@ -5,6 +5,8 @@
 ---
 rules:
 - id: "go/filesystem/rule-tempfiles"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - pattern: |
@@ -15,9 +17,31 @@ rules:
       metavariable: "$ARG"
       regex: "(/tmp/.*|/var/tmp/.*)"
   message: |
-    File creation in shared tmp directory without using ioutil.Tempfile
+    The application was found creating files in shared system temporary directories 
+    (`/tmp` or `/var/tmp`) without using the `os.CreateTemp` function. Depending
+    on how the application uses this temporary file, an attacker may be able to create
+    symlinks that point to other files prior to the application creating or writing
+    to the target file, leading to unintended files being created or overwritten.
+
+    Example using `os.CreateTemp` in an application restricted directory:
+    ```
+    // assumes /opt/appdir/ is chown'd to the running application user
+    if err := os.MkdirAll("/opt/appdir/restricted", 0700); err != nil {
+      log.Fatal(err)
+    }
+
+    // create a temporary file in the restricted directory in the form of temp-952569059.txt
+    f, err := os.CreateTemp("/opt/appdir/restricted", "temp-*.txt")
+    if err != nil {
+      log.Fatal(err)
+    }
+
+    defer f.Close()
+    // clean up on exit
+    defer os.Remove(f.Name())
+    // work with file
+    ```
   metadata:
-    cwe: "CWE-378: Creation of Temporary File With Insecure Permissions"
+    shortDescription: "Creation of temporary file with insecure permissions"
+    cwe: "CWE-378"
   severity: "WARNING"
-  languages:
-  - "go"

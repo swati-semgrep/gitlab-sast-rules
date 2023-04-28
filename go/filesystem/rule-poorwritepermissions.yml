@@ -5,6 +5,8 @@
 ---
 rules:
 - id: "go/filesystem/rule-poorwritepermissions"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - pattern: |
@@ -14,9 +16,24 @@ rules:
       comparison: "$ARG > 0o600"
       base: 8
   message: |
-    Expect WriteFile permissions to be 600 or less
+    The application was found setting file permissions to overly permissive values. Consider
+    using the following values if the application user is the only process to access
+    the file:
+
+    - 0400 - read only access to the file
+    - 0200 - write only access to the file
+    - 0600 - read/write access to the file
+    
+    Example writing file contents with read/write permissions for the application user:
+    ```
+    dat := []byte("sensitive data")
+    if err := os.WriteFile("file.txt", dat, 0600); err != nil {
+      log.Fatal(err)
+    }
+    ```
+
+    For all other values please see: https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation
   metadata:
-    cwe: "CWE-276: Incorrect Default Permissions"
+    shortDescription: "Incorrect default permissions"
+    cwe: "CWE-276"
   severity: "WARNING"
-  languages:
-  - "go"

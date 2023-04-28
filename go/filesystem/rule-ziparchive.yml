@@ -5,6 +5,8 @@
 ---
 rules:
 - id: "go/filesystem/rule-ziparchive"
+  languages:
+  - "go"
   mode: "taint"
   pattern-sources:
   - pattern: "zip.OpenReader(...)"
@@ -13,8 +15,7 @@ rules:
   message: |
     File traversal when extracting zip/tar archive
   metadata:
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+    shortDescription: "Improper limitation of a pathname to a restricted directory ('Path
       Traversal')"
+    cwe: "CWE-22"
   severity: "WARNING"
-  languages:
-  - "go"

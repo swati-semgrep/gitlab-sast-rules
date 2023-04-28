@@ -22,7 +22,7 @@ rules:
     fileContents := []byte("some file contents to create hash for")
     blake2bHasher, err := blake2b.New512(nil)
     if err != nil {
-      panic(err)
+      log.Fatal(err)
     }
     hashedValue := blake2bHasher.Sum(fileContents)
     fmt.Printf("%s\n", hex.EncodeToString(hashedValue))
@@ -67,7 +67,7 @@ rules:
       // Generate random salt (to be stored alongside derived hash key)
       salt := make([]byte, p.saltLength)
       if _, err := io.ReadFull(rand.Reader, salt); err != nil {
-        panic(err)
+        log.Fatal(err)
       }
 
       usersPassword := []byte("User's Very S3cur3P4ss@rd@#$%")

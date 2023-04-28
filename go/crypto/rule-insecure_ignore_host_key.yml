@@ -22,7 +22,7 @@ rules:
     ```
     knownHostCallback, err := knownhosts.New("/home/user/.ssh/known_hosts")
     if err != nil {
-      panic(err)
+      log.Fatal(err)
     }
 
     // Create client config using the knownHost callback function

@@ -24,13 +24,13 @@ rules:
     ```
     key := make([]byte, chacha20poly1305.KeySize)
     if _, err := io.ReadFull(rand.Reader, key); err != nil {
-      panic(err)
+      log.Fatal(err)
     }
 
     // NewX is a variant that uses longer nonce values for better security
     aead, err := chacha20poly1305.NewX(key)
     if err != nil {
-      panic(err)
+      log.Fatal(err)
     }
 
     var encrypted = []byte{}
@@ -41,7 +41,7 @@ rules:
       msg := []byte("Some secret message")
       nonce = make([]byte, aead.NonceSize())
       if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
-        panic("failed to generate nonce")
+        log.Fatal("failed to generate nonce")
       }
 
       encrypted = aead.Seal(nil, nonce, msg, nil)
@@ -50,12 +50,12 @@ rules:
     // Decryption routine
     {
       if len(encrypted) < aead.NonceSize() {
-        panic("incorrect ciphertext length")
+        log.Fatal("incorrect ciphertext length")
       }
 
       msg, err := aead.Open(nil, nonce, encrypted, nil)
       if err != nil {
-        panic(err)
+        log.Fatal(err)
       }
       fmt.Printf("Decrypted: %s\n", msg)
     }
@@ -66,17 +66,17 @@ rules:
     // 32 byte keys will configure AES-256
     key := make([]byte, 32)
     if _, err := io.ReadFull(rand.Reader, key); err != nil {
-      panic(err)
+      log.Fatal(err)
     }
 
     blockCipher, err := aes.NewCipher(key)
     if err != nil {
-      panic(err)
+      log.Fatal(err)
     }
 
     aead, err := cipher.NewGCM(blockCipher)
     if err != nil {
-      panic(err)
+      log.Fatal(err)
     }
 
     var encrypted = []byte{}
@@ -88,7 +88,7 @@ rules:
       // cipher text could be repeated
       nonce = make([]byte, 12)
       if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
-        panic(err)
+        log.Fatal(err)
       }
       encrypted = aead.Seal(nil, nonce, msg, nil)
     }
@@ -97,7 +97,7 @@ rules:
     {
       msg, err := aead.Open(nil, nonce, encrypted, nil)
       if err != nil {
-        panic(err)
+        log.Fatal(err)
       }
       fmt.Printf("Decrypted: %s\n", msg)
     }

@@ -46,10 +46,68 @@ rules:
     - pattern: "os.Open($ARG)"
     - pattern: "ioutil.ReadFile($ARG, ...)"
   message: |
-    File open from tainted variable
+    The application dynamically constructs file or path information. If the path
+    information comes from user input, it could be abused to read sensitive files,
+    access other users data, or aid in exploitation to gain further system access.
+
+    User input should never be used in constructing paths or files for interacting
+    with the filesystem. This includes filenames supplied by user uploads or downloads.
+    If possible consider hashing user input or replacing it with unique values and
+    use `filepath.Rel` to resolve and then validate the path information
+    prior to processing any file functionality.
+
+    Example using `filepath.Rel`, verifying the resolved path, and not allowing 
+    direct user input:
+    ```
+    type userData struct {
+        id           string
+        userFilename string
+    }
+
+    func newUserData(userFilename string) userData {
+        return userData{
+            id:           randomFileID(), // random id as the filename
+            userFilename: userFilename,
+        }
+    }
+
+    // randomFileID generates a random id, to be used as a filename
+    func randomFileID() string {
+        id := make([]byte, 16)
+        if _, err := io.ReadFull(rand.Reader, id); err != nil {
+            log.Fatal(err)
+        }
+        return hex.EncodeToString(id)
+    }
+
+    func main() {
+
+        // user input, saved only as a reference
+        data := newUserData("../../etc/passwd")
+
+        // restrict all file access to this path
+        const basePath = "/tmp/"
+
+        // resolve the full path, but only use our random generated id
+        resolvedPath, err := filepath.Rel(basePath, data.id)
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        // verify the path is contained within our basePath
+        if !strings.HasPrefix(resolvedPath, basePath) {
+            log.Fatal("path does not start with basePath")
+        }
+        // process / work with file
+    }
+    ```
+
+    For more information on path traversal issues see OWASP:
+    https://owasp.org/www-community/attacks/Path_Traversal
   metadata:
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory ('Path
       Traversal')"
+    cwe: "CWE-22"
   severity: "WARNING"
   languages:
   - "go"
