@@ -6,6 +6,8 @@
 ---
 rules:
 - id: "go/file_permissions/rule-mkdir"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - pattern: "os.Mkdir(...,$MASK)"
@@ -15,10 +17,25 @@ rules:
       comparison: "$MASK > 0o750"
       base: 8
   message: |
-    Poor file permissions used when creating a directory
+    The application was found setting directory permissions to overly permissive values. Consider
+    using the following values if the application user is the only process to access
+    files in the directory specified:
+    - 0700 - read/write access to the files in the directory
+
+    Another common value is `0750` which allows the application user read/write access and group
+    users to read the files contained in the directory.
+
+    Example creating a directory with read/write permissions for only the application user:
+    ```
+    err := os.Mkdir("directory", 0700)
+    if err != nil {
+      panic(err)
+    }
+    ```
+
+    For all other values please see: https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation
   metadata:
-    cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
+    shortDescription: "Incorrect Permission Assignment for Critical Resource"
+    cwe: "CWE-732"
     owasp: "A6:2017-Security Misconfiguration"
   severity: "WARNING"
-  languages:
-  - "go"
