@@ -52,7 +52,7 @@ rules:
 
     User input should never be used in constructing paths or files for interacting
     with the filesystem. This includes filenames supplied by user uploads or downloads.
-    If possible, consider hashing user input or replacing it with unique values. 
+    If possible, consider hashing user input or replacing it with unique values.
     Additionally, use `filepath.Base` to only use the filename and not path information.
     Always validate the full path prior to opening or writing to any file.
 
@@ -105,8 +105,8 @@ rules:
     For more information on path traversal issues see OWASP:
     https://owasp.org/www-community/attacks/Path_Traversal
   metadata:
-    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
     cwe: "CWE-22"
   severity: "WARNING"
   languages:

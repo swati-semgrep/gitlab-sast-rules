@@ -12,9 +12,9 @@ rules:
       import "crypto/sha1"
   message: |
     The SHA-1 message-digest algorithm has been cryptographically broken and
-    is unsuitable for further use. It is 
-    recommended that the SHA-3, or BLAKE2 family of algorithms be used for non-password based 
-    cryptographic hashes instead. For password based cryptographic hashes, consider using the 
+    is unsuitable for further use. It is
+    recommended that the SHA-3, or BLAKE2 family of algorithms be used for non-password based
+    cryptographic hashes instead. For password based cryptographic hashes, consider using the
     bcrypt or Argon2id family of cryptographic hashes.
 
     Hashing values using [BLAKE2](https://pkg.go.dev/golang.org/x/crypto/blake2b):
@@ -28,7 +28,8 @@ rules:
     fmt.Printf("%s\n", hex.EncodeToString(hashedValue))
     ```
 
-    Hashing and securely comparing passwords using [Argon2id](https://pkg.go.dev/golang.org/x/crypto/argon2#hdr-Argon2id):
+    Hashing and securely comparing passwords using
+    [Argon2id](https://pkg.go.dev/golang.org/x/crypto/argon2#hdr-Argon2id):
     ```
     type argonParameters struct {
       variant     string
@@ -75,16 +76,19 @@ rules:
       var derivedKey []byte
       // Create key hash derived from user's password
       {
-        derivedKey = argon2.IDKey(usersPassword, salt, p.iterations, p.memory, p.parallelism, p.keyLength)
+        derivedKey = argon2.IDKey(usersPassword, salt, p.iterations, p.memory, p.parallelism,
+    p.keyLength)
         // store p.StringFormat(...) result in a data store...
         fmt.Printf("%s\n", p.StringFormat(salt, derivedKey))
       }
 
       // Verify a user's password against key
       {
-        keyToCompare := argon2.IDKey(usersPassword, salt, p.iterations, p.memory, p.parallelism, p.keyLength)
-        
-        // Use subtle.ConstantTimeCompare(..., ...) to ensure no side channel leaks used in timing attacks
+        keyToCompare := argon2.IDKey(usersPassword, salt, p.iterations, p.memory, p.parallelism,
+    p.keyLength)
+
+        // Use subtle.ConstantTimeCompare(..., ...) to ensure no side channel leaks used in timing
+    attacks
         if subtle.ConstantTimeCompare(derivedKey, keyToCompare) == 1 {
           fmt.Printf("Passwords match\n")
         } else {
@@ -94,7 +98,8 @@ rules:
     }
     ```
 
-    For more information on password storage see OWASP's guide: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+    For more information on password storage see OWASP's guide:
+    https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
   metadata:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"

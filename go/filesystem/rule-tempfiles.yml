@@ -17,7 +17,7 @@ rules:
       metavariable: "$ARG"
       regex: "(/tmp/.*|/var/tmp/.*)"
   message: |
-    The application was found creating files in shared system temporary directories 
+    The application was found creating files in shared system temporary directories
     (`/tmp` or `/var/tmp`) without using the `os.CreateTemp` function. Depending
     on how the application uses this temporary file, an attacker may be able to create
     symlinks that point to other files prior to the application creating or writing

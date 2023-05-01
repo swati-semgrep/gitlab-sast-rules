@@ -23,7 +23,7 @@ rules:
     - 0400 - read only access to the file
     - 0200 - write only access to the file
     - 0600 - read/write access to the file
-    
+
     Example writing file contents with read/write permissions for the application user:
     ```
     dat := []byte("sensitive data")
@@ -32,7 +32,8 @@ rules:
     }
     ```
 
-    For all other values please see: https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation
+    For all other values please see:
+    https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation
   metadata:
     shortDescription: "Incorrect default permissions"
     cwe: "CWE-276"

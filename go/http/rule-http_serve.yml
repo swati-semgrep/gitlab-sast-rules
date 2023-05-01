@@ -16,13 +16,19 @@ rules:
     - pattern: "http.Serve(...)"
     - pattern: "http.ServeTLS(...)"
   message: |
-    Go's `net/http` serve functions may be vulnerable to resource consumption attacks if timeouts are not properly configured
-    prior to starting the HTTP server. An adversary may open up thousands of connections but never complete sending all data, 
-    or never terminate the connections. This may lead to the server no longer accepting new connections.
+    Go's `net/http` serve functions may be vulnerable to resource consumption attacks if timeouts
+    are not properly configured
+    prior to starting the HTTP server. An adversary may open up thousands of connections but never
+    complete sending all data,
+    or never terminate the connections. This may lead to the server no longer accepting new
+    connections.
 
-    To protect against this style of resource consumption attack, timeouts should be set in the `net/http` server prior to calling
-    the listen or serve functions. What this means is that the default `http.ListenAndServe` and `http.Serve` functions should not
-    be used in a production setting as they are unable to have timeouts configured. Instead a custom `http.Server` object must be 
+    To protect against this style of resource consumption attack, timeouts should be set in the
+    `net/http` server prior to calling
+    the listen or serve functions. What this means is that the default `http.ListenAndServe` and
+    `http.Serve` functions should not
+    be used in a production setting as they are unable to have timeouts configured. Instead a
+    custom `http.Server` object must be
     created with the timeouts configured.
 
     Example setting timeouts on a `net/http` server:
@@ -74,9 +80,11 @@ rules:
     ```
     For more information on the `http.Server` timeouts, see: https://pkg.go.dev/net/http#Server
 
-    For information on setting request based timeouts, see: https://pkg.go.dev/net/http#TimeoutHandler
+    For information on setting request based timeouts, see:
+    https://pkg.go.dev/net/http#TimeoutHandler
 
-    For more information on the Slowloris attack see: https://en.wikipedia.org/wiki/Slowloris_(computer_security)
+    For more information on the Slowloris attack see:
+    https://en.wikipedia.org/wiki/Slowloris_(computer_security)
   metadata:
     cwe: "CWE-400: Uncontrolled Resource Consumption"
   severity: "WARNING"

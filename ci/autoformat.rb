@@ -63,8 +63,14 @@ module AutoFormat
     changed = 0
     Dir.glob('**/rule-*.yml').each do |file|
       id = File.join(File.dirname(file), File.basename(file, '.yml'))
-      ff = File.read(file)
-      yaml_dict = YAML.safe_load(ff)
+      yaml_dict = {}
+      begin
+        ff = File.read(file)
+        yaml_dict = YAML.safe_load(ff)
+      rescue => e
+        puts "failed to read yaml file #{file}: #{e.message}"
+        exit(1)
+      end
       unless yaml_dict.key?('rules')
         puts "#{file}: no rules key"
         exit(1)

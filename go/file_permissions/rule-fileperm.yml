@@ -22,7 +22,7 @@ rules:
     - 0400 - read only access to the file
     - 0200 - write only access to the file
     - 0600 - read/write access to the file
-    
+
     Example creating a file with read/write permissions for the application user:
     ```
     f, err := os.OpenFile("file.txt", os.O_CREATE, 0600)
@@ -33,7 +33,8 @@ rules:
     // continue to work with file here
     ```
 
-    For all other values please see: https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation
+    For all other values please see:
+    https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation
   metadata:
     shortDescription: "Incorrect permission assignment for critical resource"
     cwe: "CWE-732"

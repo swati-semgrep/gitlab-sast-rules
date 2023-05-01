@@ -33,7 +33,8 @@ rules:
     }
     ```
 
-    For all other values please see: https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation
+    For all other values please see:
+    https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation
   metadata:
     shortDescription: "Incorrect permission assignment for critical resource"
     cwe: "CWE-732"

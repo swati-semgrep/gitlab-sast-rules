@@ -6,15 +6,17 @@
 ---
 rules:
 - id: "go/crypto/rule-insecure_ignore_host_key"
+  languages:
+  - "go"
   patterns:
   - pattern: "ssh.InsecureIgnoreHostKey(...)"
   message: |
     The application was found to ignore host keys. Host keys are important as
     they provide assurance that the client can prove that the host is trusted.
-    By ignoring these host keys, it is impossible for the client to validate the 
+    By ignoring these host keys, it is impossible for the client to validate the
     connection is to a trusted host.
 
-    For the `ssh.ClientConfig` `HostKeyCallback` property, consider using the 
+    For the `ssh.ClientConfig` `HostKeyCallback` property, consider using the
     [knownhosts](https://pkg.go.dev/golang.org/x/crypto/ssh/knownhosts) package that
     parses OpenSSH's `known_hosts` key database.
 
@@ -36,11 +38,9 @@ rules:
     if err != nil {
       log.Fatal("unable to connect: ", err)
     }
-	  defer conn.Close()
+    defer conn.Close()
     ```
   metadata:
     shortDescription: "Key exchange without entity authentication"
     cwe: "CWE-322"
   severity: "WARNING"
-  languages:
-  - "go"

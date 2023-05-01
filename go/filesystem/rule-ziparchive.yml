@@ -14,19 +14,22 @@ rules:
   - pattern: "filepath.Join(...)"
   message: |
     The application may be vulnerable to a path traversal if it extracts untrusted archive files.
-    This vulnerability is colloquially known as 'Zip Slip'. Archive files may contain folders which, 
-    when extracted, may write outside of the intended directory. This is exploited by including 
+    This vulnerability is colloquially known as 'Zip Slip'. Archive files may contain folders
+    which,
+    when extracted, may write outside of the intended directory. This is exploited by including
     path traversal characters such as `../../other/directory` to overwrite or place files in system
     or application directories.
 
     Extra care must be taken when extracting archive files as there are numerous concerns:
 
-    - Limit the size of the zip archive as it may contain "Zip Bombs", files that extract to extremely
+    - Limit the size of the zip archive as it may contain "Zip Bombs", files that extract to
+    extremely
     large sizes.
     - If possible, generate unique filenames instead of using the archives file names, as it may be
     possible for users to overwrite files if the filenames are the same.
     - Validate file paths are written with a prefixed, known trusted directory.
-    - Only process regular files and not symbolic links, as some applications may attempt to read/follow
+    - Only process regular files and not symbolic links, as some applications may attempt to
+    read/follow
     the symbolic link, leading to arbitrary file read / write vulnerabilities.
 
 
@@ -98,10 +101,10 @@ rules:
 
     If the application must process directory names as well, use the following code:
     ```
-    // Join the cleaned name to the basePath, note if 'name' starts with `../../` it 
+    // Join the cleaned name to the basePath, note if 'name' starts with `../../` it
     // will still allow for traversal, so you _must_ verify the path prefix below
     resolvedPath := filepath.Join(basePath, filepath.Clean(name))
-    
+
     // Application must still verify the path is prefixed by the basePath
     if !strings.HasPrefix(resolvedPath, basePath) {
       log.Fatal("path does not start with basePath")
@@ -109,9 +112,8 @@ rules:
 
     // process / work with file
     ```
-
   metadata:
-    shortDescription: "Improper limitation of a pathname to a restricted directory ('Path
-      Traversal')"
+    shortDescription: "Improper limitation of a pathname to a restricted directory
+      ('Path Traversal')"
     cwe: "CWE-22"
   severity: "WARNING"

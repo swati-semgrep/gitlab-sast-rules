@@ -27,9 +27,10 @@ rules:
     Directly decompressing files or buffers may lead to a potential Denial of Service (DoS)
     due to a decompression bomb. Decompression bombs are maliciously compressed files
     or data that decompresses to extremely large sizes. This can cause the process to run
-    out of memory, or the disk to fill up. 
+    out of memory, or the disk to fill up.
 
-    To protect against decompression bombs, an [io.LimitReader(...)](https://pkg.go.dev/io#LimitReader)
+    To protect against decompression bombs, an
+    [io.LimitReader(...)](https://pkg.go.dev/io#LimitReader)
     should be used to limit how much can be read during the decompression routine.
 
     Example using `io.LimitReader` to protect against a decompression bomb:
