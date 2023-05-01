@@ -52,12 +52,12 @@ rules:
 
     User input should never be used in constructing paths or files for interacting
     with the filesystem. This includes filenames supplied by user uploads or downloads.
-    If possible consider hashing user input or replacing it with unique values and
-    use `filepath.Rel` to resolve and then validate the path information
-    prior to processing any file functionality.
+    If possible, consider hashing user input or replacing it with unique values. 
+    Additionally, use `filepath.Base` to only use the filename and not path information.
+    Always validate the full path prior to opening or writing to any file.
 
-    Example using `filepath.Rel`, verifying the resolved path, and not allowing 
-    direct user input:
+    Example using `filepath.Base`, generating a unique filename, and never using
+    user input to construct filepath information:
     ```
     type userData struct {
         id           string
@@ -83,18 +83,18 @@ rules:
     func main() {
 
         // user input, saved only as a reference
-        data := newUserData("../../etc/passwd")
+        data := newUserData("../../possibly/malicious")
 
         // restrict all file access to this path
         const basePath = "/tmp/"
 
         // resolve the full path, but only use our random generated id
-        resolvedPath, err := filepath.Rel(basePath, data.id)
+        resolvedPath, err := filepath.Join(basePath, filepath.Base(data.id))
         if err != nil {
             log.Fatal(err)
         }
 
-        // verify the path is contained within our basePath
+        // verify the path is prefixed with our basePath
         if !strings.HasPrefix(resolvedPath, basePath) {
             log.Fatal("path does not start with basePath")
         }
