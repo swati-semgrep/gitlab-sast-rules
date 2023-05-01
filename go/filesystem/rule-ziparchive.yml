@@ -23,6 +23,8 @@ rules:
 
     - Limit the size of the zip archive as it may contain "Zip Bombs", files that extract to extremely
     large sizes.
+    - If possible, generate unique filenames instead of using the archives file names, as it may be
+    possible for users to overwrite files if the filenames are the same.
     - Validate file paths are written with a prefixed, known trusted directory.
     - Only process regular files and not symbolic links, as some applications may attempt to read/follow
     the symbolic link, leading to arbitrary file read / write vulnerabilities.
