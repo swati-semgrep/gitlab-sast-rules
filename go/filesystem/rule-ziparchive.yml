@@ -85,7 +85,7 @@ rules:
         log.Fatal(err)
       }
 
-      // Application must still verify the path is contained within basePath
+      // Application must still verify the path is prefixed by the basePath
       if !strings.HasPrefix(resolvedPath, basePath) {
         log.Fatal("path does not start with basePath")
       }
@@ -100,7 +100,7 @@ rules:
     // will still allow for traversal, so you _must_ verify the path prefix below
     resolvedPath := filepath.Join(basePath, filepath.Clean(name))
     
-    // Application must verify the path is contained within basePath
+    // Application must still verify the path is prefixed by the basePath
     if !strings.HasPrefix(resolvedPath, basePath) {
       log.Fatal("path does not start with basePath")
     }
