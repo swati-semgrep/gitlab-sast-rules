@@ -86,7 +86,8 @@ rules:
     For more information on the Slowloris attack see:
     https://en.wikipedia.org/wiki/Slowloris_(computer_security)
   metadata:
-    cwe: "CWE-400: Uncontrolled Resource Consumption"
+    shortDescription: "Uncontrolled resource consumption (Slowloris)"
+    cwe: "CWE-400"
   severity: "WARNING"
   languages:
   - "go"

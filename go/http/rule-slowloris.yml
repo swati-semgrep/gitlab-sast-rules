@@ -41,7 +41,7 @@ rules:
             ...,
           }
   message: |
-    Potential Slowloris Attack because ReadHeaderTimeout is not configured in the http.Server.
+    Potential Slowloris Attack because `ReadHeaderTimeout` is not configured in the `http.Server`.
     This application may
     be vulnerable to resource consumption attacks if timeouts are not properly configured
     prior to starting the HTTP server. An adversary may open up thousands of connections but never
@@ -51,7 +51,7 @@ rules:
 
     To protect against this style of resource consumption attack, timeouts should be set in the
     `net/http` server prior to calling
-    the listen or serve functions. What this means is that the default `http.ListenAndServe` and
+    the listen or serve functions. The default `http.ListenAndServe` and
     `http.Serve` functions should not
     be used in a production setting as they are unable to have timeouts configured. Instead a
     custom `http.Server` object must be
@@ -112,7 +112,8 @@ rules:
     For more information on the Slowloris attack see:
     https://en.wikipedia.org/wiki/Slowloris_(computer_security)
   metadata:
-    cwe: "CWE-400: Uncontrolled Resource Consumption"
+    shortDescription: "Uncontrolled resource consumption (Slowloris)"
+    cwe: "CWE-400"
   severity: "WARNING"
   languages:
   - "go"
