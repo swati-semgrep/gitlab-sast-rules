@@ -1,9 +1,11 @@
 # yamllint disable
-# rule-set version: v1.3.2
+# rule-set version: v1.3.5
 # yamllint enable
 ---
 rules:
 - id: "security_code_scan.SCS0019-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern-inside: |
       [Authorize]
@@ -19,18 +21,19 @@ rules:
   message: |
     Having the annotation [OutputCache] will disable the annotation [Authorize] for
     the requests following the first one.
-  languages:
-  - "csharp"
   severity: "INFO"
   metadata:
+    shortDescription: "Use of cache containing sensitive information"
     category: "security"
-    cwe: "CWE-524: Use of Cache Containing Sensitive Information"
+    cwe: "CWE-524"
     primary_identifier: "security_code_scan.SCS0019"
     secondary_identifiers:
     - name: "SCS0019"
       type: "security_code_scan_rule_id"
       value: "SCS0019"
 - id: "security_code_scan.SCS0009-1"
+  languages:
+  - "csharp"
   mode: "taint"
   pattern-sources:
   - pattern: |
@@ -40,20 +43,43 @@ rules:
   pattern-sanitizers:
   - pattern: "$COOKIE.HttpOnly = true;"
   message: |
-    The HttpOnly flag is not set for the cookie. An attacker could perform XSS with a malicious
-    script.
-  languages:
-  - "csharp"
+    The `HttpOnly` attribute when set to `true` protects the cookie value from being accessed by
+    client side JavaScript such
+    as reading the `document.cookie` values. By enabling this protection, a website that is
+    vulnerable to
+    Cross-Site Scripting (XSS) will be able to block malicious scripts from accessing the cookie
+    value from JavaScript.
+
+    Example of protecting an HttpCookie:
+    ```
+    // Create an HttpOnly cookie.
+    HttpCookie someCookie = new HttpCookie("SomeCookieName", "SomeValue");
+    someCookie.HttpOnly = true;
+    ```
+
+    For more information see:
+    https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.httponly
+
+    Session cookies should be configured with the following security directives:
+
+    -
+    [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    -
+    [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
   severity: "WARNING"
   metadata:
+    shortDescription: "Sensitive cookie without 'HttpOnly' flag"
     category: "security"
-    cwe: "CWE-1004: Sensitive Cookie Without 'HttpOnly' Flag"
+    cwe: "CWE-1004"
     primary_identifier: "security_code_scan.SCS0009"
     secondary_identifiers:
     - name: "SCS0009"
       type: "security_code_scan_rule_id"
       value: "SCS0009"
 - id: "security_code_scan.SCS0008-1"
+  languages:
+  - "csharp"
   mode: "taint"
   pattern-sources:
   - pattern: |
@@ -63,20 +89,41 @@ rules:
   pattern-sanitizers:
   - pattern: "$COOKIE.Secure = true;"
   message: |
-    The Secure attribute for sensitive cookies in HTTPS sessions is not set, which could cause the
-    user agent to send those cookies in plaintext over an HTTP session.
-  languages:
-  - "csharp"
+    The `Secure` attribute when set to `true` protects the cookie value from being being
+    transmitted over clear text
+    communication paths such as HTTP. By enabling this protection, the cookie will only be sent
+    over HTTPS.
+
+    Example of protecting an HttpCookie:
+    ```
+    // Create an HttpOnly cookie.
+    HttpCookie someCookie = new HttpCookie("SomeCookieName", "SomeValue");
+    someCookie.Secure = true;
+    ```
+
+    For more information see:
+    https://learn.microsoft.com/en-us/dotnet/api/system.web.httpcookie.secure
+
+    Session cookies should be configured with the following security directives:
+
+    -
+    [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
+    -
+    [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
   severity: "WARNING"
   metadata:
+    shortDescription: "Sensitive cookie in HTTPS session without 'Secure' attribute"
     category: "security"
-    cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without ‘Secure’ Attribute"
+    cwe: "CWE-614"
     primary_identifier: "security_code_scan.SCS0008"
     secondary_identifiers:
     - name: "SCS0008"
       type: "security_code_scan_rule_id"
       value: "SCS0008"
 - id: "security_code_scan.SCS0004-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern-inside: |
       using System.Net;
@@ -89,16 +136,26 @@ rules:
         - pattern: "$RETURNTYPE $FUNC(...) { return true; }"
         - pattern: "(...) => true;"
   message: |
-    When a certificate is invalid or malicious, it might allow an attacker to spoof a trusted
-    entity by interfering in the communication path between the host and client. The software might
-    connect to a malicious host while believing it is a trusted host, or the software might be
-    deceived into accepting spoofed data that appears to originate from a trusted host.
-  languages:
-  - "csharp"
+    The `ServicePointManager.ServerCertificateValidationCallback` event has been set
+    to always return `true`, which effectively disables the validation of server
+    certificates.
+
+    This allows for an adversary who is in between the application and the target host to intercept
+    potentially sensitive information or transmit malicious data.
+
+    Remove the callback function that is returning true to allow normal certificate validation to
+    proceed.
+    When no callback is provided, the client will validate that the certificate name matches the
+    hostname
+    that was used when creating the request.
+
+    For more information on the `ServerCertificateValidationCallback` property see:
+    https://learn.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.servercertificatevalidationcallback
   severity: "WARNING"
   metadata:
+    shortDescription: "Certificate validation disabled"
     category: "security"
-    cwe: "CWE-295: Improper Certificate Validation"
+    cwe: "CWE-295"
     primary_identifier: "security_code_scan.SCS0004"
     secondary_identifiers:
     - name: "SCS0004"
@@ -117,20 +174,84 @@ rules:
     - pattern-regex: ".*RC2\\.Create\\(\\);"
     - pattern: "new RC2CryptoServiceProvider();"
   message: |
-    The use of a broken or risky cryptographic algorithm is an unnecessary risk that may result in
-    the exposure of sensitive information.
+    DES, TripleDES and RC2 are all considered broken or insecure cryptographic algorithms.
+    If using .NET Framework greater than version 6.0 consider using `ChaCha20Poly1305`
+    instead as it is easier and faster than the alternatives such as `AES-256-GCM`.
+
+    For older applications, `AES-256-GCM` is recommended, however it has many drawbacks:
+    - Slower than `ChaCha20Poly1305`.
+    - Catastrophic failure if nonce values are reused.
+
+    Example using `ChaCha20Poly1305`:
+    ```
+    // Generate a random key
+    byte[] key = new byte[32];
+    RandomNumberGenerator.Fill(key);
+
+    // Note nonce values _must_ be regenerated every time they are used.
+    byte[] nonce = new byte[12];
+    RandomNumberGenerator.Fill(nonce);
+
+    byte[] authTag = new byte[16];
+    byte[] cipherText;
+
+    using (ChaCha20Poly1305 encryptor = new ChaCha20Poly1305(key))
+    {
+        byte[] plainText = System.Text.Encoding.UTF8.GetBytes("Secret text to encrypt");
+        cipherText = new byte[plainText.Length];
+        encryptor.Encrypt(nonce, plainText, cipherText, authTag);
+    }
+
+    using (ChaCha20Poly1305 decryptor = new ChaCha20Poly1305(key))
+    {
+        byte[] output = new byte[cipherText.Length];
+        decryptor.Decrypt(nonce, cipherText, authTag, output);
+        Console.WriteLine("Output: {0}", System.Text.Encoding.UTF8.GetString(output));
+    }
+    ```
+
+    Example using `AES-256-GCM`:
+    ```
+    // Generate a random key
+    byte[] key = new byte[32];
+    RandomNumberGenerator.Fill(key);
+
+    // Note nonce values _must_ be regenerated every time they are used.
+    byte[] nonce = new byte[AesGcm.NonceByteSizes.MaxSize];
+    RandomNumberGenerator.Fill(nonce);
+
+    byte[] authTag = new byte[AesGcm.TagByteSizes.MaxSize];
+    byte[] cipherText;
+
+    using (AesGcm encryptor = new AesGcm(key))
+    {
+        byte[] plainText = Encoding.UTF8.GetBytes("Secret text to encrypt");
+        cipherText = new byte[plainText.Length];
+        encryptor.Encrypt(nonce, plainText, cipherText, authTag);
+    }
+
+    using (AesGcm decryptor = new AesGcm(key))
+    {
+        byte[] output = new byte[cipherText.Length];
+        decryptor.Decrypt(nonce, cipherText, authTag, output);
+        Console.WriteLine("Output: {0}",  Encoding.UTF8.GetString(output));
+    }
+    ```
   languages:
   - "csharp"
   severity: "WARNING"
   metadata:
+    shortDescription: "Use of a broken or risky cryptographic algorithm"
     category: "security"
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     primary_identifier: "security_code_scan.SCS0010"
     secondary_identifiers:
     - name: "SCS0010"
       type: "security_code_scan_rule_id"
       value: "SCS0010"
 - id: "security_code_scan.SCS0013-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern-inside: |
       using System.Security.Cryptography;
@@ -140,22 +261,80 @@ rules:
       regex: "^(ECB|CBC|OFB|CFB|CTS)$"
   - pattern: "CipherMode.$CIPHER"
   message: |
-    The cipher text produced is susceptible to alteration by an adversary. The cipher provides no
-    way to detect that the data has been tampered with. If the cipher text can be controlled by an
-    attacker, it could be altered without detection. The use of AES in CBC mode with a HMAC is
-    recommended guaranteeing integrity and confidentiality.
-  languages:
-  - "csharp"
+    Cryptographic algorithms provide many different modes of operation, only some of which provide
+    message integrity. Without message integrity it could be possible for an adversary to attempt
+    to tamper with the ciphertext which could lead to compromising the encryption key. Newer
+    algorithms
+    apply message integrity to validate ciphertext has not been tampered with.
+
+    Instead of using an algorithm that requires configuring a `CipherMode`, an algorithm
+    that has built-in message integrity should be used. If using .NET Framework greater
+    than version 6.0 consider using `ChaCha20Poly1305` or `AES-256-GCM`.
+
+    For older applications, `AES-256-GCM` is recommended, however it has many drawbacks:
+    - Slower than `ChaCha20Poly1305`.
+    - Catastrophic failure if nonce values are re-used.
+
+    Example using `ChaCha20Poly1305`:
+    ```
+    // Generate a random key
+    byte[] key = new byte[32];
+    RandomNumberGenerator.Fill(key);
+
+    ChaCha20Poly1305 encryptor = new ChaCha20Poly1305(key);
+
+    // Note nonce values _must_ be regenerated every time they are used.
+    var nonce = new byte[12];
+    RandomNumberGenerator.Fill(nonce);
+
+    byte[] plainText = System.Text.Encoding.UTF8.GetBytes("Secret text to encrypt");
+    byte[] cipherText = new byte[plainText.Length];
+    var authTag = new byte[16];
+
+    encryptor.Encrypt(nonce, plainText, cipherText, authTag);
+    byte[] output = new byte[cipherText.Length];
+    encryptor.Decrypt(nonce, cipherText, authTag, output);
+    Console.WriteLine("Output: {0}", System.Text.Encoding.UTF8.GetString(output));
+    ```
+
+    Example using `AES-256-GCM`:
+    ```
+    var plaintextBytes = Encoding.UTF8.GetBytes("Secret text to encrypt");
+    var key = new byte[32];
+    RandomNumberGenerator.Fill(key);
+
+    using var aes = new AesGcm(key);
+    var nonce = new byte[AesGcm.NonceByteSizes.MaxSize];
+    RandomNumberGenerator.Fill(nonce);
+
+    var cipherText = new byte[plaintextBytes.Length];
+    var tag = new byte[AesGcm.TagByteSizes.MaxSize];
+
+    aes.Encrypt(nonce, plaintextBytes, cipherText, tag);
+
+    // Decrypt
+    using (var decrypt = new AesGcm(key))
+    {
+        var decryptedBytes = new byte[cipherText.Length];
+
+        decrypt.Decrypt(nonce, cipherText, tag, decryptedBytes);
+
+        Console.WriteLine("Decrypted: {0}",  Encoding.UTF8.GetString(decryptedBytes));
+    }
+    ```
   severity: "WARNING"
   metadata:
+    shortDescription: "Use of a broken or risky cryptographic algorithm"
     category: "security"
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     primary_identifier: "security_code_scan.SCS0013"
     secondary_identifiers:
     - name: "SCS0013"
       type: "security_code_scan_rule_id"
       value: "SCS0013"
 - id: "security_code_scan.SCS0006-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern-either:
     - patterns:
@@ -169,38 +348,87 @@ rules:
           regex: "^System.Security.Cryptography.(SHA1|MD5)$"
       - pattern: "$HASH_CLASS.$METHOD();"
   message: |
-    The use of a broken or risky cryptographic algorithm is an unnecessary risk that may result in
-    the exposure of sensitive information.
-  languages:
-  - "csharp"
+    Both MD5 and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
+    This means
+    that two different values, when hashed, can lead to the same hash value. If the application is
+    trying
+    to use these hash methods for storing passwords, then it is recommended to switch to a
+    password hashing
+    algorithm such as Argon2id or PBKDF2. Currently there is no vetted Argon2id implementation for
+    C# so
+    it is recommended that PBKDF2 be used until one is available.
+
+    Example using PBKDF2 to generate and compare passwords:
+    ```
+    const int SaltSize = 24;
+    const int HashSize = 24;
+    // number of pbkdf2 iterations, Rfc2898DeriveBytes uses hmac-sha1
+    // so set a high iteration count
+    const int Iterations = 1_300_000;
+    byte[] salt = new byte[SaltSize];
+    RandomNumberGenerator.Fill(salt);
+
+    Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes("some password", salt, Iterations);
+    byte[] hashBytes = pbkdf2.GetBytes(HashSize);
+    // Store salt and hashedBytes in a data store such as database for authentication
+    Console.WriteLine("Hash {0}", BitConverter.ToString(hashBytes).Replace("-", ""));
+    // Do a constant time comparison as to not leak data based on timing
+    if (CryptographicOperations.FixedTimeEquals(hashBytes, hashBytes)) {
+        Console.WriteLine("hashes are equal");
+    }
+    ```
+    For more information on PBKDF2 see:
+    https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rfc2898derivebytes
+
+    For more information on secure password storage see OWASP:
+    https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
   severity: "WARNING"
   metadata:
+    shortDescription: "Use of a broken or risky cryptographic algorithm (SHA1/MD5)"
     category: "security"
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     primary_identifier: "security_code_scan.SCS0006"
     secondary_identifiers:
     - name: "SCS0006"
       type: "security_code_scan_rule_id"
       value: "SCS0006"
 - id: "security_code_scan.SCS0005-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern: "(Random $RNG).$METHOD(...);"
   - focus-metavariable: "$RNG"
   message: |
-    The use of a predictable random value can lead to vulnerabilities when used in certain security
-    critical contexts.
-  languages:
-  - "csharp"
+    Depending on the context, generating weak random numbers may expose cryptographic functions
+    which rely on these numbers to be exploitable. When generating numbers for sensitive values
+    such as tokens, nonces, and cryptographic keys, it is recommended that the
+    `RandomNumberGenerator` class be used.
+
+    Example `RandomNumberGenerator` usage:
+    ```
+    Int32 randInt = RandomNumberGenerator.GetInt32(32000);
+    byte[] randomBytes = new byte[64];
+    RandomNumberGenerator.Fill(randomBytes);
+    Console.WriteLine("Random Int32: {0}", randInt);
+    Console.WriteLine("Random Bytes: {0}", BitConverter.ToString(randomBytes).Replace("-", ""));
+    ```
+
+    For more information see:
+    https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.randomnumbergenerator
   severity: "WARNING"
   metadata:
+    shortDescription: "Use of cryptographically weak Pseudo-Random Number Generator
+      (PRNG)"
     category: "security"
-    cwe: "CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"
+    cwe: "CWE-338"
     primary_identifier: "security_code_scan.SCS0005"
     secondary_identifiers:
     - name: "SCS0005"
       type: "security_code_scan_rule_id"
       value: "SCS0005"
 - id: "security_code_scan.SCS0016-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern: |
       [$HTTPMETHOD]
@@ -216,21 +444,41 @@ rules:
       metavariable: "$HTTPMETHOD"
       regex: "Http(Post|Delete|Patch|Put)"
   message: |
-    An attacker could send a link to the victim. By visiting the
-    malicious link, a web page would trigger a POST request (because it is a
-    blind attack - the attacker doesn’t see a response from triggered request
-    and has no use from GET request and GET requests should not change a state
-    on the server by definition) to the website. The victim would not be able
-    to acknowledge that an action is made in the background, but his cookie
-    would be automatically submitted if he is authenticated to the website.
-    This attack does not require special interaction other than visiting a
-    website.
-  languages:
-  - "csharp"
+    The application failed to protect against Cross-Site Request Forgery (CSRF)
+    due to not including the `[ValidateAntiForgeryToken]` attribute on an
+    HTTP method handler that could change user state (usually in the form of POST or PUT
+    methods).
+
+    The vulnerability can be exploited by an adversary creating a link or form on a third
+    party site and tricking an authenticated victim to access them.
+
+    Add the `[ValidateAntiForgeryToken]` to all methods which take in user data and change
+    user state (such as updating a database with a new value). This is especially true for
+    functionality such as updating passwords or other security sensitive functions.
+
+    Alternatively, applications can enable a global
+    [AutoValidateAntiforgeryTokenAttribute](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.autovalidateantiforgerytokenattribute)
+    filter.
+
+    For more information on ValidateAntiForgeryToken and other CSRF protections in .NET
+    see the following URL:
+    https://learn.microsoft.com/en-us/aspnet/core/security/anti-request-forgery
+
+    Additionally, consider setting all session cookies to have the `SameSite=Strict` attribute.
+    It should be noted that this may impact usability when sharing links across other mediums.
+    It is recommended that a two cookie based approach is taken, as outlined in the
+    [Top level
+    navigations](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis-08#section-8.8.2)
+    section
+    of the SameSite RFC.
+
+    For more information on CSRF see OWASP's guide:
+    https://owasp.org/www-community/attacks/csrf
   severity: "WARNING"
   metadata:
+    shortDescription: "Potential Cross-Site Request Forgery (CSRF)"
     category: "security"
-    cwe: "CWE-352: Cross-Site Request Forgery (CSRF)"
+    cwe: "CWE-352"
     primary_identifier: "security_code_scan.SCS0016"
     secondary_identifiers:
     - name: "SCS0016"
@@ -274,11 +522,47 @@ rules:
   languages:
   - "csharp"
   message: |
-    The application deserializes untrusted data without sufficiently verifying that
-    the resulting data will be valid.
+    Deserialization attacks exploit the process of reading serialized data and turning it back
+    into an object. By constructing malicious objects and serializing them, an adversary may
+    attempt to:
+
+    - Inject code that is executed upon object construction, which occurs during the
+    deserialization process.
+    - Exploit mass assignment by including fields that are not normally a part of the serialized
+    data but are read in during deserialization.
+
+    Microsoft recommends no longer using the following serialization formats:
+    - BinaryFormatter
+    - SoapFormatter
+    - NetDataContractSerializer
+    - LosFormatter
+    - ObjectStateFormatter
+
+    Consider safer alternatives such as serializing data in the JSON format. Ensure any format
+    chosen allows
+    the application to specify exactly which object types are allowed to be deserialized.
+    Additionally, when
+    deserializing, never deserialize to base object types like `Object` and only cast to the exact
+    object
+    type that is expected.
+
+    To protect against mass assignment, only allow deserialization of the specific fields that are
+    required. If this is not easily done, consider creating an intermediary type that
+    can be serialized with only the necessary fields exposed.
+
+    For more information see Microsoft's deserialization security guide:
+    https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
+
+    For more details on deserialization attacks in general, see OWASP's guide:
+    https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
+
+    It should be noted that [tools exist](https://github.com/pwntester/ysoserial.net) to
+    automatically create
+    exploit code for these vulnerabilities.
   metadata:
+    shortDescription: "Deserialization of potentially untrusted data"
     category: "security"
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     primary_identifier: "security_code_scan.SCS0028"
     secondary_identifiers:
     - name: "SCS0028"
@@ -286,6 +570,8 @@ rules:
       value: "SCS0028"
   severity: "WARNING"
 - id: "security_code_scan.SCS0027-1"
+  languages:
+  - "csharp"
   mode: "taint"
   pattern-sources:
   - patterns:
@@ -318,15 +604,32 @@ rules:
       - pattern: "RedirectToRoute(...)"
       - pattern: "RedirectToRoutePermanent(...)"
       - pattern: "new RedirectResult(...)"
-  languages:
-  - "csharp"
   message: |
-    Unvalidated redirects occur when an application redirects a user to a
-    destination URL specified by a user supplied parameter that is not validated.
-    Such vulnerabilities can be used to facilitate phishing attacks.
+    The application may allow open redirects if created using user supplied input. Open redirects
+    are
+    commonly
+    abused in phishing attacks where the original domain or URL looks like a legitimate link, but
+    then
+    redirects a user to a malicious site. An example would be
+    `https://example.com/redirect?url=https://%62%61%64%2e%63%6f%6d%2f%66%61%6b%65%6c%6f%67%69%6e`
+    which,
+    when decoded, turns into `bad.com/fakelogin`.
+
+    Never redirect a client based on user input. It is recommended that the list of target links
+    to
+    redirect a user to are contained server side, and retrieved using a numerical value
+    as an index to return the link to be redirected to. For example, `/redirect?id=1` would cause
+    the
+    application to look up the `1` index and return a URL such as `https://example.com`. This URL
+    would
+    then be used to redirect the user, using the 301 response code and `Location` header.
+
+    For more information on open redirects see OWASP's guide:
+    https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html
   metadata:
+    shortDescription: "URL redirection to untrusted site 'open redirect'"
     category: "security"
-    cwe: "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')"
+    cwe: "CWE-601"
     primary_identifier: "security_code_scan.SCS0027"
     secondary_identifiers:
     - name: "SCS0027"
@@ -334,6 +637,8 @@ rules:
       value: "SCS0027"
   severity: "WARNING"
 - id: "security_code_scan.SCS0001-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern-inside: |
       using System.Diagnostics;
@@ -353,21 +658,68 @@ rules:
         - pattern: "$PSINFO.Arguments = <...$ARG...>;"
         - pattern: "$PSINFO.FileName = <...$ARG...>;"
   message: |
-    The highlighted API is used to execute a system command. If unfiltered input is passed to this
-    API, it can lead to arbitrary command execution.
-  languages:
-  - "csharp"
+    OS command injection is a critical vulnerability that can lead to a full system
+    compromise as it may allow an adversary to pass in arbitrary commands or arguments
+    to be executed.
+
+    User input should never be used in constructing commands or command arguments
+    to functions which execute OS commands. This includes filenames supplied by
+    user uploads or downloads.
+
+    Ensure your application does not:
+
+    - Use user-supplied information in the process name to execute.
+    - Use user-supplied information in an OS command execution function which does
+    not escape shell meta-characters.
+    - Use user-supplied information in arguments to OS commands.
+
+    The application should have a hardcoded set of arguments that are to be passed
+    to OS commands. If filenames are being passed to these functions, it is
+    recommended that a hash of the filename be used instead, or some other unique
+    identifier. It is strongly recommended that a native library that implements
+    the same functionality be used instead of using OS system commands, due to the
+    risk of unknown attacks against third party commands.
+
+    When specifying the OS command, ensure the application uses the full path
+    information, otherwise the OS may attempt to look up which process to execute
+    and could be vulnerable to untrusted search path vulnerabilities (CWE-426).
+
+    Example of safely executing an OS command:
+    ```
+    public void ExecuteCommand(string userFileData) {
+        // generate a random filename, do not using user input
+        string fileName = "C:\\Temp\\" + Guid.NewGuid();
+        File.WriteAllText(fileName, userFileData);
+
+        using (Process process = new Process())
+        {
+            // hardcode the full process path
+            ProcessStartInfo processInfo = new ProcessStartInfo("C:\\App\\FileReader.exe");
+            // only pass in trust arguments, and never direct user input.
+            processInfo.Arguments = fileName;
+            processInfo.UseShellExecute = false;
+            process.StartInfo = processInfo;
+            process.Start();
+        }
+    }
+    ```
+
+    For more information on OS command injection, see OWASP's guide:
+    https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html
   severity: "ERROR"
   metadata:
-    category: "security"
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
+    shortDescription: "Improper neutralization of special elements used in an OS command
       ('OS Command Injection')"
+    category: "security"
+    cwe: "CWE-78"
     primary_identifier: "security_code_scan.SCS0001"
     secondary_identifiers:
     - name: "SCS0001"
       type: "security_code_scan_rule_id"
       value: "SCS0001"
 - id: "security_code_scan.SCS0026-1.SCS0031-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern-either:
     - patterns:
@@ -377,17 +729,78 @@ rules:
       - pattern: "(DirectorySearcher $SOURCE).Path = ..."
       - pattern-not: "(DirectorySearcher $SOURCE).Path = \"...\""
   message: |
-    The software constructs all or part of an LDAP query using
-    externally-influenced input from an upstream component, but it does not
-    neutralize or incorrectly neutralizes special elements that could modify
-    the intended LDAP query when it is sent to a downstream component.
-  languages:
-  - "csharp"
+    LDAP injection attacks exploit LDAP queries to influence how data is returned by
+    the LDAP, or in this case an Active Directory server.
+
+    It is recommended that newer applications use the `System.DirectoryServices.AccountManagement`
+    API instead of `DirectorySearcher` API as it hides the complexity of querying LDAP directly.
+    However,
+    the `AccountManagement` API is still susceptible to LDAP injection if a user inputs LDAP
+    queries,
+    including LDAP filter characters such as `*`.
+
+    It is recommended that all input passed to LDAP querying systems encode the following values:
+
+    - Any occurrence of the null character must be escaped as “\00”.
+    - Any occurrence of the open parenthesis character must be escaped as “\28”.
+    - Any occurrence of the close parenthesis character must be escaped as “\29”.
+    - Any occurrence of the asterisk character must be escaped as “\2a”.
+    - Any occurrence of the backslash character must be escaped as “\5c”.
+
+    Example code that safely encodes input for use in an LDAP query using the `AccountManagement`
+    API:
+    ```
+    using System.DirectoryServices.AccountManagement;
+
+    string EncodeLDAPString(string input) {
+        // Note the \ character is replaced first
+        char[] chars = new char[] { '\\', '\0', '(', ')', '*' };
+        string[] encoded = new string[] { "\\5c", "\\00", "\\28", "\\29", "\\2a" };
+
+        for (int i = 0; i < chars.Length; i++)
+        {
+            input = input.Replace(chars[i].ToString(), encoded[i]);
+        }
+
+        return input;
+    }
+
+    // unsafe, do not use without encoding first
+    string userInput = "Administrator";
+    PrincipalContext AD = new PrincipalContext(ContextType.Domain, "ad.example.dev");
+
+    UserPrincipal u = new UserPrincipal(AD);
+    string encodedUserName = EncodeLDAPString(userInput);
+
+    // The AD search term, encoded prior to calling search
+    u.SamAccountName = encodedUserName;
+
+    // Search for user
+    PrincipalSearcher search = new PrincipalSearcher(u);
+
+    // Use FindOne to only return a single result
+    UserPrincipal result = (UserPrincipal)search.FindOne();
+    search.Dispose();
+
+    // show some details
+    if (result != null) {
+        Console.WriteLine("User: {0}", result.DisplayName);
+    } else {
+        Console.WriteLine("user not found");
+    }
+    ```
+
+    The same encoding method shown in `EncodeLDAPString` can also be used when using the
+    older `DirectorySearcher` API.
+
+    For more information see OWASP's guide:
+    https://cheatsheetseries.owasp.org/cheatsheets/LDAP_Injection_Prevention_Cheat_Sheet.html
   severity: "WARNING"
   metadata:
+    shortDescription: "Improper neutralization of special elements used in an LDAP
+      query ('LDAP Injection')"
     category: "security"
-    cwe: "CWE-90: Improper Neutralization of Special Elements used in an LDAP Query
-      (‘LDAP Injection’)"
+    cwe: "CWE-90"
     primary_identifier: "security_code_scan.SCS0026"
     secondary_identifiers:
     - name: "SCS0026"
@@ -397,6 +810,8 @@ rules:
       type: "security_code_scan_rule_id"
       value: "SCS0031"
 - id: "security_code_scan.SCS0002-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern-either:
     - patterns:
@@ -439,21 +854,63 @@ rules:
       - pattern: "(Session $SESS).Execute($ARG, ...);"
       - pattern-not: "(Session $SESS).Execute(\"...\", ...);"
   message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
-  languages:
-  - "csharp"
+    SQL Injection is a critical vulnerability that can lead to data or system compromise. By
+    dynamically generating SQL query strings, user input may be able to influence the logic of
+    the SQL statement. This could lead to an adversary accessing information they should
+    not have access to, or in some circumstances, being able to execute OS functionality or code.
+
+    Replace all dynamically generated SQL queries with parameterized queries. In situations where
+    dynamic queries must be created, never use direct user input, but instead use a map or
+    dictionary of valid values and resolve them using a user supplied key.
+
+    For example, some database drivers do not allow parameterized queries for `>` or `<` comparison
+    operators. In these cases, do not use a user supplied `>` or `<` value, but rather have the
+    user
+    supply a `gt` or `lt` value. The alphabetical values are then used to look up the `>` and `<`
+    values to be used in the construction of the dynamic query. The same goes for other queries
+    where
+    column or table names are required but cannot be parameterized.
+
+    Example using parameterized queries with `SqlCommand`:
+    ```
+    string userInput = "someUserInput";
+    string connectionString = ...;
+    using (SqlConnection connection = new SqlConnection(connectionString))
+    {
+        connection.Open();
+        String sql = "SELECT name, value FROM table where name=@Name";
+
+        using (SqlCommand command = new SqlCommand(sql, connection))
+        {
+            command.Parameters.Add("@Name", System.Data.SqlDbType.NVarChar);
+            command.Parameters["@Name"].Value = userInput;
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
+                }
+            }
+        }
+    }
+    ```
+
+    For more information on SQL Injection see OWASP:
+    https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
   severity: "ERROR"
   metadata:
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
     category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      (‘SQL Injection’)"
+    cwe: "CWE-89"
     primary_identifier: "security_code_scan.SCS0002"
     secondary_identifiers:
     - name: "SCS0002"
       type: "security_code_scan_rule_id"
       value: "SCS0002"
 - id: "security_code_scan.SCS0003-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern-inside: |
       using System.Xml;
@@ -489,21 +946,57 @@ rules:
           - pattern: "new XmlSchemaXPath { XPath = <...$ARG...> };"
           - focus-metavariable: "$ARG"
   message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
-  languages:
-  - "csharp"
+    XPath injection is a vulnerability that can allow an adversary to inject or modify how an XML
+    query
+    is structured. Depending on the logic of the original query, this could lead to adversaries
+    extracting unauthorized information or in rare cases bypassing authorization checks.
+
+    It is recommended that LINQ to XML is used instead of XPath for querying XML documents. Care
+    must be taken to **not** call these LINQ functions with user input as they can still lead to
+    XPath
+    injection:
+
+    - `XPathEvaluate`
+    - `XPathSelectElement`
+    - `XPathSelectElements`
+
+    Example using LINQ to XML to safely extract the first user from a list of users:
+    ```
+    // XDocument is safe from XXE attacks as the resolver is disabled by default
+    XDocument doc = XDocument.Load("users.xml");
+    XNamespace ns = "urn:users-schema";
+
+    string userInput = "LastName";
+
+    // Get all the users.
+    var user = doc.Descendants(ns + "user")
+                   .Select(u => new {
+                      FirstName = (string)u.Element(ns + "first-name"),
+                      LastName = (string)u.Element(ns + "last-name")
+                   }).Where(u => u.LastName == userInput).FirstOrDefault();
+
+    Console.WriteLine(user.FirstName + " " + user.LastName);
+    ```
+
+    For more information on LINQ to XML security see:
+    https://learn.microsoft.com/en-us/dotnet/standard/linq/linq-xml-security
+
+    For more information on XML security see OWASP's guide:
+    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#net
   severity: "INFO"
   metadata:
+    shortDescription: "Improper neutralization of data within XPath expressions ('XPath
+      Injection')"
     category: "security"
-    cwe: "CWE-643: Improper Neutralization of Data within XPath Expressions (‘XPath
-      Injection’)"
+    cwe: "CWE-643"
     primary_identifier: "security_code_scan.SCS0003"
     secondary_identifiers:
     - name: "SCS0003"
       type: "security_code_scan_rule_id"
       value: "SCS0003"
 - id: "security_code_scan.SCS0007-1"
+  languages:
+  - "csharp"
   mode: "taint"
   pattern-sanitizers:
   - pattern: "(XmlReaderSettings $SETTINGS).ProhibitDtd = true;"
@@ -518,14 +1011,34 @@ rules:
   - pattern: "var $DOC = new XmlDocument(...);"
   - pattern: "var $DOC = new XmlDocument {...};"
   message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
-  languages:
-  - "csharp"
+    External XML entities are a feature of XML parsers that allow documents to contain references
+    to
+    other documents or data. This feature can be abused to read files, communicate with external
+    hosts,
+    exfiltrate data, or cause a Denial of Service (DoS).
+
+    XML parsers and document loaders must be configured to not resolve entities. This can be done
+    by:
+    - Ensuring you are running a version of .NET Framework greater than 4.5.2 (released in 2014).
+    - Using `XDocument` which disables entity resolution and is generally safe from DoS.
+    - Setting `XmlDocument`'s `XmlResolver` to null.
+    - Setting `XmlTextReader`'s  `ProhibitDtd` to `true`
+    - Setting `XmlReaderSettings` `DtdProcessing` to `DtdProcessing.Prohibit`
+
+    Example of safely loading an XML file using `XmlDocument`:
+    ```
+    XmlDocument document = new XmlDocument();
+    document.XmlResolver = null;
+    document.Load("users.xml");
+    ```
+
+    For more information on XML security, see OWASP's guide:
+    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#net
   severity: "WARNING"
   metadata:
+    shortDescription: "Improper restriction of XML external entity reference ('XXE')"
     category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference (‘XXE’)"
+    cwe: "CWE-611"
     primary_identifier: "security_code_scan.SCS0007"
     secondary_identifiers:
     - name: "SCS0007"
@@ -571,20 +1084,70 @@ rules:
         ...
         $SETTINGS.EnableScript = true;
   message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
+    By setting `XsltSettings.EnableScript` to true, an adversary who is able to influence the
+    loaded
+    XSL document could directly inject code to compromise the system. It is strongly
+    recommended that an alternative approach is used to work with XML data.
+
+    For increased security:
+
+    - Never process user-supplied XSL style sheets
+    - Ensure `XsltSettings.EnableScript` is set to false
+    - Ensure `XsltSettings.EnableDocumentFunction` is set to false
+
+    If the application must calculate values from XML input, instead of using XSL scripts to
+    execute functions, modify the XML document prior to running the
+    `XslCompiledTransform.Transform` method.
+
+    Example of modifying the XML prior to running `Transform`:
+    ```
+    const String filename = "number.xml";
+    const String stylesheet = "calc.xsl";
+
+    // Compile the style sheet.
+    XsltSettings xslt_settings = new XsltSettings();
+    xslt_settings.EnableScript = false; // disable script
+    xslt_settings.EnableDocumentFunction = false; // disable document() function
+    XslCompiledTransform xslt = new XslCompiledTransform();
+    XmlResolver resolver = null; // set a null entity resolver
+    xslt.Load(stylesheet, xslt_settings, resolver);
+
+    // Load the XML source file, using XDocument for safety
+    XDocument doc = XDocument.Load(filename);
+
+    // do our modifications to the document before the transformation
+    // instead of inside of a script.
+    doc.Element("data").Add(new XElement("circle", new XElement("radius", 12)));
+
+    // Create an XmlWriter.
+    XmlWriterSettings settings = new XmlWriterSettings();
+    settings.OmitXmlDeclaration = true;
+    settings.Indent = true;
+    XmlWriter writer = XmlWriter.Create("output.xml", settings);
+    // Finally, execute the transformation.
+    xslt.Transform(doc.CreateReader(), writer);
+    writer.Close();
+    ```
+
+    For more information on security considerations when using XSL see the following URLs:
+    - https://learn.microsoft.com/en-us/dotnet/standard/data/xml/xslt-security-considerations
+    -
+    https://learn.microsoft.com/en-us/dotnet/api/system.xml.xsl.xslcompiledtransform?view=net-7.0#security-considerations
   languages:
   - "csharp"
   severity: "WARNING"
   metadata:
+    shortDescription: "Improper restriction of XML external entity reference"
     category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
+    cwe: "CWE-611"
     primary_identifier: "security_code_scan.SCS0011"
     secondary_identifiers:
     - name: "SCS0011"
       type: "security_code_scan_rule_id"
       value: "SCS0011"
 - id: "security_code_scan.SCS0032-1.SCS0033-1.SCS0034-1"
+  languages:
+  - "csharp"
   patterns:
   - pattern: |
       new PasswordValidator
@@ -630,14 +1193,31 @@ rules:
       metavariable: "$LEN"
       comparison: "$LEN < 8"
   message: |
-    The product does not require that users should have strong passwords, which
-    makes it easier for attackers to compromise user accounts.
-  languages:
-  - "csharp"
+    The application's `PasswordValidator.RequiredLength` property allows passwords
+    to be less than 8 characters. Consider requiring a length of at least 8 or more
+    characters to reduce the chance of passwords being brute forced.
+
+    Example of setting the RequiredLength to 8 in ASP.NET Core Identity:
+    ```
+    builder.Services.Configure<IdentityOptions>(options =>
+    {
+        // Default Password settings.
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequiredLength = 8;
+        options.Password.RequiredUniqueChars = 1;
+    });
+    ```
+
+    For more information on configuring ASP.NET Core Identity see:
+    https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration
   severity: "WARNING"
   metadata:
+    shortDescription: "Weak password requirements"
     category: "security"
-    cwe: "CWE-521: Weak Password Requirements"
+    cwe: "CWE-521"
     primary_identifier: "security_code_scan.SCS0032"
     secondary_identifiers:
     - name: "SCS0032"
@@ -650,6 +1230,8 @@ rules:
       type: "security_code_scan_rule_id"
       value: "SCS0034"
 - id: "security_code_scan.SCS0018-1"
+  languages:
+  - "csharp"
   mode: "taint"
   pattern-sources:
   - patterns:
@@ -736,23 +1318,67 @@ rules:
     - pattern: "(System.Net.WebClient $E).DownloadFileAsync(...)"
     - pattern: "(System.Net.WebClient $E).DownloadFileTaskAsync(...)"
   message: |
-    The software uses external input to construct a pathname that is intended
-    to identify a file or directory that is located underneath a restricted
-    parent directory, but the software does not properly neutralize special
-    elements within the pathname that can cause the pathname to resolve to a
-    location that is outside of the restricted directory..
+    The application dynamically constructs file or path information. If the path
+    information comes from user input, it could be abused to read sensitive files,
+    access other users data, or aid in exploitation to gain further system access.
+
+    User input should never be used in constructing paths or files for interacting
+    with the filesystem. This includes filenames supplied by user uploads or downloads.
+    If possible consider hashing user input or replacing it with unique values and
+    use `System.IO.Path.GetFullPath` to resolve and validate the path information
+    prior to processing any file functionality.
+
+    Example using `Path.GetFullPath` and not allowing direct user input:
+    ```
+    // store user input alongside an ID we control
+    struct userData
+    {
+        public string userFilename;
+        public Guid id;
+    }
+
+    class Program
+    {
+        public static void Main()
+        {
+            userData data = new userData();
+            // user input, saved only as a reference
+            data.userFilename = "..\\test.txt";
+
+            // random id as the filename
+            data.id = Guid.NewGuid();
+
+            // restrict all file processing to this directory only
+            string basePath = "C:\\Restricted\\";
+
+            // resolve the full path, but only use our random generated id
+            string fullPath = Path.GetFullPath(basePath + data.id);
+
+            // verify the path is contained within our basePath
+            if (!fullPath.StartsWith(basePath)) {
+                Console.WriteLine("Invalid path specified!");
+                return;
+            }
+            // process / work with file
+        }
+    }
+    ```
+
+    For more information on path traversal issues see OWASP:
+    https://owasp.org/www-community/attacks/Path_Traversal
   metadata:
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
+    shortDescription: "Improper limitation of a pathname to a restricted directory
+      ('Path Traversal')"
+    cwe: "CWE-22"
     primary_identifier: "security_code_scan.SCS0018"
     secondary_identifiers:
     - name: "SCS0018"
       type: "security_code_scan_rule_id"
       value: "SCS0018"
   severity: "WARNING"
+- id: "security_code_scan.SCS0017-1"
   languages:
   - "csharp"
-- id: "security_code_scan.SCS0017-1"
   patterns:
   - pattern: |
       [ValidateInput(false)]
@@ -761,15 +1387,37 @@ rules:
         ...
       }
   message: |
-    Input validation is a first line of defence for a variety of different
-    attacks and should be enabled per default. Please do not forget to use
-    @Html.AntiForgeryToken() in your view.
-  languages:
-  - "csharp"
+    By using the `[ValidateInput(false)]` attribute in a controller
+    class, the application will disable request validation for that
+    method. This disables ASP.NET from examining requests for injection
+    attacks such as Cross-Site-Scripting (XSS).
+
+    If possible, re-enable validation by using `ValidateInput(true)`.
+    In some cases this may not be possible, in which case ensure how the
+    request data used is validated and this method does not
+    output user input directly into the view.
+
+    For more information on protecting ASP.NET Core applications from XSS see:
+    https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting
+
+    Example of enabling `ValidateInput` attribute:
+    ```
+    class ControllerClass
+    {
+        [ValidateInput(true)]
+        public void SomeActionMethod()
+        {
+        }
+    }
+    ```
+
+    For more information on ASP.NET request validation see OWASP:
+    https://owasp.org/www-community/ASP-NET_Request_Validation
   severity: "WARNING"
   metadata:
+    shortDescription: "ASP.NET input validation disabled"
     category: "security"
-    cwe: "CWE-554: ASP.NET Misconfiguration: Not Using Input Validation Framework"
+    cwe: "CWE-554"
     primary_identifier: "security_code_scan.SCS0017"
     secondary_identifiers:
     - name: "SCS0017"
@@ -827,15 +1475,54 @@ rules:
   languages:
   - "csharp"
   message: |
-    A potential XSS was found. The endpoint returns a variable from the client
-    input that has not been encoded. To protect against stored XSS attacks, make
-    sure any dynamic content coming from user or data store cannot be used to
-    inject JavaScript on a page. Most modern frameworks will escape dynamic content
-    by default automatically (Razor for example)
+    Cross Site Scripting (XSS) is an attack which exploits a web application or system to treat
+    user input
+    as markup or script code. It is important to encode the data depending on the specific context
+    it
+    is used in. There are at least six context types:
+
+    - Inside HTML tags `<div>context 1</div>`
+    - Inside attributes: `<div class="context 2"></div>`
+    - Inside event attributes `<button onclick="context 3">button</button>`
+    - Inside script blocks: `<script>var x = "context 4"</script>`
+    - Unsafe element HTML assignment: `element.innerHTML = "context 5"`
+    - Inside URLs: `<iframe src="context 6"></iframe><a href="context 6">link</a>`
+
+    Script blocks alone have multiple ways they need to be encoded. Extra care must be taken if
+    user input
+    is ever output inside of script tags.
+
+    User input that is displayed within the application must be encoded, sanitized or validated
+    to ensure it cannot be treated as HTML or executed as Javascript code. Care must also be
+    taken
+    to not mix server-side templating with client-side templating, as the server-side templating
+    will
+    not encode things like {{ 7*7 }} which may execute client-side templating features.
+
+    It is _NOT_ advised to encode user input prior to inserting into a data store. The data will
+    need to be
+    encoded depending on context of where it is output. It is much safer to force the displaying
+    system to
+    handle the encoding and not attempt to guess how it should be encoded.
+
+    Consider using built-in framework capabilities for automatically encoding user input.
+    Depending
+    on output context, consider using the following `System.Text.Encodings.Web` encoders:
+
+    -
+    [HtmlEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.htmlencoder)
+    -
+    [JavaScriptEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.javascriptencoder)
+    -
+    [UrlEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.urlencoder)
+
+    For more information on protecting ASP.NET Core applications from XSS see:
+    https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting#accessing-encoders-in-code
   metadata:
+    shortDescription: "Improper neutralization of input during web page generation
+      ('Cross-site Scripting')"
     category: "security"
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation (‘Cross-site
-      Scripting’)"
+    cwe: "CWE-79"
     primary_identifier: "security_code_scan.SCS0029"
     secondary_identifiers:
     - name: "SCS0029"
