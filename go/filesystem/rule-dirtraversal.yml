@@ -5,6 +5,8 @@
 ---
 rules:
 - id: "go/filesystem/rule-dirtraversal"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - pattern: |
@@ -30,8 +32,6 @@ rules:
     log.Fatal(http.ListenAndServe(":9000", fs))
     ```
   metadata:
-    shortDescription: "Relative Path Traversal"
+    shortDescription: "Relative path traversal"
     cwe: "CWE-23"
   severity: "WARNING"
-  languages:
-  - "go"

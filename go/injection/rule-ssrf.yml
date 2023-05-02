@@ -6,6 +6,8 @@
 ---
 rules:
 - id: "go/injection/rule-ssrf"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - patterns:
@@ -141,5 +143,3 @@ rules:
     shortDescription: "Server Side Request Forgery (SSRF)"
     cwe: "CWE-918"
   severity: "WARNING"
-  languages:
-  - "go"

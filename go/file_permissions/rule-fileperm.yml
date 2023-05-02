@@ -6,6 +6,8 @@
 ---
 rules:
 - id: "go/file_permissions/rule-fileperm"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - pattern: "os.Chmod(...,$MASK)"
@@ -40,5 +42,3 @@ rules:
     cwe: "CWE-732"
     owasp: "A6:2017-Security Misconfiguration"
   severity: "WARNING"
-  languages:
-  - "go"

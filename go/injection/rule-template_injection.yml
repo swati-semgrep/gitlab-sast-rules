@@ -6,6 +6,8 @@
 ---
 rules:
 - id: "go/injection/rule-template_injection"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - patterns:
@@ -80,5 +82,3 @@ rules:
       ('Cross-site Scripting')"
     cwe: "CWE-79"
   severity: "WARNING"
-  languages:
-  - "go"

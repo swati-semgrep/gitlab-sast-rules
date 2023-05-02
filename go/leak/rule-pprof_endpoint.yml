@@ -6,13 +6,14 @@
 ---
 rules:
 - id: "go/leak/rule-pprof_endpoint"
+  languages:
+  - "go"
   patterns:
   - pattern: |
       import _ "net/http/pprof"
   message: |
     Profiling endpoint automatically exposed on /debug/pprof
   metadata:
-    cwe: "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
+    shortDescription: "Active debug code (pprof enabled)"
+    cwe: "CWE-489"
   severity: "ERROR"
-  languages:
-  - "go"

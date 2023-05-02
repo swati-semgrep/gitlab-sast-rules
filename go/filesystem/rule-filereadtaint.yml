@@ -5,6 +5,8 @@
 ---
 rules:
 - id: "go/filesystem/rule-filereadtaint"
+  languages:
+  - "go"
   patterns:
   - pattern-not-inside: |
       os.OpenFile(filepath.Clean(...), ...)
@@ -105,9 +107,7 @@ rules:
     For more information on path traversal issues see OWASP:
     https://owasp.org/www-community/attacks/Path_Traversal
   metadata:
-    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+    shortDescription: "Improper limitation of a pathname to a restricted directory
       ('Path Traversal')"
     cwe: "CWE-22"
   severity: "WARNING"
-  languages:
-  - "go"

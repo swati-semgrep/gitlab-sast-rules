@@ -6,6 +6,8 @@
 ---
 rules:
 - id: "go/http/rule-slowloris"
+  languages:
+  - "go"
   patterns:
   - pattern-inside: |
       import "net/http"
@@ -115,5 +117,3 @@ rules:
     shortDescription: "Uncontrolled resource consumption (Slowloris)"
     cwe: "CWE-400"
   severity: "WARNING"
-  languages:
-  - "go"

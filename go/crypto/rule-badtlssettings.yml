@@ -5,6 +5,8 @@
 ---
 rules:
 - id: "go/crypto/rule-badtlssettings"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - pattern: |
@@ -75,8 +77,7 @@ rules:
 
     For more information on cipher suites in Go see: https://go.dev/blog/tls-cipher-suites
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    shortDescription: "Use of a broken or risky cryptographic algorithm"
+    cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
   severity: "WARNING"
-  languages:
-  - "go"
