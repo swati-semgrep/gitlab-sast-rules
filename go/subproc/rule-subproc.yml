@@ -6,6 +6,8 @@
 ---
 rules:
 - id: "go/subproc/rule-subproc"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - patterns:
@@ -81,5 +83,3 @@ rules:
     cwe: "CWE-95"
     owasp: "A1:2017-Injection"
   severity: "WARNING"
-  languages:
-  - "go"
