@@ -6,6 +6,8 @@
 ---
 rules:
 - id: "go/memory/rule-integer_overflow"
+  languages:
+  - "go"
   patterns:
   - pattern-either:
     - patterns:
@@ -42,5 +44,3 @@ rules:
     shortDescription: "Integer overflow or wraparound"
     cwe: "CWE-190"
   severity: "ERROR"
-  languages:
-  - "go"
