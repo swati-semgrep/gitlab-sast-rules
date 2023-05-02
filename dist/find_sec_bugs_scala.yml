@@ -347,7 +347,7 @@ rules:
     category: "security"
     technology:
     - "java"
-    primary_identifier: "find_sec_bugs_scala.PERMISSIVE_CORS"
+    primary_identifier: "find_sec_bugs_scala.PERMISSIVE_CORS-2"
     secondary_identifiers:
     - name: "Find Security Bugs-PERMISSIVE_CORS"
       type: "find_sec_bugs_type"
@@ -648,7 +648,7 @@ rules:
     cwe: "CWE-326: Inadequate Encryption Strength"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.WEAK_MESSAGE_DIGEST_MD5"
+    primary_identifier: "find_sec_bugs_scala.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
     secondary_identifiers:
     - name: "Find Security Bugs-WEAK_MESSAGE_DIGEST_MD5"
       type: "find_sec_bugs_type"
@@ -753,7 +753,7 @@ rules:
     Protection Cheat Sheet for details on how to do this correctly.
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
-    primary_identifier: "find_sec_bugs_scala.UNENCRYPTED_SOCKET"
+    primary_identifier: "find_sec_bugs_scala.UNENCRYPTED_SOCKET-1.UNENCRYPTED_SERVER_SOCKET-1"
     secondary_identifiers:
     - name: "Find Security Bugs-UNENCRYPTED_SOCKET"
       type: "find_sec_bugs_type"
@@ -786,7 +786,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')"
-    primary_identifier: "find_sec_bugs_scala.UNVALIDATED_REDIRECT"
+    primary_identifier: "find_sec_bugs_scala.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
     secondary_identifiers:
     - name: "Find Security Bugs-UNVALIDATED_REDIRECT"
       type: "find_sec_bugs_type"
@@ -829,7 +829,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-295: Improper Certificate Validation"
-    primary_identifier: "find_sec_bugs_scala.WEAK_HOSTNAME_VERIFIER"
+    primary_identifier: "find_sec_bugs_scala.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-WEAK_HOSTNAME_VERIFIER"
       type: "find_sec_bugs_type"
@@ -1222,7 +1222,7 @@ rules:
       ('SQL Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.CUSTOM_INJECTION"
+    primary_identifier: "find_sec_bugs_scala.CUSTOM_INJECTION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-CUSTOM_INJECTION"
       type: "find_sec_bugs_type"
@@ -1312,7 +1312,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-552: Files or Directories Accessible to External Parties"
-    primary_identifier: "find_sec_bugs_scala.REQUESTDISPATCHER_FILE_DISCLOSURE"
+    primary_identifier: "find_sec_bugs_scala.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-REQUESTDISPATCHER_FILE_DISCLOSURE"
       type: "find_sec_bugs_type"
@@ -1933,7 +1933,7 @@ rules:
     category: "security"
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
       ('SQL Injection')"
-    primary_identifier: "find_sec_bugs_scala.SQL_INJECTION_SPRING_JDBC"
+    primary_identifier: "find_sec_bugs_scala.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SQL_INJECTION_SPRING_JDBC"
       type: "find_sec_bugs_type"
@@ -2005,7 +2005,7 @@ rules:
     cwe: "CWE-259: Use of Hard-coded Password"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.DMI_CONSTANT_DB_PASSWORD"
+    primary_identifier: "find_sec_bugs_scala.DMI_CONSTANT_DB_PASSWORD-1.HARD_CODE_PASSWORD-3"
     secondary_identifiers:
     - name: "Find Security Bugs-DMI_CONSTANT_DB_PASSWORD"
       type: "find_sec_bugs_type"
@@ -2027,7 +2027,7 @@ rules:
     cwe: "CWE-259: Use of Hard-coded Password"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.DMI_EMPTY_DB_PASSWORD"
+    primary_identifier: "find_sec_bugs_scala.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
     secondary_identifiers:
     - name: "Find Security Bugs-DMI_EMPTY_DB_PASSWORD"
       type: "find_sec_bugs_type"
@@ -2182,7 +2182,7 @@ rules:
     cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs_scala.OVERLY_PERMISSIVE_FILE_PERMISSION"
+    primary_identifier: "find_sec_bugs_scala.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-OVERLY_PERMISSIVE_FILE_PERMISSION"
       type: "find_sec_bugs_type"
@@ -2226,7 +2226,7 @@ rules:
   severity: "ERROR"
   metadata:
     cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    primary_identifier: "find_sec_bugs_scala.SCRIPT_ENGINE_INJECTION"
+    primary_identifier: "find_sec_bugs_scala.SCRIPT_ENGINE_INJECTION-1.SPEL_INJECTION-1.EL_INJECTION-2.SEAM_LOG_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SCRIPT_ENGINE_INJECTION"
       type: "find_sec_bugs_type"
@@ -2255,7 +2255,7 @@ rules:
   severity: "ERROR"
   metadata:
     cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    primary_identifier: "find_sec_bugs_scala.SCRIPT_ENGINE_INJECTION"
+    primary_identifier: "find_sec_bugs_scala.SCRIPT_ENGINE_INJECTION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-SCRIPT_ENGINE_INJECTION"
       type: "find_sec_bugs_type"
@@ -2564,7 +2564,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    primary_identifier: "find_sec_bugs_scala.TEMPLATE_INJECTION_PEBBLE"
+    primary_identifier: "find_sec_bugs_scala.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
     secondary_identifiers:
     - name: "Find Security Bugs-TEMPLATE_INJECTION_PEBBLE"
       type: "find_sec_bugs_type"
@@ -2968,7 +2968,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs_scala.XXE_DTD_TRANSFORM_FACTORY"
+    primary_identifier: "find_sec_bugs_scala.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_DTD_TRANSFORM_FACTORY"
       type: "find_sec_bugs_type"
