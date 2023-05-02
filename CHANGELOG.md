@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.6
+- Enhance Go descriptions (!137)
+
 ## v1.3.5
 - Update C# SQL Injection with link for more details (!139)
 
