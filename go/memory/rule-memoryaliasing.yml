@@ -72,6 +72,9 @@ rules:
       fmt.Printf("%p\n", &structData[idx])
     }
     ```
+
+    For more information on how the `for ... range` statement works see:
+    https://go.dev/ref/spec#For_statements
   metadata:
     shortDescription: "Incorrect access of indexable resource ('Range Error')"
     cwe: "CWE-118"
