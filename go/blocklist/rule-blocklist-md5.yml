@@ -14,7 +14,7 @@ rules:
     The MD5 message-digest algorithm has been cryptographically broken and is unsuitable for
     further use. The MD5 hash algorithm has been found to be vulnerable to producing collisions.
     This means that two different values, when hashed, can lead to the same hash value. It is
-    recommended that the SHA-3, or BLAKE2 family of algorithms be used for non-password based
+    recommended that the SHA-3 or BLAKE2 family of algorithms be used for non-password based
     cryptographic hashes instead. For password based cryptographic hashes,  consider using the
     bcrypt or Argon2id family of cryptographic hashes.
 

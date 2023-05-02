@@ -50,7 +50,7 @@ rules:
   message: |
     The application dynamically constructs file or path information. If the path
     information comes from user input, it could be abused to read sensitive files,
-    access other users data, or aid in exploitation to gain further system access.
+    access other users data or aid in exploitation to gain further system access.
 
     User input should never be used in constructing paths or files for interacting
     with the filesystem. This includes filenames supplied by user uploads or downloads.
@@ -58,7 +58,7 @@ rules:
     Additionally, use `filepath.Base` to only use the filename and not path information.
     Always validate the full path prior to opening or writing to any file.
 
-    Example using `filepath.Base`, generating a unique filename, and never using
+    Example using `filepath.Base`, generating a unique filename without using
     user input to construct filepath information:
     ```
     type userData struct {
