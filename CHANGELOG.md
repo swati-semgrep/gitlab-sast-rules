@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.6
+- Update pattern of avoid PyYAML.load in bandit.b506 (!140)
+
 ## v1.3.5
 - Update C# SQL Injection with link for more details (!139)
 
