@@ -9,7 +9,7 @@ rules:
       import yaml
       ...
   - pattern-not-inside: |
-      $YAML = ruamel.yaml.YAML(...)
+      from ruamel.yaml import YAML
       ...
   - pattern-either:
     - pattern: "yaml.unsafe_load(...)"
