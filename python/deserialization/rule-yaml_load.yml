@@ -23,7 +23,8 @@ rules:
       regex: "(load|load_all)"
   message: |
     Avoid using `load()`. `PyYAML.load` can create arbitrary Pythonobjects. A malicious actor could
-    exploit this to run arbitrarycode. Use `safe_load()` instead. It is recommended to use `SafeLoader`
+    exploit this to run arbitrarycode. Use `safe_load()` instead. It is recommended to use
+    `SafeLoader`
     when loading yaml.
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
