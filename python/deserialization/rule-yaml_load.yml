@@ -11,8 +11,17 @@ rules:
   - pattern-inside: |
       import yaml
       ...
-      yaml.load($FOO)
-  - pattern: "yaml.load($FOO)"
+  - pattern-not-inside: |
+      $YAML = ruamel.yaml.YAML(...)
+      ...
+  - pattern-either:
+    - pattern: "yaml.unsafe_load(...)"
+    - pattern: "yaml.load(..., Loader=yaml.Loader, ...)"
+    - pattern: "yaml.load(..., Loader=yaml.UnsafeLoader, ...)"
+    - pattern: "yaml.load(..., Loader=yaml.CLoader, ...)"
+    - pattern: "yaml.load_all(..., Loader=yaml.Loader, ...)"
+    - pattern: "yaml.load_all(..., Loader=yaml.UnsafeLoader, ...)"
+    - pattern: "yaml.load_all(..., Loader=yaml.CLoader, ...)"
   message: |
     Avoid using `load()`. `PyYAML.load` can create arbitrary Pythonobjects. A malicious actor could
     exploit this to run arbitrarycode. Use `safe_load()` instead.
