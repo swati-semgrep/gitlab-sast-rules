@@ -7,7 +7,7 @@ import yaml
 
 def test_yaml_load():
     ystr = yaml.dump({'a': 1, 'b': 2, 'c': 3})
-    y = yaml.load(ystr)
+    y = yaml.load(ystr, Loader=yaml.FullLoader)
     yaml.dump(y)
     try:
         yaml.load(ystr, Loader=yaml.CSafeLoader)
