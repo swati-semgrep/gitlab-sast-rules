@@ -610,12 +610,13 @@ rules:
       ...
   - pattern-either:
     - pattern: "yaml.unsafe_load(...)"
-    - pattern: "yaml.load(..., Loader=yaml.Loader, ...)"
-    - pattern: "yaml.load(..., Loader=yaml.UnsafeLoader, ...)"
-    - pattern: "yaml.load(..., Loader=yaml.CLoader, ...)"
-    - pattern: "yaml.load_all(..., Loader=yaml.Loader, ...)"
-    - pattern: "yaml.load_all(..., Loader=yaml.UnsafeLoader, ...)"
-    - pattern: "yaml.load_all(..., Loader=yaml.CLoader, ...)"
+    - pattern: "yaml.$LD(..., Loader=yaml.$LOADER, ...)"
+  - metavariable-regex:
+      metavariable: "$LOADER"
+      regex: "(Loader|UnsafeLoader|CLoader)"
+  - metavariable-regex:
+      metavariable: "$LD"
+      regex: "(load|load_all)"
   message: |
     Avoid using `load()`. `PyYAML.load` can create arbitrary Pythonobjects. A malicious actor could
     exploit this to run arbitrarycode. Use `safe_load()` instead.
