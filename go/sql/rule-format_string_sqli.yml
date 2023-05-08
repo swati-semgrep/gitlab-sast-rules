@@ -28,7 +28,7 @@ rules:
     SQL Injection is a critical vulnerability that can lead to data or system compromise. By
     dynamically generating SQL query strings, user input may be able to influence the logic of
     the SQL statement. This could lead to an adversary accessing information they should
-    not have access to, or in some circumstances, being able to execute OS functionality or code.
+    not have access to or in some circumstances, being able to execute OS functionality or code.
 
     Replace all dynamically generated SQL queries with parameterized queries. In situations where
     dynamic queries must be created, never use direct user input, but instead use a map or

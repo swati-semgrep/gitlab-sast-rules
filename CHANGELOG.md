@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.8
+- Enhance Go ruleset descriptions and titles (!137)
+
 ## v1.3.7
 - Revert primary identifier changes in !101 to align identifiers to previously-shipped rules (!138)
 
