@@ -801,7 +801,7 @@ rules:
       query ('LDAP Injection')"
     category: "security"
     cwe: "CWE-90"
-    primary_identifier: "security_code_scan.SCS0026"
+    primary_identifier: "security_code_scan.SCS0026-1.SCS0031-1"
     secondary_identifiers:
     - name: "SCS0026"
       type: "security_code_scan_rule_id"
@@ -1218,7 +1218,7 @@ rules:
     shortDescription: "Weak password requirements"
     category: "security"
     cwe: "CWE-521"
-    primary_identifier: "security_code_scan.SCS0032"
+    primary_identifier: "security_code_scan.SCS0032-1.SCS0033-1.SCS0034-1"
     secondary_identifiers:
     - name: "SCS0032"
       type: "security_code_scan_rule_id"
