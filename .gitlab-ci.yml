@@ -2,6 +2,12 @@ stages:
   - prepare
   - verify
   - gapanalysis
+  - tag
+
+include:
+  - project: 'gitlab-org/security-products/ci-templates'
+    ref: 'master'
+    file: '/includes-dev/upsert-git-tag.yml'
 
 # make sure the rules adhere to our quality guidelines
 yamllint-quality:
