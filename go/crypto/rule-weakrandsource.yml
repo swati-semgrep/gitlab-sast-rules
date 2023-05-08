@@ -5,6 +5,8 @@
 ---
 rules:
 - id: "go/crypto/rule-weakrandsource"
+  languages:
+  - "go"
   patterns:
   - patterns:
     - pattern-inside: |
@@ -19,10 +21,15 @@ rules:
       metavariable: "$METHOD"
       regex: "(Float32|Float64|Int31|Int31n|Int63|Int63n|NormalFloat64|Uint32|Uint64)"
   message: |
-    Use of weak random number generator (math/rand instead of crypto/rand)
+    Go's `math/rand` is not meant for use in generating random numbers for any cryptographic or
+    security sensitive context. This includes generating random numbers that could be used in
+    user specific identifiers or where the random number that is generated is considered to
+    be secret.
+
+    Replace all imports of `math/rand` with `crypto/rand`.
   metadata:
-    cwe: "CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"
+    shortDescription: "Use of cryptographically weak Pseudo-Random Number Generator
+      (PRNG)"
+    cwe: "CWE-338"
     owasp: "A3:2017-Sensitive Data Exposure"
   severity: "WARNING"
-  languages:
-  - "go"

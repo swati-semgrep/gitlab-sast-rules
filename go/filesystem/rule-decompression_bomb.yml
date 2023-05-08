@@ -6,6 +6,8 @@
 ---
 rules:
 - id: "go/filesystem/rule-decompression_bomb"
+  languages:
+  - "go"
   mode: "taint"
   pattern-sinks:
   - pattern: "io.Copy(...)"
@@ -22,9 +24,36 @@ rules:
   - pattern: "flate.NewReaderDict(...)"
   - pattern: "zip.OpenReader(...)"
   message: |
-    Potential DoS vulnerability via decompression bomb
+    Directly decompressing files or buffers may lead to a potential Denial of Service (DoS)
+    due to a decompression bomb. Decompression bombs are maliciously compressed files
+    or data that decompresses to extremely large sizes. This can cause the process to run
+    out of memory, or the disk to fill up.
+
+    To protect against decompression bombs, an
+    [io.LimitReader(...)](https://pkg.go.dev/io#LimitReader)
+    should be used to limit how much can be read during the decompression routine.
+
+    Example using `io.LimitReader` to protect against a decompression bomb:
+    ```
+    f, err := os.Open("some.gz")
+    if err != nil {
+      log.Fatal(err)
+    }
+
+    r, err := gzip.NewReader(f)
+    if err != nil {
+      log.Fatal(err)
+    }
+
+    const oneMegabyte = 1024 * 1024
+    limitedReader := io.LimitReader(r, oneMegabyte)
+
+    // use limitedReader to stop copying after 1 MB
+    if _, err := io.Copy(os.Stdout, limitedReader); err != nil {
+      log.Fatal(err)
+    }
+    ```
   metadata:
-    cwe: "CWE-409: Improper Handling of Highly Compressed Data"
+    shortDescription: "Improper handling of highly compressed data"
+    cwe: "CWE-409"
   severity: "WARNING"
-  languages:
-  - "go"

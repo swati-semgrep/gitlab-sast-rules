@@ -6,6 +6,8 @@
 ---
 rules:
 - id: "go/audit/rule-unhandled_error"
+  languages:
+  - "go"
   patterns:
   - pattern-regex: "this is just a placeholder"
   message: |
@@ -16,5 +18,3 @@ rules:
   metadata:
     cwe: "CWE-703: Audit errors not checked"
   severity: "INFO"
-  languages:
-  - "go"
