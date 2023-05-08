@@ -1478,12 +1478,12 @@ rules:
     to third party
     systems from back end systems. Care must also be taken when constructing payloads using user
     input. Where
-    possible restrict to known URIs or payloads. Consider using a server side map where key's are
+    possible restrict to known URIs or payloads. Consider using a server side map where keys are
     used to return
     URLs such as `https://site/goto?key=1` where `{key: 1, url: 'http://some.url/', key: 2, url:
     'http://...'}`.
 
-    If you must use user supplied input for requesting URLs, it is strongly recommended that the
+    If you must use user-supplied input for requesting URLs, it is strongly recommended that the
     HTTP client
     chosen allows you to customize and block certain IP ranges at the network level. By blocking
     RFC 1918
@@ -1491,7 +1491,7 @@ rules:
     attack. Care must
     also be taken to block certain protocol or address formatting such as IPv6.
 
-    If you can not block address ranges at the client level, you may want to run the HTTP client
+    If you cannot block address ranges at the client level, you may want to run the HTTP client
     as a protected
     user, or in a protected network where you can apply IP Table or firewall rules to block access
     to dangerous
@@ -1607,7 +1607,7 @@ rules:
     is ever output inside of script tags.
 
     User input that is displayed within the application must be encoded, sanitized or validated
-    to ensure it cannot be treated as HTML or executed as Javascript code. Care must also be
+    to ensure it cannot be treated as HTML or executed as JavaScript code. Care must also be
     taken
     to not mix server-side templating with client-side templating, as the server-side templating
     will
@@ -1626,7 +1626,7 @@ rules:
     - [template.URL](https://pkg.go.dev/html/template#URL)
     - [template.HTMLAttr](https://pkg.go.dev/html/template#HTMLAttr)
 
-    Either remove these types from the application or hardcode as const strings prior
+    Either remove these types from the application or hardcode as `const` strings prior
     to conversion:
     ```
     testTemplate, err := template.New("testTemplate").Funcs(template.FuncMap{
@@ -1660,7 +1660,7 @@ rules:
   - pattern: |
       import _ "net/http/pprof"
   message: |
-    Go has a built in profiling service that is enabled by starting an HTTP server with
+    Go has a built-in profiling service that is enabled by starting an HTTP server with
     `net/http/pprof` imported. The `/debug/pprof` endpoint does not require any
     authentication and can be accessed by anonymous users. This profiling endpoint
     can leak sensitive information and should not be enabled in production.
@@ -1837,7 +1837,7 @@ rules:
     secured. By passing "0.0.0.0" as the address to the `Listen` family of functions,
     the application will bind to all interfaces.
 
-    Consider passing in the interface ip address through an environment variable,
+    Consider passing in the interface IP address through an environment variable,
     configuration file, or by determining the primary interface(s) IP address.
 
     Example getting the IP address from an environment variable `IP_ADDRESS`:
@@ -1871,10 +1871,10 @@ rules:
     A potential hard-coded password was identified. Passwords should not be stored directly in code
     but loaded from secure locations such as a Key Management System (KMS).
 
-    The purpose of using Key Management System's is so access can be audited and keys easily
+    The purpose of using a Key Management System is so access can be audited and keys easily
     rotated
     in the event of a breach. By hardcoding passwords, it will be extremely difficult to determine
-    when or if, a key is compromised.
+    when, or if, a key is compromised.
 
     The recommendation on which KMS to use depends on the environment the application is running
     in:
