@@ -7,14 +7,20 @@ import yaml
 
 def test_yaml_load():
     ystr = yaml.dump({'a': 1, 'b': 2, 'c': 3})
-    y = yaml.load(ystr)
+    y = yaml.load(ystr, Loader=yaml.FullLoader)
     yaml.dump(y)
     try:
-        y = yaml.load(ystr, Loader=yaml.CSafeLoader)
+        yaml.load(ystr, Loader=yaml.CSafeLoader)
+        yaml.load(ystr, Loader=yaml.Loader)
+        yaml.load(ystr, Loader=yaml.CLoader)
+        yaml.load(ystr, Loader=yaml.UnsafeLoader)
+        yaml.load_all(ystr, Loader=yaml.Loader)
+        yaml.load_all(ystr, Loader=yaml.CLoader)
+        yaml.load_all(ystr, Loader=yaml.UnsafeLoader)
+        yaml.load_all(ystr, Loader=yaml.FullLoader)
     except AttributeError:
         # CSafeLoader only exists if you build yaml with LibYAML
         y = yaml.load(ystr, Loader=yaml.SafeLoader)
-
 
 def test_json_load():
     # no issue should be found

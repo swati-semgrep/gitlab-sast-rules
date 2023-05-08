@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.2
+# rule-set version: v1.3.6
 # yamllint enable
 ---
 rules:
@@ -20,7 +20,7 @@ rules:
     shortDescription: "Ensure return values are checked when attempting to drop privileges"
     cwe: "CWE-250"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.RpcImpersonateClient"
+    primary_identifier: "flawfinder.RpcImpersonateClient-1.ImpersonateLoggedOnUser-1.CoImpersonateClient-1.ImpersonateNamedPipeClient-1.ImpersonateDdeClientWindow-1.ImpersonateSecurityContext-1.SetThreadToken-1"
     secondary_identifiers:
     - name: "Flawfinder - RpcImpersonateClient"
       type: "flawfinder_func_name"
@@ -108,7 +108,7 @@ rules:
     shortDescription: "Insecure string processing function"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.StrCat"
+    primary_identifier: "flawfinder.StrCat-1.StrCatA-1.StrcatW-1.lstrcatA-1.lstrcatW-1.strCatBuff-1.StrCatBuffA-1.StrCatBuffW-1.StrCatChainW-1._tccat-1._mbccat-1._ftcscat-1.StrCatN-1.StrCatNA-1.StrCatNW-1.StrNCat-1.StrNCatA-1.StrNCatW-1.lstrncat-1.lstrcatnA-1.lstrcatnW-1"
     secondary_identifiers:
     - name: "Flawfinder - StrCat"
       type: "flawfinder_func_name"
@@ -206,7 +206,7 @@ rules:
     cwe: "CWE-120: Statically-sized arrays can be improperly restricted, leading to
       potential overflows or other issues (CWE-119!/CWE-120)"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.char"
+    primary_identifier: "flawfinder.char-1.TCHAR-1.wchar_t-1"
     secondary_identifiers:
     - name: "Flawfinder - char"
       type: "flawfinder_func_name"
@@ -245,7 +245,7 @@ rules:
   metadata:
     shortDescription: "Function does not check the second iterator for over-read conditions"
     cwe: "CWE-126"
-    primary_identifier: "flawfinder.equal"
+    primary_identifier: "flawfinder.equal-1.mismatch-1.is_permutation-1"
     secondary_identifiers:
     - name: "Flawfinder - equal"
       type: "flawfinder_func_name"
@@ -278,7 +278,7 @@ rules:
     shortDescription: "sscanf() functions may allow format string based overflows"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.fscanf"
+    primary_identifier: "flawfinder.fscanf-1.sscanf-1.vsscanf-1.vfscanf-1._ftscanf-1.fwscanf-1.vfwscanf-1.vswscanf-1"
     secondary_identifiers:
     - name: "Flawfinder - fscanf"
       type: "flawfinder_func_name"
@@ -369,7 +369,7 @@ rules:
     cwe: "CWE-20: Check buffer boundaries if used in a loop including recursive loops
       (CWE-120, CWE-20)"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.getchar"
+    primary_identifier: "flawfinder.getchar-1.fgetc-1.getc-1.read-1._gettc-1"
     secondary_identifiers:
     - name: "Flawfinder - getchar"
       type: "flawfinder_func_name"
@@ -408,7 +408,7 @@ rules:
     shortDescription: "Possible use of untrusted environment variable"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.getenv"
+    primary_identifier: "flawfinder.getenv-1.curl_getenv-1"
     secondary_identifiers:
     - name: "Flawfinder - getenv"
       type: "flawfinder_func_name"
@@ -429,7 +429,7 @@ rules:
     cwe: "CWE-120: Some older implementations do not protect against internal buffer
       overflows (CWE-120, CWE-20)"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.getopt"
+    primary_identifier: "flawfinder.getopt-1.getopt_long-1"
     secondary_identifiers:
     - name: "Flawfinder - getopt"
       type: "flawfinder_func_name"
@@ -481,7 +481,7 @@ rules:
     shortDescription: "Use of deprecated function (gets)"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.gets"
+    primary_identifier: "flawfinder.gets-1._getts-1"
     secondary_identifiers:
     - name: "Flawfinder - gets"
       type: "flawfinder_func_name"
@@ -528,7 +528,7 @@ rules:
     shortDescription: "Insecure functions unable to limit / check buffer sizes"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.lstrcat"
+    primary_identifier: "flawfinder.lstrcat-1.wcscat-1._tcscat-1._mbscat-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcat"
       type: "flawfinder_func_name"
@@ -562,7 +562,7 @@ rules:
     shortDescription: "Easily misused string processing functions"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.lstrcatn"
+    primary_identifier: "flawfinder.lstrcatn-1.wcsncat-1._tcsncat-1._mbsnbcat-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcatn"
       type: "flawfinder_func_name"
@@ -597,7 +597,7 @@ rules:
     shortDescription: "Insecure functions unable to limit / check buffer sizes"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.lstrcpy"
+    primary_identifier: "flawfinder.lstrcpy-1.wcscpy-1._tcscpy-1._mbscpy-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcpy"
       type: "flawfinder_func_name"
@@ -634,7 +634,7 @@ rules:
       pointers"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.lstrcpyn"
+    primary_identifier: "flawfinder.lstrcpyn-1.wcsncpy-1._tcsncpy-1._mbsnbcpy-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcpyn"
       type: "flawfinder_func_name"
@@ -669,7 +669,7 @@ rules:
     shortDescription: "Function does not check for buffer overflows when copying"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.memcpy"
+    primary_identifier: "flawfinder.memcpy-1.CopyMemory-1.bcopy-1"
     secondary_identifiers:
     - name: "Flawfinder - memcpy"
       type: "flawfinder_func_name"
@@ -743,7 +743,7 @@ rules:
     shortDescription: "scanf() functions may allow format string based overflows"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.scanf"
+    primary_identifier: "flawfinder.scanf-1.vscanf-1.wscanf-1._tscanf-1.vwscanf-1"
     secondary_identifiers:
     - name: "Flawfinder - scanf"
       type: "flawfinder_func_name"
@@ -794,7 +794,7 @@ rules:
     shortDescription: "Insecure function unable to limit / check buffer sizes"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.sprintf"
+    primary_identifier: "flawfinder.sprintf-1.vsprintf-1.swprintf-1.vswprintf-1._stprintf-1._vstprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - sprintf"
       type: "flawfinder_func_name"
@@ -860,7 +860,7 @@ rules:
     shortDescription: "Insecure string processing functions"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.strccpy"
+    primary_identifier: "flawfinder.strccpy-1.strcadd-1"
     secondary_identifiers:
     - name: "Flawfinder - strccpy"
       type: "flawfinder_func_name"
@@ -913,7 +913,7 @@ rules:
     shortDescription: "Insecure string processing function"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.strcpyA"
+    primary_identifier: "flawfinder.strcpyA-1.strcpyW-1.StrCpy-1.StrCpyA-1.lstrcpyA-1.lstrcpyW-1._tccpy-1._mbccpy-1._ftcscpy-1._mbsncpy-1.StrCpyN-1.StrCpyNA-1.StrCpyNW-1.StrNCpy-1.strcpynA-1.StrNCpyA-1.StrNCpyW-1.lstrcpynA-1.lstrcpynW-1"
     secondary_identifiers:
     - name: "Flawfinder - strcpyA"
       type: "flawfinder_func_name"
@@ -1007,7 +1007,7 @@ rules:
     shortDescription: "Insecure string processing functions"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.streadd"
+    primary_identifier: "flawfinder.streadd-1.strecpy-1"
     secondary_identifiers:
     - name: "Flawfinder - streadd"
       type: "flawfinder_func_name"
@@ -1037,7 +1037,7 @@ rules:
     shortDescription: "Function does not handle null terminated strings properly"
     cwe: "CWE-126"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.strlen"
+    primary_identifier: "flawfinder.strlen-1.wcslen-1._tcslen-1._mbslen-1"
     secondary_identifiers:
     - name: "Flawfinder - strlen"
       type: "flawfinder_func_name"
@@ -1143,7 +1143,7 @@ rules:
     shortDescription: "Insecure encryption algorithm (DES)"
     cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "flawfinder.EVP_des_ecb"
+    primary_identifier: "flawfinder.EVP_des_ecb-1.EVP_des_cbc-1.EVP_des_cfb-1.EVP_des_ofb-1.EVP_desx_cbc-1"
     secondary_identifiers:
     - name: "Flawfinder - EVP_des_ecb"
       type: "flawfinder_func_name"
@@ -1183,7 +1183,7 @@ rules:
     shortDescription: "Insecure stream cipher (RC4)"
     cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "flawfinder.EVP_rc4_40"
+    primary_identifier: "flawfinder.EVP_rc4_40-1.EVP_rc2_40_cbc-1.EVP_rc2_64_cbc-1"
     secondary_identifiers:
     - name: "Flawfinder - EVP_rc4_40"
       type: "flawfinder_func_name"
@@ -1212,7 +1212,7 @@ rules:
     shortDescription: "Insecure hashing algorithm"
     cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "flawfinder.crypt"
+    primary_identifier: "flawfinder.crypt-1.crypt_r-1"
     secondary_identifiers:
     - name: "Flawfinder - crypt"
       type: "flawfinder_func_name"
@@ -1244,7 +1244,7 @@ rules:
     shortDescription: "Potential format string vulnerability"
     cwe: "CWE-134"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.fprintf"
+    primary_identifier: "flawfinder.fprintf-1.vfprintf-1._ftprintf-1._vftprintf-1.fwprintf-1.fvwprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - fprintf"
       type: "flawfinder_func_name"
@@ -1301,7 +1301,7 @@ rules:
     shortDescription: "Potential format string vulnerability"
     cwe: "CWE-134"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.printf"
+    primary_identifier: "flawfinder.printf-1.vprintf-1.vwprintf-1.vfwprintf-1._vtprintf-1.wprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - printf"
       type: "flawfinder_func_name"
@@ -1363,7 +1363,7 @@ rules:
     shortDescription: "Potential format string vulnerability"
     cwe: "CWE-134"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.snprintf"
+    primary_identifier: "flawfinder.snprintf-1.vsnprintf-1._snprintf-1._sntprintf-1._vsntprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - snprintf"
       type: "flawfinder_func_name"
@@ -1459,7 +1459,7 @@ rules:
     shortDescription: "Possible integer overflow or underflow"
     cwe: "CWE-190"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.atoi"
+    primary_identifier: "flawfinder.atoi-1.atol-1._wtoi-1._wtoi64-1"
     secondary_identifiers:
     - name: "Flawfinder - atoi"
       type: "flawfinder_func_name"
@@ -1668,7 +1668,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (open/fopen)"
     cwe: "CWE-362"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.fopen"
+    primary_identifier: "flawfinder.fopen-1.open-1"
     secondary_identifiers:
     - name: "Flawfinder - fopen"
       type: "flawfinder_func_name"
@@ -1739,7 +1739,7 @@ rules:
   metadata:
     shortDescription: "Deprecated function calls (ssignal/gsignal)"
     cwe: "CWE-676"
-    primary_identifier: "flawfinder.gsignal"
+    primary_identifier: "flawfinder.gsignal-1.ssignal-1"
     secondary_identifiers:
     - name: "Flawfinder - gsignal"
       type: "flawfinder_func_name"
@@ -1955,7 +1955,7 @@ rules:
     shortDescription: "Usage of insufficient random number generators"
     cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "flawfinder.drand48"
+    primary_identifier: "flawfinder.drand48-1.erand48-1.jrand48-1.lcong48-1.lrand48-1.mrand48-1.nrand48-1.random-1.seed48-1.setstate-1.srand-1.strfry-1.srandom-1.g_rand_boolean-1.g_rand_int-1.g_rand_int_range-1.g_rand_double-1.g_rand_double_range-1.g_random_boolean-1.g_random_int-1.g_random_int_range-1.g_random_double-1.g_random_double_range-1"
     secondary_identifiers:
     - name: "Flawfinder - drand48"
       type: "flawfinder_func_name"
@@ -2095,7 +2095,7 @@ rules:
     shortDescription: "Possible executable path hijacking (CreateProcessAsUser/CreateProcessWithLogon)"
     cwe: "CWE-78"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.CreateProcessAsUser"
+    primary_identifier: "flawfinder.CreateProcessAsUser-1.CreateProcessWithLogon-1"
     secondary_identifiers:
     - name: "Flawfinder - CreateProcessAsUser"
       type: "flawfinder_func_name"
@@ -2125,7 +2125,7 @@ rules:
     shortDescription: "Potential for OS command injection"
     cwe: "CWE-78"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.execl"
+    primary_identifier: "flawfinder.execl-1.execlp-1.execle-1.execv-1.execvp-1.popen-1.WinExec-1.ShellExecute-1"
     secondary_identifiers:
     - name: "Flawfinder - execl"
       type: "flawfinder_func_name"
@@ -2301,7 +2301,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (tmpnam/tempnam)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.tmpnam"
+    primary_identifier: "flawfinder.tmpnam-1.tempnam-1"
     secondary_identifiers:
     - name: "Flawfinder - tmpnam"
       type: "flawfinder_func_name"

@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.2
+# rule-set version: v1.3.6
 # yamllint enable
 ---
 rules:
@@ -153,7 +153,7 @@ rules:
   metadata:
     cwe: "CWE-310: Cryptographic Issues"
     owasp: "A6:2017-Security Misconfiguration"
-    primary_identifier: "gosec.G402"
+    primary_identifier: "gosec.G402-2"
     secondary_identifiers:
     - name: "Gosec Rule ID G402"
       type: "gosec_rule_id"

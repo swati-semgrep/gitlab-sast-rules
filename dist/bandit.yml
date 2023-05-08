@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.2
+# rule-set version: v1.3.6
 # yamllint enable
 ---
 rules:
@@ -98,7 +98,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B303"
+    primary_identifier: "bandit.B303-2"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
@@ -115,7 +115,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B303"
+    primary_identifier: "bandit.B303-4"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
@@ -134,7 +134,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B304"
+    primary_identifier: "bandit.B304-7"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
@@ -154,7 +154,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B304"
+    primary_identifier: "bandit.B304-6"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
@@ -173,7 +173,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B304"
+    primary_identifier: "bandit.B304-5"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
@@ -192,7 +192,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B304"
+    primary_identifier: "bandit.B304-8"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
@@ -272,7 +272,7 @@ rules:
   metadata:
     cwe: "CWE-326: Inadequate Encryption Strength"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B505"
+    primary_identifier: "bandit.B505-2"
     secondary_identifiers:
     - name: "Bandit Test ID B505"
       type: "bandit_test_id"
@@ -292,7 +292,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B303"
+    primary_identifier: "bandit.B303-3"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
@@ -312,7 +312,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B303"
+    primary_identifier: "bandit.B303-6"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
@@ -328,7 +328,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B304"
+    primary_identifier: "bandit.B304-2"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
@@ -344,7 +344,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B304"
+    primary_identifier: "bandit.B304-4"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
@@ -360,7 +360,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B304"
+    primary_identifier: "bandit.B304-3"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
@@ -398,7 +398,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B303"
+    primary_identifier: "bandit.B303-7"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
@@ -415,7 +415,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B303"
+    primary_identifier: "bandit.B303-5"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
@@ -432,7 +432,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B303"
+    primary_identifier: "bandit.B303-8"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
@@ -533,7 +533,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8:2017-Insecure Deserialization"
-    primary_identifier: "bandit.B301"
+    primary_identifier: "bandit.B301-4"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
@@ -573,7 +573,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8:2017-Insecure Deserialization"
-    primary_identifier: "bandit.B301"
+    primary_identifier: "bandit.B301-3"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
@@ -592,7 +592,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8:2017-Insecure Deserialization"
-    primary_identifier: "bandit.B301"
+    primary_identifier: "bandit.B301-2"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
@@ -605,11 +605,24 @@ rules:
   - pattern-inside: |
       import yaml
       ...
-      yaml.load($FOO)
-  - pattern: "yaml.load($FOO)"
+  - pattern-not-inside: |
+      from ruamel.yaml import YAML
+      ...
+  - pattern-either:
+    - pattern: "yaml.unsafe_load(...)"
+    - pattern: "yaml.$LD(..., Loader=yaml.$LOADER, ...)"
+    - pattern: "yaml.$LD($DATA)"
+  - metavariable-regex:
+      metavariable: "$LOADER"
+      regex: "(Loader|UnsafeLoader|CLoader|FullLoader)"
+  - metavariable-regex:
+      metavariable: "$LD"
+      regex: "(load|load_all)"
   message: |
     Avoid using `load()`. `PyYAML.load` can create arbitrary Pythonobjects. A malicious actor could
-    exploit this to run arbitrarycode. Use `safe_load()` instead.
+    exploit this to run arbitrarycode. Use `safe_load()` instead. It is recommended to use
+    `SafeLoader`
+    when loading yaml.
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8:2017-Insecure Deserialization"
@@ -1771,7 +1784,7 @@ rules:
     Detected hardcoded temp directory. Consider using `tempfile.TemporaryFile` instead.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
-    primary_identifier: "bandit.B108"
+    primary_identifier: "bandit.B108-2"
     secondary_identifiers:
     - name: "Bandit Test ID B108"
       type: "bandit_test_id"
@@ -1900,7 +1913,7 @@ rules:
   metadata:
     cwe: "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "bandit.B310"
+    primary_identifier: "bandit.B310-2"
     secondary_identifiers:
     - name: "Bandit Test ID B310"
       type: "bandit_test_id"

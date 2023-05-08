@@ -1,5 +1,14 @@
 sast-rules changelog
 
+## v1.3.7
+- Revert primary identifier changes in !101 to align identifiers to previously-shipped rules (!138)
+
+## v1.3.6
+- Update pattern of avoid PyYAML.load in bandit.b506 (!140)
+
+## v1.3.5
+- Update C# SQL Injection with link for more details (!139)
+
 ## v1.3.4
 - Add `generic_error_disclosure` rule for node.js (!124)
 
