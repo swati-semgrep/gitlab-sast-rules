@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.9
+- Fix typos in message of yaml load rule (!145)
+
 ## v1.3.8
 - Enhance Go ruleset descriptions and titles (!137)
 
