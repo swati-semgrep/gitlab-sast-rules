@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.10
+- Fix typos in message of yaml load rule (!145)
+
 ## v1.3.9
 - Enhance usecase coverage for Scala rules (!142)
 - Remove redundant mapping of find_sec_bugs in Scala mapping (!142)

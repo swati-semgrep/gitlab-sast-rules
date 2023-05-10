@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.9
+# rule-set version: v1.3.10
 # yamllint enable
 ---
 rules:
@@ -619,8 +619,8 @@ rules:
       metavariable: "$LD"
       regex: "(load|load_all)"
   message: |
-    Avoid using `load()`. `PyYAML.load` can create arbitrary Pythonobjects. A malicious actor could
-    exploit this to run arbitrarycode. Use `safe_load()` instead. It is recommended to use
+    Avoid using `load()`. `PyYAML.load` can create arbitrary Python objects. A malicious actor
+    could exploit this to run arbitrary code. Use `safe_load()` instead. It is recommended to use
     `SafeLoader`
     when loading yaml.
   metadata:
