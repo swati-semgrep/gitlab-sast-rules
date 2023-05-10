@@ -20,12 +20,13 @@ end
 
 Dir.mkdir(dest) unless Dir.exist?(dest)
 
-Dir.glob('mappings/*.yml').each do |mappings|
-  prefix = File.basename(mappings, '.yml')
+Dir.glob('mappings/*.yml').each do |mapping_file|
+  prefix = File.basename(mapping_file, '.yml')
 
-  dict = YAML.safe_load(File.read(mappings))
+  dict = YAML.safe_load(File.read(mapping_file))
 
   native_id = dict[prefix]['native_id']
+  analyzer = dict[prefix].fetch('native_analyzer', prefix)
 
   rulez = {}
   id2rules = {}
@@ -57,7 +58,7 @@ Dir.glob('mappings/*.yml').each do |mappings|
     # native ids can be mapped to a collection of semgrep rules and vice versa
     # every rule gets coordinates: original_rule_id-array index number
     suffix = ids.map { |id| "#{id}-#{id2rules[id].find_index(rfil) + 1}" }.join('.')
-    newid = "#{prefix}.#{suffix}"
+    newid = "#{analyzer}.#{suffix}"
     rulefromfile['id'] = newid
     rulez[newid] = rulefromfile
     secondary_ids = []

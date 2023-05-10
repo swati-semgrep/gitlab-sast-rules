@@ -186,6 +186,12 @@ contributions.
 
 Java, Scala
 
+#### Adjusted patterns
+
+| Rule ID                                 | Description                                                                                                                                                                                                                  | Status | Comment               |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------------------- |
+| `HARD_CODE_PASSWORD`              | [Hardcoded Password (Scala)](https://find-sec-bugs.github.io/bugs.html#HARD_CODE_PASSWORD)                                                                                                      | :x:    |  The behaviour is not completely on par with find-sec-bugs; we excluded some patterns that are prone to FPs.  |
+
 #### Out of scope patterns (25)
 
 Out of scope patterns w.r.t. https://gitlab.com/gitlab-org/gitlab/-/issues/354762#rules-with-completion-status are all those patterns that are unrelated to Java.

@@ -24,7 +24,7 @@ class OgnlInjection {
     ognlUtil.setProperties(propsInput, null, null, true)
     ognlUtil.setProperties(propsInput, null, true)
     ognlUtil.setProperties(propsInput, null)
-    // ognlUtil.callMethod(input, null, null);
+    //ognlUtil.callMethod(input, null, null);
     ognlUtil.compile(input)
     ognlUtil.compile(input)
   }

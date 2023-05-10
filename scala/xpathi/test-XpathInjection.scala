@@ -10,8 +10,7 @@ object XpathInjection {
   @throws[Exception]
   def main(args: Array[String]): Unit = {
     val doc: Document = null
-    val input = if (args.length != 0) args(1)
-    else "guess' or '1'='1"
+    val input = args(1)
     val query = "//groups/group[@id='" + input + "']/writeAccess/text()"
     System.out.println(">> XPath.compile()")
     XPathFactory.newInstance.newXPath.evaluate(query, doc)
@@ -19,10 +18,11 @@ object XpathInjection {
     System.out.println(">> XPath.evaluate()")
     System.out.println("result=" +  XPathFactory.newInstance.newXPath.evaluate(query, doc))
 
+    XPathFactory.newInstance.newXPath.compile(query)
+
     //Safe (The next sample should not be mark)
     System.out.println(">> Safe")
-    XPathFactory.newInstance
-      .newXPath.compile("//groups/group[@id='admin']/writeAccess/text()")
+    XPathFactory.newInstance.newXPath.compile("//groups/group[@id='admin']/writeAccess/text()")
   }
 
 }

@@ -20,9 +20,10 @@ rules:
   - pattern-not-inside: |
       $DF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
       ...
-  - pattern-either:
-    - pattern: "$DF.newDocumentBuilder(...)"
-    - pattern: "$DF.newDocumentBuilder"
+  - pattern-inside: |
+      $B = $DF.newDocumentBuilder
+      ...
+  - pattern: "$XPATH.evaluate(...)"
   languages:
   - "scala"
   message: |

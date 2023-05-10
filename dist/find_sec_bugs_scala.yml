@@ -1,9 +1,9 @@
 # yamllint disable
-# rule-set version: 1.3.9
+# rule-set version: v1.3.9
 # yamllint enable
 ---
 rules:
-- id: "find_sec_bugs_scala.HTTPONLY_COOKIE-1"
+- id: "find_sec_bugs.HTTPONLY_COOKIE-1"
   pattern-either:
   - patterns:
     - pattern: |
@@ -30,25 +30,25 @@ rules:
     cwe: "CWE-1004: Sensitive Cookie Without 'HttpOnly' Flag"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.HTTPONLY_COOKIE"
+    primary_identifier: "find_sec_bugs.HTTPONLY_COOKIE"
     secondary_identifiers:
     - name: "Find Security Bugs-HTTPONLY_COOKIE"
       type: "find_sec_bugs_type"
       value: "HTTPONLY_COOKIE"
-- id: "find_sec_bugs_scala.INSECURE_COOKIE-1"
-  pattern-either:
-  - patterns:
+- id: "find_sec_bugs.INSECURE_COOKIE-1"
+  patterns:
+  - pattern-not-inside: |
+      val $C = new javax.servlet.http.Cookie(..., ...);
+      ...
+      $C.setSecure(true);
+      ...
+      $RESP.addCookie($C);
+  - pattern-either:
     - pattern: |
         val $C = new javax.servlet.http.Cookie(..., ...);
         ...
         $RESP.addCookie($C);
-    - pattern-not-inside: |
-        val $C = new javax.servlet.http.Cookie(..., ...);
-        ...
-        $C.setSecure(true);
-        ...
-        $RESP.addCookie($C);
-    - pattern: "(javax.servlet.http.Cookie $C).setSecure(false);"
+    - pattern: "($C:javax.servlet.http.Cookie).setSecure(false);"
   message: |
     "A new cookie is created without the Secure flag set. The Secure flag is a
      directive to the browser to make sure that the cookie is not sent for insecure communication
@@ -61,12 +61,12 @@ rules:
     cwe: "CWE-539: Information Exposure Through Persistent Cookies"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.INSECURE_COOKIE"
+    primary_identifier: "find_sec_bugs.INSECURE_COOKIE"
     secondary_identifiers:
     - name: "Find Security Bugs-INSECURE_COOKIE"
       type: "find_sec_bugs_type"
       value: "INSECURE_COOKIE"
-- id: "find_sec_bugs_scala.COOKIE_PERSISTENT-1"
+- id: "find_sec_bugs.COOKIE_PERSISTENT-1"
   patterns:
   - pattern: |
       ($C: Cookie).setMaxAge($AGE)
@@ -84,12 +84,12 @@ rules:
     cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.COOKIE_PERSISTENT"
+    primary_identifier: "find_sec_bugs.COOKIE_PERSISTENT"
     secondary_identifiers:
     - name: "Find Security Bugs-COOKIE_PERSISTENT"
       type: "find_sec_bugs_type"
       value: "COOKIE_PERSISTENT"
-- id: "find_sec_bugs_scala.COOKIE_USAGE-1"
+- id: "find_sec_bugs.COOKIE_USAGE-1"
   patterns:
   - pattern-inside: |
       def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {
@@ -120,35 +120,32 @@ rules:
     cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.COOKIE_USAGE"
+    primary_identifier: "find_sec_bugs.COOKIE_USAGE"
     secondary_identifiers:
     - name: "Find Security Bugs-COOKIE_USAGE"
       type: "find_sec_bugs_type"
       value: "COOKIE_USAGE"
-- id: "find_sec_bugs_scala.HTTP_RESPONSE_SPLITTING-1"
+- id: "find_sec_bugs.HTTP_RESPONSE_SPLITTING-1"
   mode: "taint"
   pattern-sources:
-  - pattern: "($REQ: HttpServletRequest).getParameter(...)"
+  - pattern: "($REQ: javax.servlet.http.HttpServletRequest).getParameter(...)"
   pattern-sanitizers:
   - patterns:
-    - pattern-inside: |
-        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER")
-        ...
+    - pattern-inside: |-
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACE");
     - pattern: "$STR"
     - metavariable-regex:
-        metavariable: "$REPLACER"
-        regex: ".*^(CRLF).*"
-    - metavariable-regex:
         metavariable: "$REPLACE_CHAR"
-        regex: "(*CRLF)"
-  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...)"
+        regex: "(.*\\\\r\\\\n.*)"
+    - metavariable-regex:
+        metavariable: "$REPLACE"
+        regex: "(?!(\\\\r\\\\n))"
+  - pattern: "org.owasp.encoder.Encode.forUriComponent(...)"
+  - pattern: "org.owasp.encoder.Encode.forUri(...)"
+  - pattern: "java.net.URLEncoder.encode(..., $CHARSET)"
   pattern-sinks:
   - pattern: "new javax.servlet.http.Cookie(\"$KEY\", ...)"
-  - patterns:
-    - pattern-inside: |
-        $C = new javax.servlet.http.Cookie("$KEY", ...)
-        ...
-    - pattern: "$C.setValue(...)"
+  - pattern: "($C:javax.servlet.http.Cookie).setValue(...)"
   message: |
     When an HTTP request contains unexpected CR and LF characters, the server may respond with an
     output stream that is interpreted as two different HTTP responses (instead of one). An attacker
@@ -163,28 +160,29 @@ rules:
       Response Splitting')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.HTTP_RESPONSE_SPLITTING"
+    primary_identifier: "find_sec_bugs.HTTP_RESPONSE_SPLITTING"
     secondary_identifiers:
     - name: "Find Security Bugs-HTTP_RESPONSE_SPLITTING"
       type: "find_sec_bugs_type"
       value: "HTTP_RESPONSE_SPLITTING"
-- id: "find_sec_bugs_scala.HRS_REQUEST_PARAMETER_TO_COOKIE-1"
+- id: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_COOKIE-1"
   mode: "taint"
   pattern-sources:
   - pattern: "($REQ: HttpServletRequest).getParameter(...);"
   pattern-sanitizers:
   - patterns:
-    - pattern-inside: |
-        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER");
-        ...
+    - pattern-inside: |-
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACE");
     - pattern: "$STR"
     - metavariable-regex:
-        metavariable: "$REPLACER"
-        regex: ".*^(CRLF).*"
-    - metavariable-regex:
         metavariable: "$REPLACE_CHAR"
-        regex: "(*CRLF)"
-  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
+        regex: "(.*\\\\r\\\\n.*)"
+    - metavariable-regex:
+        metavariable: "$REPLACE"
+        regex: "(?!(\\\\r\\\\n))"
+  - pattern: "org.owasp.encoder.Encode.forUriComponent(...)"
+  - pattern: "org.owasp.encoder.Encode.forUri(...)"
+  - pattern: "java.net.URLEncoder.encode(..., $CHARSET)"
   pattern-sinks:
   - pattern: "new javax.servlet.http.Cookie(\"$KEY\", ...);"
   - patterns:
@@ -205,28 +203,29 @@ rules:
       Response Splitting')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.HRS_REQUEST_PARAMETER_TO_COOKIE"
+    primary_identifier: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_COOKIE"
     secondary_identifiers:
     - name: "Find Security Bugs-HRS_REQUEST_PARAMETER_TO_COOKIE"
       type: "find_sec_bugs_type"
       value: "HRS_REQUEST_PARAMETER_TO_COOKIE"
-- id: "find_sec_bugs_scala.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER-1"
+- id: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER-1"
   mode: "taint"
   pattern-sources:
   - pattern: "($REQ: HttpServletRequest).getParameter(...);"
   pattern-sanitizers:
   - patterns:
-    - pattern-inside: |
-        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER");
-        ...
+    - pattern-inside: |-
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACE");
     - pattern: "$STR"
     - metavariable-regex:
-        metavariable: "$REPLACER"
-        regex: ".*^(CRLF).*"
-    - metavariable-regex:
         metavariable: "$REPLACE_CHAR"
-        regex: "(*CRLF)"
-  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...)"
+        regex: "(.*\\\\r\\\\n.*)"
+    - metavariable-regex:
+        metavariable: "$REPLACE"
+        regex: "(?!(\\\\r\\\\n))"
+  - pattern: "org.owasp.encoder.Encode.forUriComponent(...)"
+  - pattern: "org.owasp.encoder.Encode.forUri(...)"
+  - pattern: "java.net.URLEncoder.encode(..., $CHARSET)"
   pattern-sinks:
   - pattern: "($RES: HttpServletResponse).setHeader(\"$KEY\", ...);"
   - pattern: "($RES: HttpServletResponse).addHeader(\"$KEY\", ...);"
@@ -245,12 +244,12 @@ rules:
       Response Splitting')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
+    primary_identifier: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
     secondary_identifiers:
     - name: "Find Security Bugs-HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
       type: "find_sec_bugs_type"
       value: "HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
-- id: "find_sec_bugs_scala.TRUST_BOUNDARY_VIOLATION-1"
+- id: "find_sec_bugs.TRUST_BOUNDARY_VIOLATION-1"
   patterns:
   - pattern-either:
     - patterns:
@@ -273,23 +272,41 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-501: Trust Boundary Violation"
-    primary_identifier: "find_sec_bugs_scala.TRUST_BOUNDARY_VIOLATION"
+    primary_identifier: "find_sec_bugs.TRUST_BOUNDARY_VIOLATION"
     secondary_identifiers:
     - name: "Find Security Bugs-TRUST_BOUNDARY_VIOLATION"
       type: "find_sec_bugs_type"
       value: "TRUST_BOUNDARY_VIOLATION"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.PERMISSIVE_CORS-1"
-  patterns:
-  - pattern-either:
-    - pattern: "(HttpServletResponse $RESP).setHeader(\"$HEADER\", \"$VAL\")"
-    - pattern: "(HttpServletResponse $RESP).addHeader(\"$HEADER\", \"$VAL\")"
-  - metavariable-regex:
-      metavariable: "$HEADER"
-      regex: "(?i)(Access-Control-Allow-Origin)"
-  - metavariable-regex:
-      metavariable: "$VAL"
-      regex: "(\\*|null)"
+- id: "find_sec_bugs.PERMISSIVE_CORS-1"
+  pattern-either:
+  - patterns:
+    - pattern-either:
+      - pattern: "($RESP:javax.servlet.http.HttpServletResponse).setHeader(\"$HEADER\",
+          \"$VAL\")"
+      - pattern: "($RESP:javax.servlet.http.HttpServletResponse).addHeader(\"$HEADER\",
+          \"$VAL\")"
+    - metavariable-regex:
+        metavariable: "$HEADER"
+        regex: "(?i)(Access-Control-Allow-Origin)"
+    - metavariable-regex:
+        metavariable: "$VAL"
+        regex: "(\\*|null)"
+  - patterns:
+    - pattern-inside: |
+        $REQVAL = ($REQ: javax.servlet.http.HttpServletRequest).getParameter(...)
+        ...
+    - pattern-either:
+      - pattern-inside: |-
+          ($RESP:javax.servlet.http.HttpServletResponse).setHeader("$HEADER", $REQVAL)
+      - pattern-inside: |-
+          ($RESP:javax.servlet.http.HttpServletResponse).addHeader("$HEADER", $REQVAL)
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |-
+          ($RESP:javax.servlet.http.HttpServletResponse).setHeader("$HEADER",($REQ: javax.servlet.http.HttpServletRequest).getParameter(...))
+      - pattern-inside: |-
+          ($RESP:javax.servlet.http.HttpServletResponse).addHeader("$HEADER",($REQ: javax.servlet.http.HttpServletRequest).getParameter(...))
   message: |
     Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
     JavaScript to access the contents of a Web page, both the JavaScript and the Web page must
@@ -310,12 +327,12 @@ rules:
     category: "security"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.PERMISSIVE_CORS"
+    primary_identifier: "find_sec_bugs.PERMISSIVE_CORS"
     secondary_identifiers:
     - name: "Find Security Bugs-PERMISSIVE_CORS"
       type: "find_sec_bugs_type"
       value: "PERMISSIVE_CORS"
-- id: "find_sec_bugs_scala.PERMISSIVE_CORS-2"
+- id: "find_sec_bugs.PERMISSIVE_CORS-2"
   mode: "taint"
   pattern-sources:
   - pattern: "(HttpServletRequest $REQ).getParamater(...)"
@@ -347,12 +364,12 @@ rules:
     category: "security"
     technology:
     - "java"
-    primary_identifier: "find_sec_bugs_scala.PERMISSIVE_CORS-2"
+    primary_identifier: "find_sec_bugs.PERMISSIVE_CORS-2"
     secondary_identifiers:
     - name: "Find Security Bugs-PERMISSIVE_CORS"
       type: "find_sec_bugs_type"
       value: "PERMISSIVE_CORS"
-- id: "find_sec_bugs_scala.BLOWFISH_KEY_SIZE-1"
+- id: "find_sec_bugs.BLOWFISH_KEY_SIZE-1"
   patterns:
   - pattern-inside: |
       $KEYGEN = javax.crypto.KeyGenerator.getInstance("Blowfish", ...);
@@ -372,12 +389,12 @@ rules:
     cwe: "CWE-326: Inadequate Encryption Strength"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.BLOWFISH_KEY_SIZE"
+    primary_identifier: "find_sec_bugs.BLOWFISH_KEY_SIZE"
     secondary_identifiers:
     - name: "Find Security Bugs-BLOWFISH_KEY_SIZE"
       type: "find_sec_bugs_type"
       value: "BLOWFISH_KEY_SIZE"
-- id: "find_sec_bugs_scala.DES_USAGE-1"
+- id: "find_sec_bugs.DES_USAGE-1"
   patterns:
   - pattern-inside: |-
       javax.crypto.Cipher.getInstance("$ALG")
@@ -395,12 +412,12 @@ rules:
     cwe: "CWE-326: Inadequate Encryption Strength"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.DES_USAGE"
+    primary_identifier: "find_sec_bugs.DES_USAGE"
     secondary_identifiers:
     - name: "Find Security Bugs-DES_USAGE"
       type: "find_sec_bugs_type"
       value: "DES_USAGE"
-- id: "find_sec_bugs_scala.TDES_USAGE-1"
+- id: "find_sec_bugs.TDES_USAGE-1"
   patterns:
   - pattern-inside: |-
       javax.crypto.Cipher.getInstance("$ALG")
@@ -418,12 +435,12 @@ rules:
     cwe: "CWE-326: Inadequate Encryption Strength"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.TDES_USAGE"
+    primary_identifier: "find_sec_bugs.TDES_USAGE"
     secondary_identifiers:
     - name: "Find Security Bugs-TDES_USAGE"
       type: "find_sec_bugs_type"
       value: "TDES_USAGE"
-- id: "find_sec_bugs_scala.ECB_MODE-1"
+- id: "find_sec_bugs.ECB_MODE-1"
   patterns:
   - pattern-inside: |-
       javax.crypto.Cipher.getInstance("...")
@@ -441,12 +458,12 @@ rules:
     cwe: "CWE-326: Inadequate Encryption Strength"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.ECB_MODE"
+    primary_identifier: "find_sec_bugs.ECB_MODE"
     secondary_identifiers:
     - name: "Find Security Bugs-ECB_MODE"
       type: "find_sec_bugs_type"
       value: "ECB_MODE"
-- id: "find_sec_bugs_scala.CIPHER_INTEGRITY-1"
+- id: "find_sec_bugs.CIPHER_INTEGRITY-1"
   patterns:
   - pattern-inside: |-
       javax.crypto.Cipher.getInstance("...")
@@ -471,12 +488,12 @@ rules:
     cwe: "CWE-353: Missing Support for Integrity Check"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.CIPHER_INTEGRITY"
+    primary_identifier: "find_sec_bugs.CIPHER_INTEGRITY"
     secondary_identifiers:
     - name: "Find Security Bugs-CIPHER_INTEGRITY"
       type: "find_sec_bugs_type"
       value: "CIPHER_INTEGRITY"
-- id: "find_sec_bugs_scala.PADDING_ORACLE-1"
+- id: "find_sec_bugs.PADDING_ORACLE-1"
   patterns:
   - pattern-inside: |-
       javax.crypto.Cipher.getInstance("...")
@@ -496,12 +513,12 @@ rules:
     cwe: "CWE-696: Incorrect Behavior Order"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.PADDING_ORACLE"
+    primary_identifier: "find_sec_bugs.PADDING_ORACLE"
     secondary_identifiers:
     - name: "Find Security Bugs-PADDING_ORACLE"
       type: "find_sec_bugs_type"
       value: "PADDING_ORACLE"
-- id: "find_sec_bugs_scala.CUSTOM_MESSAGE_DIGEST-1"
+- id: "find_sec_bugs.CUSTOM_MESSAGE_DIGEST-1"
   patterns:
   - pattern: |
       class $CLAZZ extends java.security.MessageDigest(...) {
@@ -519,12 +536,12 @@ rules:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.CUSTOM_MESSAGE_DIGEST"
+    primary_identifier: "find_sec_bugs.CUSTOM_MESSAGE_DIGEST"
     secondary_identifiers:
     - name: "Find Security Bugs-CUSTOM_MESSAGE_DIGEST"
       type: "find_sec_bugs_type"
       value: "CUSTOM_MESSAGE_DIGEST"
-- id: "find_sec_bugs_scala.DEFAULT_HTTP_CLIENT-1"
+- id: "find_sec_bugs.DEFAULT_HTTP_CLIENT-1"
   patterns:
   - pattern: "new org.apache.http.impl.client.DefaultHttpClient(...)"
   message: |
@@ -536,12 +553,12 @@ rules:
     category: "security"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.DEFAULT_HTTP_CLIENT"
+    primary_identifier: "find_sec_bugs.DEFAULT_HTTP_CLIENT"
     secondary_identifiers:
     - name: "Find Security Bugs-DEFAULT_HTTP_CLIENT"
       type: "find_sec_bugs_type"
       value: "DEFAULT_HTTP_CLIENT"
-- id: "find_sec_bugs_scala.HAZELCAST_SYMMETRIC_ENCRYPTION-1"
+- id: "find_sec_bugs.HAZELCAST_SYMMETRIC_ENCRYPTION-1"
   patterns:
   - pattern: "new com.hazelcast.config.SymmetricEncryptionConfig()"
   message: |
@@ -556,12 +573,12 @@ rules:
     cwe: "CWE-326: Inadequate Encryption Strength"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.HAZELCAST_SYMMETRIC_ENCRYPTION"
+    primary_identifier: "find_sec_bugs.HAZELCAST_SYMMETRIC_ENCRYPTION"
     secondary_identifiers:
     - name: "Find Security Bugs-HAZELCAST_SYMMETRIC_ENCRYPTION"
       type: "find_sec_bugs_type"
       value: "HAZELCAST_SYMMETRIC_ENCRYPTION"
-- id: "find_sec_bugs_scala.RSA_KEY_SIZE-1"
+- id: "find_sec_bugs.RSA_KEY_SIZE-1"
   patterns:
   - pattern-either:
     - patterns:
@@ -583,7 +600,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-326: Inadequate Encryption Strength"
-    primary_identifier: "find_sec_bugs_scala.RSA_KEY_SIZE"
+    primary_identifier: "find_sec_bugs.RSA_KEY_SIZE"
     secondary_identifiers:
     - name: "Find Security Bugs-RSA_KEY_SIZE"
       type: "find_sec_bugs_type"
@@ -591,28 +608,28 @@ rules:
   severity: "WARNING"
   languages:
   - "scala"
-- id: "find_sec_bugs_scala.NULL_CIPHER-1"
+- id: "find_sec_bugs.NULL_CIPHER-1"
   pattern: "new javax.crypto.NullCipher()"
   message: |
     The NullCipher implements the Cipher interface by returning ciphertext identical to the
     supplied plaintext. In a few contexts, such as testing, a NullCipher may be appropriate. Avoid
     using the NullCipher. Its accidental use can introduce a significant confidentiality risk.
   languages:
-  - "java"
+  - "scala"
   severity: "WARNING"
   metadata:
     category: "security"
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     technology:
-    - "java"
-    primary_identifier: "find_sec_bugs_scala.NULL_CIPHER"
+    - "scala"
+    primary_identifier: "find_sec_bugs.NULL_CIPHER"
     secondary_identifiers:
     - name: "Find Security Bugs-NULL_CIPHER"
       type: "find_sec_bugs_type"
       value: "NULL_CIPHER"
-- id: "find_sec_bugs_scala.RSA_NO_PADDING-1"
+- id: "find_sec_bugs.RSA_NO_PADDING-1"
   patterns:
-  - pattern: "javax.crypto.Cipher.getInstance($ALG,...);"
+  - pattern: "javax.crypto.Cipher.getInstance(\"$ALG\",...)"
   - metavariable-regex:
       metavariable: "$ALG"
       regex: ".*NoPadding.*"
@@ -621,7 +638,7 @@ rules:
     Encryption Padding (OAEP), which might weaken the encryption.
   metadata:
     cwe: "CWE-780: Use of RSA Algorithm without OAEP"
-    primary_identifier: "find_sec_bugs_scala.RSA_NO_PADDING"
+    primary_identifier: "find_sec_bugs.RSA_NO_PADDING"
     secondary_identifiers:
     - name: "Find Security Bugs-RSA_NO_PADDING"
       type: "find_sec_bugs_type"
@@ -629,14 +646,14 @@ rules:
   severity: "WARNING"
   languages:
   - "scala"
-- id: "find_sec_bugs_scala.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
+- id: "find_sec_bugs.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
   patterns:
   - pattern-either:
-    - pattern: "MessageDigest.getInstance($ALG, ...)"
-    - pattern: "Signature.getInstance($ALG, ...)"
+    - pattern: "MessageDigest.getInstance(\"$ALG\", ...)"
+    - pattern: "Signature.getInstance(\"$ALG\", ...)"
   - metavariable-regex:
       metavariable: "$ALG"
-      regex: ".*(MD5|MD4|MD2|SHA1|SHA-1).*"
+      regex: "(.*(MD5|MD4|MD2|SHA1|SHA-1).*)"
   message: |
     DES is considered strong ciphers for modern applications. Currently, NIST recommends the usage
     of AES block ciphers instead of DES.
@@ -648,7 +665,7 @@ rules:
     cwe: "CWE-326: Inadequate Encryption Strength"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
+    primary_identifier: "find_sec_bugs.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
     secondary_identifiers:
     - name: "Find Security Bugs-WEAK_MESSAGE_DIGEST_MD5"
       type: "find_sec_bugs_type"
@@ -656,11 +673,16 @@ rules:
     - name: "Find Security Bugs-WEAK_MESSAGE_DIGEST_SHA1"
       type: "find_sec_bugs_type"
       value: "WEAK_MESSAGE_DIGEST_SHA1"
-- id: "find_sec_bugs_scala.SSL_CONTEXT-1"
+- id: "find_sec_bugs.SSL_CONTEXT-1"
   patterns:
   - pattern-either:
-    - pattern: "new org.apache.http.impl.client.DefaultHttpClient();"
-    - pattern: "javax.net.ssl.SSLContext.getInstance(\"SSL\");"
+    - pattern: "new org.apache.http.impl.client.DefaultHttpClient()"
+    - pattern: "javax.net.ssl.SSLContext.getInstance(\"SSL\")"
+    - patterns:
+      - pattern-inside: |
+          import javax.net.ssl._
+          ...
+      - pattern: "SSLContext.getInstance(\"SSL\")"
   message: |
     A HostnameVerifier that accept any host are often use because of certificate
     reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
@@ -668,7 +690,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-295: Improper Certificate Validation"
-    primary_identifier: "find_sec_bugs_scala.SSL_CONTEXT"
+    primary_identifier: "find_sec_bugs.SSL_CONTEXT"
     secondary_identifiers:
     - name: "Find Security Bugs-SSL_CONTEXT"
       type: "find_sec_bugs_type"
@@ -676,57 +698,120 @@ rules:
   severity: "WARNING"
   languages:
   - "scala"
-- id: "find_sec_bugs_scala.JAXRS_ENDPOINT-1"
+- id: "find_sec_bugs.SERVLET_PARAMETER-1.SERVLET_CONTENT_TYPE-1.SERVLET_SERVER_NAME-1.SERVLET_SESSION_ID-1.SERVLET_QUERY_STRING-1.SERVLET_HEADER-1.SERVLET_HEADER_REFERER-1.SERVLET_HEADER_USER_AGENT-1"
+  mode: "taint"
+  pattern-sources:
+  - pattern-either:
+    - pattern: "($REQ: HttpServletRequest).getContentType"
+    - pattern: "($REQ: HttpServletRequest).getServerName"
+    - pattern: "($REQ: HttpServletRequest).getRequestedSessionId"
+    - pattern: "($REQ: HttpServletRequest).getParameterValues(...)"
+    - pattern: "($REQ: HttpServletRequest).getParameterMap"
+    - pattern: "($REQ: HttpServletRequest).getParameterNames"
+    - pattern: "($REQ: HttpServletRequest).getParameter(...)"
+    - patterns:
+      - pattern-inside: |
+          ($REQ: HttpServletRequest).getSession
+      - pattern: "$SESS.getAttribute(\"...\")"
+    - pattern: |
+        ($REQ: HttpServletRequest).getSession.getAttribute("...")
+  pattern-sanitizers:
+  - pattern: "Encode.forHtml(...)"
+  - pattern: "org.owasp.esapi.Encoder.encodeForSQL(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern: |
+          ... + $PAR
+      - pattern: |
+          ... + $PAR + ...
+      - pattern: |
+          $PAR + ...
+    - pattern: "$PAR"
+  languages:
+  - "scala"
+  message: |
+    The Servlet can read GET and POST parameters from various methods. The
+    value obtained should be considered unsafe."
+  metadata:
+    category: "security"
+    cwe: "CWE-20: Improper Input Validation"
+    primary_identifier: "find_sec_bugs.SERVLET_PARAMETER-1.SERVLET_CONTENT_TYPE-1.SERVLET_SERVER_NAME-1.SERVLET_SESSION_ID-1.SERVLET_QUERY_STRING-1.SERVLET_HEADER-1.SERVLET_HEADER_REFERER-1.SERVLET_HEADER_USER_AGENT-1"
+    secondary_identifiers:
+    - name: "Find Security Bugs-SERVLET_PARAMETER"
+      type: "find_sec_bugs_type"
+      value: "SERVLET_PARAMETER"
+    - name: "Find Security Bugs-SERVLET_CONTENT_TYPE"
+      type: "find_sec_bugs_type"
+      value: "SERVLET_CONTENT_TYPE"
+    - name: "Find Security Bugs-SERVLET_SERVER_NAME"
+      type: "find_sec_bugs_type"
+      value: "SERVLET_SERVER_NAME"
+    - name: "Find Security Bugs-SERVLET_SESSION_ID"
+      type: "find_sec_bugs_type"
+      value: "SERVLET_SESSION_ID"
+    - name: "Find Security Bugs-SERVLET_QUERY_STRING"
+      type: "find_sec_bugs_type"
+      value: "SERVLET_QUERY_STRING"
+    - name: "Find Security Bugs-SERVLET_HEADER"
+      type: "find_sec_bugs_type"
+      value: "SERVLET_HEADER"
+    - name: "Find Security Bugs-SERVLET_HEADER_REFERER"
+      type: "find_sec_bugs_type"
+      value: "SERVLET_HEADER_REFERER"
+    - name: "Find Security Bugs-SERVLET_HEADER_USER_AGENT"
+      type: "find_sec_bugs_type"
+      value: "SERVLET_HEADER_USER_AGENT"
+  severity: "WARNING"
+- id: "find_sec_bugs.JAXRS_ENDPOINT-1"
   mode: "taint"
   pattern-sources:
   - patterns:
     - pattern-inside: |
         @javax.ws.rs.Path("...")
-        def $FUNC(..., $VAR: String, ...) = {
-          ...
-        }
+        def $FUNC(..., $VAR: $TYPE, ...) = ...
     - pattern: "$VAR"
-  pattern-sanitizers:
-  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
   pattern-sinks:
-  - pattern: "return ..."
+  - pattern: "<...$VAR...>"
   message: |
     This method is part of a REST Web Service (JSR311). The security of this web service should be
-    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
-    tested. The inputs should be tracked for potential vulnerabilities. The communication should
-    ideally be over SSL.
+    analyzed. For example:
+    - Authentication, if enforced, should be tested.
+    - Access control, if enforced, should be tested.
+    - The inputs should be tracked for potential vulnerabilities.
+    - The communication should ideally be over SSL.
+    - If the service supports writes (e.g., via POST), its vulnerability to CSRF should be
+    investigated.
   languages:
   - "scala"
-  severity: "WARNING"
+  severity: "INFO"
   metadata:
     category: "security"
     cwe: "CWE-20: Improper Input Validation"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.JAXRS_ENDPOINT"
+    primary_identifier: "find_sec_bugs.JAXRS_ENDPOINT"
     secondary_identifiers:
     - name: "Find Security Bugs-JAXRS_ENDPOINT"
       type: "find_sec_bugs_type"
       value: "JAXRS_ENDPOINT"
-- id: "find_sec_bugs_scala.JAXWS_ENDPOINT-1"
+- id: "find_sec_bugs.JAXWS_ENDPOINT-1"
   mode: "taint"
   pattern-sources:
   - patterns:
     - pattern-inside: |
         @javax.jws.WebMethod(...)
-        def $FUNC(..., $VAR: $TYPE, ...) = {
-          ...
-        }
+        def $FUNC(..., $VAR: $TYPE, ...) = ...
     - pattern: "$VAR"
-  pattern-sanitizers:
-  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
   pattern-sinks:
-  - pattern: "return ...;"
+  - pattern: "<...$VAR...>"
   message: |
     This method is part of a SOAP Web Service (JSR224). The security of this web service should be
-    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
-    tested. The inputs should be tracked for potential vulnerabilities. The communication should
-    ideally be over SSL.
+    analyzed. For example:
+    - Authentication, if enforced, should be tested.
+    - Access control, if enforced, should be tested.
+    - The inputs should be tracked for potential vulnerabilities.
+    - The communication should ideally be over SSL.
   languages:
   - "scala"
   severity: "INFO"
@@ -736,12 +821,12 @@ rules:
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.JAXWS_ENDPOINT"
+    primary_identifier: "find_sec_bugs.JAXWS_ENDPOINT"
     secondary_identifiers:
     - name: "Find Security Bugs-JAXWS_ENDPOINT"
       type: "find_sec_bugs_type"
       value: "JAXWS_ENDPOINT"
-- id: "find_sec_bugs_scala.UNENCRYPTED_SOCKET-1.UNENCRYPTED_SERVER_SOCKET-1"
+- id: "find_sec_bugs.UNENCRYPTED_SOCKET-1.UNENCRYPTED_SERVER_SOCKET-1"
   patterns:
   - pattern: "new java.net.Socket(...)"
   languages:
@@ -753,7 +838,7 @@ rules:
     Protection Cheat Sheet for details on how to do this correctly.
   metadata:
     cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
-    primary_identifier: "find_sec_bugs_scala.UNENCRYPTED_SOCKET-1.UNENCRYPTED_SERVER_SOCKET-1"
+    primary_identifier: "find_sec_bugs.UNENCRYPTED_SOCKET-1.UNENCRYPTED_SERVER_SOCKET-1"
     secondary_identifiers:
     - name: "Find Security Bugs-UNENCRYPTED_SOCKET"
       type: "find_sec_bugs_type"
@@ -762,7 +847,7 @@ rules:
       type: "find_sec_bugs_type"
       value: "UNENCRYPTED_SERVER_SOCKET"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
+- id: "find_sec_bugs.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
   patterns:
   - pattern-either:
     - patterns:
@@ -786,7 +871,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')"
-    primary_identifier: "find_sec_bugs_scala.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
+    primary_identifier: "find_sec_bugs.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
     secondary_identifiers:
     - name: "Find Security Bugs-UNVALIDATED_REDIRECT"
       type: "find_sec_bugs_type"
@@ -795,7 +880,7 @@ rules:
       type: "find_sec_bugs_type"
       value: "URL_REWRITING"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
+- id: "find_sec_bugs.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
   patterns:
   - pattern-either:
     - patterns:
@@ -803,11 +888,12 @@ rules:
           class $V extends HostnameVerifier {
             ...
           }
-      - pattern: "def verify(...) = true"
-      - pattern: |
-          def verify(...) = {
-            return true
-          }
+      - pattern-either:
+        - pattern: "def verify(...) = true"
+        - pattern: |
+            def verify(...) = {
+              return true
+            }
     - patterns:
       - pattern-inside: |
           class $V extends X509TrustManager {
@@ -829,7 +915,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-295: Improper Certificate Validation"
-    primary_identifier: "find_sec_bugs_scala.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
+    primary_identifier: "find_sec_bugs.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-WEAK_HOSTNAME_VERIFIER"
       type: "find_sec_bugs_type"
@@ -838,7 +924,7 @@ rules:
       type: "find_sec_bugs_type"
       value: "WEAK_TRUST_MANAGER"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.FILE_UPLOAD_FILENAME-1"
+- id: "find_sec_bugs.FILE_UPLOAD_FILENAME-1"
   patterns:
   - pattern: |
       def $FUNC (..., $REQ: HttpServletRequest, ... ) = {
@@ -864,27 +950,32 @@ rules:
       Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.FILE_UPLOAD_FILENAME"
+    primary_identifier: "find_sec_bugs.FILE_UPLOAD_FILENAME"
     secondary_identifiers:
     - name: "Find Security Bugs-FILE_UPLOAD_FILENAME"
       type: "find_sec_bugs_type"
       value: "FILE_UPLOAD_FILENAME"
-- id: "find_sec_bugs_scala.WEAK_FILENAMEUTILS-1"
-  patterns:
-  - pattern-inside: |
-      import org.apache.commons.io.FilenameUtils;
-      ...
-  - pattern-either:
-    - pattern: "normalize(...)"
-    - pattern: "getExtension(...)"
-    - pattern: "isExtensions(...)"
-    - pattern: "getName(...)"
-    - pattern: "getBaseName(...)"
-    - pattern: "org.apache.commons.io.FilenameUtils.normalize(...)"
-    - pattern: "org.apache.commons.io.FilenameUtils.getExtension(...)"
-    - pattern: "org.apache.commons.io.FilenameUtils.isExtensions(...)"
-    - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
-    - pattern: "org.apache.commons.io.FilenameUtils.getBaseName(...)"
+- id: "find_sec_bugs.WEAK_FILENAMEUTILS-1"
+  pattern-either:
+  - patterns:
+    - pattern-inside: |
+        import org.apache.commons.io.FilenameUtils._
+        ...
+    - pattern-either:
+      - pattern: "normalize(...)"
+      - pattern: "getExtension(...)"
+      - pattern: "isExtensions(...)"
+      - pattern: "isExtension(...)"
+      - pattern: "getName(...)"
+      - pattern: "getBaseName(...)"
+  - patterns:
+    - pattern-either:
+      - pattern: "org.apache.commons.io.FilenameUtils.normalize(...)"
+      - pattern: "org.apache.commons.io.FilenameUtils.getExtension(...)"
+      - pattern: "org.apache.commons.io.FilenameUtils.isExtensions(...)"
+      - pattern: "org.apache.commons.io.FilenameUtils.isExtension(...)"
+      - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
+      - pattern: "org.apache.commons.io.FilenameUtils.getBaseName(...)"
   message: |
     A file is opened to read its content. The filename comes from an input
     parameter. If an unfiltered parameter is passed to this file API, files from an
@@ -898,12 +989,12 @@ rules:
       Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.WEAK_FILENAMEUTILS"
+    primary_identifier: "find_sec_bugs.WEAK_FILENAMEUTILS"
     secondary_identifiers:
     - name: "Find Security Bugs-WEAK_FILENAMEUTILS"
       type: "find_sec_bugs_type"
       value: "WEAK_FILENAMEUTILS"
-- id: "find_sec_bugs_scala.STRUTS_FORM_VALIDATION-1"
+- id: "find_sec_bugs.STRUTS_FORM_VALIDATION-1"
   patterns:
   - pattern-inside: |
       class $CLASS extends $SC {
@@ -921,38 +1012,40 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-20: Improper Input Validation"
-    primary_identifier: "find_sec_bugs_scala.STRUTS_FORM_VALIDATION"
+    primary_identifier: "find_sec_bugs.STRUTS_FORM_VALIDATION"
     secondary_identifiers:
     - name: "Find Security Bugs-STRUTS_FORM_VALIDATION"
       type: "find_sec_bugs_type"
       value: "STRUTS_FORM_VALIDATION"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.AWS_QUERY_INJECTION-1"
-  patterns:
-  - pattern-either:
-    - pattern-inside: "def $FUNC(..., $VAR: HttpServletRequest, ...): $TYPE = { \n
-        \ ... \n}\n"
+- id: "find_sec_bugs.AWS_QUERY_INJECTION-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
     - pattern-inside: |
-        def $FUNC(...): $TYPE = {
-          ...
-          $VAR = ... + $X;
+        def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {
           ...
         }
-  - pattern-either:
+    - pattern: "$REQ"
+  - patterns:
     - pattern-inside: |
-        $REQ = new SelectRequest($QUERY, ...);
-        ...
-        $DB.select($REQ);
+        def $FUNC(..., $X: $TYPE, ...): $RET_TYPE = {
+          ...
+          $QUERY = <...$X...>
+          ...
+        }
+    - pattern: "$QUERY"
+  pattern-sinks:
+  - pattern: "new com.amazonaws.services.simpledb.model.SelectRequest($QUERY, ...);"
+  - patterns:
     - pattern-inside: |
-        $DB.select(new SelectRequest($QUERY,...));
-    - pattern-inside: |
-        $DB.select(($SR: SelectRequest ).withSelectExpression($QUERY,...));
-  - pattern: "$QUERY"
-  - metavariable-pattern:
-      metavariable: "$DB"
-      pattern-either:
-      - pattern: "($DB: AmazonSimpleDB)"
-      - pattern: "($DB: AmazonSimpleDBClient)"
+        $DB.select(($SR: com.amazonaws.services.simpledb.model.SelectRequest).withSelectExpression($QUERY,...));
+    - pattern: "$QUERY"
+    - metavariable-pattern:
+        metavariable: "$DB"
+        pattern-either:
+        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDB)"
+        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDBClient)"
   message: |
     Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
     records.
@@ -964,12 +1057,12 @@ rules:
     cwe: "CWE-943: Improper Neutralization of Special Elements in Data Query Logic"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.AWS_QUERY_INJECTION"
+    primary_identifier: "find_sec_bugs.AWS_QUERY_INJECTION"
     secondary_identifiers:
     - name: "Find Security Bugs-AWS_QUERY_INJECTION"
       type: "find_sec_bugs_type"
       value: "AWS_QUERY_INJECTION"
-- id: "find_sec_bugs_scala.BEAN_PROPERTY_INJECTION-1"
+- id: "find_sec_bugs.BEAN_PROPERTY_INJECTION-1"
   patterns:
   - pattern-inside: |-
       def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = { ... }
@@ -1004,57 +1097,54 @@ rules:
     cwe: "CWE-15: External Control of System or Configuration Setting"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.BEAN_PROPERTY_INJECTION"
+    primary_identifier: "find_sec_bugs.BEAN_PROPERTY_INJECTION"
     secondary_identifiers:
     - name: "Find Security Bugs-BEAN_PROPERTY_INJECTION"
       type: "find_sec_bugs_type"
       value: "BEAN_PROPERTY_INJECTION"
-- id: "find_sec_bugs_scala.CRLF_INJECTION_LOGS-1"
-  patterns:
-  - pattern-inside: |
-      def $FUNC(..., $REQ: HttpServletRequest, ...) : $TYPE = {
-        ...
-      }
-  - pattern-either:
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $LOGGER.$METHOD(...,$TAINTED,...)
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $VAR = String.Format(..., $TAINTED,...)
-        ...
-        $LOGGER.$METHOD(...,$VAR,...)
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $LOGGER.$METHOD(...,String.Format(..., $TAINTED,...),...)
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $VAR = ... + $TAINTED + ...
-        ...
-        $LOGGER.$METHOD(...,$VAR,...)
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $LOGGER.$METHOD(...,... + $TAINTED + ...,...)
-  - metavariable-regex:
-      metavariable: "$METHOD"
-      regex: "(log|logp|logrb|entering|exiting|fine|finer|finest|info|debug|trace|warn|warning|config|error|severe)"
-  - metavariable-pattern:
-      metavariable: "$LOGGER"
-      pattern-either:
-      - pattern: "Logger"
-      - pattern: "log"
-      - pattern: "logger"
-      - pattern: "org.pmw.tinylog.Logger"
-      - pattern: "org.apache.log4j.Logger"
-      - pattern: "org.apache.logging.log4j.Logger"
-      - pattern: "org.slf4j.Logger"
-      - pattern: "org.apache.commons.logging.Log"
-      - pattern: "java.util.logging.Logger"
+- id: "find_sec_bugs.CRLF_INJECTION_LOGS-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        def $FUNC(..., $REQ: HttpServletRequest, ...) : $TYPE = {
+          ...
+        }
+    - pattern: "$REQ.getParameter(...)"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |-
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACE");
+    - pattern: "$STR"
+    - metavariable-regex:
+        metavariable: "$REPLACE_CHAR"
+        regex: "(.*\\\\r\\\\n.*)"
+    - metavariable-regex:
+        metavariable: "$REPLACE"
+        regex: "(?!(\\\\r\\\\n))"
+  - pattern: "org.owasp.encoder.Encode.forUriComponent(...)"
+  - pattern: "org.owasp.encoder.Encode.forUri(...)"
+  - pattern: "java.net.URLEncoder.encode(..., $CHARSET)"
+  pattern-sinks:
+  - patterns:
+    - patterns:
+      - pattern: "$LOGGER.$METHOD(...,<...$TAINTED...>,...)"
+      - focus-metavariable: "$TAINTED"
+    - metavariable-regex:
+        metavariable: "$METHOD"
+        regex: "(log|logp|logrb|entering|exiting|fine|finer|finest|info|debug|trace|warn|warning|config|error|severe)"
+    - metavariable-pattern:
+        metavariable: "$LOGGER"
+        pattern-either:
+        - pattern: "Logger"
+        - pattern: "log"
+        - pattern: "logger"
+        - pattern: "org.pmw.tinylog.Logger"
+        - pattern: "org.apache.log4j.Logger"
+        - pattern: "org.apache.logging.log4j.Logger"
+        - pattern: "org.slf4j.Logger"
+        - pattern: "org.apache.commons.logging.Log"
+        - pattern: "java.util.logging.Logger"
   message: |
     When data from an untrusted source is put into a logger and not neutralized correctly, an
     attacker could forge log entries or include malicious content. Inserted false entries could be
@@ -1071,12 +1161,12 @@ rules:
     cwe: "CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.CRLF_INJECTION_LOGS"
+    primary_identifier: "find_sec_bugs.CRLF_INJECTION_LOGS"
     secondary_identifiers:
     - name: "Find Security Bugs-CRLF_INJECTION_LOGS"
       type: "find_sec_bugs_type"
       value: "CRLF_INJECTION_LOGS"
-- id: "find_sec_bugs_scala.COMMAND_INJECTION-1"
+- id: "find_sec_bugs.COMMAND_INJECTION-1.SCALA_COMMAND_INJECTION-1"
   pattern-either:
   - patterns:
     - pattern-inside: |
@@ -1138,12 +1228,15 @@ rules:
       ('OS Command Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.COMMAND_INJECTION"
+    primary_identifier: "find_sec_bugs.COMMAND_INJECTION-1.SCALA_COMMAND_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-COMMAND_INJECTION"
       type: "find_sec_bugs_type"
       value: "COMMAND_INJECTION"
-- id: "find_sec_bugs_scala.CUSTOM_INJECTION-1"
+    - name: "Find Security Bugs-SCALA_COMMAND_INJECTION"
+      type: "find_sec_bugs_type"
+      value: "SCALA_COMMAND_INJECTION"
+- id: "find_sec_bugs.CUSTOM_INJECTION-1"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -1178,12 +1271,12 @@ rules:
       ('SQL Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.CUSTOM_INJECTION"
+    primary_identifier: "find_sec_bugs.CUSTOM_INJECTION"
     secondary_identifiers:
     - name: "Find Security Bugs-CUSTOM_INJECTION"
       type: "find_sec_bugs_type"
       value: "CUSTOM_INJECTION"
-- id: "find_sec_bugs_scala.CUSTOM_INJECTION-2"
+- id: "find_sec_bugs.CUSTOM_INJECTION-2"
   patterns:
   - pattern-inside: |
       def $FOO(..., $SQLIN: String, ...): $TYPE = {
@@ -1222,12 +1315,12 @@ rules:
       ('SQL Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.CUSTOM_INJECTION-2"
+    primary_identifier: "find_sec_bugs.CUSTOM_INJECTION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-CUSTOM_INJECTION"
       type: "find_sec_bugs_type"
       value: "CUSTOM_INJECTION"
-- id: "find_sec_bugs_scala.EL_INJECTION-1"
+- id: "find_sec_bugs.EL_INJECTION-1"
   patterns:
   - pattern-inside: |
       import javax.el._
@@ -1255,12 +1348,12 @@ rules:
     cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.EL_INJECTION"
+    primary_identifier: "find_sec_bugs.EL_INJECTION"
     secondary_identifiers:
     - name: "Find Security Bugs-EL_INJECTION"
       type: "find_sec_bugs_type"
       value: "EL_INJECTION"
-- id: "find_sec_bugs_scala.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
+- id: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
   mode: "taint"
   pattern-sources:
   - pattern: "($VAR: javax.servlet.http.HttpServletRequest).getParameter(...)"
@@ -1312,7 +1405,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-552: Files or Directories Accessible to External Parties"
-    primary_identifier: "find_sec_bugs_scala.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
+    primary_identifier: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-REQUESTDISPATCHER_FILE_DISCLOSURE"
       type: "find_sec_bugs_type"
@@ -1324,7 +1417,7 @@ rules:
       type: "find_sec_bugs_type"
       value: "SPRING_FILE_DISCLOSURE"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.HTTP_PARAMETER_POLLUTION-1"
+- id: "find_sec_bugs.HTTP_PARAMETER_POLLUTION-1"
   mode: "taint"
   pattern-sources:
   - pattern: "($REQ: HttpServletRequest ).getParameter(...)"
@@ -1351,12 +1444,12 @@ rules:
       Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.HTTP_PARAMETER_POLLUTION"
+    primary_identifier: "find_sec_bugs.HTTP_PARAMETER_POLLUTION"
     secondary_identifiers:
     - name: "Find Security Bugs-HTTP_PARAMETER_POLLUTION"
       type: "find_sec_bugs_type"
       value: "HTTP_PARAMETER_POLLUTION"
-- id: "find_sec_bugs_scala.LDAP_INJECTION-1"
+- id: "find_sec_bugs.LDAP_INJECTION-1"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -1401,12 +1494,12 @@ rules:
       ('LDAP Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.LDAP_INJECTION"
+    primary_identifier: "find_sec_bugs.LDAP_INJECTION"
     secondary_identifiers:
     - name: "Find Security Bugs-LDAP_INJECTION"
       type: "find_sec_bugs_type"
       value: "LDAP_INJECTION"
-- id: "find_sec_bugs_scala.OGNL_INJECTION-1"
+- id: "find_sec_bugs.OGNL_INJECTION-1"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -1414,72 +1507,75 @@ rules:
           ...
         }
     - pattern-inside: |
-        def $FUNC(..., $VAR: Map[String, ?], ...): $TYPE = {
+        def $FUNC(..., $VAR: Map[$K,$V], ...): $TYPE = {
           ...
         }
     - pattern-inside: |
-        def $FUNC(..., $VAR: Map[String, String], ...): $TYPE = {
+        def $FUNC(..., $VAR: java.util.HashMap[$K,$V], ...): $TYPE = {
           ...
         }
-    - pattern-inside: |
-        def $FUNC(..., $VAR: Map[String, Object], ...): $TYPE = {
-          ...
-        }
-    - pattern: "com.opensymphony.xwork2.util.TextParseUtil.translateVariables($VAR,
+  - pattern-either:
+    - pattern: "com.opensymphony.xwork2.util.TextParseUtil.translateVariables(...,
+        $VAR, ...)"
+    - pattern: "com.opensymphony.xwork2.util.TextParseUtil.translateVariablesCollection(...,
+        $VAR, ...)"
+    - pattern: "com.opensymphony.xwork2.util.TextParseUtil.shallBeIncluded(..., $VAR,
         ...)"
-    - pattern: "com.opensymphony.xwork2.util.TextParseUtil.translateVariablesCollection($VAL,
+    - pattern: "com.opensymphony.xwork2.util.TextParseUtil.commaDelimitedStringToSet(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.util.TextParser).evaluate(..., $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.util.OgnlTextParser).evaluate(..., $VAR,
         ...)"
-    - pattern: "com.opensymphony.xwork2.util.TextParseUtil.shallBeIncluded(...)"
-    - pattern: "com.opensymphony.xwork2.util.TextParseUtil.commaDelimitedStringToSet(...)"
-    - pattern: "(com.opensymphony.xwork2.util.TextParser $P).evaluate($VAR, $VAL,
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlReflectionProvider).getGetMethod(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlReflectionProvider).getSetMethod(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlReflectionProvider).getField(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlReflectionProvider).setProperties(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlReflectionProvider).setProperty(...,$VAR,
         ...)"
-    - pattern: "(com.opensymphony.xwork2.util.OgnlTextParser $P).evaluate($VAR, $VAL,
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlReflectionProvider).getValue(...,$VAR,
         ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).getGetMethod($CLZ,
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlReflectionProvider).setValue(...,$VAR,
         ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).getSetMethod($CLZ,
+    - pattern: "($P:com.opensymphony.xwork2.util.reflection.ReflectionProvider).getGetMethod(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.util.reflection.ReflectionProvider).getSetMethod(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.util.reflection.ReflectionProvider).getField(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.util.reflection.ReflectionProvider).setProperties(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.util.reflection.ReflectionProvider).setProperty(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.util.reflection.ReflectionProvider).getValue(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.util.reflection.ReflectionProvider).setValue(...,
+        $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlUtil).setProperties(..., $VAR,
         ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).getField($CLZ,
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlUtil).setProperty(..., $VAR,
         ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).setProperties($MAP,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).setProperty($VAL,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).getValue($VAL,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).setValue($VAL,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).getGetMethod($CLZ,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).getSetMethod($CLZ,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).getField($CLZ,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).setProperties($MAP,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).setProperty($VAR,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).getValue($VAR,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).setValue($VAR,
-        ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlUtil $P).setProperties($MAP, ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlUtil $P).setProperty($VAR, ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlUtil $P).getValue($VAR, ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlUtil $P).setValue($VAR, ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlUtil $P).callMethod($VAR, ...)"
-    - pattern: "(com.opensymphony.xwork2.ognl.OgnlUtil $P).compile($VAR, ...)"
-    - pattern: "(org.apache.struts2.util.VelocityStrutsUtil $P).evaluate(...)"
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlUtil).getValue(..., $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlUtil).setValue(..., $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlUtil).callMethod(..., $VAR, ...)"
+    - pattern: "($P:com.opensymphony.xwork2.ognl.OgnlUtil).compile(..., $VAR, ...)"
+    - pattern: "($P:org.apache.struts2.util.VelocityStrutsUtil).evaluate(...)"
     - pattern: "org.apache.struts2.util.StrutsUtil.findString(...)"
     - pattern: "org.apache.struts2.util.StrutsUtil.findValue(..., $VAL)"
     - pattern: "org.apache.struts2.util.StrutsUtil.getText(...)"
     - pattern: "org.apache.struts2.util.StrutsUtil.translateVariables(...)"
-    - pattern: "org.apache.struts2.util.StrutsUtil.makeSelectList($VAR, ...)"
-    - pattern: "(org.apache.struts2.views.jsp.ui.OgnlTool $T).findValue($VAR, ...)"
-    - pattern: "(com.opensymphony.xwork2.util.ValueStack $V).findString(...)"
-    - pattern: "(com.opensymphony.xwork2.util.ValueStack $V).findValue($VAR, ...)"
-    - pattern: "(com.opensymphony.xwork2.util.ValueStack $V).setValue($VAR, ...)"
-    - pattern: "(com.opensymphony.xwork2.util.ValueStack $V).setParameter($VAR, ...)"
+    - pattern: "org.apache.struts2.util.StrutsUtil.makeSelectList(..., $VAR, ...)"
+    - pattern: "($T:org.apache.struts2.views.jsp.ui.OgnlTool).findValue(..., $VAR,
+        ...)"
+    - pattern: "($V:com.opensymphony.xwork2.util.ValueStack).findString(...)"
+    - pattern: "($V:com.opensymphony.xwork2.util.ValueStack).findValue(..., $VAR,
+        ...)"
+    - pattern: "($V:com.opensymphony.xwork2.util.ValueStack).setValue(..., $VAR, ...)"
+    - pattern: "($V:com.opensymphony.xwork2.util.ValueStack).setParameter(..., $VAR,
+        ...)"
   message: |
     "A expression is built with a dynamic value. The source of the value(s) should be verified to
     avoid that unfiltered values fall into this risky code evaluation."
@@ -1490,21 +1586,25 @@ rules:
     category: "security"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.OGNL_INJECTION"
+    primary_identifier: "find_sec_bugs.OGNL_INJECTION"
     secondary_identifiers:
     - name: "Find Security Bugs-OGNL_INJECTION"
       type: "find_sec_bugs_type"
       value: "OGNL_INJECTION"
-- id: "find_sec_bugs_scala.PATH_TRAVERSAL_IN-1"
+- id: "find_sec_bugs.PATH_TRAVERSAL_IN-1.SCALA_PATH_TRAVERSAL_IN-1"
   patterns:
   - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          def $FUNC(...,$ARGS: Array[String], ...): $TYPE = {
+          ...
+          }
+      - pattern-inside: |
+          $VAR = $ARGS($IDX)
+          ...
     - pattern-inside: |
         def $FUNC(...,$VAR: String, ...): $TYPE = {
-          ...
-        }
-    - pattern-inside: |
-        def $FUNC(...,$VAR: String, ...): $TYPE = {
-          ...
+        ...
         }
   - pattern-not-inside: |
       ...
@@ -1516,18 +1616,21 @@ rules:
           $U = new java.net.URI($VAR)
           ...
       - pattern-either:
-        - pattern: "java.io.File($U)"
+        - pattern: "new java.io.File($U)"
         - pattern: "java.nio.file.Paths.get($U)"
-    - pattern: "java.io.RandomAccessFile(..., $VAR,...)"
-    - pattern: "java.io.FileReader(..., $VAR, ...)"
-    - pattern: "javax.activation.FileDataSource(..., $VAR, ...)"
-    - pattern: "java.io.FileInputStream(..., $VAR, ...)"
-    - pattern: "java.io.File(...,$VAR, ...)"
+    - pattern: "new java.io.RandomAccessFile(..., $VAR,...)"
+    - pattern: "new java.io.FileReader(<...$VAR...>, ...)"
+    - pattern: "new javax.activation.FileDataSource(..., $VAR, ...)"
+    - pattern: "new java.io.FileInputStream(..., $VAR, ...)"
+    - pattern: "new java.io.File(<...$VAR...>, ...)"
     - pattern: "java.nio.file.Paths.get(...,$VAR,...)"
     - pattern: "java.io.File.createTempFile(...,$VAR, ...)"
     - pattern: "java.io.File.createTempDirectory(...,$VAR,...)"
     - pattern: "java.nio.file.Files.createTempFile(..., $VAR, ...)"
     - pattern: "java.nio.file.Files.createTempDirectory(..., $VAR, ...)"
+    - pattern: "scala.io.Source.from(<...$VAR...>)"
+    - pattern: "scala.io.Source.fromFile(<...$VAR...>)"
+    - pattern: "scala.io.Source.fromString(<...$VAR...>)"
   message: |
     A file is opened to read its content. The filename comes from an input parameter. If an
     unfiltered parameter is passed to this file API, files from an arbitrary filesystem location
@@ -1542,12 +1645,15 @@ rules:
       Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.PATH_TRAVERSAL_IN"
+    primary_identifier: "find_sec_bugs.PATH_TRAVERSAL_IN-1.SCALA_PATH_TRAVERSAL_IN-1"
     secondary_identifiers:
     - name: "Find Security Bugs-PATH_TRAVERSAL_IN"
       type: "find_sec_bugs_type"
       value: "PATH_TRAVERSAL_IN"
-- id: "find_sec_bugs_scala.PATH_TRAVERSAL_OUT-1"
+    - name: "Find Security Bugs-SCALA_PATH_TRAVERSAL_IN"
+      type: "find_sec_bugs_type"
+      value: "SCALA_PATH_TRAVERSAL_IN"
+- id: "find_sec_bugs.PATH_TRAVERSAL_OUT-1"
   mode: "taint"
   pattern-sources:
   - patterns:
@@ -1587,12 +1693,12 @@ rules:
       Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.PATH_TRAVERSAL_OUT"
+    primary_identifier: "find_sec_bugs.PATH_TRAVERSAL_OUT"
     secondary_identifiers:
     - name: "Find Security Bugs-PATH_TRAVERSAL_OUT"
       type: "find_sec_bugs_type"
       value: "PATH_TRAVERSAL_OUT"
-- id: "find_sec_bugs_scala.PT_ABSOLUTE_PATH_TRAVERSAL-1"
+- id: "find_sec_bugs.PT_ABSOLUTE_PATH_TRAVERSAL-1"
   mode: "taint"
   pattern-sources:
   - pattern: "($REQ: HttpServletRequest ).getParameter(...)"
@@ -1643,12 +1749,12 @@ rules:
       Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.PT_ABSOLUTE_PATH_TRAVERSAL"
+    primary_identifier: "find_sec_bugs.PT_ABSOLUTE_PATH_TRAVERSAL"
     secondary_identifiers:
     - name: "Find Security Bugs-PT_ABSOLUTE_PATH_TRAVERSAL"
       type: "find_sec_bugs_type"
       value: "PT_ABSOLUTE_PATH_TRAVERSAL"
-- id: "find_sec_bugs_scala.PT_RELATIVE_PATH_TRAVERSAL-1"
+- id: "find_sec_bugs.PT_RELATIVE_PATH_TRAVERSAL-1"
   mode: "taint"
   pattern-sources:
   - patterns:
@@ -1705,224 +1811,248 @@ rules:
       Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.PT_RELATIVE_PATH_TRAVERSAL"
+    primary_identifier: "find_sec_bugs.PT_RELATIVE_PATH_TRAVERSAL"
     secondary_identifiers:
     - name: "Find Security Bugs-PT_RELATIVE_PATH_TRAVERSAL"
       type: "find_sec_bugs_type"
       value: "PT_RELATIVE_PATH_TRAVERSAL"
-- id: "find_sec_bugs_scala.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1"
+- id: "find_sec_bugs.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1.SCALA_SQL_INJECTION_SLICK-1"
   patterns:
   - pattern-not-inside: |
-      val $ARG = "..."
+      $ARG = ...
       ...
+  - pattern-not-inside: |
+      object $CLAZZ {
+        ...
+        $ARG = ...
+        ...
+      }
   - pattern-not-inside: |
       class $CLAZZ {
         ...
-        val $ARG = "..."
+        $ARG = ...
         ...
       }
   - pattern-either:
     - patterns:
-      - pattern: "($PM: javax.jdo.PersistenceManager).newQuery($ARG)"
-      - pattern-not: "($PM: javax.jdo.PersistenceManager).newQuery(\"...\")"
+      - pattern: "($PM:javax.jdo.PersistenceManager).newQuery(<...$ARG...>)"
+      - pattern-not: "($PM:javax.jdo.PersistenceManager).newQuery(\"...\")"
     - patterns:
-      - pattern: "($PM: javax.jdo.PersistenceManager).newQuery(..., $ARG)"
-      - pattern-not: "($PM: javax.jdo.PersistenceManager).newQuery(..., \"...\")"
+      - pattern: "($PM:javax.jdo.PersistenceManager).newQuery(..., <...$ARG...>)"
+      - pattern-not: "($PM:javax.jdo.PersistenceManager).newQuery(..., \"...\")"
     - patterns:
-      - pattern: "($Q: javax.jdo.Query).setFilter($ARG)"
+      - pattern: "($Q: javax.jdo.Query).setFilter(<...$ARG...>)"
       - pattern-not: "($Q: javax.jdo.Query).setFilter(\"...\")"
     - patterns:
-      - pattern: "($Q: javax.jdo.Query).setGrouping($ARG)"
+      - pattern: "($Q: javax.jdo.Query).setGrouping(<...$ARG...>)"
       - pattern-not: "($Q: javax.jdo.Query).setGrouping(\"...\")"
     - patterns:
-      - pattern: "($Q: javax.jdo.Query).setGrouping($ARG)"
+      - pattern: "($Q: javax.jdo.Query).setGrouping(<...$ARG...>)"
       - pattern-not: "($Q: javax.jdo.Query).setGrouping(\"...\")"
     - patterns:
-      - pattern: "($H: org.hibernate.criterion.Restrictions).sqlRestriction($ARG,
+      - pattern: "($H: org.hibernate.criterion.Restrictions).sqlRestriction(<...$ARG...>,
           ...)"
       - pattern-not: "($H: org.hibernate.criterion.Restrictions).sqlRestriction(\"...\",
           ...)"
     - patterns:
-      - pattern: "($S: org.hibernate.Session).createQuery((String $ARG), ...)"
+      - pattern: "($S: org.hibernate.Session).createQuery(<...$ARG...>, ...)"
       - pattern-not: "($S: org.hibernate.Session).createQuery(\"...\", ...)"
     - patterns:
-      - pattern: "($S: org.hibernate.Session).createSQLQuery($ARG, ...)"
+      - pattern: "($S: org.hibernate.Session).createSQLQuery(<...$ARG...>, ...)"
       - pattern-not: "($S: org.hibernate.Session).createSQLQuery(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.Statement).executeQuery($ARG, ...)"
+      - pattern: "($S: java.sql.Statement).executeQuery(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.Statement).createSQLQuery(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.Statement).execute($ARG, ...)"
+      - pattern: "($S: java.sql.Statement).execute(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.Statement).execute(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.Statement).executeUpdate($ARG, ...)"
+      - pattern: "($S: java.sql.Statement).executeUpdate(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.Statement).executeUpdate(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.Statement).executeLargeUpdate($ARG, ...)"
+      - pattern: "($S: java.sql.Statement).executeLargeUpdate(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.Statement).executeLargeUpdate(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.Statement).addBatch($ARG, ...)"
+      - pattern: "($S: java.sql.Statement).addBatch(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.Statement).addBatch(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.PreparedStatement).executeQuery($ARG, ...)"
+      - pattern: "($S: java.sql.PreparedStatement).executeQuery(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.PreparedStatement).executeQuery(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.PreparedStatement).execute($ARG, ...)"
+      - pattern: "($S: java.sql.PreparedStatement).execute(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.PreparedStatement).execute(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.PreparedStatement).executeUpdate($ARG, ...)"
+      - pattern: "($S: java.sql.PreparedStatement).executeUpdate(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.PreparedStatement).executeUpdate(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.PreparedStatement).executeLargeUpdate($ARG, ...)"
+      - pattern: "($S: java.sql.PreparedStatement).executeLargeUpdate(<...$ARG...>,
+          ...)"
       - pattern-not: "($S: java.sql.PreparedStatement).executeLargeUpdate(\"...\",
           ...)"
     - patterns:
-      - pattern: "($S: java.sql.PreparedStatement).addBatch($ARG, ...)"
+      - pattern: "($S: java.sql.PreparedStatement).addBatch(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.PreparedStatement).addBatch(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.Connection).prepareCall($ARG, ...)"
+      - pattern: "($S: java.sql.Connection).prepareCall(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.Connection).prepareCall(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.Connection).prepareStatement($ARG, ...)"
+      - pattern: "($S: java.sql.Connection).prepareStatement(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.Connection).prepareStatement(\"...\", ...)"
     - patterns:
-      - pattern: "($S: java.sql.Connection).nativeSQL($ARG, ...)"
+      - pattern: "($S: java.sql.Connection).nativeSQL(<...$ARG...>, ...)"
       - pattern-not: "($S: java.sql.Connection).nativeSQL(\"...\", ...)"
     - patterns:
-      - pattern: "new org.springframework.jdbc.core.PreparedStatementCreatorFactory($ARG,
+      - pattern: "new org.springframework.jdbc.core.PreparedStatementCreatorFactory(<...$ARG...>,
           ...)"
       - pattern-not: "new org.springframework.jdbc.core.PreparedStatementCreatorFactory(\"...\",
           ...)"
     - patterns:
-      - pattern: "(org.springframework.jdbc.core.PreparedStatementCreatorFactory $F).newPreparedStatementCreator($ARG,
+      - pattern: "(org.springframework.jdbc.core.PreparedStatementCreatorFactory $F).newPreparedStatementCreator(<...$ARG...>,
           ...)"
       - pattern-not: "(org.springframework.jdbc.core.PreparedStatementCreatorFactory
           $F).newPreparedStatementCreator(\"...\", ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).batchUpdate($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).batchUpdate(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).batchUpdate(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).execute($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).execute(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).execute(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).query($ARG, ...)"
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).query(<...$ARG...>,
+          ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).query(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForList($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForList(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).queryForList(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForMap($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForMap(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).queryForMap(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForObject($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForObject(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).queryForObject(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForObject($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForObject(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).queryForObject(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForRowSet($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForRowSet(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).queryForRowSet(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForInt($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForInt(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).queryForInt(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForLong($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).queryForLong(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).queryForLong(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).udpate($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcOperations).udpate(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcOperations).udpate(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).batchUpdate($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).batchUpdate(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).batchUpdate(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).execute($ARG, ...)"
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).execute(<...$ARG...>,
+          ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).execute(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).query($ARG, ...)"
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).query(<...$ARG...>,
+          ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).query(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForList($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForList(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForList(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForMap($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForMap(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForMap(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForObject($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForObject(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForObject(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForRowSet($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForRowSet(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForRowSet(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForInt($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForInt(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForInt(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForLong($ARG,
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForLong(<...$ARG...>,
           ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).queryForLong(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).update($ARG, ...)"
+      - pattern: "($O: org.springframework.jdbc.core.JdbcTemplate).update(<...$ARG...>,
+          ...)"
       - pattern-not: "($O: org.springframework.jdbc.core.JdbcTemplate).update(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: io.vertx.sqlclient.SqlClient).query($ARG, ...)"
+      - pattern: "($O: io.vertx.sqlclient.SqlClient).query(<...$ARG...>, ...)"
       - pattern-not: "($O: io.vertx.sqlclient.SqlClient).query(\"...\", ...)"
     - patterns:
-      - pattern: "($O: io.vertx.sqlclient.SqlClient).preparedQuery($ARG, ...)"
+      - pattern: "($O: io.vertx.sqlclient.SqlClient).preparedQuery(<...$ARG...>, ...)"
       - pattern-not: "($O: io.vertx.sqlclient.SqlClient).preparedQuery(\"...\", ...)"
     - patterns:
-      - pattern: "($O: io.vertx.sqlclient.SqlConnection).prepare($ARG, ...)"
+      - pattern: "($O: io.vertx.sqlclient.SqlConnection).prepare(<...$ARG...>, ...)"
       - pattern-not: "($O: io.vertx.sqlclient.SqlConnection).prepare(\"...\", ...)"
     - patterns:
-      - pattern: "($O: org.apache.turbine.om.peer.BasePeer).executeQuery($ARG, ...)"
+      - pattern: "($O: org.apache.turbine.om.peer.BasePeer).executeQuery(<...$ARG...>,
+          ...)"
       - pattern-not: "($O: org.apache.turbine.om.peer.BasePeer).executeQuery(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: org.apache.torque.util.BasePeer).executeQuery($ARG, ...)"
+      - pattern: "($O: org.apache.torque.util.BasePeer).executeQuery(<...$ARG...>,
+          ...)"
       - pattern-not: "($O: org.apache.torque.util.BasePeer).executeQuery(\"...\",
           ...)"
     - patterns:
-      - pattern: "($O: javax.persistence.EntityManager).createQuery($ARG, ...)"
+      - pattern: "($O: javax.persistence.EntityManager).createQuery(<...$ARG...>,
+          ...)"
       - pattern-not: "($O: javax.persistence.EntityManager).createQuery(\"...\", ...)"
     - patterns:
-      - pattern: "($O: javax.persistence.EntityManager).createNativeQuery($ARG, ...)"
+      - pattern: "($O: javax.persistence.EntityManager).createNativeQuery(<...$ARG...>,
+          ...)"
       - pattern-not: "($O: javax.persistence.EntityManager).createNativeQuery(\"...\",
           ...)"
+    - patterns:
+      - pattern: "anorm.SQL(<...$ARG...>)"
+      - pattern-not: "anorm.SQL(\"...\")"
+    - patterns:
+      - pattern-inside: |
+          import anorm._
+          ...
+      - pattern: "SQL(<...$ARG...>)"
+      - pattern-not: "SQL(\"...\")"
   languages:
   - "scala"
   message: |
@@ -1933,7 +2063,8 @@ rules:
     category: "security"
     cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
       ('SQL Injection')"
-    primary_identifier: "find_sec_bugs_scala.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1"
+    owasp: "A1:2017-Injection"
+    primary_identifier: "find_sec_bugs.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1.SCALA_SQL_INJECTION_SLICK-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SQL_INJECTION_SPRING_JDBC"
       type: "find_sec_bugs_type"
@@ -1950,8 +2081,11 @@ rules:
     - name: "Find Security Bugs-SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"
       type: "find_sec_bugs_type"
       value: "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"
+    - name: "Find Security Bugs-SCALA_SQL_INJECTION_SLICK"
+      type: "find_sec_bugs_type"
+      value: "SCALA_SQL_INJECTION_SLICK"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.LDAP_ANONYMOUS-1"
+- id: "find_sec_bugs.LDAP_ANONYMOUS-1"
   patterns:
   - pattern-inside: |
       import javax.naming.Context;
@@ -1966,13 +2100,13 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-20: Improper Input Validation"
-    primary_identifier: "find_sec_bugs_scala.LDAP_ANONYMOUS"
+    primary_identifier: "find_sec_bugs.LDAP_ANONYMOUS"
     secondary_identifiers:
     - name: "Find Security Bugs-LDAP_ANONYMOUS"
       type: "find_sec_bugs_type"
       value: "LDAP_ANONYMOUS"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.LDAP_ENTRY_POISONING-1"
+- id: "find_sec_bugs.LDAP_ENTRY_POISONING-1"
   patterns:
   - pattern: "new javax.naming.directory.SearchControls($SCOPE, $CLIMIT, $TLIMIT,
       $ATTR, true, $DEREF)"
@@ -1985,13 +2119,13 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-20: Improper Input Validation"
-    primary_identifier: "find_sec_bugs_scala.LDAP_ENTRY_POISONING"
+    primary_identifier: "find_sec_bugs.LDAP_ENTRY_POISONING"
     secondary_identifiers:
     - name: "Find Security Bugs-LDAP_ENTRY_POISONING"
       type: "find_sec_bugs_type"
       value: "LDAP_ENTRY_POISONING"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.DMI_CONSTANT_DB_PASSWORD-1.HARD_CODE_PASSWORD-3"
+- id: "find_sec_bugs.DMI_CONSTANT_DB_PASSWORD-1.HARD_CODE_PASSWORD-3"
   patterns:
   - pattern: "java.sql.DriverManager.getConnection($URI, $USR, \"...\");"
   message: |
@@ -2005,7 +2139,7 @@ rules:
     cwe: "CWE-259: Use of Hard-coded Password"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.DMI_CONSTANT_DB_PASSWORD-1.HARD_CODE_PASSWORD-3"
+    primary_identifier: "find_sec_bugs.DMI_CONSTANT_DB_PASSWORD-1.HARD_CODE_PASSWORD-3"
     secondary_identifiers:
     - name: "Find Security Bugs-DMI_CONSTANT_DB_PASSWORD"
       type: "find_sec_bugs_type"
@@ -2013,7 +2147,7 @@ rules:
     - name: "Find Security Bugs-HARD_CODE_PASSWORD"
       type: "find_sec_bugs_type"
       value: "HARD_CODE_PASSWORD"
-- id: "find_sec_bugs_scala.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
+- id: "find_sec_bugs.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
   patterns:
   - pattern: "java.sql.DriverManager.getConnection($URI, $USR, \"\");"
   message: |
@@ -2027,7 +2161,7 @@ rules:
     cwe: "CWE-259: Use of Hard-coded Password"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
+    primary_identifier: "find_sec_bugs.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
     secondary_identifiers:
     - name: "Find Security Bugs-DMI_EMPTY_DB_PASSWORD"
       type: "find_sec_bugs_type"
@@ -2035,8 +2169,43 @@ rules:
     - name: "Find Security Bugs-HARD_CODE_PASSWORD"
       type: "find_sec_bugs_type"
       value: "HARD_CODE_PASSWORD"
-- id: "find_sec_bugs_scala.HARD_CODE_PASSWORD-1"
+- id: "find_sec_bugs.HARD_CODE_PASSWORD-1"
   patterns:
+  - pattern-either:
+    - pattern-inside: |
+        val $PWD = "..."
+        ...
+    - pattern-inside: |
+        val $PWD = Array[Byte](...)
+        ...
+    - pattern-inside: |
+        val $PWD = Array(...)
+        ...
+    - pattern-inside: |
+        val $PWD = new String(...)
+        ...
+    - pattern-inside: |
+        val $PWD: String = ...
+        ...
+    - pattern-inside: |
+        val $PWD: Char = ...
+        ...
+    - pattern-inside: |
+        val $PWD = $VAR.toCharArray
+        ...
+    - pattern-inside: |
+        object $CLAZZ {
+            val $PWD = ...
+            ...
+        }
+    - pattern-inside: |
+        class $CLAZZ {
+            val $PWD = ...
+            ...
+        }
+    - pattern-inside: |
+        $S = new SymmetricEncryptionConfig(...)
+        ...
   - pattern-either:
     - pattern: "($KS: java.security.KeyStore).load(..., \"...\")"
     - pattern: "($KS: java.security.KeyStore).load(..., \"...\".$FOO(...))"
@@ -2108,12 +2277,12 @@ rules:
     cwe: "CWE-259: Use of Hard-coded Password"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.HARD_CODE_PASSWORD"
+    primary_identifier: "find_sec_bugs.HARD_CODE_PASSWORD"
     secondary_identifiers:
     - name: "Find Security Bugs-HARD_CODE_PASSWORD"
       type: "find_sec_bugs_type"
       value: "HARD_CODE_PASSWORD"
-- id: "find_sec_bugs_scala.DANGEROUS_PERMISSION_COMBINATION-1"
+- id: "find_sec_bugs.DANGEROUS_PERMISSION_COMBINATION-1"
   pattern-either:
   - pattern: |
       $RUNVAR = new RuntimePermission("createClassLoader");
@@ -2132,13 +2301,13 @@ rules:
   metadata:
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs_scala.DANGEROUS_PERMISSION_COMBINATION"
+    primary_identifier: "find_sec_bugs.DANGEROUS_PERMISSION_COMBINATION"
     secondary_identifiers:
     - name: "Find Security Bugs-DANGEROUS_PERMISSION_COMBINATION"
       type: "find_sec_bugs_type"
       value: "DANGEROUS_PERMISSION_COMBINATION"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.OVERLY_PERMISSIVE_FILE_PERMISSION-1"
+- id: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-1"
   patterns:
   - pattern-either:
     - pattern: "java.nio.file.Files.setPosixFilePermissions(..., java.nio.file.attribute.PosixFilePermissions.fromString(\"$PERM_STRING\"));"
@@ -2157,13 +2326,13 @@ rules:
     cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs_scala.OVERLY_PERMISSIVE_FILE_PERMISSION"
+    primary_identifier: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION"
     secondary_identifiers:
     - name: "Find Security Bugs-OVERLY_PERMISSIVE_FILE_PERMISSION"
       type: "find_sec_bugs_type"
       value: "OVERLY_PERMISSIVE_FILE_PERMISSION"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
+- id: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
   patterns:
   - pattern-inside: |
       ...
@@ -2182,19 +2351,20 @@ rules:
     cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs_scala.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
+    primary_identifier: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-OVERLY_PERMISSIVE_FILE_PERMISSION"
       type: "find_sec_bugs_type"
       value: "OVERLY_PERMISSIVE_FILE_PERMISSION"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.PREDICTABLE_RANDOM-1"
-  patterns:
-  - pattern-either:
-    - pattern: "scala.util.Random.$METHOD"
-  - metavariable-regex:
-      metavariable: "$METHOD"
-      regex: "^(next)"
+- id: "find_sec_bugs.PREDICTABLE_RANDOM-1.PREDICTABLE_RANDOM_SCALA-1"
+  pattern-either:
+  - patterns:
+    - pattern: "$LANG.util.Random.$METHOD"
+    - metavariable-regex:
+        metavariable: "$METHOD"
+        regex: "^(next)"
+  - pattern: "Math.random"
   message: |
     The use of a predictable random value can lead to vulnerabilities when used in certain security
     critical contexts. A quick fix could be to replace the use of scala.util.Random with something
@@ -2207,12 +2377,15 @@ rules:
     cwe: "CWE-330: Use of Insufficiently Random Values"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.PREDICTABLE_RANDOM"
+    primary_identifier: "find_sec_bugs.PREDICTABLE_RANDOM-1.PREDICTABLE_RANDOM_SCALA-1"
     secondary_identifiers:
     - name: "Find Security Bugs-PREDICTABLE_RANDOM"
       type: "find_sec_bugs_type"
       value: "PREDICTABLE_RANDOM"
-- id: "find_sec_bugs_scala.SCRIPT_ENGINE_INJECTION-1.SPEL_INJECTION-1.EL_INJECTION-2.SEAM_LOG_INJECTION-1"
+    - name: "Find Security Bugs-PREDICTABLE_RANDOM_SCALA"
+      type: "find_sec_bugs_type"
+      value: "PREDICTABLE_RANDOM_SCALA"
+- id: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-1.SPEL_INJECTION-1.EL_INJECTION-2.SEAM_LOG_INJECTION-1"
   patterns:
   - pattern: "($ENGINE: javax.script.ScriptEngine).eval($ARG)"
   - pattern-not: "($ENGINE: javax.script.ScriptEngine).eval(\"...\")"
@@ -2226,7 +2399,7 @@ rules:
   severity: "ERROR"
   metadata:
     cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    primary_identifier: "find_sec_bugs_scala.SCRIPT_ENGINE_INJECTION-1.SPEL_INJECTION-1.EL_INJECTION-2.SEAM_LOG_INJECTION-1"
+    primary_identifier: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-1.SPEL_INJECTION-1.EL_INJECTION-2.SEAM_LOG_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SCRIPT_ENGINE_INJECTION"
       type: "find_sec_bugs_type"
@@ -2240,7 +2413,7 @@ rules:
     - name: "Find Security Bugs-SEAM_LOG_INJECTION"
       type: "find_sec_bugs_type"
       value: "SEAM_LOG_INJECTION"
-- id: "find_sec_bugs_scala.SCRIPT_ENGINE_INJECTION-2"
+- id: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-2"
   patterns:
   - pattern: "($P: org.springframework.expression.spel.standard.SpelExpressionParser).parseExpression($ARG);"
   - pattern-not: "($P: org.springframework.expression.spel.standard.SpelExpressionParser
@@ -2255,12 +2428,12 @@ rules:
   severity: "ERROR"
   metadata:
     cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    primary_identifier: "find_sec_bugs_scala.SCRIPT_ENGINE_INJECTION-2"
+    primary_identifier: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-SCRIPT_ENGINE_INJECTION"
       type: "find_sec_bugs_type"
       value: "SCRIPT_ENGINE_INJECTION"
-- id: "find_sec_bugs_scala.INSECURE_SMTP_SSL-1"
+- id: "find_sec_bugs.INSECURE_SMTP_SSL-1"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -2286,7 +2459,7 @@ rules:
     Server identity verification is disabled when making SSL connections.
   metadata:
     cwe: "CWE-297: Improper Validation of Certificate with Host Mismatch"
-    primary_identifier: "find_sec_bugs_scala.INSECURE_SMTP_SSL"
+    primary_identifier: "find_sec_bugs.INSECURE_SMTP_SSL"
     secondary_identifiers:
     - name: "Find Security Bugs-INSECURE_SMTP_SSL"
       type: "find_sec_bugs_type"
@@ -2294,7 +2467,7 @@ rules:
   severity: "ERROR"
   languages:
   - "scala"
-- id: "find_sec_bugs_scala.SMTP_HEADER_INJECTION-1"
+- id: "find_sec_bugs.SMTP_HEADER_INJECTION-1"
   patterns:
   - pattern-either:
     - patterns:
@@ -2333,29 +2506,38 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-77: Improper Neutralization of Special Elements used in a Command"
-    primary_identifier: "find_sec_bugs_scala.SMTP_HEADER_INJECTION"
+    primary_identifier: "find_sec_bugs.SMTP_HEADER_INJECTION"
     secondary_identifiers:
     - name: "Find Security Bugs-SMTP_HEADER_INJECTION"
       type: "find_sec_bugs_type"
       value: "SMTP_HEADER_INJECTION"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.URLCONNECTION_SSRF_FD-1"
-  pattern-either:
-  - patterns:
-    - pattern: "new URL(...). ... .connect"
-    - pattern-not: "new URL(\"...\"). ... .connect"
-  - patterns:
-    - pattern: "new URL(...). ... .GetContent"
-    - pattern-not: "new URL(\"...\"). ... .GetContent"
-  - patterns:
-    - pattern: "new URL(...). ... .openConnection"
-    - pattern-not: "new URL(\"...\"). ... .openConnection"
-  - patterns:
-    - pattern: "new URL(...). ... .openStream"
-    - pattern-not: "new URL(\"...\"). ... .openStream"
-  - patterns:
-    - pattern: "new URL(...). ... .getContent"
-    - pattern-not: "new URL(\"...\"). ... .getContent"
+- id: "find_sec_bugs.SCALA_PLAY_SSRF-1"
+  patterns:
+  - pattern-not-inside: |
+      object $CLAZZ {
+        ...
+        $ARG = ...
+        ...
+      }
+  - pattern-not-inside: |
+      class $CLAZZ {
+        ...
+        $ARG = ...
+        ...
+      }
+  - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          import play.api.libs.ws._
+          ...
+      - pattern-not: "($W:WSClient).url(\"...\")"
+      - pattern-not: "($W:WSClient).url(\"...\" + \"...\")"
+      - pattern: "($W:WSClient).url(<...$ARG...>)"
+    - patterns:
+      - pattern: "($W:play.api.libs.ws.WSClient).url(<...$ARG...>)"
+      - pattern-not: "($W:play.api.libs.ws.WSClient).url(\"...\")"
+      - pattern-not: "($W:play.api.libs.ws.WSClient).url(\"...\" + \"...\")"
   languages:
   - "scala"
   message: |
@@ -2365,13 +2547,68 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-918: Server-Side Request Forgery (SSRF)"
-    primary_identifier: "find_sec_bugs_scala.URLCONNECTION_SSRF_FD"
+    primary_identifier: "find_sec_bugs.SCALA_PLAY_SSRF"
+    secondary_identifiers:
+    - name: "Find Security Bugs-SCALA_PLAY_SSRF"
+      type: "find_sec_bugs_type"
+      value: "SCALA_PLAY_SSRF"
+  severity: "ERROR"
+- id: "find_sec_bugs.URLCONNECTION_SSRF_FD-1"
+  pattern-either:
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |
+          import java.net._
+          ...
+      - pattern-inside: |
+          import java.net.URL
+          ...
+      - pattern-inside: |
+          import java.net.URI
+          ...
+    - pattern: "new $TYPE(...). ... .$FUNC"
+    - pattern-not: "new $TYPE(\"...\"). ... .$FUNC"
+    - metavariable-pattern:
+        metavariable: "$FUNC"
+        pattern-either:
+        - pattern: "connect"
+        - pattern: "GetContent"
+        - pattern: "openConnection"
+        - pattern: "openStream"
+        - pattern: "getContent"
+    - metavariable-pattern:
+        metavariable: "$TYPE"
+        pattern-either:
+        - pattern: "URL"
+        - pattern: "java.net.URL"
+        - pattern: "URI"
+        - pattern: "java.net.URI"
+  - patterns:
+    - pattern: |
+        new $ADDR(..., $PORT)
+    - pattern-not: |
+        new $ADDR("...", $PORT)
+    - metavariable-pattern:
+        metavariable: "$ADDR"
+        pattern-either:
+        - pattern: "InetSocketAddress"
+        - pattern: "java.net.InetSocketAddress"
+  languages:
+  - "scala"
+  message: |
+    Server-Side Request Forgery occur when a web server executes a request to a user supplied
+    destination parameter that is not validated. Such vulnerabilities could allow an attacker to
+    access internal services or to launch attacks from your web server.
+  metadata:
+    category: "security"
+    cwe: "CWE-918: Server-Side Request Forgery (SSRF)"
+    primary_identifier: "find_sec_bugs.URLCONNECTION_SSRF_FD"
     secondary_identifiers:
     - name: "Find Security Bugs-URLCONNECTION_SSRF_FD"
       type: "find_sec_bugs_type"
       value: "URLCONNECTION_SSRF_FD"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.BAD_HEXA_CONVERSION-1"
+- id: "find_sec_bugs.BAD_HEXA_CONVERSION-1"
   pattern-either:
   - pattern: |
       $B_ARR = ($MD: java.security.MessageDigest).digest(...);
@@ -2396,34 +2633,34 @@ rules:
     cwe: "CWE-704: Incorrect Type Conversion or Cast"
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs_scala.BAD_HEXA_CONVERSION"
+    primary_identifier: "find_sec_bugs.BAD_HEXA_CONVERSION"
     secondary_identifiers:
     - name: "Find Security Bugs-BAD_HEXA_CONVERSION"
       type: "find_sec_bugs_type"
       value: "BAD_HEXA_CONVERSION"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.FORMAT_STRING_MANIPULATION-1"
+- id: "find_sec_bugs.FORMAT_STRING_MANIPULATION-1"
   patterns:
   - pattern-either:
     - patterns:
       - pattern-inside: |
-          val $INPUT = ($REQ: HttpServletRequest).getParameter(...);
+          $INPUT = ($REQ: javax.servlet.http.HttpServletRequest).getParameter(...);
           ...
       - pattern-inside: |
-          val $FORMAT_STR = ... + $INPUT;
-          ...
+          $FORMAT_STR = <... $INPUT ...>;
     - patterns:
       - pattern-inside: |
-          val $INPUT = ($REQ: HttpServletRequest).getParameter(...);
+          val $INPUT = ($REQ: javax.servlet.http.HttpServletRequest).getParameter(...);
           ...
       - pattern-inside: |
-          val $FORMAT_STR = ... + $INPUT + ...;
+          val $FORMAT_STR = <... $INPUT ...>;
           ...
     - pattern-inside: |
-        val $FORMAT_STR = ... + ($REQ: HttpServletRequest).getParameter(...) + ...; ...
+        val $FORMAT_STR = ... + ($REQ: javax.servlet.http.HttpServletRequest).getParameter(...) + ...; ...
     - pattern-inside: |
-        val $FORMAT_STR = ... + ($REQ: HttpServletRequest).getParameter(...); ...
+        val $FORMAT_STR = ... + ($REQ: javax.servlet.http.HttpServletRequest).getParameter(...); ...
   - pattern-either:
+    - pattern: "$VAL = <... $INPUT ...>"
     - pattern: "String.format($FORMAT_STR, ...);"
     - pattern: "String.format(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
     - pattern: "($F: java.util.Formatter).format($FORMAT_STR, ...);"
@@ -2451,13 +2688,13 @@ rules:
     cwe: "CWE-134: Use of Externally-Controlled Format String"
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs_scala.FORMAT_STRING_MANIPULATION"
+    primary_identifier: "find_sec_bugs.FORMAT_STRING_MANIPULATION"
     secondary_identifiers:
     - name: "Find Security Bugs-FORMAT_STRING_MANIPULATION"
       type: "find_sec_bugs_type"
       value: "FORMAT_STRING_MANIPULATION"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.IMPROPER_UNICODE-1"
+- id: "find_sec_bugs.IMPROPER_UNICODE-1"
   pattern-either:
   - patterns:
     - pattern-either:
@@ -2483,13 +2720,13 @@ rules:
     cwe: "CWE-176: Improper Handling of Unicode Encoding"
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs_scala.IMPROPER_UNICODE"
+    primary_identifier: "find_sec_bugs.IMPROPER_UNICODE"
     secondary_identifiers:
     - name: "Find Security Bugs-IMPROPER_UNICODE"
       type: "find_sec_bugs_type"
       value: "IMPROPER_UNICODE"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.MODIFICATION_AFTER_VALIDATION-1"
+- id: "find_sec_bugs.MODIFICATION_AFTER_VALIDATION-1"
   patterns:
   - pattern: |
       $Y.matcher($VAR);
@@ -2505,13 +2742,13 @@ rules:
   metadata:
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs_scala.MODIFICATION_AFTER_VALIDATION"
+    primary_identifier: "find_sec_bugs.MODIFICATION_AFTER_VALIDATION"
     secondary_identifiers:
     - name: "Find Security Bugs-MODIFICATION_AFTER_VALIDATION"
       type: "find_sec_bugs_type"
       value: "MODIFICATION_AFTER_VALIDATION"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.NORMALIZATION_AFTER_VALIDATION-1"
+- id: "find_sec_bugs.NORMALIZATION_AFTER_VALIDATION-1"
   patterns:
   - pattern: |
       $Y = java.util.regex.Pattern.compile("[<>]");
@@ -2526,13 +2763,13 @@ rules:
   metadata:
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs_scala.NORMALIZATION_AFTER_VALIDATION"
+    primary_identifier: "find_sec_bugs.NORMALIZATION_AFTER_VALIDATION"
     secondary_identifiers:
     - name: "Find Security Bugs-NORMALIZATION_AFTER_VALIDATION"
       type: "find_sec_bugs_type"
       value: "NORMALIZATION_AFTER_VALIDATION"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
+- id: "find_sec_bugs.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
   pattern-either:
   - patterns:
     - pattern: "org.apache.velocity.app.Velocity.evaluate(..., $VAR)"
@@ -2564,7 +2801,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    primary_identifier: "find_sec_bugs_scala.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
+    primary_identifier: "find_sec_bugs.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
     secondary_identifiers:
     - name: "Find Security Bugs-TEMPLATE_INJECTION_PEBBLE"
       type: "find_sec_bugs_type"
@@ -2576,7 +2813,7 @@ rules:
       type: "find_sec_bugs_type"
       value: "TEMPLATE_INJECTION_VELOCITY"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.EXTERNAL_CONFIG_CONTROL-1"
+- id: "find_sec_bugs.EXTERNAL_CONFIG_CONTROL-1"
   patterns:
   - pattern: |
       $TAINTED = ($REQ: HttpServletRequest).getParameter(...);
@@ -2594,12 +2831,12 @@ rules:
     cwe: "CWE-15: External Control of System or Configuration Setting"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.EXTERNAL_CONFIG_CONTROL"
+    primary_identifier: "find_sec_bugs.EXTERNAL_CONFIG_CONTROL"
     secondary_identifiers:
     - name: "Find Security Bugs-EXTERNAL_CONFIG_CONTROL"
       type: "find_sec_bugs_type"
       value: "EXTERNAL_CONFIG_CONTROL"
-- id: "find_sec_bugs_scala.INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE-1"
+- id: "find_sec_bugs.INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE-1"
   patterns:
   - pattern: "$E.printStackTrace(...)"
   message: |
@@ -2616,12 +2853,42 @@ rules:
     cwe: "CWE-209: Information Exposure Through an Error Message"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
+    primary_identifier: "find_sec_bugs.INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
     secondary_identifiers:
     - name: "Find Security Bugs-INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
       type: "find_sec_bugs_type"
       value: "INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
-- id: "find_sec_bugs_scala.RPC_ENABLED_EXTENSIONS-1"
+- id: "find_sec_bugs.SCALA_SENSITIVE_DATA_EXPOSURE-1"
+  patterns:
+  - pattern-inside: |
+      def $FUNC(..., $ARG: String, ...) = $TYPE {
+        ...
+      }
+  - pattern-inside: |
+      $VAL = ($C: play.api.Configuration).underlying.getString($ARG)
+      ...
+  - pattern: "Ok(<...$VAL...>)"
+  message: |
+    Applications can unintentionally leak information about their configuration, internal
+    workings, or violate privacy through a variety of application problems. Pages that provide
+    different responses based on the validity of the data can lead to Information Leakage;
+    specifically when data deemed confidential is being revealed as a result of the web
+    application's design.
+  languages:
+  - "scala"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-200: Information Exposure"
+    technology:
+    - "scala"
+    - "play"
+    primary_identifier: "find_sec_bugs.SCALA_SENSITIVE_DATA_EXPOSURE"
+    secondary_identifiers:
+    - name: "Find Security Bugs-SCALA_SENSITIVE_DATA_EXPOSURE"
+      type: "find_sec_bugs_type"
+      value: "SCALA_SENSITIVE_DATA_EXPOSURE"
+- id: "find_sec_bugs.RPC_ENABLED_EXTENSIONS-1"
   patterns:
   - pattern-either:
     - patterns:
@@ -2642,13 +2909,13 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-502: Deserialization of Untrusted Data"
-    primary_identifier: "find_sec_bugs_scala.RPC_ENABLED_EXTENSIONS"
+    primary_identifier: "find_sec_bugs.RPC_ENABLED_EXTENSIONS"
     secondary_identifiers:
     - name: "Find Security Bugs-RPC_ENABLED_EXTENSIONS"
       type: "find_sec_bugs_type"
       value: "RPC_ENABLED_EXTENSIONS"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.SAML_IGNORE_COMMENTS-1"
+- id: "find_sec_bugs.SAML_IGNORE_COMMENTS-1"
   pattern: "($POOL: BasicParserPool).setIgnoreComments(false);"
   languages:
   - "scala"
@@ -2657,25 +2924,21 @@ rules:
   metadata:
     cwe: "CWE-287: Improper Authentication"
     category: "security"
-    primary_identifier: "find_sec_bugs_scala.SAML_IGNORE_COMMENTS"
+    primary_identifier: "find_sec_bugs.SAML_IGNORE_COMMENTS"
     secondary_identifiers:
     - name: "Find Security Bugs-SAML_IGNORE_COMMENTS"
       type: "find_sec_bugs_type"
       value: "SAML_IGNORE_COMMENTS"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.XML_DECODER-1"
+- id: "find_sec_bugs.XML_DECODER-1"
   patterns:
-  - pattern-either:
-    - patterns:
-      - pattern-inside: |
-          val $D = new XMLDecoder($IN);
-          ...
-      - pattern-not-inside: |
-          val $D = new XMLDecoder("...");
-          ...
-      - pattern-either:
-        - pattern: "val $R = $D.readObject()"
-        - pattern: "val $R = $D.readObject"
+  - pattern-inside: |
+      $D = new java.beans.XMLDecoder($IN);
+      ...
+  - pattern-not-inside: |
+      $DX = new java.beans.XMLDecoder("...");
+      ...
+  - pattern: "$D.readObject"
   languages:
   - "scala"
   message: |
@@ -2683,13 +2946,13 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-502: Deserialization of Untrusted Data"
-    primary_identifier: "find_sec_bugs_scala.XML_DECODER"
+    primary_identifier: "find_sec_bugs.XML_DECODER"
     secondary_identifiers:
     - name: "Find Security Bugs-XML_DECODER"
       type: "find_sec_bugs_type"
       value: "XML_DECODER"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.MALICIOUS_XSLT-1"
+- id: "find_sec_bugs.MALICIOUS_XSLT-1"
   mode: "taint"
   pattern-sources:
   - patterns:
@@ -2733,26 +2996,33 @@ rules:
     cwe": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
       Traversal')"
     category: "security"
-    primary_identifier: "find_sec_bugs_scala.MALICIOUS_XSLT"
+    primary_identifier: "find_sec_bugs.MALICIOUS_XSLT"
     secondary_identifiers:
     - name: "Find Security Bugs-MALICIOUS_XSLT"
       type: "find_sec_bugs_type"
       value: "MALICIOUS_XSLT"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.XPATH_INJECTION-1"
-  patterns:
-  - pattern-either:
-    - pattern-inside: |-
-        import javax.xml.xpath._; ...
-    - pattern-inside: |-
-        import javax.xml.xpath.Xpath; ...
-  - pattern-either:
-    - patterns:
-      - pattern: "($X: XPath).compile($ARG)"
-      - pattern-not: "($X: XPath).compile(\"...\")"
-    - patterns:
-      - pattern: "($X: XPath).evaluate($ARG, $ARG2)"
-      - pattern-not: "($X: XPath).evaluate(\"...\")"
+- id: "find_sec_bugs.XPATH_INJECTION-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        def $FUNC(..., $ARG: $TYPE,...): $RET = {
+          ...
+        }
+    - pattern: "$ARG"
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |-
+          import javax.xml.xpath._
+          ...
+      - pattern-inside: |-
+          import javax.xml.xpath.XPath
+          ...
+    - pattern-either:
+      - pattern: "$Y.compile(...)"
+      - pattern: "$X.evaluate(..., $ARG2)"
   languages:
   - "scala"
   message: |
@@ -2762,13 +3032,40 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs_scala.XPATH_INJECTION"
+    primary_identifier: "find_sec_bugs.XPATH_INJECTION"
     secondary_identifiers:
     - name: "Find Security Bugs-XPATH_INJECTION"
       type: "find_sec_bugs_type"
       value: "XPATH_INJECTION"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.XSS_REQUEST_WRAPPER-1"
+- id: "find_sec_bugs.SCALA_XSS_MVC_API-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        def $FUNC(..., $ARG: String, ...) = Action {
+          ...
+        }
+    - focus-metavariable: "$ARG"
+  pattern-sanitizers:
+  - pattern: "org.owasp.encoder.Encode.forHtml(...)"
+  pattern-sinks:
+  - pattern: "Ok(...)"
+  languages:
+  - "scala"
+  message: |
+    Disabling HTML escaping put the application at risk for Cross-Site Scripting (XSS).
+  metadata:
+    category: "security"
+    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
+      Scripting')"
+    primary_identifier: "find_sec_bugs.SCALA_XSS_MVC_API"
+    secondary_identifiers:
+    - name: "Find Security Bugs-SCALA_XSS_MVC_API"
+      type: "find_sec_bugs_type"
+      value: "SCALA_XSS_MVC_API"
+  severity: "WARNING"
+- id: "find_sec_bugs.XSS_REQUEST_WRAPPER-1"
   patterns:
   - pattern-inside: |
       class $CLASS(...) extends HttpServletRequestWrapper(...) {
@@ -2783,13 +3080,13 @@ rules:
     category: "security"
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
       Scripting')"
-    primary_identifier: "find_sec_bugs_scala.XSS_REQUEST_WRAPPER"
+    primary_identifier: "find_sec_bugs.XSS_REQUEST_WRAPPER"
     secondary_identifiers:
     - name: "Find Security Bugs-XSS_REQUEST_WRAPPER"
       type: "find_sec_bugs_type"
       value: "XSS_REQUEST_WRAPPER"
   severity: "INFO"
-- id: "find_sec_bugs_scala.WICKET_XSS1-1"
+- id: "find_sec_bugs.WICKET_XSS1-1"
   patterns:
   - pattern: "($X: Label).setEscapeModelStrings(false);"
   languages:
@@ -2800,38 +3097,40 @@ rules:
     category: "security"
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
       Scripting')"
-    primary_identifier: "find_sec_bugs_scala.WICKET_XSS1"
+    primary_identifier: "find_sec_bugs.WICKET_XSS1"
     secondary_identifiers:
     - name: "Find Security Bugs-WICKET_XSS1"
       type: "find_sec_bugs_type"
       value: "WICKET_XSS1"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER-1"
+- id: "find_sec_bugs.XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER-1"
   mode: "taint"
   pattern-sources:
   - patterns:
     - pattern-inside: |-
         def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {...}
-    - pattern: "$REQ.getParameter(...);"
+    - pattern-either:
+      - pattern: "$REQ.getParameter(...)"
+      - pattern: "$REQ.getQueryString"
   pattern-sanitizers:
-  - patterns:
-    - pattern-inside: |-
-        Encode.forHtml($TAINTED);
-    - pattern: "$TAINTED"
+  - pattern: "Encode.forHtml(...)"
+  - pattern: "org.owasp.esapi.Encoder.encodeForSQL(...)"
   pattern-sinks:
   - patterns:
     - pattern-inside: |-
         def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
     - pattern-inside: |
-        $WRITER = $RES.getWriter;
+        $WRITER = $RES.getWriter
         ...
-    - pattern: "$WRITER.write($DATA,...);"
-    - pattern: "$DATA"
+    - pattern: "$WRITER.write(...)"
   - patterns:
     - pattern-inside: |-
         def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
-    - pattern: "$RES.getWriter.write($DATA,...);"
-    - pattern: "$DATA"
+    - pattern: "$RES.getWriter.write(...)"
+  - patterns:
+    - pattern-inside: |-
+        def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
+    - pattern: "$RES.getWriter.print(...)"
   message: |
     Servlet reflected cross site scripting vulnerability
   languages:
@@ -2842,12 +3141,12 @@ rules:
     category: "security"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs_scala.XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
+    primary_identifier: "find_sec_bugs.XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
     secondary_identifiers:
     - name: "Find Security Bugs-XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
       type: "find_sec_bugs_type"
       value: "XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
-- id: "find_sec_bugs_scala.XSS_SERVLET-1"
+- id: "find_sec_bugs.XSS_SERVLET-1"
   mode: "taint"
   pattern-sources:
   - patterns:
@@ -2882,13 +3181,13 @@ rules:
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
       Scripting')"
     category: "security"
-    primary_identifier: "find_sec_bugs_scala.XSS_SERVLET"
+    primary_identifier: "find_sec_bugs.XSS_SERVLET"
     secondary_identifiers:
     - name: "Find Security Bugs-XSS_SERVLET"
       type: "find_sec_bugs_type"
       value: "XSS_SERVLET"
   severity: "WARNING"
-- id: "find_sec_bugs_scala.XXE_DOCUMENT-1"
+- id: "find_sec_bugs.XXE_DOCUMENT-1"
   patterns:
   - pattern-inside: |
       $DF = DocumentBuilderFactory.newInstance
@@ -2908,13 +3207,13 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs_scala.XXE_DOCUMENT"
+    primary_identifier: "find_sec_bugs.XXE_DOCUMENT"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_DOCUMENT"
       type: "find_sec_bugs_type"
       value: "XXE_DOCUMENT"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.XXE_SAXPARSER-1"
+- id: "find_sec_bugs.XXE_SAXPARSER-1"
   patterns:
   - pattern-inside: |
       val $SF = SAXParserFactory.newInstance
@@ -2937,28 +3236,29 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs_scala.XXE_SAXPARSER"
+    primary_identifier: "find_sec_bugs.XXE_SAXPARSER"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_SAXPARSER"
       type: "find_sec_bugs_type"
       value: "XXE_SAXPARSER"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
-  patterns:
-  - pattern-inside: |-
-      import javax.xml.transform._; ...
-  - pattern-inside: |
-      val $T = $FACT.newTransformer;
-      ...
-  - pattern-not-inside: |
-      $T.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-      ...
-  - pattern-not-inside: |
-      $T.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-      ...
-  - pattern-not-inside: |
-      $T.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-      ...
+- id: "find_sec_bugs.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |-
+          import javax.xml.transform._
+          ...
+      - pattern-inside: |-
+          import javax.xml.transform.Transformer
+          ...
+    - pattern: "$FACT.newTransformer"
+  pattern-sanitizers:
+  - pattern: "$T.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, \"\");"
+  - pattern: "$T.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, \"\");"
+  - pattern: "$T.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);"
+  pattern-sinks:
   - pattern: "$T.transform(...)"
   languages:
   - "scala"
@@ -2968,7 +3268,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs_scala.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
+    primary_identifier: "find_sec_bugs.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_DTD_TRANSFORM_FACTORY"
       type: "find_sec_bugs_type"
@@ -2977,7 +3277,7 @@ rules:
       type: "find_sec_bugs_type"
       value: "XXE_XSLT_TRANSFORM_FACTORY"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.XXE_XMLREADER-1"
+- id: "find_sec_bugs.XXE_XMLREADER-1"
   patterns:
   - pattern-inside: |
       val $R = XMLReaderFactory.createXMLReader
@@ -2994,13 +3294,13 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs_scala.XXE_XMLREADER"
+    primary_identifier: "find_sec_bugs.XXE_XMLREADER"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_XMLREADER"
       type: "find_sec_bugs_type"
       value: "XXE_XMLREADER"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.XXE_XMLSTREAMREADER-1"
+- id: "find_sec_bugs.XXE_XMLSTREAMREADER-1"
   patterns:
   - pattern-inside: |
       $SF = XMLInputFactory.newFactory
@@ -3020,13 +3320,13 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs_scala.XXE_XMLSTREAMREADER"
+    primary_identifier: "find_sec_bugs.XXE_XMLSTREAMREADER"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_XMLSTREAMREADER"
       type: "find_sec_bugs_type"
       value: "XXE_XMLSTREAMREADER"
   severity: "ERROR"
-- id: "find_sec_bugs_scala.XXE_XPATH-1"
+- id: "find_sec_bugs.XXE_XPATH-1"
   patterns:
   - pattern-inside: |
       val $DF = DocumentBuilderFactory.newInstance
@@ -3043,9 +3343,10 @@ rules:
   - pattern-not-inside: |
       $DF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
       ...
-  - pattern-either:
-    - pattern: "$DF.newDocumentBuilder(...)"
-    - pattern: "$DF.newDocumentBuilder"
+  - pattern-inside: |
+      $B = $DF.newDocumentBuilder
+      ...
+  - pattern: "$XPATH.evaluate(...)"
   languages:
   - "scala"
   message: |
@@ -3054,7 +3355,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs_scala.XXE_XPATH"
+    primary_identifier: "find_sec_bugs.XXE_XPATH"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_XPATH"
       type: "find_sec_bugs_type"

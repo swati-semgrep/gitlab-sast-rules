@@ -4,21 +4,22 @@
 ---
 rules:
 - id: "scala/xxe/rule-Trans"
-  patterns:
-  - pattern-inside: |-
-      import javax.xml.transform._; ...
-  - pattern-inside: |
-      val $T = $FACT.newTransformer;
-      ...
-  - pattern-not-inside: |
-      $T.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-      ...
-  - pattern-not-inside: |
-      $T.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-      ...
-  - pattern-not-inside: |
-      $T.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-      ...
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |-
+          import javax.xml.transform._
+          ...
+      - pattern-inside: |-
+          import javax.xml.transform.Transformer
+          ...
+    - pattern: "$FACT.newTransformer"
+  pattern-sanitizers:
+  - pattern: "$T.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, \"\");"
+  - pattern: "$T.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, \"\");"
+  - pattern: "$T.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);"
+  pattern-sinks:
   - pattern: "$T.transform(...)"
   languages:
   - "scala"

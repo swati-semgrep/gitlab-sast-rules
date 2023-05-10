@@ -5,16 +5,34 @@
 ---
 rules:
 - id: "scala/cors/rule-PermissiveCORS"
-  patterns:
-  - pattern-either:
-    - pattern: "(HttpServletResponse $RESP).setHeader(\"$HEADER\", \"$VAL\")"
-    - pattern: "(HttpServletResponse $RESP).addHeader(\"$HEADER\", \"$VAL\")"
-  - metavariable-regex:
-      metavariable: "$HEADER"
-      regex: "(?i)(Access-Control-Allow-Origin)"
-  - metavariable-regex:
-      metavariable: "$VAL"
-      regex: "(\\*|null)"
+  pattern-either:
+  - patterns:
+    - pattern-either:
+      - pattern: "($RESP:javax.servlet.http.HttpServletResponse).setHeader(\"$HEADER\",
+          \"$VAL\")"
+      - pattern: "($RESP:javax.servlet.http.HttpServletResponse).addHeader(\"$HEADER\",
+          \"$VAL\")"
+    - metavariable-regex:
+        metavariable: "$HEADER"
+        regex: "(?i)(Access-Control-Allow-Origin)"
+    - metavariable-regex:
+        metavariable: "$VAL"
+        regex: "(\\*|null)"
+  - patterns:
+    - pattern-inside: |
+        $REQVAL = ($REQ: javax.servlet.http.HttpServletRequest).getParameter(...)
+        ...
+    - pattern-either:
+      - pattern-inside: |-
+          ($RESP:javax.servlet.http.HttpServletResponse).setHeader("$HEADER", $REQVAL)
+      - pattern-inside: |-
+          ($RESP:javax.servlet.http.HttpServletResponse).addHeader("$HEADER", $REQVAL)
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |-
+          ($RESP:javax.servlet.http.HttpServletResponse).setHeader("$HEADER",($REQ: javax.servlet.http.HttpServletRequest).getParameter(...))
+      - pattern-inside: |-
+          ($RESP:javax.servlet.http.HttpServletResponse).addHeader("$HEADER",($REQ: javax.servlet.http.HttpServletRequest).getParameter(...))
   message: |
     Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
     JavaScript to access the contents of a Web page, both the JavaScript and the Web page must

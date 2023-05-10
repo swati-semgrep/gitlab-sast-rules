@@ -4,12 +4,13 @@
 ---
 rules:
 - id: "scala/random/rule-PseudoRandom"
-  patterns:
-  - pattern-either:
-    - pattern: "scala.util.Random.$METHOD"
-  - metavariable-regex:
-      metavariable: "$METHOD"
-      regex: "^(next)"
+  pattern-either:
+  - patterns:
+    - pattern: "$LANG.util.Random.$METHOD"
+    - metavariable-regex:
+        metavariable: "$METHOD"
+        regex: "^(next)"
+  - pattern: "Math.random"
   message: |
     The use of a predictable random value can lead to vulnerabilities when used in certain security
     critical contexts. A quick fix could be to replace the use of scala.util.Random with something

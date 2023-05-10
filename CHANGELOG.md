@@ -1,7 +1,12 @@
 sast-rules changelog
 
-## v1.3.9
+## v1.3.10
 - Fix typos in message of yaml load rule (!145)
+
+## v1.3.9
+- Enhance usecase coverage for Scala rules (!142)
+- Remove redundant mapping of find_sec_bugs in Scala mapping (!142)
+- Introduce `native_analyzer` property in the mappings file and use it for primary ID prefix (!142)
 
 ## v1.3.8
 - Enhance Go ruleset descriptions and titles (!137)
