@@ -5,17 +5,13 @@
 rules:
 - id: "scala/xml/rule-XmlDecoder"
   patterns:
-  - pattern-either:
-    - patterns:
-      - pattern-inside: |
-          val $D = new XMLDecoder($IN);
-          ...
-      - pattern-not-inside: |
-          val $D = new XMLDecoder("...");
-          ...
-      - pattern-either:
-        - pattern: "val $R = $D.readObject()"
-        - pattern: "val $R = $D.readObject"
+  - pattern-inside: |
+      $D = new java.beans.XMLDecoder($IN);
+      ...
+  - pattern-not-inside: |
+      $DX = new java.beans.XMLDecoder("...");
+      ...
+  - pattern: "$D.readObject"
   languages:
   - "scala"
   message: |

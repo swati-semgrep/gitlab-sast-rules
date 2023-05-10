@@ -14,8 +14,7 @@ object XPathXXE {
   @throws[Exception]
   def main(args: Array[String]): Unit = {
     safe(args(0))
-    unsafe1(args(0))
-    unsafe2(args(0))
+    safe2(args(0))
     unsafe3(args(0))
   }
 
@@ -35,7 +34,7 @@ object XPathXXE {
   }
 
   @throws[Exception]
-  def unsafe1(str: String): Unit = {
+  def safe2(str: String): Unit = {
     val df = DocumentBuilderFactory.newInstance
     df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "")
     df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "")
@@ -44,18 +43,6 @@ object XPathXXE {
     val xpath = xPathFactory.newXPath
     val xPathExpr = xpath.compile("/xmlhell/text()")
     val result = xPathExpr.evaluate(builder.parse(str))
-  }
-
-  @throws[Exception]
-  def unsafe2(str: String): Unit = {
-    val df = DocumentBuilderFactory.newInstance
-    //df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-    //df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-    val builder = df.newDocumentBuilder
-    val xPathFactory = XPathFactory.newInstance
-    val xpath = xPathFactory.newXPath
-    val xPathExpr = xpath.compile("/xmlhell/text()")
-    val result = xPathExpr.evaluate(new InputSource(str))
   }
 
   @throws[Exception]

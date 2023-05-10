@@ -4,6 +4,7 @@
 # yamllint enable
 ---
 find_sec_bugs:
+  native_analyzer: "find_sec_bugs"
   native_id:
     type: "find_sec_bugs_type"
     name: "Find Security Bugs-$ID"

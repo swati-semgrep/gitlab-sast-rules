@@ -7,27 +7,24 @@ rules:
 - id: "scala/cookie/rule-HttpResponseSplitting"
   mode: "taint"
   pattern-sources:
-  - pattern: "($REQ: HttpServletRequest).getParameter(...)"
+  - pattern: "($REQ: javax.servlet.http.HttpServletRequest).getParameter(...)"
   pattern-sanitizers:
   - patterns:
-    - pattern-inside: |
-        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER")
-        ...
+    - pattern-inside: |-
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACE");
     - pattern: "$STR"
     - metavariable-regex:
-        metavariable: "$REPLACER"
-        regex: ".*^(CRLF).*"
-    - metavariable-regex:
         metavariable: "$REPLACE_CHAR"
-        regex: "(*CRLF)"
-  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...)"
+        regex: "(.*\\\\r\\\\n.*)"
+    - metavariable-regex:
+        metavariable: "$REPLACE"
+        regex: "(?!(\\\\r\\\\n))"
+  - pattern: "org.owasp.encoder.Encode.forUriComponent(...)"
+  - pattern: "org.owasp.encoder.Encode.forUri(...)"
+  - pattern: "java.net.URLEncoder.encode(..., $CHARSET)"
   pattern-sinks:
   - pattern: "new javax.servlet.http.Cookie(\"$KEY\", ...)"
-  - patterns:
-    - pattern-inside: |
-        $C = new javax.servlet.http.Cookie("$KEY", ...)
-        ...
-    - pattern: "$C.setValue(...)"
+  - pattern: "($C:javax.servlet.http.Cookie).setValue(...)"
   message: |
     When an HTTP request contains unexpected CR and LF characters, the server may respond with an
     output stream that is interpreted as two different HTTP responses (instead of one). An attacker

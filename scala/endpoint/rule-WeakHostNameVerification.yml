@@ -11,11 +11,12 @@ rules:
           class $V extends HostnameVerifier {
             ...
           }
-      - pattern: "def verify(...) = true"
-      - pattern: |
-          def verify(...) = {
-            return true
-          }
+      - pattern-either:
+        - pattern: "def verify(...) = true"
+        - pattern: |
+            def verify(...) = {
+              return true
+            }
     - patterns:
       - pattern-inside: |
           class $V extends X509TrustManager {

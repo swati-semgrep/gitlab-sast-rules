@@ -14,11 +14,24 @@ rules:
     - pattern: "($REQ: HttpServletRequest).getParameterMap"
     - pattern: "($REQ: HttpServletRequest).getParameterNames"
     - pattern: "($REQ: HttpServletRequest).getParameter(...)"
+    - patterns:
+      - pattern-inside: |
+          ($REQ: HttpServletRequest).getSession
+      - pattern: "$SESS.getAttribute(\"...\")"
+    - pattern: |
+        ($REQ: HttpServletRequest).getSession.getAttribute("...")
+  pattern-sanitizers:
+  - pattern: "Encode.forHtml(...)"
+  - pattern: "org.owasp.esapi.Encoder.encodeForSQL(...)"
   pattern-sinks:
-  - pattern-either:
-    - pattern: "... + $PAR + ..."
-    - pattern: "$PAR + ..."
-    - pattern: "... + $PAR"
+  - patterns:
+    - pattern-either:
+      - pattern: |
+          ... + $PAR
+      - pattern: |
+          ... + $PAR + ...
+      - pattern: |
+          $PAR + ...
     - pattern: "$PAR"
   languages:
   - "scala"

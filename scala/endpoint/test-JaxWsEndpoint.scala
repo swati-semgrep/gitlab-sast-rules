@@ -1,7 +1,6 @@
 // License: LGPL-3.0 License (c) find-sec-bugs
 package endpoint
 
-
 import org.apache.commons.text.StringEscapeUtils
 import javax.jws.WebMethod
 import javax.jws.WebService
@@ -15,24 +14,34 @@ class JaxWsEndpoint {
   def randomFunc(s: String) = s
 
   @WebMethod
-  def hello0(user: String) = "Hello " + user // BAD
+  def danger0(user: String) = "Hello " + user // BAD
 
   @WebMethod
-  def hello1(user: String) = {
+  def danger1(user: String) = {
     val tainted = randomFunc(user)
     "Hello " + tainted
   }
 
   @WebMethod
-  def hello2(user: String) = {
+  def danger3(user: String) = {
+    "Hello " + user
+  }
+
+  @WebMethod(action="/hello2")
+  def ok1(user: String) = {
+    val sanitized = StringEscapeUtils.unescapeJava(user)
+    "Hello " + sanitized // OK
+  }
+
+  def ok2(user: String): String = {
+    return "Hello " + user // OK
+  }
+
+  @WebMethod
+  def ok3(user: String) = {
     val sanitized = StringEscapeUtils.unescapeJava(user)
     "Hello " + sanitized
   }
 
-  @WebMethod
-  def hello3(user: String) = {
-    "Hello " + user
-  }
-
-  def notAWebMethod = 8000
+  def ok4 = 8000
 }
