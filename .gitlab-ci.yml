@@ -9,11 +9,6 @@ include:
     ref: 'master'
     file: '/includes-dev/upsert-git-tag.yml'
 
-upsert git tag:
-  rules:
-    - if: '($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH =~ /^v\d$/) && $CREATE_GIT_TAG'
-      when: manual
-
 # make sure the rules adhere to our quality guidelines
 yamllint-quality:
   image: python:2.7
