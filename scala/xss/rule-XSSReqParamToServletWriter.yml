@@ -9,26 +9,28 @@ rules:
   - patterns:
     - pattern-inside: |-
         def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {...}
-    - pattern: "$REQ.getParameter(...);"
+    - pattern-either:
+      - pattern: "$REQ.getParameter(...)"
+      - pattern: "$REQ.getQueryString"
   pattern-sanitizers:
-  - patterns:
-    - pattern-inside: |-
-        Encode.forHtml($TAINTED);
-    - pattern: "$TAINTED"
+  - pattern: "Encode.forHtml(...)"
+  - pattern: "org.owasp.esapi.Encoder.encodeForSQL(...)"
   pattern-sinks:
   - patterns:
     - pattern-inside: |-
         def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
     - pattern-inside: |
-        $WRITER = $RES.getWriter;
+        $WRITER = $RES.getWriter
         ...
-    - pattern: "$WRITER.write($DATA,...);"
-    - pattern: "$DATA"
+    - pattern: "$WRITER.write(...)"
   - patterns:
     - pattern-inside: |-
         def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
-    - pattern: "$RES.getWriter.write($DATA,...);"
-    - pattern: "$DATA"
+    - pattern: "$RES.getWriter.write(...)"
+  - patterns:
+    - pattern-inside: |-
+        def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
+    - pattern: "$RES.getWriter.print(...)"
   message: |
     Servlet reflected cross site scripting vulnerability
   languages:

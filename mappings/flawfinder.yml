@@ -10,668 +10,668 @@ flawfinder:
     value: "$ID"
   mappings:
   - id: "strcpy"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpy"
   - id: "strcpyA"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "strcpyW"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "StrCpy"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "StrCpyA"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "lstrcpyA"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "lstrcpyW"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "_tccpy"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "_mbccpy"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "_ftcscpy"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "_mbsncpy"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "StrCpyN"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "StrCpyNA"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "StrCpyNW"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "StrNCpy"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "strcpynA"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "StrNCpyA"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "StrNCpyW"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "lstrcpynA"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "lstrcpynW"
-    rules: 
+    rules:
     - "c/buffer/rule-strcpyA_strcpyW"
   - id: "lstrcpy"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcpy_wcscpy"
   - id: "wcscpy"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcpy_wcscpy"
   - id: "_tcscpy"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcpy_wcscpy"
   - id: "_mbscpy"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcpy_wcscpy"
   - id: "memcpy"
-    rules: 
+    rules:
     - "c/buffer/rule-memcpy_CopyMemory"
   - id: "CopyMemory"
-    rules: 
+    rules:
     - "c/buffer/rule-memcpy_CopyMemory"
   - id: "bcopy"
-    rules: 
+    rules:
     - "c/buffer/rule-memcpy_CopyMemory"
   - id: "strcat"
-    rules: 
+    rules:
     - "c/buffer/rule-strcat"
   - id: "lstrcat"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcat_wcscat"
   - id: "wcscat"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcat_wcscat"
   - id: "_tcscat"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcat_wcscat"
   - id: "_mbscat"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcat_wcscat"
   - id: "StrCat"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrCatA"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrcatW"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "lstrcatA"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "lstrcatW"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "strCatBuff"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrCatBuffA"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrCatBuffW"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrCatChainW"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "_tccat"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "_mbccat"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "_ftcscat"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrCatN"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrCatNA"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrCatNW"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrNCat"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrNCatA"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "StrNCatW"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "lstrncat"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "lstrcatnA"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "lstrcatnW"
-    rules: 
+    rules:
     - "c/buffer/rule-StrCat_StrCatA"
   - id: "strncpy"
-    rules: 
+    rules:
     - "c/buffer/rule-strncpy"
   - id: "lstrcpyn"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcpyn_wcsncpy"
   - id: "wcsncpy"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcpyn_wcsncpy"
   - id: "_tcsncpy"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcpyn_wcsncpy"
   - id: "_mbsnbcpy"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcpyn_wcsncpy"
   - id: "strncat"
-    rules: 
+    rules:
     - "c/buffer/rule-strncat"
   - id: "lstrcatn"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcatn_wcsncat"
   - id: "wcsncat"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcatn_wcsncat"
   - id: "_tcsncat"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcatn_wcsncat"
   - id: "_mbsnbcat"
-    rules: 
+    rules:
     - "c/buffer/rule-lstrcatn_wcsncat"
   - id: "strccpy"
-    rules: 
+    rules:
     - "c/buffer/rule-strccpy_strcadd"
   - id: "strcadd"
-    rules: 
+    rules:
     - "c/buffer/rule-strccpy_strcadd"
   - id: "char"
-    rules: 
+    rules:
     - "c/buffer/rule-char_TCHAR"
   - id: "TCHAR"
-    rules: 
+    rules:
     - "c/buffer/rule-char_TCHAR"
   - id: "wchar_t"
-    rules: 
+    rules:
     - "c/buffer/rule-char_TCHAR"
   - id: "gets"
-    rules: 
+    rules:
     - "c/buffer/rule-gets__getts"
   - id: "_getts"
-    rules: 
+    rules:
     - "c/buffer/rule-gets__getts"
   - id: "sprintf"
-    rules: 
+    rules:
     - "c/buffer/rule-sprintf_vsprintf"
   - id: "vsprintf"
-    rules: 
+    rules:
     - "c/buffer/rule-sprintf_vsprintf"
   - id: "swprintf"
-    rules: 
+    rules:
     - "c/buffer/rule-sprintf_vsprintf"
   - id: "vswprintf"
-    rules: 
+    rules:
     - "c/buffer/rule-sprintf_vsprintf"
   - id: "_stprintf"
-    rules: 
+    rules:
     - "c/buffer/rule-sprintf_vsprintf"
   - id: "_vstprintf"
-    rules: 
+    rules:
     - "c/buffer/rule-sprintf_vsprintf"
   - id: "printf"
-    rules: 
+    rules:
     - "c/format/rule-printf_vprintf"
   - id: "vprintf"
-    rules: 
+    rules:
     - "c/format/rule-printf_vprintf"
   - id: "vwprintf"
-    rules: 
+    rules:
     - "c/format/rule-printf_vprintf"
   - id: "vfwprintf"
-    rules: 
+    rules:
     - "c/format/rule-printf_vprintf"
   - id: "_vtprintf"
-    rules: 
+    rules:
     - "c/format/rule-printf_vprintf"
   - id: "wprintf"
-    rules: 
+    rules:
     - "c/format/rule-printf_vprintf"
   - id: "fprintf"
-    rules: 
+    rules:
     - "c/format/rule-fprintf_vfprintf"
   - id: "vfprintf"
-    rules: 
+    rules:
     - "c/format/rule-fprintf_vfprintf"
   - id: "_ftprintf"
-    rules: 
+    rules:
     - "c/format/rule-fprintf_vfprintf"
   - id: "_vftprintf"
-    rules: 
+    rules:
     - "c/format/rule-fprintf_vfprintf"
   - id: "fwprintf"
-    rules: 
+    rules:
     - "c/format/rule-fprintf_vfprintf"
   - id: "fvwprintf"
-    rules: 
+    rules:
     - "c/format/rule-fprintf_vfprintf"
   - id: "syslog"
-    rules: 
+    rules:
     - "c/format/rule-syslog"
   - id: "snprintf"
-    rules: 
+    rules:
     - "c/format/rule-snprintf_vsnprintf"
   - id: "vsnprintf"
-    rules: 
+    rules:
     - "c/format/rule-snprintf_vsnprintf"
   - id: "_snprintf"
-    rules: 
+    rules:
     - "c/format/rule-snprintf_vsnprintf"
   - id: "_sntprintf"
-    rules: 
+    rules:
     - "c/format/rule-snprintf_vsnprintf"
   - id: "_vsntprintf"
-    rules: 
+    rules:
     - "c/format/rule-snprintf_vsnprintf"
   - id: "scanf"
-    rules: 
+    rules:
     - "c/buffer/rule-scanf_vscanf"
   - id: "vscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-scanf_vscanf"
   - id: "wscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-scanf_vscanf"
   - id: "_tscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-scanf_vscanf"
   - id: "vwscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-scanf_vscanf"
   - id: "fscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-fscanf_sscanf"
   - id: "sscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-fscanf_sscanf"
   - id: "vsscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-fscanf_sscanf"
   - id: "vfscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-fscanf_sscanf"
   - id: "_ftscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-fscanf_sscanf"
   - id: "fwscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-fscanf_sscanf"
   - id: "vfwscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-fscanf_sscanf"
   - id: "vswscanf"
-    rules: 
+    rules:
     - "c/buffer/rule-fscanf_sscanf"
   - id: "strlen"
-    rules: 
+    rules:
     - "c/buffer/rule-strlen_wcslen"
   - id: "wcslen"
-    rules: 
+    rules:
     - "c/buffer/rule-strlen_wcslen"
   - id: "_tcslen"
-    rules: 
+    rules:
     - "c/buffer/rule-strlen_wcslen"
   - id: "_mbslen"
-    rules: 
+    rules:
     - "c/buffer/rule-strlen_wcslen"
   - id: "MultiByteToWideChar"
-    rules: 
+    rules:
     - "c/buffer/rule-MultiByteToWideChar"
   - id: "streadd"
-    rules: 
+    rules:
     - "c/buffer/rule-streadd_strecpy"
   - id: "strecpy"
-    rules: 
+    rules:
     - "c/buffer/rule-streadd_strecpy"
   - id: "strtrns"
-    rules: 
+    rules:
     - "c/buffer/rule-strtrns"
   - id: "realpath"
-    rules: 
+    rules:
     - "c/buffer/rule-realpath"
   - id: "getopt"
-    rules: 
+    rules:
     - "c/buffer/rule-getopt_getopt_long"
   - id: "getopt_long"
-    rules: 
+    rules:
     - "c/buffer/rule-getopt_getopt_long"
   - id: "getwd"
-    rules: 
+    rules:
     - "c/buffer/rule-getwd"
   - id: "getchar"
-    rules: 
+    rules:
     - "c/buffer/rule-getchar_fgetc"
   - id: "fgetc"
-    rules: 
+    rules:
     - "c/buffer/rule-getchar_fgetc"
   - id: "getc"
-    rules: 
+    rules:
     - "c/buffer/rule-getchar_fgetc"
   - id: "read"
-    rules: 
+    rules:
     - "c/buffer/rule-getchar_fgetc"
   - id: "_gettc"
-    rules: 
+    rules:
     - "c/buffer/rule-getchar_fgetc"
   - id: "access"
-    rules: 
+    rules:
     - "c/race/rule-access"
   - id: "chown"
-    rules: 
+    rules:
     - "c/race/rule-chown"
   - id: "chgrp"
-    rules: 
+    rules:
     - "c/race/rule-chgrp"
   - id: "chmod"
-    rules: 
+    rules:
     - "c/race/rule-chmod"
   - id: "vfork"
-    rules: 
+    rules:
     - "c/race/rule-vfork"
   - id: "readlink"
-    rules: 
+    rules:
     - "c/race/rule-readlink"
   - id: "tmpfile"
-    rules: 
+    rules:
     - "c/tmpfile/rule-tmpfile"
   - id: "tmpnam"
-    rules: 
+    rules:
     - "c/tmpfile/rule-tmpnam_tempnam"
   - id: "tempnam"
-    rules: 
+    rules:
     - "c/tmpfile/rule-tmpnam_tempnam"
   - id: "mktemp"
-    rules: 
+    rules:
     - "c/tmpfile/rule-mktemp"
   - id: "mkstemp"
-    rules: 
+    rules:
     - "c/tmpfile/rule-mkstemp"
   - id: "fopen"
-    rules: 
+    rules:
     - "c/misc/rule-fopen_open"
   - id: "open"
-    rules: 
+    rules:
     - "c/misc/rule-fopen_open"
   - id: "umask"
-    rules: 
+    rules:
     - "c/access/rule-umask"
   - id: "GetTempFileName"
-    rules: 
+    rules:
     - "c/tmpfile/rule-GetTempFileName"
   - id: "execl"
-    rules: 
+    rules:
     - "c/shell/rule-execl_execlp"
   - id: "execlp"
-    rules: 
+    rules:
     - "c/shell/rule-execl_execlp"
   - id: "execle"
-    rules: 
+    rules:
     - "c/shell/rule-execl_execlp"
   - id: "execv"
-    rules: 
+    rules:
     - "c/shell/rule-execl_execlp"
   - id: "execvp"
-    rules: 
+    rules:
     - "c/shell/rule-execl_execlp"
   - id: "popen"
-    rules: 
+    rules:
     - "c/shell/rule-execl_execlp"
   - id: "WinExec"
-    rules: 
+    rules:
     - "c/shell/rule-execl_execlp"
   - id: "ShellExecute"
-    rules: 
+    rules:
     - "c/shell/rule-execl_execlp"
   - id: "system"
-    rules: 
+    rules:
     - "c/shell/rule-system"
   - id: "CreateProcessAsUser"
-    rules: 
+    rules:
     - "c/shell/rule-CreateProcessAsUser_CreateProcessWithLogon"
   - id: "CreateProcessWithLogon"
-    rules: 
+    rules:
     - "c/shell/rule-CreateProcessAsUser_CreateProcessWithLogon"
   - id: "CreateProcess"
-    rules: 
+    rules:
     - "c/shell/rule-CreateProcess"
   - id: "atoi"
-    rules: 
+    rules:
     - "c/integer/rule-atoi_atol"
   - id: "atol"
-    rules: 
+    rules:
     - "c/integer/rule-atoi_atol"
   - id: "_wtoi"
-    rules: 
+    rules:
     - "c/integer/rule-atoi_atol"
   - id: "_wtoi64"
-    rules: 
+    rules:
     - "c/integer/rule-atoi_atol"
   - id: "drand48"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "erand48"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "jrand48"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "lcong48"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "lrand48"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "mrand48"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "nrand48"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "random"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "seed48"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "setstate"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "srand"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "strfry"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "srandom"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_rand_boolean"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_rand_int"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_rand_int_range"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_rand_double"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_rand_double_range"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_random_boolean"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_random_int"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_random_int_range"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_random_double"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "g_random_double_range"
-    rules: 
+    rules:
     - "c/random/rule-drand48_erand48"
   - id: "crypt"
-    rules: 
+    rules:
     - "c/crypto/rule-crypt_crypt_r"
   - id: "crypt_r"
-    rules: 
+    rules:
     - "c/crypto/rule-crypt_crypt_r"
   - id: "EVP_des_ecb"
-    rules: 
+    rules:
     - "c/crypto/rule-EVP_des_ecb_EVP_des_cbc"
   - id: "EVP_des_cbc"
-    rules: 
+    rules:
     - "c/crypto/rule-EVP_des_ecb_EVP_des_cbc"
   - id: "EVP_des_cfb"
-    rules: 
+    rules:
     - "c/crypto/rule-EVP_des_ecb_EVP_des_cbc"
   - id: "EVP_des_ofb"
-    rules: 
+    rules:
     - "c/crypto/rule-EVP_des_ecb_EVP_des_cbc"
   - id: "EVP_desx_cbc"
-    rules: 
+    rules:
     - "c/crypto/rule-EVP_des_ecb_EVP_des_cbc"
   - id: "EVP_rc4_40"
-    rules: 
+    rules:
     - "c/crypto/rule-EVP_rc4_40_EVP_rc2_40_cbc"
   - id: "EVP_rc2_40_cbc"
-    rules: 
+    rules:
     - "c/crypto/rule-EVP_rc4_40_EVP_rc2_40_cbc"
   - id: "EVP_rc2_64_cbc"
-    rules: 
+    rules:
     - "c/crypto/rule-EVP_rc4_40_EVP_rc2_40_cbc"
   - id: "chroot"
-    rules: 
+    rules:
     - "c/misc/rule-chroot"
   - id: "getenv"
-    rules: 
+    rules:
     - "c/buffer/rule-getenv_curl_getenv"
   - id: "curl_getenv"
-    rules: 
+    rules:
     - "c/buffer/rule-getenv_curl_getenv"
   - id: "g_get_home_dir"
-    rules: 
+    rules:
     - "c/buffer/rule-g_get_home_dir"
   - id: "g_get_tmp_dir"
-    rules: 
+    rules:
     - "c/buffer/rule-g_get_tmp_dir"
   - id: "RpcImpersonateClient"
-    rules: 
+    rules:
     - "c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser"
   - id: "ImpersonateLoggedOnUser"
-    rules: 
+    rules:
     - "c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser"
   - id: "CoImpersonateClient"
-    rules: 
+    rules:
     - "c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser"
   - id: "ImpersonateNamedPipeClient"
-    rules: 
+    rules:
     - "c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser"
   - id: "ImpersonateDdeClientWindow"
-    rules: 
+    rules:
     - "c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser"
   - id: "ImpersonateSecurityContext"
-    rules: 
+    rules:
     - "c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser"
   - id: "SetThreadToken"
-    rules: 
+    rules:
     - "c/access/rule-RpcImpersonateClient_ImpersonateLoggedOnUser"
   - id: "InitializeCriticalSection"
-    rules: 
+    rules:
     - "c/misc/rule-InitializeCriticalSection"
   - id: "LoadLibrary"
-    rules: 
+    rules:
     - "c/misc/rule-LoadLibrary"
   - id: "LoadLibraryEx"
-    rules: 
+    rules:
     - "c/misc/rule-LoadLibraryEx"
   - id: "SetSecurityDescriptorDacl"
-    rules: 
+    rules:
     - "c/misc/rule-SetSecurityDescriptorDacl"
   - id: "AddAccessAllowedAce"
-    rules: 
+    rules:
     - "c/misc/rule-AddAccessAllowedAce"
   - id: "getlogin"
-    rules: 
+    rules:
     - "c/misc/rule-getlogin"
   - id: "cuserid"
-    rules: 
+    rules:
     - "c/misc/rule-cuserid"
   - id: "getpw"
-    rules: 
+    rules:
     - "c/buffer/rule-getpw"
   - id: "getpass"
-    rules: 
+    rules:
     - "c/misc/rule-getpass"
   - id: "gsignal"
-    rules: 
+    rules:
     - "c/obsolete/rule-gsignal_ssignal"
   - id: "ssignal"
-    rules: 
+    rules:
     - "c/obsolete/rule-gsignal_ssignal"
   - id: "memalign"
-    rules: 
+    rules:
     - "c/free/rule-memalign"
   - id: "ulimit"
-    rules: 
+    rules:
     - "c/obsolete/rule-ulimit"
   - id: "usleep"
-    rules: 
+    rules:
     - "c/obsolete/rule-usleep"
   - id: "equal"
-    rules: 
+    rules:
     - "c/buffer/rule-equal_mismatch"
   - id: "mismatch"
-    rules: 
+    rules:
     - "c/buffer/rule-equal_mismatch"
   - id: "is_permutation"
-    rules: 
+    rules:
     - "c/buffer/rule-equal_mismatch"
 # - id: "recv"
-#   rules: 
+#   rules:
 #     - "c/input/rule-recv_recvfrom"
 # - id: "recvfrom"
-#   rules: 
+#   rules:
 #     - "c/input/rule-recv_recvfrom"
 # - id: "recvmsg"
-#   rules: 
+#   rules:
 #     - "c/input/rule-recv_recvfrom"
 # - id: "fread"
-#   rules: 
+#   rules:
 #     - "c/input/rule-recv_recvfrom"
 # - id: "readv"
-#   rules: 
+#   rules:
 #     - "c/input/rule-recv_recvfrom"

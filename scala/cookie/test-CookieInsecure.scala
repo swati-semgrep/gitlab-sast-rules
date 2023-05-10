@@ -22,4 +22,13 @@ class CookieInsecure {
     cookie.setMaxAge(60)
     res.addCookie(cookie)
   }
+
+  def ok(res: HttpServletResponse): Unit = {
+    val cookie = new Cookie("key", "value")
+    cookie.setHttpOnly(true)
+    cookie.setMaxAge(60)
+    cookie.setSecure(true) // safe
+
+    res.addCookie(cookie)
+  }
 }

@@ -9,22 +9,22 @@ rules:
   - patterns:
     - pattern-inside: |
         @javax.ws.rs.Path("...")
-        def $FUNC(..., $VAR: String, ...) = {
-          ...
-        }
+        def $FUNC(..., $VAR: $TYPE, ...) = ...
     - pattern: "$VAR"
-  pattern-sanitizers:
-  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
   pattern-sinks:
-  - pattern: "return ..."
+  - pattern: "<...$VAR...>"
   message: |
     This method is part of a REST Web Service (JSR311). The security of this web service should be
-    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
-    tested. The inputs should be tracked for potential vulnerabilities. The communication should
-    ideally be over SSL.
+    analyzed. For example:
+    - Authentication, if enforced, should be tested.
+    - Access control, if enforced, should be tested.
+    - The inputs should be tracked for potential vulnerabilities.
+    - The communication should ideally be over SSL.
+    - If the service supports writes (e.g., via POST), its vulnerability to CSRF should be
+    investigated.
   languages:
   - "scala"
-  severity: "WARNING"
+  severity: "INFO"
   metadata:
     category: "security"
     cwe: "CWE-20: Improper Input Validation"

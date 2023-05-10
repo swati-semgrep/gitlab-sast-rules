@@ -4,51 +4,48 @@
 ---
 rules:
 - id: "scala/inject/rule-CLRFInjectionLogs"
-  patterns:
-  - pattern-inside: |
-      def $FUNC(..., $REQ: HttpServletRequest, ...) : $TYPE = {
-        ...
-      }
-  - pattern-either:
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $LOGGER.$METHOD(...,$TAINTED,...)
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $VAR = String.Format(..., $TAINTED,...)
-        ...
-        $LOGGER.$METHOD(...,$VAR,...)
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $LOGGER.$METHOD(...,String.Format(..., $TAINTED,...),...)
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $VAR = ... + $TAINTED + ...
-        ...
-        $LOGGER.$METHOD(...,$VAR,...)
-    - pattern: |
-        val $TAINTED = $REQ.getParameter(...)
-        ...
-        $LOGGER.$METHOD(...,... + $TAINTED + ...,...)
-  - metavariable-regex:
-      metavariable: "$METHOD"
-      regex: "(log|logp|logrb|entering|exiting|fine|finer|finest|info|debug|trace|warn|warning|config|error|severe)"
-  - metavariable-pattern:
-      metavariable: "$LOGGER"
-      pattern-either:
-      - pattern: "Logger"
-      - pattern: "log"
-      - pattern: "logger"
-      - pattern: "org.pmw.tinylog.Logger"
-      - pattern: "org.apache.log4j.Logger"
-      - pattern: "org.apache.logging.log4j.Logger"
-      - pattern: "org.slf4j.Logger"
-      - pattern: "org.apache.commons.logging.Log"
-      - pattern: "java.util.logging.Logger"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        def $FUNC(..., $REQ: HttpServletRequest, ...) : $TYPE = {
+          ...
+        }
+    - pattern: "$REQ.getParameter(...)"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |-
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACE");
+    - pattern: "$STR"
+    - metavariable-regex:
+        metavariable: "$REPLACE_CHAR"
+        regex: "(.*\\\\r\\\\n.*)"
+    - metavariable-regex:
+        metavariable: "$REPLACE"
+        regex: "(?!(\\\\r\\\\n))"
+  - pattern: "org.owasp.encoder.Encode.forUriComponent(...)"
+  - pattern: "org.owasp.encoder.Encode.forUri(...)"
+  - pattern: "java.net.URLEncoder.encode(..., $CHARSET)"
+  pattern-sinks:
+  - patterns:
+    - patterns:
+      - pattern: "$LOGGER.$METHOD(...,<...$TAINTED...>,...)"
+      - focus-metavariable: "$TAINTED"
+    - metavariable-regex:
+        metavariable: "$METHOD"
+        regex: "(log|logp|logrb|entering|exiting|fine|finer|finest|info|debug|trace|warn|warning|config|error|severe)"
+    - metavariable-pattern:
+        metavariable: "$LOGGER"
+        pattern-either:
+        - pattern: "Logger"
+        - pattern: "log"
+        - pattern: "logger"
+        - pattern: "org.pmw.tinylog.Logger"
+        - pattern: "org.apache.log4j.Logger"
+        - pattern: "org.apache.logging.log4j.Logger"
+        - pattern: "org.slf4j.Logger"
+        - pattern: "org.apache.commons.logging.Log"
+        - pattern: "java.util.logging.Logger"
   message: |
     When data from an untrusted source is put into a logger and not neutralized correctly, an
     attacker could forge log entries or include malicious content. Inserted false entries could be

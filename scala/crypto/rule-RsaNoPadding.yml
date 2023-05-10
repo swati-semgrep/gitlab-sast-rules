@@ -5,7 +5,7 @@
 rules:
 - id: "scala/crypto/rule-RsaNoPadding"
   patterns:
-  - pattern: "javax.crypto.Cipher.getInstance($ALG,...);"
+  - pattern: "javax.crypto.Cipher.getInstance(\"$ALG\",...)"
   - metavariable-regex:
       metavariable: "$ALG"
       regex: ".*NoPadding.*"

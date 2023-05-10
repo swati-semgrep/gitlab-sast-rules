@@ -4,19 +4,26 @@
 ---
 rules:
 - id: "scala/xpathi/rule-XpathInjection"
-  patterns:
-  - pattern-either:
-    - pattern-inside: |-
-        import javax.xml.xpath._; ...
-    - pattern-inside: |-
-        import javax.xml.xpath.Xpath; ...
-  - pattern-either:
-    - patterns:
-      - pattern: "($X: XPath).compile($ARG)"
-      - pattern-not: "($X: XPath).compile(\"...\")"
-    - patterns:
-      - pattern: "($X: XPath).evaluate($ARG, $ARG2)"
-      - pattern-not: "($X: XPath).evaluate(\"...\")"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        def $FUNC(..., $ARG: $TYPE,...): $RET = {
+          ...
+        }
+    - pattern: "$ARG"
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |-
+          import javax.xml.xpath._
+          ...
+      - pattern-inside: |-
+          import javax.xml.xpath.XPath
+          ...
+    - pattern-either:
+      - pattern: "$Y.compile(...)"
+      - pattern: "$X.evaluate(..., $ARG2)"
   languages:
   - "scala"
   message: |

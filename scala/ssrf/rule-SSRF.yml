@@ -6,20 +6,43 @@ rules:
 - id: "scala/ssrf/rule-SSRF"
   pattern-either:
   - patterns:
-    - pattern: "new URL(...). ... .connect"
-    - pattern-not: "new URL(\"...\"). ... .connect"
+    - pattern-either:
+      - pattern-inside: |
+          import java.net._
+          ...
+      - pattern-inside: |
+          import java.net.URL
+          ...
+      - pattern-inside: |
+          import java.net.URI
+          ...
+    - pattern: "new $TYPE(...). ... .$FUNC"
+    - pattern-not: "new $TYPE(\"...\"). ... .$FUNC"
+    - metavariable-pattern:
+        metavariable: "$FUNC"
+        pattern-either:
+        - pattern: "connect"
+        - pattern: "GetContent"
+        - pattern: "openConnection"
+        - pattern: "openStream"
+        - pattern: "getContent"
+    - metavariable-pattern:
+        metavariable: "$TYPE"
+        pattern-either:
+        - pattern: "URL"
+        - pattern: "java.net.URL"
+        - pattern: "URI"
+        - pattern: "java.net.URI"
   - patterns:
-    - pattern: "new URL(...). ... .GetContent"
-    - pattern-not: "new URL(\"...\"). ... .GetContent"
-  - patterns:
-    - pattern: "new URL(...). ... .openConnection"
-    - pattern-not: "new URL(\"...\"). ... .openConnection"
-  - patterns:
-    - pattern: "new URL(...). ... .openStream"
-    - pattern-not: "new URL(\"...\"). ... .openStream"
-  - patterns:
-    - pattern: "new URL(...). ... .getContent"
-    - pattern-not: "new URL(\"...\"). ... .getContent"
+    - pattern: |
+        new $ADDR(..., $PORT)
+    - pattern-not: |
+        new $ADDR("...", $PORT)
+    - metavariable-pattern:
+        metavariable: "$ADDR"
+        pattern-either:
+        - pattern: "InetSocketAddress"
+        - pattern: "java.net.InetSocketAddress"
   languages:
   - "scala"
   message: |

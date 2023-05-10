@@ -4,19 +4,19 @@
 ---
 rules:
 - id: "scala/cookie/rule-CookieInsecure"
-  pattern-either:
-  - patterns:
+  patterns:
+  - pattern-not-inside: |
+      val $C = new javax.servlet.http.Cookie(..., ...);
+      ...
+      $C.setSecure(true);
+      ...
+      $RESP.addCookie($C);
+  - pattern-either:
     - pattern: |
         val $C = new javax.servlet.http.Cookie(..., ...);
         ...
         $RESP.addCookie($C);
-    - pattern-not-inside: |
-        val $C = new javax.servlet.http.Cookie(..., ...);
-        ...
-        $C.setSecure(true);
-        ...
-        $RESP.addCookie($C);
-    - pattern: "(javax.servlet.http.Cookie $C).setSecure(false);"
+    - pattern: "($C:javax.servlet.http.Cookie).setSecure(false);"
   message: |
     "A new cookie is created without the Secure flag set. The Secure flag is a
      directive to the browser to make sure that the cookie is not sent for insecure communication

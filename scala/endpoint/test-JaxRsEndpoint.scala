@@ -10,22 +10,31 @@ class JaxRsEndpoint {
   def randomFunc(s: String) = s
 
   @Path("/hello0")
-  def hello0(user: String) = "Hello " + user // BAD
+  def danger0(user: String) = "Hello " + user // BAD
 
   @Path("/hello1")
-  def hello1(user: String) = {
+  def danger1(user: String) = {
     val tainted = randomFunc(user)
     "Hello " + tainted
   }
 
   @Path("/hello2")
-  def hello2(user: String) = {
+  def danger3(user: String) = {
+    "Hello " + user
+  }
+
+  @Path("/hello2")
+  def danger4(user: String): String = {
+    return "Hello " + user
+  }
+
+  @Path("/hello2")
+  def ok1(user: String) = {
     val sanitized = StringEscapeUtils.unescapeJava(user)
     "Hello " + sanitized // OK
   }
-  
-  @Path("/hello2")
-  def hello3(user: String) = {
-    "Hello " + user
+
+  def ok2(user: String): String = {
+    return "Hello " + user // OK
   }
 }
