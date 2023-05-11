@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.10
+# rule-set version: v1.3.11
 # yamllint enable
 ---
 rules:
@@ -65,7 +65,7 @@ rules:
     shortDescription: "Ensure restrictive umask values"
     cwe: "CWE-732"
     owasp: "A6:2017-Security Misconfiguration"
-    primary_identifier: "flawfinder.umask"
+    primary_identifier: "flawfinder.umask-1"
     secondary_identifiers:
     - name: "Flawfinder - umask"
       type: "flawfinder_func_name"
@@ -87,7 +87,7 @@ rules:
     shortDescription: "Easily misused function may lead to buffer overflows"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.MultiByteToWideChar"
+    primary_identifier: "flawfinder.MultiByteToWideChar-1"
     secondary_identifiers:
     - name: "Flawfinder - MultiByteToWideChar"
       type: "flawfinder_func_name"
@@ -330,7 +330,7 @@ rules:
     shortDescription: "Possible use of untrusted environment variable"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.g_get_home_dir"
+    primary_identifier: "flawfinder.g_get_home_dir-1"
     secondary_identifiers:
     - name: "Flawfinder - g_get_home_dir"
       type: "flawfinder_func_name"
@@ -353,7 +353,7 @@ rules:
     shortDescription: "Possible use of untrusted environment variable"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.g_get_tmp_dir"
+    primary_identifier: "flawfinder.g_get_tmp_dir-1"
     secondary_identifiers:
     - name: "Flawfinder - g_get_tmp_dir"
       type: "flawfinder_func_name"
@@ -456,7 +456,7 @@ rules:
     shortDescription: "Use of deprecated function (getpwd)"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.getpw"
+    primary_identifier: "flawfinder.getpw-1"
     secondary_identifiers:
     - name: "Flawfinder - getpw"
       type: "flawfinder_func_name"
@@ -506,7 +506,7 @@ rules:
     shortDescription: "Insufficient protection against buffer overflow (getwd)"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.getwd"
+    primary_identifier: "flawfinder.getwd-1"
     secondary_identifiers:
     - name: "Flawfinder - getwd"
       type: "flawfinder_func_name"
@@ -714,7 +714,7 @@ rules:
       before copying"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.realpath"
+    primary_identifier: "flawfinder.realpath-1"
     secondary_identifiers:
     - name: "Flawfinder - realpath"
       type: "flawfinder_func_name"
@@ -839,7 +839,7 @@ rules:
     shortDescription: "Insecure string processing function"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.strcat"
+    primary_identifier: "flawfinder.strcat-1"
     secondary_identifiers:
     - name: "Flawfinder - strcat"
       type: "flawfinder_func_name"
@@ -890,7 +890,7 @@ rules:
     shortDescription: "Insecure string processing function (strcpy)"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.strcpy"
+    primary_identifier: "flawfinder.strcpy-1"
     secondary_identifiers:
     - name: "Flawfinder - strcpy"
       type: "flawfinder_func_name"
@@ -1075,7 +1075,7 @@ rules:
       pointers properly"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.strncat"
+    primary_identifier: "flawfinder.strncat-1"
     secondary_identifiers:
     - name: "Flawfinder - strncat"
       type: "flawfinder_func_name"
@@ -1099,7 +1099,7 @@ rules:
       pointers properly"
     cwe: "CWE-120"
     owasp: "A6:2017-Security Misconfiguration"
-    primary_identifier: "flawfinder.strncpy"
+    primary_identifier: "flawfinder.strncpy-1"
     secondary_identifiers:
     - name: "Flawfinder - strncpy"
       type: "flawfinder_func_name"
@@ -1119,7 +1119,7 @@ rules:
     shortDescription: "Insecure string processing function"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.strtrns"
+    primary_identifier: "flawfinder.strtrns-1"
     secondary_identifiers:
     - name: "Flawfinder - strtrns"
       type: "flawfinder_func_name"
@@ -1414,7 +1414,7 @@ rules:
     shortDescription: "Potential format string vulnerability in syslog call"
     cwe: "CWE-134"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.syslog"
+    primary_identifier: "flawfinder.syslog-1"
     secondary_identifiers:
     - name: "Flawfinder - syslog"
       type: "flawfinder_func_name"
@@ -1437,7 +1437,7 @@ rules:
     shortDescription: "Use of deprecated function (memalign)"
     cwe: "CWE-676"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.memalign"
+    primary_identifier: "flawfinder.memalign-1"
     secondary_identifiers:
     - name: "Flawfinder - memalign"
       type: "flawfinder_func_name"
@@ -1488,7 +1488,7 @@ rules:
     cwe: "CWE-732: This doesn't set the inheritance bits in the access control entry
       (ACE) header (CWE-732)"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.AddAccessAllowedAce"
+    primary_identifier: "flawfinder.AddAccessAllowedAce-1"
     secondary_identifiers:
     - name: "Flawfinder - AddAccessAllowedAce"
       type: "flawfinder_func_name"
@@ -1502,7 +1502,7 @@ rules:
     Use InitializeCriticalSectionAndSpinCount instead.
   metadata:
     cwe: "CWE-754: Exceptions can be thrown in low-memory situations"
-    primary_identifier: "flawfinder.InitializeCriticalSection"
+    primary_identifier: "flawfinder.InitializeCriticalSection-1"
     secondary_identifiers:
     - name: "Flawfinder - InitializeCriticalSection"
       type: "flawfinder_func_name"
@@ -1539,7 +1539,7 @@ rules:
     shortDescription: "Potential for DLL hijacking (LoadLibrary)"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.LoadLibrary"
+    primary_identifier: "flawfinder.LoadLibrary-1"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibrary"
       type: "flawfinder_func_name"
@@ -1576,7 +1576,7 @@ rules:
     shortDescription: "Potential for DLL hijacking (LoadLibraryEx)"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.LoadLibraryEx"
+    primary_identifier: "flawfinder.LoadLibraryEx-1"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibraryEx"
       type: "flawfinder_func_name"
@@ -1601,7 +1601,7 @@ rules:
       access to objects"
     cwe: "CWE-732"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.SetSecurityDescriptorDacl"
+    primary_identifier: "flawfinder.SetSecurityDescriptorDacl-1"
     secondary_identifiers:
     - name: "Flawfinder - SetSecurityDescriptorDacl"
       type: "flawfinder_func_name"
@@ -1618,7 +1618,7 @@ rules:
     cwe: "CWE-22: chroot can be very helpful, but is hard to use correctly (CWE-250,
       CWE-22)"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.chroot"
+    primary_identifier: "flawfinder.chroot-1"
     secondary_identifiers:
     - name: "Flawfinder - chroot"
       type: "flawfinder_func_name"
@@ -1641,7 +1641,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (cuserid)"
     cwe: "CWE-120"
-    primary_identifier: "flawfinder.cuserid"
+    primary_identifier: "flawfinder.cuserid-1"
     secondary_identifiers:
     - name: "Flawfinder - cuserid"
       type: "flawfinder_func_name"
@@ -1695,7 +1695,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (getlogin)"
     cwe: "CWE-807"
-    primary_identifier: "flawfinder.getlogin"
+    primary_identifier: "flawfinder.getlogin-1"
     secondary_identifiers:
     - name: "Flawfinder - getlogin"
       type: "flawfinder_func_name"
@@ -1721,7 +1721,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (getpass)"
     cwe: "CWE-20"
-    primary_identifier: "flawfinder.getpass"
+    primary_identifier: "flawfinder.getpass-1"
     secondary_identifiers:
     - name: "Flawfinder - getpass"
       type: "flawfinder_func_name"
@@ -1762,7 +1762,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (ulimit)"
     cwe: "CWE-676"
-    primary_identifier: "flawfinder.ulimit"
+    primary_identifier: "flawfinder.ulimit-1"
     secondary_identifiers:
     - name: "Flawfinder - ulimit"
       type: "flawfinder_func_name"
@@ -1779,7 +1779,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (usleep)"
     cwe: "CWE-676"
-    primary_identifier: "flawfinder.usleep"
+    primary_identifier: "flawfinder.usleep-1"
     secondary_identifiers:
     - name: "Flawfinder - usleep"
       type: "flawfinder_func_name"
@@ -1809,7 +1809,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (access)"
     cwe: "CWE-362"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.access"
+    primary_identifier: "flawfinder.access-1"
     secondary_identifiers:
     - name: "Flawfinder - access"
       type: "flawfinder_func_name"
@@ -1825,7 +1825,7 @@ rules:
     cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
       files, a race condition results. (CWE-362)"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.chgrp"
+    primary_identifier: "flawfinder.chgrp-1"
     secondary_identifiers:
     - name: "Flawfinder - chgrp"
       type: "flawfinder_func_name"
@@ -1851,7 +1851,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (chmod)"
     cwe: "CWE-362"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.chmod"
+    primary_identifier: "flawfinder.chmod-1"
     secondary_identifiers:
     - name: "Flawfinder - chmod"
       type: "flawfinder_func_name"
@@ -1878,7 +1878,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (chown)"
     cwe: "CWE-362"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.chown"
+    primary_identifier: "flawfinder.chown-1"
     secondary_identifiers:
     - name: "Flawfinder - chown"
       type: "flawfinder_func_name"
@@ -1905,7 +1905,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (readlink)"
     cwe: "CWE-20"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.readlink"
+    primary_identifier: "flawfinder.readlink-1"
     secondary_identifiers:
     - name: "Flawfinder - readlink"
       type: "flawfinder_func_name"
@@ -1930,7 +1930,7 @@ rules:
   metadata:
     shortDescription: "Potential time of check time of use vulnerability (vfork)"
     cwe: "CWE-362"
-    primary_identifier: "flawfinder.vfork"
+    primary_identifier: "flawfinder.vfork-1"
     secondary_identifiers:
     - name: "Flawfinder - vfork"
       type: "flawfinder_func_name"
@@ -2070,7 +2070,7 @@ rules:
     shortDescription: "Possible executable path hijacking (CreateProcess)"
     cwe: "CWE-78"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.CreateProcess"
+    primary_identifier: "flawfinder.CreateProcess-1"
     secondary_identifiers:
     - name: "Flawfinder - CreateProcess"
       type: "flawfinder_func_name"
@@ -2179,7 +2179,7 @@ rules:
     shortDescription: "Potential for OS command injection"
     cwe: "CWE-78"
     owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.system"
+    primary_identifier: "flawfinder.system-1"
     secondary_identifiers:
     - name: "Flawfinder - system"
       type: "flawfinder_func_name"
@@ -2202,7 +2202,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (GetTempFileName)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.GetTempFileName"
+    primary_identifier: "flawfinder.GetTempFileName-1"
     secondary_identifiers:
     - name: "Flawfinder - GetTempFileName"
       type: "flawfinder_func_name"
@@ -2225,7 +2225,7 @@ rules:
     shortDescription: "Potential file permissions issue (mkstemp)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.mkstemp"
+    primary_identifier: "flawfinder.mkstemp-1"
     secondary_identifiers:
     - name: "Flawfinder - mkstemp"
       type: "flawfinder_func_name"
@@ -2251,7 +2251,7 @@ rules:
     shortDescription: "Use of deprecated function (mktemp)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.mktemp"
+    primary_identifier: "flawfinder.mktemp-1"
     secondary_identifiers:
     - name: "Flawfinder - mktemp"
       type: "flawfinder_func_name"
@@ -2276,7 +2276,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (tmpfile)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "flawfinder.tmpfile"
+    primary_identifier: "flawfinder.tmpfile-1"
     secondary_identifiers:
     - name: "Flawfinder - tmpfile"
       type: "flawfinder_func_name"
