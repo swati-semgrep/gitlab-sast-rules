@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.11
+- Flawfinder singular rule IDs should include `-1` (!147)
+
 ## v1.3.10
 - Fix typos in message of yaml load rule (!145)
 

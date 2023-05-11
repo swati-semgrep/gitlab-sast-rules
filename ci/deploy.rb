@@ -70,6 +70,7 @@ Dir.glob('mappings/*.yml').each do |mapping_file|
       }
     end
     primary_id = ids.one? ? newid.delete_suffix('-1') : newid
+    primary_id = newid if prefix == 'flawfinder'
     rulez[newid]['metadata'].merge!('primary_identifier' => primary_id)
     rulez[newid]['metadata'].merge!('secondary_identifiers' => secondary_ids)
   end
