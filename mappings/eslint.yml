@@ -45,9 +45,6 @@ eslint:
   - id: "detect-non-literal-fs-filename"
     rules:
     - "javascript/pathtraversal/rule-non_literal_fs_filename"
-  - id: "detect-object-injection"
-    rules:
-    - "javascript/protinjection/rule-object_injection"
   - id: "detect-new-buffer"
     rules:
     - "javascript/buf/rule-detect-new-buffer"

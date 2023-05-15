@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.13
+- feat: Drop high-FP eslint detect-object-injection rule (!151)
+
 ## v1.3.12
 - Gosec singular rule IDs should include `-1` (!149)
 

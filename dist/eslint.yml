@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.12
+# rule-set version: v1.3.13
 # yamllint enable
 ---
 rules:
@@ -278,31 +278,6 @@ rules:
     - name: "ESLint rule ID/detect-non-literal-fs-filename"
       type: "eslint_rule_id"
       value: "detect-non-literal-fs-filename"
-- id: "eslint.detect-object-injection-1"
-  patterns:
-  - pattern: "$V = $O[$ARG]"
-  - pattern-not: "$O[\"...\"]"
-  - pattern-not: "$O[($ARG : float)]"
-  - pattern-not-inside: |
-      $ARG = ...;
-      ...
-  - metavariable-regex:
-      metavariable: "$ARG"
-      regex: "(?![0-9]+)"
-  message: |
-    Bracket object notation with user input is present, this might allow an attacker to access all
-    properties of the object and even it's prototype, leading to possible code execution.
-  languages:
-  - "javascript"
-  - "typescript"
-  severity: "WARNING"
-  metadata:
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    primary_identifier: "eslint.detect-object-injection"
-    secondary_identifiers:
-    - name: "ESLint rule ID/detect-object-injection"
-      type: "eslint_rule_id"
-      value: "detect-object-injection"
 - id: "eslint.detect-pseudoRandomBytes-1"
   metadata:
     cwe: "CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"
