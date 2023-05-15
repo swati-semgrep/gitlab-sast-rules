@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.11
+# rule-set version: v1.3.12
 # yamllint enable
 ---
 rules:
@@ -12,7 +12,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
-    primary_identifier: "gosec.G504"
+    primary_identifier: "gosec.G504-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G504"
       type: "gosec_rule_id"
@@ -123,7 +123,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
-    primary_identifier: "gosec.G502"
+    primary_identifier: "gosec.G502-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G502"
       type: "gosec_rule_id"
@@ -230,7 +230,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
-    primary_identifier: "gosec.G501"
+    primary_identifier: "gosec.G501-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G501"
       type: "gosec_rule_id"
@@ -339,7 +339,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
-    primary_identifier: "gosec.G503"
+    primary_identifier: "gosec.G503-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G503"
       type: "gosec_rule_id"
@@ -445,7 +445,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
-    primary_identifier: "gosec.G505"
+    primary_identifier: "gosec.G505-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G505"
       type: "gosec_rule_id"
@@ -527,7 +527,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
-    primary_identifier: "gosec.G402"
+    primary_identifier: "gosec.G402-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G402"
       type: "gosec_rule_id"
@@ -571,7 +571,7 @@ rules:
   metadata:
     shortDescription: "Key exchange without entity authentication"
     cwe: "CWE-322"
-    primary_identifier: "gosec.G106"
+    primary_identifier: "gosec.G106-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G106"
       type: "gosec_rule_id"
@@ -646,7 +646,7 @@ rules:
   metadata:
     cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
-    primary_identifier: "gosec.G401"
+    primary_identifier: "gosec.G401-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G401"
       type: "gosec_rule_id"
@@ -690,7 +690,7 @@ rules:
     shortDescription: "Inadequate encryption strength"
     cwe: "CWE-326"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "gosec.G403"
+    primary_identifier: "gosec.G403-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G403"
       type: "gosec_rule_id"
@@ -724,7 +724,7 @@ rules:
       (PRNG)"
     cwe: "CWE-338"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "gosec.G404"
+    primary_identifier: "gosec.G404-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G404"
       type: "gosec_rule_id"
@@ -766,7 +766,7 @@ rules:
     shortDescription: "Incorrect permission assignment for critical resource"
     cwe: "CWE-732"
     owasp: "A6:2017-Security Misconfiguration"
-    primary_identifier: "gosec.G302"
+    primary_identifier: "gosec.G302-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G302"
       type: "gosec_rule_id"
@@ -806,7 +806,7 @@ rules:
     shortDescription: "Incorrect permission assignment for critical resource"
     cwe: "CWE-732"
     owasp: "A6:2017-Security Misconfiguration"
-    primary_identifier: "gosec.G301"
+    primary_identifier: "gosec.G301-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G301"
       type: "gosec_rule_id"
@@ -863,7 +863,7 @@ rules:
   metadata:
     shortDescription: "Improper handling of highly compressed data"
     cwe: "CWE-409"
-    primary_identifier: "gosec.G110"
+    primary_identifier: "gosec.G110-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G110"
       type: "gosec_rule_id"
@@ -899,7 +899,7 @@ rules:
   metadata:
     shortDescription: "Relative path traversal"
     cwe: "CWE-23"
-    primary_identifier: "gosec.G111"
+    primary_identifier: "gosec.G111-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G111"
       type: "gosec_rule_id"
@@ -1011,7 +1011,7 @@ rules:
     shortDescription: "Improper limitation of a pathname to a restricted directory
       ('Path Traversal')"
     cwe: "CWE-22"
-    primary_identifier: "gosec.G304"
+    primary_identifier: "gosec.G304-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G304"
       type: "gosec_rule_id"
@@ -1050,7 +1050,7 @@ rules:
   metadata:
     shortDescription: "Incorrect default permissions"
     cwe: "CWE-276"
-    primary_identifier: "gosec.G306"
+    primary_identifier: "gosec.G306-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G306"
       type: "gosec_rule_id"
@@ -1096,7 +1096,7 @@ rules:
   metadata:
     shortDescription: "Creation of temporary file with insecure permissions"
     cwe: "CWE-378"
-    primary_identifier: "gosec.G303"
+    primary_identifier: "gosec.G303-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G303"
       type: "gosec_rule_id"
@@ -1214,7 +1214,7 @@ rules:
     shortDescription: "Improper limitation of a pathname to a restricted directory
       ('Path Traversal')"
     cwe: "CWE-22"
-    primary_identifier: "gosec.G305"
+    primary_identifier: "gosec.G305-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G305"
       type: "gosec_rule_id"
@@ -1305,7 +1305,7 @@ rules:
   metadata:
     shortDescription: "Uncontrolled resource consumption (Slowloris)"
     cwe: "CWE-400"
-    primary_identifier: "gosec.G114"
+    primary_identifier: "gosec.G114-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G114"
       type: "gosec_rule_id"
@@ -1422,7 +1422,7 @@ rules:
   metadata:
     shortDescription: "Uncontrolled resource consumption (Slowloris)"
     cwe: "CWE-400"
-    primary_identifier: "gosec.G112"
+    primary_identifier: "gosec.G112-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G112"
       type: "gosec_rule_id"
@@ -1565,7 +1565,7 @@ rules:
   metadata:
     shortDescription: "Server Side Request Forgery (SSRF)"
     cwe: "CWE-918"
-    primary_identifier: "gosec.G107"
+    primary_identifier: "gosec.G107-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G107"
       type: "gosec_rule_id"
@@ -1647,7 +1647,7 @@ rules:
     shortDescription: "Improper neutralization of input during web page generation
       ('Cross-site Scripting')"
     cwe: "CWE-79"
-    primary_identifier: "gosec.G203"
+    primary_identifier: "gosec.G203-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G203"
       type: "gosec_rule_id"
@@ -1669,7 +1669,7 @@ rules:
   metadata:
     shortDescription: "Active debug code (pprof enabled)"
     cwe: "CWE-489"
-    primary_identifier: "gosec.G108"
+    primary_identifier: "gosec.G108-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G108"
       type: "gosec_rule_id"
@@ -1713,7 +1713,7 @@ rules:
   metadata:
     shortDescription: "Integer overflow or wraparound"
     cwe: "CWE-190"
-    primary_identifier: "gosec.G109"
+    primary_identifier: "gosec.G109-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G109"
       type: "gosec_rule_id"
@@ -1733,7 +1733,7 @@ rules:
     Potential Integer overflow made by strconv.Atoi result conversion to int16/32
   metadata:
     cwe: "CWE-190: Integer Overflow or Wraparound"
-    primary_identifier: "gosec.G113"
+    primary_identifier: "gosec.G113-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G113"
       type: "gosec_rule_id"
@@ -1815,7 +1815,7 @@ rules:
   metadata:
     shortDescription: "Incorrect access of indexable resource ('Range Error')"
     cwe: "CWE-118"
-    primary_identifier: "gosec.G601"
+    primary_identifier: "gosec.G601-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G601"
       type: "gosec_rule_id"
@@ -1852,7 +1852,7 @@ rules:
     shortDescription: "Exposure of sensitive information to an unauthorized actor"
     cwe: "CWE-200"
     owasp: "A6:2017-Security Misconfiguration"
-    primary_identifier: "gosec.G102"
+    primary_identifier: "gosec.G102-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G102"
       type: "gosec_rule_id"
@@ -1888,7 +1888,7 @@ rules:
     shortDescription: "Use of hard-coded password"
     cwe: "CWE-259"
     owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "gosec.G101"
+    primary_identifier: "gosec.G101-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G101"
       type: "gosec_rule_id"
@@ -1942,7 +1942,7 @@ rules:
     shortDescription: "Improper Neutralization of Special Elements used in an SQL
       Command ('SQL Injection')"
     cwe: "CWE-89"
-    primary_identifier: "gosec.G202"
+    primary_identifier: "gosec.G202-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G202"
       type: "gosec_rule_id"
@@ -2003,7 +2003,7 @@ rules:
     shortDescription: "Improper Neutralization of Special Elements used in an SQL
       Command ('SQL Injection')"
     cwe: "CWE-89"
-    primary_identifier: "gosec.G201"
+    primary_identifier: "gosec.G201-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G201"
       type: "gosec_rule_id"
@@ -2086,7 +2086,7 @@ rules:
       Code ('Eval Injection')"
     cwe: "CWE-95"
     owasp: "A1:2017-Injection"
-    primary_identifier: "gosec.G204"
+    primary_identifier: "gosec.G204-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G204"
       type: "gosec_rule_id"
@@ -2123,7 +2123,7 @@ rules:
   metadata:
     shortDescription: "Use of inherently dangerous function (unsafe package)"
     cwe: "CWE-242"
-    primary_identifier: "gosec.G103"
+    primary_identifier: "gosec.G103-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G103"
       type: "gosec_rule_id"

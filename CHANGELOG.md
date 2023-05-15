@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.12
+- Gosec singular rule IDs should include `-1` (!149)
+
 ## v1.3.11
 - Flawfinder singular rule IDs should include `-1` (!147)
 
