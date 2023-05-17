@@ -1,5 +1,9 @@
 sast-rules changelog
 
+## v1.3.14
+- Find Sec Bugs singular rule IDs should include `-1` (!151)
+- Security Code Scan singular rule IDs should include `-1` (!151)
+
 ## v1.3.13
 - feat: Drop high-FP eslint detect-object-injection rule (!151)
 

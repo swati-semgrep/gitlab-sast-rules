@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.13
+# rule-set version: v1.3.14
 # yamllint enable
 ---
 rules:
@@ -26,7 +26,7 @@ rules:
     shortDescription: "Use of cache containing sensitive information"
     category: "security"
     cwe: "CWE-524"
-    primary_identifier: "security_code_scan.SCS0019"
+    primary_identifier: "security_code_scan.SCS0019-1"
     secondary_identifiers:
     - name: "SCS0019"
       type: "security_code_scan_rule_id"
@@ -72,7 +72,7 @@ rules:
     shortDescription: "Sensitive cookie without 'HttpOnly' flag"
     category: "security"
     cwe: "CWE-1004"
-    primary_identifier: "security_code_scan.SCS0009"
+    primary_identifier: "security_code_scan.SCS0009-1"
     secondary_identifiers:
     - name: "SCS0009"
       type: "security_code_scan_rule_id"
@@ -116,7 +116,7 @@ rules:
     shortDescription: "Sensitive cookie in HTTPS session without 'Secure' attribute"
     category: "security"
     cwe: "CWE-614"
-    primary_identifier: "security_code_scan.SCS0008"
+    primary_identifier: "security_code_scan.SCS0008-1"
     secondary_identifiers:
     - name: "SCS0008"
       type: "security_code_scan_rule_id"
@@ -156,7 +156,7 @@ rules:
     shortDescription: "Certificate validation disabled"
     category: "security"
     cwe: "CWE-295"
-    primary_identifier: "security_code_scan.SCS0004"
+    primary_identifier: "security_code_scan.SCS0004-1"
     secondary_identifiers:
     - name: "SCS0004"
       type: "security_code_scan_rule_id"
@@ -244,7 +244,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     category: "security"
     cwe: "CWE-327"
-    primary_identifier: "security_code_scan.SCS0010"
+    primary_identifier: "security_code_scan.SCS0010-1"
     secondary_identifiers:
     - name: "SCS0010"
       type: "security_code_scan_rule_id"
@@ -327,7 +327,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     category: "security"
     cwe: "CWE-327"
-    primary_identifier: "security_code_scan.SCS0013"
+    primary_identifier: "security_code_scan.SCS0013-1"
     secondary_identifiers:
     - name: "SCS0013"
       type: "security_code_scan_rule_id"
@@ -387,7 +387,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm (SHA1/MD5)"
     category: "security"
     cwe: "CWE-327"
-    primary_identifier: "security_code_scan.SCS0006"
+    primary_identifier: "security_code_scan.SCS0006-1"
     secondary_identifiers:
     - name: "SCS0006"
       type: "security_code_scan_rule_id"
@@ -421,7 +421,7 @@ rules:
       (PRNG)"
     category: "security"
     cwe: "CWE-338"
-    primary_identifier: "security_code_scan.SCS0005"
+    primary_identifier: "security_code_scan.SCS0005-1"
     secondary_identifiers:
     - name: "SCS0005"
       type: "security_code_scan_rule_id"
@@ -479,7 +479,7 @@ rules:
     shortDescription: "Potential Cross-Site Request Forgery (CSRF)"
     category: "security"
     cwe: "CWE-352"
-    primary_identifier: "security_code_scan.SCS0016"
+    primary_identifier: "security_code_scan.SCS0016-1"
     secondary_identifiers:
     - name: "SCS0016"
       type: "security_code_scan_rule_id"
@@ -563,7 +563,7 @@ rules:
     shortDescription: "Deserialization of potentially untrusted data"
     category: "security"
     cwe: "CWE-502"
-    primary_identifier: "security_code_scan.SCS0028"
+    primary_identifier: "security_code_scan.SCS0028-1"
     secondary_identifiers:
     - name: "SCS0028"
       type: "security_code_scan_rule_id"
@@ -630,7 +630,7 @@ rules:
     shortDescription: "URL redirection to untrusted site 'open redirect'"
     category: "security"
     cwe: "CWE-601"
-    primary_identifier: "security_code_scan.SCS0027"
+    primary_identifier: "security_code_scan.SCS0027-1"
     secondary_identifiers:
     - name: "SCS0027"
       type: "security_code_scan_rule_id"
@@ -712,7 +712,7 @@ rules:
       ('OS Command Injection')"
     category: "security"
     cwe: "CWE-78"
-    primary_identifier: "security_code_scan.SCS0001"
+    primary_identifier: "security_code_scan.SCS0001-1"
     secondary_identifiers:
     - name: "SCS0001"
       type: "security_code_scan_rule_id"
@@ -903,7 +903,7 @@ rules:
       Command ('SQL Injection')"
     category: "security"
     cwe: "CWE-89"
-    primary_identifier: "security_code_scan.SCS0002"
+    primary_identifier: "security_code_scan.SCS0002-1"
     secondary_identifiers:
     - name: "SCS0002"
       type: "security_code_scan_rule_id"
@@ -989,7 +989,7 @@ rules:
       Injection')"
     category: "security"
     cwe: "CWE-643"
-    primary_identifier: "security_code_scan.SCS0003"
+    primary_identifier: "security_code_scan.SCS0003-1"
     secondary_identifiers:
     - name: "SCS0003"
       type: "security_code_scan_rule_id"
@@ -1039,7 +1039,7 @@ rules:
     shortDescription: "Improper restriction of XML external entity reference ('XXE')"
     category: "security"
     cwe: "CWE-611"
-    primary_identifier: "security_code_scan.SCS0007"
+    primary_identifier: "security_code_scan.SCS0007-1"
     secondary_identifiers:
     - name: "SCS0007"
       type: "security_code_scan_rule_id"
@@ -1070,7 +1070,7 @@ rules:
   metadata:
     category: "security"
     cwe: "CWE-284: Improper Access Control"
-    primary_identifier: "security_code_scan.SCS0012"
+    primary_identifier: "security_code_scan.SCS0012-1"
     secondary_identifiers:
     - name: "SCS0012"
       type: "security_code_scan_rule_id"
@@ -1140,7 +1140,7 @@ rules:
     shortDescription: "Improper restriction of XML external entity reference"
     category: "security"
     cwe: "CWE-611"
-    primary_identifier: "security_code_scan.SCS0011"
+    primary_identifier: "security_code_scan.SCS0011-1"
     secondary_identifiers:
     - name: "SCS0011"
       type: "security_code_scan_rule_id"
@@ -1370,7 +1370,7 @@ rules:
     shortDescription: "Improper limitation of a pathname to a restricted directory
       ('Path Traversal')"
     cwe: "CWE-22"
-    primary_identifier: "security_code_scan.SCS0018"
+    primary_identifier: "security_code_scan.SCS0018-1"
     secondary_identifiers:
     - name: "SCS0018"
       type: "security_code_scan_rule_id"
@@ -1418,7 +1418,7 @@ rules:
     shortDescription: "ASP.NET input validation disabled"
     category: "security"
     cwe: "CWE-554"
-    primary_identifier: "security_code_scan.SCS0017"
+    primary_identifier: "security_code_scan.SCS0017-1"
     secondary_identifiers:
     - name: "SCS0017"
       type: "security_code_scan_rule_id"
@@ -1523,7 +1523,7 @@ rules:
       ('Cross-site Scripting')"
     category: "security"
     cwe: "CWE-79"
-    primary_identifier: "security_code_scan.SCS0029"
+    primary_identifier: "security_code_scan.SCS0029-1"
     secondary_identifiers:
     - name: "SCS0029"
       type: "security_code_scan_rule_id"
