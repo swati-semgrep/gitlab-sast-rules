@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.14
+# rule-set version: v1.3.15
 # yamllint enable
 ---
 rules:
@@ -1778,13 +1778,13 @@ rules:
   severity: "WARNING"
   languages:
   - "python"
-- id: "bandit.B108-2"
+- id: "bandit.B108-1"
   pattern: "$CALL(\"=~/^\\/tmp.*/\", ...)"
   message: |
     Detected hardcoded temp directory. Consider using `tempfile.TemporaryFile` instead.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
-    primary_identifier: "bandit.B108-2"
+    primary_identifier: "bandit.B108"
     secondary_identifiers:
     - name: "Bandit Test ID B108"
       type: "bandit_test_id"
@@ -1810,7 +1810,7 @@ rules:
   languages:
   - "python"
   severity: "ERROR"
-- id: "bandit.B108-1"
+- id: "bandit.B108-2"
   patterns:
   - pattern: "open($DIR, ...)"
   - metavariable-regex:
@@ -1820,7 +1820,7 @@ rules:
     Probable insecure usage of temp file/directory.
   metadata:
     cwe: "CWE-377: Insecure Temporary File"
-    primary_identifier: "bandit.B108"
+    primary_identifier: "bandit.B108-2"
     secondary_identifiers:
     - name: "Bandit Test ID B108"
       type: "bandit_test_id"

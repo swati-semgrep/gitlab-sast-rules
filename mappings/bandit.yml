@@ -32,8 +32,8 @@ bandit:
     - "python/secrets/rule-hardcoded_password_default"
   - id: "B108"
     rules:
-    - "python/tmpdir/rule-specialdir"
     - "python/tmpdir/rule-hardcodedtmp"
+    - "python/tmpdir/rule-specialdir"
   - id: "B110"
     rules:
     - "python/exception/rule-try_except_pass"

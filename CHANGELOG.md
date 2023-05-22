@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.15
+- Update primary identifier of `bandit.B108-2` to `bandit.B108-1` (!153)
+
 ## v1.3.14
 - Find Sec Bugs singular rule IDs should include `-1` (!151)
 - Security Code Scan singular rule IDs should include `-1` (!151)
