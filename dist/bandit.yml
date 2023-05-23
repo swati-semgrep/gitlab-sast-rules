@@ -504,7 +504,7 @@ rules:
   severity: "ERROR"
   languages:
   - "python"
-- id: "bandit.B301-1"
+- id: "bandit.B301-2"
   pattern: "cPickle.$FUNC(...)"
   message: |
     Avoid using `cPickle`, which is known to lead to code execution vulnerabilities.
@@ -514,7 +514,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8:2017-Insecure Deserialization"
-    primary_identifier: "bandit.B301"
+    primary_identifier: "bandit.B301-2"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
@@ -522,7 +522,7 @@ rules:
   severity: "WARNING"
   languages:
   - "python"
-- id: "bandit.B301-4"
+- id: "bandit.B301-3"
   pattern-either:
   - pattern: "dill.$FUNC(...)"
   message: |
@@ -533,7 +533,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8:2017-Insecure Deserialization"
-    primary_identifier: "bandit.B301-4"
+    primary_identifier: "bandit.B301-3"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
@@ -561,7 +561,7 @@ rules:
   severity: "WARNING"
   languages:
   - "python"
-- id: "bandit.B301-3"
+- id: "bandit.B301-1"
   pattern-either:
   - pattern: "pickle.$FUNC(...)"
   - pattern: "_pickle.$FUNC(...)"
@@ -573,7 +573,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8:2017-Insecure Deserialization"
-    primary_identifier: "bandit.B301-3"
+    primary_identifier: "bandit.B301"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
@@ -581,7 +581,7 @@ rules:
   severity: "WARNING"
   languages:
   - "python"
-- id: "bandit.B301-2"
+- id: "bandit.B301-4"
   pattern-either:
   - pattern: "shelve.$FUNC(...)"
   message: |
@@ -592,7 +592,7 @@ rules:
   metadata:
     cwe: "CWE-502: Deserialization of Untrusted Data"
     owasp: "A8:2017-Insecure Deserialization"
-    primary_identifier: "bandit.B301-2"
+    primary_identifier: "bandit.B301-4"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"

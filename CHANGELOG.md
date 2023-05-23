@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.16
+- Update Primary identifiers for `bandit.B103` so that they match the published rules in semgrep (!154)
+
 ## v1.3.15
 - Update primary identifier of `bandit.B108-2` to `bandit.B108-1` (!153)
 

@@ -51,10 +51,10 @@ bandit:
     - "python/files/rule-tarfile_unsafe_members"
   - id: "B301"
     rules:
-    - "python/deserialization/rule-cpickle"
-    - "python/deserialization/rule-shelve"
     - "python/deserialization/rule-pickle"
+    - "python/deserialization/rule-cpickle"
     - "python/deserialization/rule-dill"
+    - "python/deserialization/rule-shelve"
   - id: "B302"
     rules:
     - "python/deserialization/rule-marshal"
