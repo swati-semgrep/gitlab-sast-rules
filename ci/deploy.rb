@@ -31,36 +31,38 @@ Dir.glob('mappings/*.yml').each do |mapping_file|
   rulez = {}
   id2rules = {}
   rule2ids = {}
-  ruleids = {}
-  rulefiles = []
+  rule_file_paths = []
 
   dict[prefix]['mappings'].each do |mapping|
     id = mapping['id']
-    ruleids[id] = ruleids.keys.size unless ruleids.key?(id)
     id2rules[id] = [] unless id2rules.key?(id)
     mapping['rules'].each do |rule|
-      rule2ids[rule] = [] unless rule2ids.key?(rule)
-      rule2ids[rule] << id
-      id2rules[id] << rule
-      rulefiles << rule
+      rule_path = rule['path']
+      rule2ids[rule_path] = [] unless rule2ids.key?(rule_path)
+      rule2ids[rule_path] << id
+      id2rules[id] << rule_path
+      rule_file_paths << rule_path
     end
   end
 
-  rulefiles.sort!.uniq!
+  rule_file_paths.sort!.uniq!
 
-  rulefiles.each do |rfil|
-    rulefiledict = YAML.safe_load(File.read("#{rfil}.yml"))
-    rulefromfile = rulefiledict['rules'].first
-    ids = rule2ids[rfil]
+  rule_file_paths.each do |rule_file_path|
+    rule_file = YAML.safe_load(File.read("#{rule_file_path}.yml"))
+
+    # there's only ever one rule in a rule file
+    rule = rule_file['rules'].first
+
+    ids = rule2ids[rule_file_path]
 
     # generate a unique rule hash that makes it possible to map results
     # back to the original analyzer -- note that we have n:m mappings multiple
     # native ids can be mapped to a collection of semgrep rules and vice versa
     # every rule gets coordinates: original_rule_id-array index number
-    suffix = ids.map { |id| "#{id}-#{id2rules[id].find_index(rfil) + 1}" }.join('.')
+    suffix = ids.map { |id| "#{id}-#{id2rules[id].find_index(rule_file_path) + 1}" }.join('.')
     newid = "#{analyzer}.#{suffix}"
-    rulefromfile['id'] = newid
-    rulez[newid] = rulefromfile
+    rule['id'] = newid
+    rulez[newid] = rule
     secondary_ids = []
     ids.uniq.each do |id|
       secondary_ids << {
@@ -70,7 +72,8 @@ Dir.glob('mappings/*.yml').each do |mapping_file|
       }
     end
     primary_id = ids.one? ? newid.delete_suffix('-1') : newid
-    primary_id = newid if ['flawfinder', 'gosec', 'security_code_scan', 'find_sec_bugs'].include? prefix 
+    primary_id = newid if ['flawfinder', 'gosec', 'security_code_scan', 'find_sec_bugs'].include? prefix
+    primary_id = rule['primary_id'] if rule.key? 'primary_id'
     rulez[newid]['metadata'].merge!('primary_identifier' => primary_id)
     rulez[newid]['metadata'].merge!('secondary_identifiers' => secondary_ids)
   end
