@@ -34,8 +34,8 @@ Dir.glob('./mappings/*.yml').each do |file|
     mappings = YAML.load(File.read(file))
     base = File.basename(file, ".yml")
     mappings[base]['mappings'].each do |mapping|
-        mapping['rules'].each do |rule_path|
-            update_owasp(rule_path)
+        mapping['rules'].each do |rule|
+            update_owasp(rule['path'])
         end
     end
 end
