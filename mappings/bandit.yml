@@ -60,24 +60,32 @@ bandit:
     - path: "python/deserialization/rule-marshal"
   - id: "B303"
     rules:
-    - path: "python/crypto/rule-hash_md2"
-    - path: "python/crypto/rule-crypto.hazmat_hash_md5"
-    - path: "python/crypto/rule-crypto_hash_md5"
-    - path: "python/crypto/rule-crypto.hazmat_hash_sha1"
     - path: "python/crypto/rule-hash_md5"
-    - path: "python/crypto/rule-crypto_hash_sha1"
-    - path: "python/crypto/rule-hash_md4"
     - path: "python/crypto/rule-hash_sha1"
+    - path: "python/crypto/rule-hash_md2"
+    - path: "python/crypto/rule-hash_md4"
+    - path: "python/crypto/rule-crypto_hash_md5"
+    - path: "python/crypto/rule-crypto_hash_sha1"
+    - path: "python/crypto/rule-crypto.hazmat_hash_md5"
+    - path: "python/crypto/rule-crypto.hazmat_hash_sha1"
   - id: "B304"
     rules:
-    - path: "python/crypto/rule-crypto_cipher_xor"
-    - path: "python/crypto/rule-crypto_hazmat_cipher_arc4"
-    - path: "python/crypto/rule-crypto_hazmat_cipher_idea"
-    - path: "python/crypto/rule-crypto_hazmat_cipher_blowfish"
     - path: "python/crypto/rule-crypto_cipher_rc2"
-    - path: "python/crypto/rule-crypto_cipher_des"
-    - path: "python/crypto/rule-crypto_cipher_blowfish"
+      primary_id: bandit.B304-5 
     - path: "python/crypto/rule-crypto_cipher_rc4"
+      primary_id: bandit.B304-6
+    - path: "python/crypto/rule-crypto_cipher_blowfish"
+      primary_id: bandit.B304-7
+    - path: "python/crypto/rule-crypto_cipher_des"
+      primary_id: bandit.B304-8
+    - path: "python/crypto/rule-crypto_cipher_xor"
+      primary_id: bandit.B304-9
+    - path: "python/crypto/rule-crypto_hazmat_cipher_arc4"
+      primary_id: bandit.B304-10
+    - path: "python/crypto/rule-crypto_hazmat_cipher_blowfish"
+      primary_id: bandit.B304-11
+    - path: "python/crypto/rule-crypto_hazmat_cipher_idea"
+      primary_id: bandit.B304-12
   - id: "B305"
     rules:
     - path: "python/crypto/rule-cipher_modes"
