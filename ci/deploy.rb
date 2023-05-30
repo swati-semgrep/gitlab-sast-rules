@@ -32,6 +32,7 @@ Dir.glob('mappings/*.yml').each do |mapping_file|
   id2rules = {}
   rule2ids = {}
   rule_file_paths = []
+  rule_file_path_2_primary_id = {}
 
   dict[prefix]['mappings'].each do |mapping|
     id = mapping['id']
@@ -42,6 +43,7 @@ Dir.glob('mappings/*.yml').each do |mapping_file|
       rule2ids[rule_path] << id
       id2rules[id] << rule_path
       rule_file_paths << rule_path
+      rule_file_path_2_primary_id[rule['path']] = rule['primary_id'] if rule.key? 'primary_id'
     end
   end
 
@@ -62,6 +64,7 @@ Dir.glob('mappings/*.yml').each do |mapping_file|
     suffix = ids.map { |id| "#{id}-#{id2rules[id].find_index(rule_file_path) + 1}" }.join('.')
     newid = "#{analyzer}.#{suffix}"
     rule['id'] = newid
+    rule['id'] = primary_id = rule_file_path_2_primary_id[rule_file_path] if rule_file_path_2_primary_id.key? rule_file_path
     rulez[newid] = rule
     secondary_ids = []
     ids.uniq.each do |id|
@@ -73,7 +76,7 @@ Dir.glob('mappings/*.yml').each do |mapping_file|
     end
     primary_id = ids.one? ? newid.delete_suffix('-1') : newid
     primary_id = newid if ['flawfinder', 'gosec', 'security_code_scan', 'find_sec_bugs'].include? prefix
-    primary_id = rule['primary_id'] if rule.key? 'primary_id'
+    primary_id = rule_file_path_2_primary_id[rule_file_path] if rule_file_path_2_primary_id.key? rule_file_path
     rulez[newid]['metadata'].merge!('primary_identifier' => primary_id)
     rulez[newid]['metadata'].merge!('secondary_identifiers' => secondary_ids)
   end
