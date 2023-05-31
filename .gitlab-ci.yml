@@ -64,6 +64,21 @@ rulecheck-availability:
       when: never
     - when: always
 
+check-rules-have-been-built:
+  stage: verify
+  image: ruby:3-alpine
+  script:
+    - apk update && apk add bash jq nodejs npm git
+    - npm install -g changelog-parser
+    - CHANGELOG_VERSION=$(changelog-parser | jq -r '.versions[0].title')
+    - gem install word_wrap
+    - ./ci/deploy.sh $CHANGELOG_VERSION
+    - git diff --exit-code
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - when: always
+
 assemble:
   image: ruby:3-alpine
   stage: prepare
