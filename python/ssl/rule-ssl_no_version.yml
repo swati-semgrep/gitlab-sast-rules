@@ -1,20 +1,18 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://semgrep.dev/c/p/bandit
-# hash: acdabdb
-# id: python.lang.security.audit.weak-ssl-version.weak-ssl-version
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/ssl/rule-ssl_no_version"
-  patterns:
-  - pattern: "ssl.wrap_socket()"
+  languages:
+  - "python"
   message: |
     `ssl.wrap_socket` call with no SSL/TLS protocol version specified, the default SSLv23 could be
     insecure, possible security issue.
   metadata:
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Inadequate Encryption Strength"
+  patterns:
+  - pattern: "ssl.wrap_socket()"
   severity: "WARNING"
-  languages:
-  - "python"

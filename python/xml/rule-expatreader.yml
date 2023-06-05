@@ -4,6 +4,14 @@
 ---
 rules:
 - id: "python/xml/rule-expatreader"
+  languages:
+  - "python"
+  message: |
+    Insecure XML parsing functionality, prefer `defusedxml`
+  metadata:
+    cwe: "CWE-611"
+    owasp: "A4:2017-XML External Entities (XXE)"
+    shortDescription: "Improper Restriction of XML External Entity Reference"
   pattern-either:
   - pattern: "xml.dom.expatreader.parse(...)"
   - patterns:
@@ -11,11 +19,4 @@ rules:
     - pattern-not: "xml.dom.expatreader.parseString(\"...\")"
   - pattern: "xml.dom.expatreader.parseString(...)"
   - pattern: "xml.dom.expatreader.create_parser(...)"
-  message: |
-    Insecure XML parsing functionality, prefer `defusedxml`
-  metadata:
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
-    owasp: "A4:2017-XML External Entities (XXE)"
   severity: "WARNING"
-  languages:
-  - "python"

@@ -4,6 +4,13 @@
 ---
 rules:
 - id: "java/smtp/rule-InsecureSmtp"
+  languages:
+  - "java"
+  message: |
+    Server identity verification is disabled when making SSL connections.
+  metadata:
+    cwe: "CWE-297"
+    shortDescription: "Improper Validation of Certificate with Host Mismatch"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -25,10 +32,4 @@ rules:
       $E.setSSLOnConnect(true);
       ...
       $E.setSSLCheckServerIdentity(true);
-  message: |
-    Server identity verification is disabled when making SSL connections.
-  metadata:
-    cwe: "CWE-297: Improper Validation of Certificate with Host Mismatch"
   severity: "ERROR"
-  languages:
-  - "java"

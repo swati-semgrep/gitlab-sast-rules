@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "scala/xxe/rule-Document"
+  languages:
+  - "scala"
+  message: |
+    XML External Entity (XXE) attacks can occur when an XML parser supports XML
+    entities while processing XML received from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
   patterns:
   - pattern-inside: |
       $DF = DocumentBuilderFactory.newInstance
@@ -15,12 +24,4 @@ rules:
       $DF.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
       ...
   - pattern: "$DB.parse(...)"
-  languages:
-  - "scala"
-  message: |
-    XML External Entity (XXE) attacks can occur when an XML parser supports XML
-    entities while processing XML received from an untrusted source.
-  metadata:
-    category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
   severity: "ERROR"

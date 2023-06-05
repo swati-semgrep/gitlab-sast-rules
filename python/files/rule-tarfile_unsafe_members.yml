@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "python/files/rule-tarfile_unsafe_members"
+  languages:
+  - "python"
+  message: |
+    tarfile.extractall used without any validation. You should check members and discard dangerous
+    ones.
+  metadata:
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
   patterns:
   - pattern-inside: |
       import tarfile
@@ -20,12 +29,4 @@ rules:
     - patterns:
       - pattern: "tarfile.extractall(...)"
       - pattern: "tarfile.extractall(..., members=[])"
-  message: |
-    tarfile.extractall used without any validation. You should check members and discard dangerous
-    ones.
-  metadata:
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
   severity: "ERROR"
-  languages:
-  - "python"

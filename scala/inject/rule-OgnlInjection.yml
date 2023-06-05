@@ -1,5 +1,6 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
@@ -87,6 +88,8 @@ rules:
   - "scala"
   severity: "WARNING"
   metadata:
+    shortDescription: "Expression injection (OGNL)"
     category: "security"
+    cwe: "CWE-917"
     technology:
     - "scala"

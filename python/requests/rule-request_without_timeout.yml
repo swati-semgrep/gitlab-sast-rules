@@ -1,17 +1,23 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
-# hash: acdabdb
 # yamllint enable
 ---
 rules:
 - id: "python/requests/rule-request_without_timeout"
+  languages:
+  - "python"
+  message: |
+    Requests call without timeout can cause your program to hang indefinitely.
+  metadata:
+    cwe: "CWE-400"
+    shortDescription: "Uncontrolled Resource Consumption"
   patterns:
   - pattern-either:
     - patterns:
       - pattern: "requests.$METHOD('...', timeout=$VAL)"
       - metavariable-comparison:
-          metavariable: "$VAL"
           comparison: "$VAL <= 0"
+          metavariable: "$VAL"
     - patterns:
       - pattern: "requests.$METHOD('...', timeout=$VAL)"
       - metavariable-regex:
@@ -25,10 +31,4 @@ rules:
   - metavariable-regex:
       metavariable: "$METHOD"
       regex: "(get|put|delete|post|options|head|patch)"
-  message: |
-    Requests call without timeout can cause your program to hang indefinitely.
-  metadata:
-    cwe: "CWE-400: Uncontrolled Resource Consumption"
   severity: "WARNING"
-  languages:
-  - "python"

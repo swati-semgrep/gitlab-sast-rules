@@ -4,6 +4,17 @@
 ---
 rules:
 - id: "java/inject/rule-ELInjection"
+  languages:
+  - "java"
+  message: |
+    An expression is built with a dynamic value. The source of the value(s) should be verified to
+    avoid that unfiltered values fall into this risky code evaluation.
+  metadata:
+    category: "security"
+    cwe: "CWE-94"
+    shortDescription: "Improper Control of Generation of Code ('Code Injection')"
+    technology:
+    - "java"
   patterns:
   - pattern-inside: |
       $FUNC(..., String $EXPR, ...) {
@@ -16,14 +27,4 @@ rules:
         ...)"
     - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),
         $EXPR, ...)"
-  message: |
-    An expression is built with a dynamic value. The source of the value(s) should be verified to
-    avoid that unfiltered values fall into this risky code evaluation.
-  languages:
-  - "java"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    technology:
-    - "java"

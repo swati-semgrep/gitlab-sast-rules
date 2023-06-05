@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "java/crypto/rule-CipherIntegrity"
+  languages:
+  - "java"
+  message: |
+    The ciphertext produced is susceptible to alteration by an adversary. This mean that the
+    cipher provides no way to detect that the data has been tampered with. If the ciphertext can be
+    controlled by an attacker, it could be altered without detection.
+  metadata:
+    category: "security"
+    cwe: "CWE-353"
+    shortDescription: "Missing Support for Integrity Check"
+    technology:
+    - "java"
   patterns:
   - pattern-inside: |-
       javax.crypto.Cipher.getInstance("...")
@@ -13,15 +25,4 @@ rules:
   - pattern-not-regex: ".*/(CCM|CWC|OCB|EAX|GCM)/.*"
   - pattern-not-regex: "^(RSA)/.*"
   - pattern-not-regex: "^(ECIES)$"
-  message: |
-    The ciphertext produced is susceptible to alteration by an adversary. This mean that the
-    cipher provides no way to detect that the data has been tampered with. If the ciphertext can be
-    controlled by an attacker, it could be altered without detection.
-  languages:
-  - "java"
   severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-353: Missing Support for Integrity Check"
-    technology:
-    - "java"

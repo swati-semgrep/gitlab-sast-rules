@@ -1,11 +1,18 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (modified/combined): https://github.com/returntocorp/semgrep-rules/tree/develop/python/cryptography/security/insufficient*-size/insufficient*-size.yaml
-# hash: acdabdb
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/crypto/rule-crypto_encrypt_dsa_rsa"
+  languages:
+  - "python"
+  message: |
+    Detected an insufficient key size for DSA. NIST recommends a key size
+    of 2048 or higher.
+  metadata:
+    cwe: "CWE-326"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Inadequate Encryption Strength"
   patterns:
   - pattern-either:
     - pattern: |
@@ -32,14 +39,6 @@ rules:
     - pattern: "pycryptodomex_dsa.generate(bits=$SIZE, ...)"
     - pattern: "pycryptodomex_dsa.generate($SIZE, ...)"
   - metavariable-comparison:
-      metavariable: "$SIZE"
       comparison: "$SIZE < 2048"
-  message: |
-    Detected an insufficient key size for DSA. NIST recommends a key size
-    of 2048 or higher.
-  metadata:
-    cwe: "CWE-326: Inadequate Encryption Strength"
-    owasp: "A3:2017-Sensitive Data Exposure"
+      metavariable: "$SIZE"
   severity: "ERROR"
-  languages:
-  - "python"

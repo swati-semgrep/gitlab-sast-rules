@@ -4,14 +4,17 @@
 ---
 rules:
 - id: "scala/xss/rule-XSSReqParamToServletWriter"
+  languages:
+  - "scala"
+  message: |
+    Servlet reflected cross site scripting vulnerability
+  metadata:
+    category: "security"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation"
+    technology:
+    - "scala"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |-
-        def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {...}
-    - pattern-either:
-      - pattern: "$REQ.getParameter(...)"
-      - pattern: "$REQ.getQueryString"
   pattern-sanitizers:
   - pattern: "Encode.forHtml(...)"
   - pattern: "org.owasp.esapi.Encoder.encodeForSQL(...)"
@@ -31,13 +34,11 @@ rules:
     - pattern-inside: |-
         def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
     - pattern: "$RES.getWriter.print(...)"
-  message: |
-    Servlet reflected cross site scripting vulnerability
-  languages:
-  - "scala"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |-
+        def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {...}
+    - pattern-either:
+      - pattern: "$REQ.getParameter(...)"
+      - pattern: "$REQ.getQueryString"
   severity: "WARNING"
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation"
-    category: "security"
-    technology:
-    - "scala"

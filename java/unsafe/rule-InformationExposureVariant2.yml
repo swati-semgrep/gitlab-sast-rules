@@ -1,10 +1,23 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
-# source file reference: test-InformationExposure.java
 # yamllint enable
 ---
 rules:
 - id: "java/unsafe/rule-InformationExposureVariant2"
+  languages:
+  - "java"
+  message: |
+    The sensitive information may be valuable information on its own (such as a password), or it
+    may be useful for launching other, more deadly attacks. If an attack fails, an attacker may use
+    error information provided by the server to launch another more focused attack. For example, an
+    attempt to exploit a path traversal weakness (CWE-22) might yield the full pathname of the
+    installed application.
+  metadata:
+    category: "security"
+    cwe: "CWE-209"
+    shortDescription: "Information Exposure Through an Error Message"
+    technology:
+    - "java"
   patterns:
   - pattern-either:
     - pattern: |
@@ -93,17 +106,4 @@ rules:
       - pattern: "java.lang.System.out"
       - pattern: "(java.io.OutputStream $O)"
       - pattern: "(javax.servlet.ServletOutputStream $SOS)"
-  message: |
-    The sensitive information may be valuable information on its own (such as a password), or it
-    may be useful for launching other, more deadly attacks. If an attack fails, an attacker may use
-    error information provided by the server to launch another more focused attack. For example, an
-    attempt to exploit a path traversal weakness (CWE-22) might yield the full pathname of the
-    installed application.
-  languages:
-  - "java"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-209: Information Exposure Through an Error Message"
-    technology:
-    - "java"

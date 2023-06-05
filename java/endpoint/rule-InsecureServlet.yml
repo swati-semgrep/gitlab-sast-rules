@@ -4,7 +4,20 @@
 ---
 rules:
 - id: "java/endpoint/rule-InsecureServlet"
+  languages:
+  - "java"
+  message: |
+    The Servlet can read GET and POST parameters from various methods. The
+    value obtained should be considered unsafe."
+  metadata:
+    category: "security"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
   mode: "taint"
+  pattern-sinks:
+  - pattern-either:
+    - pattern: "\"...\" + $PAR"
+    - pattern: "$PAR + \"...\""
   pattern-sources:
   - pattern-either:
     - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getContentType(...)"
@@ -14,16 +27,4 @@ rules:
     - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameterMap(...)"
     - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameterNames(...)"
     - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameter(...)"
-  pattern-sinks:
-  - pattern-either:
-    - pattern: "\"...\" + $PAR"
-    - pattern: "$PAR + \"...\""
-  languages:
-  - "java"
-  message: |
-    The Servlet can read GET and POST parameters from various methods. The
-    value obtained should be considered unsafe."
-  metadata:
-    category: "security"
-    cwe: "CWE-20: Improper Input Validation"
   severity: "WARNING"

@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "java/templateinjection/rule-TemplateInjection"
+  languages:
+  - "java"
+  message: |
+    A malicious user in control of a template can run malicious code on the
+    server-side. Velocity templates should be seen as scripts.
+  metadata:
+    category: "security"
+    cwe: "CWE-94"
+    shortDescription: "Improper Control of Generation of Code ('Code Injection')"
   pattern-either:
   - patterns:
     - pattern: "org.apache.velocity.app.Velocity.evaluate(..., $VAR)"
@@ -27,12 +36,4 @@ rules:
         $C = $T.getTemplate("...");
         ...
     - pattern: "$C.evaluate(...)"
-  languages:
-  - "java"
-  message: |
-    A malicious user in control of a template can run malicious code on the
-    server-side. Velocity templates should be seen as scripts.
-  metadata:
-    category: "security"
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
   severity: "ERROR"

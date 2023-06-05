@@ -1,5 +1,6 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
@@ -17,6 +18,8 @@ rules:
   message: |
     CERT: IDS11-J. Perform any string modifications before validation
   metadata:
+    shortDescription: "Collapse of data into unsafe value"
     category: "security"
+    cwe: "CWE-182"
     confidence: "HIGH"
   severity: "WARNING"

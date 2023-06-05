@@ -4,6 +4,16 @@
 ---
 rules:
 - id: "scala/crypto/rule-WeakTLSProtocol"
+  languages:
+  - "scala"
+  message: |
+    A HostnameVerifier that accept any host are often use because of certificate
+    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
+    attacks since the client will trust any certificate.
+  metadata:
+    category: "security"
+    cwe: "CWE-295"
+    shortDescription: "Improper Certificate Validation"
   patterns:
   - pattern-either:
     - pattern: "new org.apache.http.impl.client.DefaultHttpClient()"
@@ -13,13 +23,4 @@ rules:
           import javax.net.ssl._
           ...
       - pattern: "SSLContext.getInstance(\"SSL\")"
-  message: |
-    A HostnameVerifier that accept any host are often use because of certificate
-    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
-    attacks since the client will trust any certificate.
-  metadata:
-    category: "security"
-    cwe: "CWE-295: Improper Certificate Validation"
   severity: "WARNING"
-  languages:
-  - "scala"

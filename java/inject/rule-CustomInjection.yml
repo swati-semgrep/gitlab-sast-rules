@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "java/inject/rule-CustomInjection"
+  languages:
+  - "java"
+  message: |
+    The method identified is susceptible to injection. The input should be validated and properly
+    escaped.
+  metadata:
+    category: "security"
+    cwe: "CWE-89"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
+    technology:
+    - "java"
   patterns:
   - pattern-either:
     - pattern: |
@@ -27,15 +39,4 @@ rules:
       pattern-either:
       - pattern: "(java.sql.Statement $ST)"
       - pattern: "(org.apache.turbine.om.peer.BasePeer $ST)"
-  message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
-  languages:
-  - "java"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    technology:
-    - "java"

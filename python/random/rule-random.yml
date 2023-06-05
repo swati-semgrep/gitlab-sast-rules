@@ -4,6 +4,14 @@
 ---
 rules:
 - id: "python/random/rule-random"
+  languages:
+  - "python"
+  message: |
+    Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+  metadata:
+    cwe: "CWE-330"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of Insufficiently Random Values"
   pattern-either:
   - pattern: "random.random(...)"
   - pattern: "random.randrange(...)"
@@ -11,11 +19,4 @@ rules:
   - pattern: "random.choice(...)"
   - pattern: "random.uniform(...)"
   - pattern: "random.triangular(...)"
-  message: |
-    Standard pseudo-random generators are not suitable for security/cryptographic purposes.
-  metadata:
-    cwe: "CWE-330: Use of Insufficiently Random Values"
-    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "INFO"
-  languages:
-  - "python"

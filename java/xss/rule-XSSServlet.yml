@@ -4,12 +4,17 @@
 ---
 rules:
 - id: "java/xss/rule-XSSServlet"
+  languages:
+  - "java"
+  message: |
+    A potential XSS was found. It could be used to execute unwanted JavaScript in a
+    client's browser.
+  metadata:
+    category: "security"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |-
-        $FUNC(..., HttpServletRequest $REQ, ...) {...}
-    - pattern: "$REQ.getParameter(...);"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -29,13 +34,9 @@ rules:
         $FUNC(..., HttpServletResponse $RES, ...) {...}
     - pattern: "$RES.getWriter().write($DATA,...);"
     - pattern: "$DATA"
-  message: |
-    A potential XSS was found. It could be used to execute unwanted JavaScript in a
-    client's browser.
-  languages:
-  - "java"
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
-    category: "security"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., HttpServletRequest $REQ, ...) {...}
+    - pattern: "$REQ.getParameter(...);"
   severity: "WARNING"

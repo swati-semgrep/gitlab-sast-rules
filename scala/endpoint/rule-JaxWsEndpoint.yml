@@ -4,15 +4,8 @@
 ---
 rules:
 - id: "scala/endpoint/rule-JaxWsEndpoint"
-  mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        @javax.jws.WebMethod(...)
-        def $FUNC(..., $VAR: $TYPE, ...) = ...
-    - pattern: "$VAR"
-  pattern-sinks:
-  - pattern: "<...$VAR...>"
+  languages:
+  - "scala"
   message: |
     This method is part of a SOAP Web Service (JSR224). The security of this web service should be
     analyzed. For example:
@@ -20,12 +13,20 @@ rules:
     - Access control, if enforced, should be tested.
     - The inputs should be tracked for potential vulnerabilities.
     - The communication should ideally be over SSL.
-  languages:
-  - "scala"
-  severity: "INFO"
   metadata:
     category: "security"
-    cwe: "CWE-20: Improper Input Validation"
+    cwe: "CWE-20"
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    shortDescription: "Improper Input Validation"
     technology:
     - "scala"
+  mode: "taint"
+  pattern-sinks:
+  - pattern: "<...$VAR...>"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        @javax.jws.WebMethod(...)
+        def $FUNC(..., $VAR: $TYPE, ...) = ...
+    - pattern: "$VAR"
+  severity: "INFO"

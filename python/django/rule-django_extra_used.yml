@@ -4,6 +4,16 @@
 ---
 rules:
 - id: "python/django/rule-django_extra_used"
+  languages:
+  - "python"
+  message: |
+    This is a last resort. You should be careful when using `QuerySet.extra` due
+    to SQLi.
+  metadata:
+    cwe: "CWE-89"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
   patterns:
   - pattern: "$X.objects. ... .extra(..., $K = $V, ...)"
   - pattern-not-inside: |
@@ -20,13 +30,4 @@ rules:
       - pattern-not: "{..., $L: \"...\" % \"...\", ...}"
       - pattern-not: "{..., $L: \"...\".format(\"...\"), ...}"
       - pattern-not: "[..., \"...\".format(\"...\"), ...]"
-  message: |
-    This is a last resort. You should be careful when using `QuerySet.extra` due
-    to SQLi.
-  metadata:
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    owasp: "A1:2017-Injection"
   severity: "WARNING"
-  languages:
-  - "python"

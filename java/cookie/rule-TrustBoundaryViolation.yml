@@ -4,14 +4,6 @@
 ---
 rules:
 - id: "java/cookie/rule-TrustBoundaryViolation"
-  patterns:
-  - pattern-either:
-    - patterns:
-      - pattern: "(HttpServletRequest $H). ... .setAttribute($ARG1, $ARG2);"
-      - pattern-not: "(HttpServletRequest $H). ... .setAttribute(\"...\", \"...\");"
-    - patterns:
-      - pattern: "(HttpServletRequest $H). ... .putValue($ARG1, $ARG2);"
-      - pattern-not: "(HttpServletRequest $H). ... .putValue(\"...\", \"...\");"
   languages:
   - "java"
   message: |
@@ -25,5 +17,14 @@ rules:
     data.
   metadata:
     category: "security"
-    cwe: "CWE-501: Trust Boundary Violation"
+    cwe: "CWE-501"
+    shortDescription: "Trust Boundary Violation"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern: "(HttpServletRequest $H). ... .setAttribute($ARG1, $ARG2);"
+      - pattern-not: "(HttpServletRequest $H). ... .setAttribute(\"...\", \"...\");"
+    - patterns:
+      - pattern: "(HttpServletRequest $H). ... .putValue($ARG1, $ARG2);"
+      - pattern-not: "(HttpServletRequest $H). ... .putValue(\"...\", \"...\");"
   severity: "WARNING"

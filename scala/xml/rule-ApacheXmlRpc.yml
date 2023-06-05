@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "scala/xml/rule-ApacheXmlRpc"
+  languages:
+  - "scala"
+  message: |
+    Enabling extensions in Apache XML RPC server or client can lead to deserialization
+    vulnerability which would allow an attacker to execute arbitrary code.
+  metadata:
+    category: "security"
+    cwe: "CWE-502"
+    shortDescription: "Deserialization of Untrusted Data"
   patterns:
   - pattern-either:
     - patterns:
@@ -16,12 +25,4 @@ rules:
           val $VAR = new org.apache.xmlrpc.client.XmlRpcClientConfigImpl();
           ...
       - pattern: "$VAR.setEnabledForExtensions(true);"
-  languages:
-  - "scala"
-  message: |
-    Enabling extensions in Apache XML RPC server or client can lead to deserialization
-    vulnerability which would allow an attacker to execute arbitrary code.
-  metadata:
-    category: "security"
-    cwe: "CWE-502: Deserialization of Untrusted Data"
   severity: "WARNING"

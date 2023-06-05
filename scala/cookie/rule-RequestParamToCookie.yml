@@ -1,13 +1,23 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
-# source file reference: test-HttpResponseSplitting.scala
 # yamllint enable
 ---
 rules:
 - id: "scala/cookie/rule-RequestParamToCookie"
+  languages:
+  - "scala"
+  message: |
+    This code constructs an HTTP Cookie using an untrusted HTTP parameter. If this cookie is added
+    to an HTTP response, it will allow a HTTP response splitting vulnerability. See
+    http://en.wikipedia.org/wiki/HTTP_response_splitting for more information.
+  metadata:
+    category: "security"
+    cwe: "CWE-113"
+    shortDescription: "Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
+      Response Splitting')"
+    technology:
+    - "scala"
   mode: "taint"
-  pattern-sources:
-  - pattern: "($REQ: HttpServletRequest).getParameter(...);"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -29,16 +39,6 @@ rules:
         $C = new javax.servlet.http.Cookie("$KEY", ...);
         ...
     - pattern: "$C.setValue(...);"
-  message: |
-    This code constructs an HTTP Cookie using an untrusted HTTP parameter. If this cookie is added
-    to an HTTP response, it will allow a HTTP response splitting vulnerability. See
-    http://en.wikipedia.org/wiki/HTTP_response_splitting for more information.
-  languages:
-  - "scala"
+  pattern-sources:
+  - pattern: "($REQ: HttpServletRequest).getParameter(...);"
   severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
-      Response Splitting')"
-    technology:
-    - "scala"

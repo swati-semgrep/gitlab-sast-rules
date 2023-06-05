@@ -17,6 +17,8 @@ rules:
   message: |
     CERT: IDS11-J. Perform any string modifications before validation
   metadata:
+    shortDescription: "Collapse of data into unsafe value"
     category: "security"
+    cwe: "CWE-182"
     confidence: "HIGH"
   severity: "WARNING"

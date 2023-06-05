@@ -4,16 +4,20 @@
 ---
 rules:
 - id: "java/xss/rule-XSSReqParamToSendError"
+  languages:
+  - "java"
+  message: |
+    Servlet reflected cross site scripting vulnerability in error page. This code directly writes
+    an HTTP parameter to a Server error page (using HttpServletResponse.sendError). Echoing this
+    untrusted input allows for a reflected cross site scripting vulnerability.
+  metadata:
+    category: "security"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
+    technology:
+    - "java"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |-
-        $FUNC(..., HttpServletRequest $REQ, ...) {...}
-    - pattern-either:
-      - pattern: "$REQ.getParameter(...);"
-      - pattern: "$REQ.getHeader(...);"
-      - pattern: "$REQ.getRequestedSessionId();"
-      - pattern: "$REQ.getQueryString();"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -25,16 +29,13 @@ rules:
         $FUNC(..., HttpServletResponse $RES, ...) {...}
     - pattern: "$RES.sendError(..., $DATA);"
     - pattern: "$DATA"
-  message: |
-    Servlet reflected cross site scripting vulnerability in error page. This code directly writes
-    an HTTP parameter to a Server error page (using HttpServletResponse.sendError). Echoing this
-    untrusted input allows for a reflected cross site scripting vulnerability.
-  languages:
-  - "java"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., HttpServletRequest $REQ, ...) {...}
+    - pattern-either:
+      - pattern: "$REQ.getParameter(...);"
+      - pattern: "$REQ.getHeader(...);"
+      - pattern: "$REQ.getRequestedSessionId();"
+      - pattern: "$REQ.getQueryString();"
   severity: "WARNING"
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
-    category: "security"
-    technology:
-    - "java"

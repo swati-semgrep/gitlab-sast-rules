@@ -1,24 +1,24 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
-# source file: test-PathTraversal.java
 # yamllint enable
 ---
 rules:
 - id: "java/inject/rule-PathTraversalIn"
+  languages:
+  - "java"
+  message: |
+    A file is opened to read its content. The filename comes from an input parameter. If an
+    unfiltered parameter is passed to this file API, files from an arbitrary filesystem location
+    could be read. This rule identifies potential path traversal vulnerabilities. In many cases,
+    the constructed file path cannot be controlled by the user.
+  metadata:
+    category: "security"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
+    technology:
+    - "java"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        $FUNC(String[] $ARGS) {
-          ...
-        }
-    - pattern: "$ARGS[$IDX]"
-  - patterns:
-    - pattern-inside: |
-        $FUNC(..., String $VAR, ...) {
-          ...
-        }
-    - pattern: "$VAR"
   pattern-sanitizers:
   - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
   pattern-sinks:
@@ -53,17 +53,17 @@ rules:
       - pattern-inside: |-
           java.nio.file.Files.createTempDirectory(..., (String $VAR), ...)
     - pattern: "$VAR"
-  message: |
-    A file is opened to read its content. The filename comes from an input parameter. If an
-    unfiltered parameter is passed to this file API, files from an arbitrary filesystem location
-    could be read. This rule identifies potential path traversal vulnerabilities. In many cases,
-    the constructed file path cannot be controlled by the user.
-  languages:
-  - "java"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(String[] $ARGS) {
+          ...
+        }
+    - pattern: "$ARGS[$IDX]"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., String $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
   severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
-    technology:
-    - "java"

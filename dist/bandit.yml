@@ -1,9 +1,22 @@
 # yamllint disable
-# rule-set version: v1.3.17
+# rule-set version: v1.3.18
 # yamllint enable
 ---
 rules:
 - id: "bandit.B101-1"
+  languages:
+  - "python"
+  message: |
+    Use of assert detected. The enclosed code will be removed when compiling to optimised byte
+    code.
+  metadata:
+    cwe: "CWE-754"
+    shortDescription: "Improper Check for Unusual or Exceptional Conditions"
+    primary_identifier: "bandit.B101"
+    secondary_identifiers:
+    - name: "Bandit Test ID B101"
+      type: "bandit_test_id"
+      value: "B101"
   patterns:
   - pattern: "assert(...)"
   - pattern-not-inside: |
@@ -12,20 +25,24 @@ rules:
   - pattern-not-inside: |
       import unittest
       ...
-  message: |
-    Use of assert detected. The enclosed code will be removed when compiling to optimised byte
-    code.
-  metadata:
-    cwe: "CWE-754: Improper Check for Unusual or Exceptional Conditions"
-    primary_identifier: "bandit.B101"
-    secondary_identifiers:
-    - name: "Bandit Test ID B101"
-      type: "bandit_test_id"
-      value: "B101"
   severity: "INFO"
+- id: "bandit.B104-1"
   languages:
   - "python"
-- id: "bandit.B104-1"
+  message: |
+    Running `socket.bind` to 0.0.0.0, ::, or empty string could unexpectedly expose the server
+    publicly as it binds to all available interfaces. Consider instead getting correct address from
+    an
+    environment variable or configuration file.
+  metadata:
+    cwe: "CWE-200"
+    owasp: "A6:2017-Security Misconfiguration"
+    shortDescription: "Exposure of Sensitive Information to an Unauthorized Actor"
+    primary_identifier: "bandit.B104"
+    secondary_identifiers:
+    - name: "Bandit Test ID B104"
+      type: "bandit_test_id"
+      value: "B104"
   patterns:
   - pattern-either:
     - pattern: |
@@ -40,186 +57,194 @@ rules:
         $S = socket.socket(...)
         ...
         $S.bind(("", ...))
-  message: |
-    Running `socket.bind` to 0.0.0.0, ::, or empty string could unexpectedly expose the server
-    publicly as it binds to all available interfaces. Consider instead getting correct address from
-    an
-    environment variable or configuration file.
-  metadata:
-    cwe: "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
-    owasp: "A6:2017-Security Misconfiguration"
-    primary_identifier: "bandit.B104"
-    secondary_identifiers:
-    - name: "Bandit Test ID B104"
-      type: "bandit_test_id"
-      value: "B104"
   severity: "INFO"
+- id: "bandit.B412-1"
   languages:
   - "python"
-- id: "bandit.B412-1"
-  pattern-either:
-  - pattern: "wsgiref.handlers.CGIHandler(...)"
-  - pattern: "twisted.web.twcgi.CGIDirectory(...)"
   message: |
     Consider possible security implications associated with httpoxy module.
   metadata:
-    cwe: "CWE-284: Improper Access Control"
+    cwe: "CWE-284"
     owasp: "A5:2017-Broken Access Control"
+    shortDescription: "Improper Access Control"
     primary_identifier: "bandit.B412"
     secondary_identifiers:
     - name: "Bandit Test ID B412"
       type: "bandit_test_id"
       value: "B412"
+  pattern-either:
+  - pattern: "wsgiref.handlers.CGIHandler(...)"
+  - pattern: "twisted.web.twcgi.CGIDirectory(...)"
   severity: "ERROR"
+- id: "bandit.B305-1"
   languages:
   - "python"
-- id: "bandit.B305-1"
-  pattern: "cryptography.hazmat.primitives.ciphers.modes.ECB(...)"
   message: |
     Detected ECB cipher mode which is considered insecure. The algorithm canpotentially leak
     information about the plaintext. Use CBC mode instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B305"
     secondary_identifiers:
     - name: "Bandit Test ID B305"
       type: "bandit_test_id"
       value: "B305"
+  pattern: "cryptography.hazmat.primitives.ciphers.modes.ECB(...)"
   severity: "WARNING"
+- id: "bandit.B303-7"
   languages:
   - "python"
-- id: "bandit.B303-7"
-  pattern: "cryptography.hazmat.primitives.hashes.MD5(...)"
   message: |
     Detected MD5 hash algorithm which is considered insecure. MD5 is not
     collision resistant and is therefore not suitable as a cryptographic
     signature. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B303-7"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
       value: "B303"
+  pattern: "cryptography.hazmat.primitives.hashes.MD5(...)"
   severity: "WARNING"
+- id: "bandit.B303-8"
   languages:
   - "python"
-- id: "bandit.B303-8"
-  pattern: "cryptography.hazmat.primitives.hashes.SHA1(...)"
   message: |
     Detected SHA1 hash algorithm which is considered insecure. SHA1 is not
     collision resistant and is therefore not suitable as a cryptographic
     signature. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B303-8"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
       value: "B303"
+  pattern: "cryptography.hazmat.primitives.hashes.SHA1(...)"
   severity: "WARNING"
+- id: "bandit.B304-7"
   languages:
   - "python"
-- id: "bandit.B304-7"
-  patterns:
-  - pattern-either:
-    - pattern: "Cryptodome.Cipher.Blowfish.new(...)"
-    - pattern: "Crypto.Cipher.Blowfish.new(...)"
   message: |
     Detected Blowfish cipher algorithm which is considered insecure. The algorithm has many known
     vulnerabilities. Use AES instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B304-7"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
       value: "B304"
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B304-8"
   patterns:
   - pattern-either:
-    - pattern: "Cryptodome.Cipher.DES.new(...)"
-    - pattern: "Crypto.Cipher.DES.new(...)"
+    - pattern: "Cryptodome.Cipher.Blowfish.new(...)"
+    - pattern: "Crypto.Cipher.Blowfish.new(...)"
+  severity: "WARNING"
+- id: "bandit.B304-8"
+  languages:
+  - "python"
   message: |
     Detected DES cipher algorithm which is considered insecure. The algorithm is considered weak
     and
     has been deprecated. Use AES instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B304-8"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
       value: "B304"
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B304-5"
   patterns:
   - pattern-either:
-    - pattern: "Cryptodome.Cipher.ARC2.new(...)"
-    - pattern: "Crypto.Cipher.ARC2.new"
+    - pattern: "Cryptodome.Cipher.DES.new(...)"
+    - pattern: "Crypto.Cipher.DES.new(...)"
+  severity: "WARNING"
+- id: "bandit.B304-5"
+  languages:
+  - "python"
   message: |
     Detected RC2 cipher algorithm which is considered insecure. The algorithm has known
     vulnerabilities and is difficult to use securely. Use AES instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B304-5"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
       value: "B304"
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B304-6"
   patterns:
   - pattern-either:
-    - pattern: "Cryptodome.Cipher.ARC4.new(...)"
-    - pattern: "Crypto.Cipher.ARC4.new(...)"
+    - pattern: "Cryptodome.Cipher.ARC2.new(...)"
+    - pattern: "Crypto.Cipher.ARC2.new"
+  severity: "WARNING"
+- id: "bandit.B304-6"
+  languages:
+  - "python"
   message: |
     Detected RC4 cipher algorithm which is considered insecure. The algorithm has many known
     vulnerabilities. Use AES instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B304-6"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
       value: "B304"
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B304-9"
   patterns:
   - pattern-either:
-    - pattern: "Cryptodome.Cipher.XOR.new(...)"
-    - pattern: "Crypto.Cipher.XOR.new(...)"
+    - pattern: "Cryptodome.Cipher.ARC4.new(...)"
+    - pattern: "Crypto.Cipher.ARC4.new(...)"
+  severity: "WARNING"
+- id: "bandit.B304-9"
+  languages:
+  - "python"
   message: |
     Detected XOR cipher algorithm which is considered insecure. This algorithm is not
     cryptographically secure and can be reversed easily. Use AES instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B304-9"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
       value: "B304"
+  patterns:
+  - pattern-either:
+    - pattern: "Cryptodome.Cipher.XOR.new(...)"
+    - pattern: "Crypto.Cipher.XOR.new(...)"
   severity: "WARNING"
+- id: "bandit.B505-1"
   languages:
   - "python"
-- id: "bandit.B505-1"
+  message: |
+    Detected an insufficient key size for DSA. NIST recommends a key size
+    of 2048 or higher.
+  metadata:
+    cwe: "CWE-326"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Inadequate Encryption Strength"
+    primary_identifier: "bandit.B505"
+    secondary_identifiers:
+    - name: "Bandit Test ID B505"
+      type: "bandit_test_id"
+      value: "B505"
   patterns:
   - pattern-either:
     - pattern: |
@@ -246,201 +271,213 @@ rules:
     - pattern: "pycryptodomex_dsa.generate(bits=$SIZE, ...)"
     - pattern: "pycryptodomex_dsa.generate($SIZE, ...)"
   - metavariable-comparison:
-      metavariable: "$SIZE"
       comparison: "$SIZE < 2048"
-  message: |
-    Detected an insufficient key size for DSA. NIST recommends a key size
-    of 2048 or higher.
-  metadata:
-    cwe: "CWE-326: Inadequate Encryption Strength"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B505"
-    secondary_identifiers:
-    - name: "Bandit Test ID B505"
-      type: "bandit_test_id"
-      value: "B505"
+      metavariable: "$SIZE"
   severity: "ERROR"
+- id: "bandit.B505-2"
   languages:
   - "python"
-- id: "bandit.B505-2"
-  patterns:
-  - pattern-inside: |-
-      cryptography.hazmat.primitives.asymmetric.ec.generate_private_key(...)
   message: |
     Detected an insufficient curve size for EC. NIST recommends
     a key size of 224 or higher. For example, use 'ec.SECP256R1'.
   metadata:
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Inadequate Encryption Strength"
     primary_identifier: "bandit.B505-2"
     secondary_identifiers:
     - name: "Bandit Test ID B505"
       type: "bandit_test_id"
       value: "B505"
+  patterns:
+  - pattern-inside: |-
+      cryptography.hazmat.primitives.asymmetric.ec.generate_private_key(...)
   severity: "ERROR"
+- id: "bandit.B303-5"
   languages:
   - "python"
-- id: "bandit.B303-5"
-  patterns:
-  - pattern-either:
-    - pattern: "Crypto.Hash.MD5.new(...)"
-    - pattern: "Cryptodome.Hash.MD5.new (...)"
   message: |
     Detected MD5 hash algorithm which is considered insecure. MD5 is not
     collision resistant and is therefore not suitable as a cryptographic
     signature. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B303-5"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
       value: "B303"
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B303-6"
   patterns:
   - pattern-either:
-    - pattern: "Crypto.Hash.SHA.new(...)"
-    - pattern: "Cryptodome.Hash.SHA.new (...)"
+    - pattern: "Crypto.Hash.MD5.new(...)"
+    - pattern: "Cryptodome.Hash.MD5.new (...)"
+  severity: "WARNING"
+- id: "bandit.B303-6"
+  languages:
+  - "python"
   message: |
     Detected SHA1 hash algorithm which is considered insecure. SHA1 is not
     collision resistant and is therefore not suitable as a cryptographic
     signature. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B303-6"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
       value: "B303"
+  patterns:
+  - pattern-either:
+    - pattern: "Crypto.Hash.SHA.new(...)"
+    - pattern: "Cryptodome.Hash.SHA.new (...)"
   severity: "WARNING"
+- id: "bandit.B304-10"
   languages:
   - "python"
-- id: "bandit.B304-10"
-  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.ARC4(...)"
   message: |
     Detected RC4 cipher algorithm which is considered insecure. The algorithm has many known
     vulnerabilities. Use AES instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B304-10"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
       value: "B304"
+  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.ARC4(...)"
   severity: "WARNING"
+- id: "bandit.B304-11"
   languages:
   - "python"
-- id: "bandit.B304-11"
-  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.Blowfish(...)"
   message: |
     Detected Blowfish cipher algorithm which is considered insecure. The algorithm has many known
     vulnerabilities. Use AES instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B304-11"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
       value: "B304"
+  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.Blowfish(...)"
   severity: "WARNING"
+- id: "bandit.B304-12"
   languages:
   - "python"
-- id: "bandit.B304-12"
-  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.IDEA(...)"
   message: |
     Detected IDEA cipher algorithm which is considered insecure. The algorithm is considered weak
     and has been deprecated. Use AES instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B304-12"
     secondary_identifiers:
     - name: "Bandit Test ID B304"
       type: "bandit_test_id"
       value: "B304"
+  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.IDEA(...)"
   severity: "WARNING"
+- id: "bandit.B303-3"
   languages:
   - "python"
-- id: "bandit.B303-3"
-  patterns:
-  - pattern-either:
-    - pattern: "Crypto.Hash.MD2.new(...)"
-    - pattern: "Cryptodome.Hash.MD2.new (...)"
   message: |
     Detected MD2 hash algorithm which is considered insecure. This algorithm
     has many known vulnerabilities and has been deprecated. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B303-3"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
       value: "B303"
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B303-4"
   patterns:
   - pattern-either:
-    - pattern: "Crypto.Hash.MD4.new(...)"
-    - pattern: "Cryptodome.Hash.MD4.new (...)"
+    - pattern: "Crypto.Hash.MD2.new(...)"
+    - pattern: "Cryptodome.Hash.MD2.new (...)"
+  severity: "WARNING"
+- id: "bandit.B303-4"
+  languages:
+  - "python"
   message: |
     Detected MD4 hash algorithm which is considered insecure. This algorithm
     has many known vulnerabilities and has been deprecated. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B303-4"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
       value: "B303"
+  patterns:
+  - pattern-either:
+    - pattern: "Crypto.Hash.MD4.new(...)"
+    - pattern: "Cryptodome.Hash.MD4.new (...)"
   severity: "WARNING"
+- id: "bandit.B303-1"
   languages:
   - "python"
-- id: "bandit.B303-1"
-  pattern: "hashlib.md5(...)"
   message: |
     Detected MD5 hash algorithm which is considered insecure. MD5 is not
     collision resistant and is therefore not suitable as a cryptographic
     signature. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B303"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
       value: "B303"
+  pattern: "hashlib.md5(...)"
   severity: "WARNING"
+- id: "bandit.B303-2"
   languages:
   - "python"
-- id: "bandit.B303-2"
-  pattern: "hashlib.sha1(...)"
   message: |
     Detected SHA1 hash algorithm which is considered insecure. SHA1 is not
     collision resistant and is therefore not suitable as a cryptographic
     signature. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "bandit.B303-2"
     secondary_identifiers:
     - name: "Bandit Test ID B303"
       type: "bandit_test_id"
       value: "B303"
+  pattern: "hashlib.sha1(...)"
   severity: "WARNING"
+- id: "bandit.B324-1"
   languages:
   - "python"
-- id: "bandit.B324-1"
+  message: |
+    Detected use of an insecure MD4 or MD5 hash function. These functions have known
+    vulnerabilities
+    and are considered deprecated.Consider using 'SHA256' or a similar function instead.
+  metadata:
+    cwe: "CWE-327"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+    primary_identifier: "bandit.B324"
+    secondary_identifiers:
+    - name: "Bandit Test ID B324"
+      type: "bandit_test_id"
+      value: "B324"
   patterns:
   - pattern-either:
     - pattern: "hashlib.new(\"=~/[M|m][D|d][4|5]/\", ...)"
@@ -449,22 +486,21 @@ rules:
     - pattern: "hashlib.new(..., name='SHA1')"
     - pattern: "hashlib.new('sha', string='test')"
     - pattern: "hashlib.new(name='SHA', string='test')"
-  message: |
-    Detected use of an insecure MD4 or MD5 hash function. These functions have known
-    vulnerabilities
-    and are considered deprecated.Consider using 'SHA256' or a similar function instead.
-  metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B324"
-    secondary_identifiers:
-    - name: "Bandit Test ID B324"
-      type: "bandit_test_id"
-      value: "B324"
   severity: "WARNING"
+- id: "bandit.B413-1"
   languages:
   - "python"
-- id: "bandit.B413-1"
+  message: |
+    Consider possible security implications associated with pycrypto module.
+  metadata:
+    cwe: "CWE-327"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+    primary_identifier: "bandit.B413"
+    secondary_identifiers:
+    - name: "Bandit Test ID B413"
+      type: "bandit_test_id"
+      value: "B413"
   pattern-either:
   - pattern: "import pycryto"
   - pattern: "import Crypto.Cipher"
@@ -475,26 +511,19 @@ rules:
   - pattern: "import Crypto.Random"
   - pattern: "import Crypto.Signature"
   - pattern: "import Crypto.Util"
-  message: |
-    Consider possible security implications associated with pycrypto module.
-  metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B413"
-    secondary_identifiers:
-    - name: "Bandit Test ID B413"
-      type: "bandit_test_id"
-      value: "B413"
   severity: "ERROR"
+- id: "bandit.B415-1"
   languages:
   - "python"
-- id: "bandit.B415-1"
   pattern-either:
   - pattern: "import pyghmi"
   message: |
     An IPMI-related module is being imported. IPMI is considered insecure. Use an encrypted
     protocol.
   metadata:
+    shortDescription: "Cryptographic issues"
+    cwe: "CWE-310"
+    category: "security"
     cisa: "https://www.cisa.gov/uscert/ncas/alerts/TA13-207A"
     primary_identifier: "bandit.B415"
     secondary_identifiers:
@@ -502,105 +531,124 @@ rules:
       type: "bandit_test_id"
       value: "B415"
   severity: "ERROR"
+- id: "bandit.B301-2"
   languages:
   - "python"
-- id: "bandit.B301-2"
-  pattern: "cPickle.$FUNC(...)"
   message: |
     Avoid using `cPickle`, which is known to lead to code execution vulnerabilities.
     When unpickling, the serialized data could be manipulated to run arbitrary code.
     Instead, consider serializing the relevant data as JSON or a similar text-based
     serialization format.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B301-2"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
       value: "B301"
+  pattern: "cPickle.$FUNC(...)"
   severity: "WARNING"
+- id: "bandit.B301-3"
   languages:
   - "python"
-- id: "bandit.B301-3"
-  pattern-either:
-  - pattern: "dill.$FUNC(...)"
   message: |
     Avoid using `dill`, which uses `pickle`, which is known to lead to code
     execution vulnerabilities. When unpickling, the serialized data could be manipulated
     to run arbitrary code. Instead, consider serializing the relevant data as JSON
     or a similar text-based serialization format.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B301-3"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
       value: "B301"
-  languages:
-  - "python"
+  pattern-either:
+  - pattern: "dill.$FUNC(...)"
   severity: "WARNING"
 - id: "bandit.B302-1"
-  pattern-either:
-  - pattern: "marshal.dump(...)"
-  - pattern: "marshal.dumps(...)"
-  - pattern: "marshal.load(...)"
-  - pattern: "marshal.loads(...)"
+  languages:
+  - "python"
   message: |
     The marshal module is not intended to be secure against erroneous or maliciously constructed
     data. Never unmarshal data received from anuntrusted or unauthenticated source.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B302"
     secondary_identifiers:
     - name: "Bandit Test ID B302"
       type: "bandit_test_id"
       value: "B302"
+  pattern-either:
+  - pattern: "marshal.dump(...)"
+  - pattern: "marshal.dumps(...)"
+  - pattern: "marshal.load(...)"
+  - pattern: "marshal.loads(...)"
   severity: "WARNING"
+- id: "bandit.B301-1"
   languages:
   - "python"
-- id: "bandit.B301-1"
-  pattern-either:
-  - pattern: "pickle.$FUNC(...)"
-  - pattern: "_pickle.$FUNC(...)"
   message: |
     Avoid using `pickle`, which is known to lead to code execution vulnerabilities.
     When unpickling, the serialized data could be manipulated to run arbitrary code.
     Instead, consider serializing the relevant data as JSON or a similar text-based
     serialization format.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B301"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
       value: "B301"
+  pattern-either:
+  - pattern: "pickle.$FUNC(...)"
+  - pattern: "_pickle.$FUNC(...)"
   severity: "WARNING"
+- id: "bandit.B301-4"
   languages:
   - "python"
-- id: "bandit.B301-4"
-  pattern-either:
-  - pattern: "shelve.$FUNC(...)"
   message: |
     Avoid using `shelve`, which uses `pickle`, which is known to lead to code
     execution vulnerabilities. When unpickling, the serialized data could be
     manipulated to run arbitrary code. Instead, consider serializing the
     relevant data as JSON or a similar text-based serialization format.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B301-4"
     secondary_identifiers:
     - name: "Bandit Test ID B301"
       type: "bandit_test_id"
       value: "B301"
+  pattern-either:
+  - pattern: "shelve.$FUNC(...)"
   severity: "WARNING"
+- id: "bandit.B506-1"
   languages:
   - "python"
-- id: "bandit.B506-1"
+  message: |
+    Avoid using `load()`. `PyYAML.load` can create arbitrary Python objects. A malicious actor
+    could exploit this to run arbitrary code. Use `safe_load()` instead. It is recommended to use
+    `SafeLoader`
+    when loading yaml.
+  metadata:
+    cwe: "CWE-502"
+    owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
+    primary_identifier: "bandit.B506"
+    secondary_identifiers:
+    - name: "Bandit Test ID B506"
+      type: "bandit_test_id"
+      value: "B506"
   patterns:
   - pattern-inside: |
       import yaml
@@ -618,23 +666,23 @@ rules:
   - metavariable-regex:
       metavariable: "$LD"
       regex: "(load|load_all)"
-  message: |
-    Avoid using `load()`. `PyYAML.load` can create arbitrary Python objects. A malicious actor
-    could exploit this to run arbitrary code. Use `safe_load()` instead. It is recommended to use
-    `SafeLoader`
-    when loading yaml.
-  metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
-    owasp: "A8:2017-Insecure Deserialization"
-    primary_identifier: "bandit.B506"
-    secondary_identifiers:
-    - name: "Bandit Test ID B506"
-      type: "bandit_test_id"
-      value: "B506"
   severity: "ERROR"
+- id: "bandit.B610-1"
   languages:
   - "python"
-- id: "bandit.B610-1"
+  message: |
+    This is a last resort. You should be careful when using `QuerySet.extra` due
+    to SQLi.
+  metadata:
+    cwe: "CWE-89"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
+    primary_identifier: "bandit.B610"
+    secondary_identifiers:
+    - name: "Bandit Test ID B610"
+      type: "bandit_test_id"
+      value: "B610"
   patterns:
   - pattern: "$X.objects. ... .extra(..., $K = $V, ...)"
   - pattern-not-inside: |
@@ -651,47 +699,31 @@ rules:
       - pattern-not: "{..., $L: \"...\" % \"...\", ...}"
       - pattern-not: "{..., $L: \"...\".format(\"...\"), ...}"
       - pattern-not: "[..., \"...\".format(\"...\"), ...]"
-  message: |
-    This is a last resort. You should be careful when using `QuerySet.extra` due
-    to SQLi.
-  metadata:
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    owasp: "A1:2017-Injection"
-    primary_identifier: "bandit.B610"
-    secondary_identifiers:
-    - name: "Bandit Test ID B610"
-      type: "bandit_test_id"
-      value: "B610"
   severity: "WARNING"
+- id: "bandit.B611-1"
   languages:
   - "python"
-- id: "bandit.B611-1"
-  patterns:
-  - pattern-either:
-    - pattern: "$MODEL.objects.raw($QUERY, ...)"
-    - pattern: "django.db.models.expressions.RawSQL(...)"
   message: |
     You should be very careful whenever you write raw SQL. Consider usingDjango ORM before raw SQL.
     See https://docs.djangoproject.com/en/3.0/topics/db/sql/#passing-parameters-into-raw
   metadata:
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
+    cwe: "CWE-89"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
     primary_identifier: "bandit.B611"
     secondary_identifiers:
     - name: "Bandit Test ID B611"
       type: "bandit_test_id"
       value: "B611"
+  patterns:
+  - pattern-either:
+    - pattern: "$MODEL.objects.raw($QUERY, ...)"
+    - pattern: "django.db.models.expressions.RawSQL(...)"
   severity: "ERROR"
+- id: "bandit.B701-1"
   languages:
   - "python"
-- id: "bandit.B701-1"
-  patterns:
-  - pattern-not: "jinja2.Environment(..., autoescape=True, ...)"
-  - pattern-not: "jinja2.Environment(..., autoescape=jinja2.select_autoescape(...),
-      ...)"
-  - pattern: "jinja2.Environment(...)"
   message: |
     Detected a Jinja2 environment without autoescaping. Jinja2 does notautoescape by default. This
     is dangerous if you are rendering to a browserbecause this allows for cross-site scripting
@@ -701,17 +733,38 @@ rules:
     certain file
     extensions.
   metadata:
-    cwe: "CWE-116: Improper Encoding or Escaping of Output"
+    cwe: "CWE-116"
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    shortDescription: "Improper Encoding or Escaping of Output"
     primary_identifier: "bandit.B701"
     secondary_identifiers:
     - name: "Bandit Test ID B701"
       type: "bandit_test_id"
       value: "B701"
+  patterns:
+  - pattern-not: "jinja2.Environment(..., autoescape=True, ...)"
+  - pattern-not: "jinja2.Environment(..., autoescape=jinja2.select_autoescape(...),
+      ...)"
+  - pattern: "jinja2.Environment(...)"
   severity: "WARNING"
+- id: "bandit.B703-1"
   languages:
   - "python"
-- id: "bandit.B703-1"
+  message: |
+    `mark_safe()` is used to mark a string as `safe` for HTML output.
+    This disables escaping and could therefore subject the content to
+    XSS attacks. Use `django.utils.html.format_html()` to build HTML
+    for rendering instead.
+  metadata:
+    cwe: "CWE-79"
+    owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
+    primary_identifier: "bandit.B703"
+    secondary_identifiers:
+    - name: "Bandit Test ID B703"
+      type: "bandit_test_id"
+      value: "B703"
   patterns:
   - pattern-not-inside: |-
       django.utils.html.format_html(...)
@@ -719,45 +772,30 @@ rules:
     - patterns:
       - pattern: "django.utils.safestring.mark_safe(...)"
       - pattern-not: "django.utils.safestring.mark_safe(\"...\")"
-  message: |
-    `mark_safe()` is used to mark a string as `safe` for HTML output.
-    This disables escaping and could therefore subject the content to
-    XSS attacks. Use `django.utils.html.format_html()` to build HTML
-    for rendering instead.
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
-    owasp: "A7:2017-Cross-Site Scripting (XSS)"
-    primary_identifier: "bandit.B703"
-    secondary_identifiers:
-    - name: "Bandit Test ID B703"
-      type: "bandit_test_id"
-      value: "B703"
   severity: "WARNING"
+- id: "bandit.B702-1"
   languages:
   - "python"
-- id: "bandit.B702-1"
-  pattern: "mako.template.Template(...)"
   message: |
     Mako templates do not provide a global HTML escaping mechanism.This means you must escape all
     sensitive data in your templatesusing `| u` for URL escaping or `| h` for HTML escaping. If you
     are using Mako to serve web content, consider usinga system such as Jinja2 which enables global
     escaping.
   metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
+    cwe: "CWE-79"
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
     primary_identifier: "bandit.B702"
     secondary_identifiers:
     - name: "Bandit Test ID B702"
       type: "bandit_test_id"
       value: "B702"
+  pattern: "mako.template.Template(...)"
   severity: "WARNING"
+- id: "bandit.B307-1"
   languages:
   - "python"
-- id: "bandit.B307-1"
-  patterns:
-  - pattern: "eval(...)"
   message: |
     Detected the use of `eval()`. `eval()` can be dangerous if used to evaluate dynamic content. If
     this
@@ -765,305 +803,325 @@ rules:
     Ensure evaluated content is not definableby external sources. Consider using safer
     `ast.literal_eval`.
   metadata:
-    cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
-      ('Eval Injection')"
+    cwe: "CWE-95"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Directives in Dynamically Evaluated
+      Code ('Eval Injection')"
     primary_identifier: "bandit.B307"
     secondary_identifiers:
     - name: "Bandit Test ID B307"
       type: "bandit_test_id"
       value: "B307"
+  patterns:
+  - pattern: "eval(...)"
   severity: "WARNING"
+- id: "bandit.B112-1"
   languages:
   - "python"
-- id: "bandit.B112-1"
-  pattern-either:
-  - pattern: |
-      try: ...
-      except $EXCEPTION: continue
-  - pattern: |
-      try: ...
-      except $EXCEPTION as $X: continue
-  - pattern: |
-      try: ...
-      except ... : ...
-      except $EXCEPTION: continue
-  - pattern: |
-      try: ...
-      except $EXCEPTION: continue
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except $EXCEPTION as $X: continue
-  - pattern: |
-      try: ...
-      except $EXCEPTION as $X: continue
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION: continue
-  - pattern: |
-      try: ...
-      except $EXCEPTION: continue
-      except ... : ...
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except $EXCEPTION: continue
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION as $X: continue
-  - pattern: |
-      try: ...
-      except $EXCEPTION as $X: continue
-      except ... : ...
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except $EXCEPTION as $X: continue
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION: continue
-  - pattern: |
-      try: ...
-      except $EXCEPTION: continue
-      except ... : ...
-      except ... : ...
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except $EXCEPTION: continue
-      except ... : ...
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION: continue
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION: continue
-  - pattern: |
-      try: ...
-      except ... : ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION as $X: continue
-  - pattern: |
-      try: ...
-      except $EXCEPTION as $X: continue
-      except ... : ...
-      except ... : ...
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except $EXCEPTION as $X: continue
-      except ... : ...
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION as $X: continue
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION as $X: continue
   message: |
     Try, Except, Continue
   metadata:
-    cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
+    cwe: "CWE-703"
+    shortDescription: "Improper Check or Handling of Exceptional Conditions"
     primary_identifier: "bandit.B112"
     secondary_identifiers:
     - name: "Bandit Test ID B112"
       type: "bandit_test_id"
       value: "B112"
-  severity: "INFO"
-  languages:
-  - "python"
-- id: "bandit.B110-1"
   pattern-either:
   - pattern: |
       try: ...
-      except $EXCEPTION: pass
+      except $EXCEPTION: continue
   - pattern: |
       try: ...
-      except $EXCEPTION as $X: pass
-  - pattern: |
-      try: ...
-      except ... : ...
-      except $EXCEPTION: pass
-  - pattern: |
-      try: ...
-      except $EXCEPTION: pass
-      except ... : ...
+      except $EXCEPTION as $X: continue
   - pattern: |
       try: ...
       except ... : ...
-      except $EXCEPTION as $X: pass
+      except $EXCEPTION: continue
   - pattern: |
       try: ...
-      except $EXCEPTION as $X: pass
+      except $EXCEPTION: continue
       except ... : ...
   - pattern: |
       try: ...
       except ... : ...
-      except ... : ...
-      except $EXCEPTION: pass
+      except $EXCEPTION as $X: continue
   - pattern: |
       try: ...
-      except $EXCEPTION: pass
-      except ... : ...
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except $EXCEPTION: pass
+      except $EXCEPTION as $X: continue
       except ... : ...
   - pattern: |
       try: ...
       except ... : ...
       except ... : ...
-      except $EXCEPTION as $X: pass
+      except $EXCEPTION: continue
   - pattern: |
       try: ...
-      except $EXCEPTION as $X: pass
-      except ... : ...
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except $EXCEPTION as $X: pass
-      except ... : ...
-  - pattern: |
-      try: ...
-      except ... : ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION: pass
-  - pattern: |
-      try: ...
-      except $EXCEPTION: pass
-      except ... : ...
+      except $EXCEPTION: continue
       except ... : ...
       except ... : ...
   - pattern: |
       try: ...
       except ... : ...
-      except $EXCEPTION: pass
-      except ... : ...
+      except $EXCEPTION: continue
       except ... : ...
   - pattern: |
       try: ...
       except ... : ...
       except ... : ...
-      except $EXCEPTION: pass
+      except $EXCEPTION as $X: continue
+  - pattern: |
+      try: ...
+      except $EXCEPTION as $X: continue
+      except ... : ...
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION as $X: continue
       except ... : ...
   - pattern: |
       try: ...
       except ... : ...
       except ... : ...
       except ... : ...
-      except $EXCEPTION: pass
+      except $EXCEPTION: continue
   - pattern: |
       try: ...
-      except ... : ...
-      except ... : ...
-      except ... : ...
-      except $EXCEPTION as $X: pass
-  - pattern: |
-      try: ...
-      except $EXCEPTION as $X: pass
+      except $EXCEPTION: continue
       except ... : ...
       except ... : ...
       except ... : ...
   - pattern: |
       try: ...
       except ... : ...
-      except $EXCEPTION as $X: pass
+      except $EXCEPTION: continue
       except ... : ...
       except ... : ...
   - pattern: |
       try: ...
       except ... : ...
       except ... : ...
-      except $EXCEPTION as $X: pass
+      except $EXCEPTION: continue
       except ... : ...
   - pattern: |
       try: ...
       except ... : ...
       except ... : ...
       except ... : ...
-      except $EXCEPTION as $X: pass
+      except $EXCEPTION: continue
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: continue
+  - pattern: |
+      try: ...
+      except $EXCEPTION as $X: continue
+      except ... : ...
+      except ... : ...
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION as $X: continue
+      except ... : ...
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: continue
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: continue
+  severity: "INFO"
+- id: "bandit.B110-1"
+  languages:
+  - "python"
   message: |
     Try, Except, Pass
   metadata:
-    cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
+    cwe: "CWE-703"
+    shortDescription: "Improper Check or Handling of Exceptional Conditions"
     primary_identifier: "bandit.B110"
     secondary_identifiers:
     - name: "Bandit Test ID B110"
       type: "bandit_test_id"
       value: "B110"
+  pattern-either:
+  - pattern: |
+      try: ...
+      except $EXCEPTION: pass
+  - pattern: |
+      try: ...
+      except $EXCEPTION as $X: pass
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION: pass
+  - pattern: |
+      try: ...
+      except $EXCEPTION: pass
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
+  - pattern: |
+      try: ...
+      except $EXCEPTION as $X: pass
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION: pass
+  - pattern: |
+      try: ...
+      except $EXCEPTION: pass
+      except ... : ...
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION: pass
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
+  - pattern: |
+      try: ...
+      except $EXCEPTION as $X: pass
+      except ... : ...
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION: pass
+  - pattern: |
+      try: ...
+      except $EXCEPTION: pass
+      except ... : ...
+      except ... : ...
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION: pass
+      except ... : ...
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION: pass
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION: pass
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
+  - pattern: |
+      try: ...
+      except $EXCEPTION as $X: pass
+      except ... : ...
+      except ... : ...
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
+      except ... : ...
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
+      except ... : ...
+  - pattern: |
+      try: ...
+      except ... : ...
+      except ... : ...
+      except ... : ...
+      except $EXCEPTION as $X: pass
   severity: "INFO"
+- id: "bandit.B102-1"
   languages:
   - "python"
-- id: "bandit.B102-1"
-  pattern-either:
-  - pattern: "exec(...)"
-  - pattern: "exec(\"...\")"
   message: |
     The use of `exec` is risky.
   metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
+    cwe: "CWE-78"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
     primary_identifier: "bandit.B102"
     secondary_identifiers:
     - name: "Bandit Test ID B102"
       type: "bandit_test_id"
       value: "B102"
+  pattern-either:
+  - pattern: "exec(...)"
+  - pattern: "exec(\"...\")"
   severity: "WARNING"
+- id: "bandit.B404-1"
   languages:
   - "python"
-- id: "bandit.B404-1"
-  patterns:
-  - pattern: "import subprocess"
   message: |
     Consider possible security implications associated with subprocess module.
   metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
+    cwe: "CWE-78"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
     primary_identifier: "bandit.B404"
     secondary_identifiers:
     - name: "Bandit Test ID B404"
       type: "bandit_test_id"
       value: "B404"
-  languages:
-  - "python"
+  patterns:
+  - pattern: "import subprocess"
   severity: "WARNING"
 - id: "bandit.B609-1"
+  languages:
+  - "python"
+  message: |
+    Detected use of the wildcard character in a system call that spawns a shell.This subjects the
+    wildcard to normal shell expansion, which can have unintended consequencesif there exist any
+    non-standard file names. Consider a file named `-e sh script.sh`.
+  metadata:
+    cwe: "CWE-155"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Wildcards or Matching Symbols"
+    primary_identifier: "bandit.B609"
+    secondary_identifiers:
+    - name: "Bandit Test ID B609"
+      type: "bandit_test_id"
+      value: "B609"
   patterns:
   - pattern-either:
     - pattern-inside: |-
@@ -1079,22 +1137,23 @@ rules:
     - pattern-inside: |-
         subprocess.$W(..., shell=True, ...)
   - pattern-regex: "(tar|chmod|chown|rsync)(.*?)\\*"
-  message: |
-    Detected use of the wildcard character in a system call that spawns a shell.This subjects the
-    wildcard to normal shell expansion, which can have unintended consequencesif there exist any
-    non-standard file names. Consider a file named `-e sh script.sh`.
-  metadata:
-    cwe: "CWE-155: Improper Neutralization of Wildcards or Matching Symbols"
-    owasp: "A1:2017-Injection"
-    primary_identifier: "bandit.B609"
-    secondary_identifiers:
-    - name: "Bandit Test ID B609"
-      type: "bandit_test_id"
-      value: "B609"
   severity: "WARNING"
+- id: "bandit.B607-1"
   languages:
   - "python"
-- id: "bandit.B607-1"
+  message: |
+    Starting a process with a shell; seems safe, but may be changed in the future, consider
+    rewriting without shell
+  metadata:
+    cwe: "CWE-78"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
+    primary_identifier: "bandit.B607"
+    secondary_identifiers:
+    - name: "Bandit Test ID B607"
+      type: "bandit_test_id"
+      value: "B607"
   pattern-either:
   - pattern: "os.system(\"...\", ...)"
   - pattern: "$OS.popen(\"...\", ...)"
@@ -1103,22 +1162,23 @@ rules:
   - pattern: "$OS.popen4(\"...\", ...)"
   - pattern: "commands.getoutput(\"...\", ...)"
   - pattern: "commands.getstatusoutput(\"...\", ...)"
+  severity: "INFO"
+- id: "bandit.B605-1"
+  languages:
+  - "python"
   message: |
     Starting a process with a shell; seems safe, but may be changed in the future, consider
     rewriting without shell
   metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
+    cwe: "CWE-78"
     owasp: "A1:2017-Injection"
-    primary_identifier: "bandit.B607"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
+    primary_identifier: "bandit.B605"
     secondary_identifiers:
-    - name: "Bandit Test ID B607"
+    - name: "Bandit Test ID B605"
       type: "bandit_test_id"
-      value: "B607"
-  severity: "INFO"
-  languages:
-  - "python"
-- id: "bandit.B605-1"
+      value: "B605"
   patterns:
   - pattern-either:
     - pattern: "os.system(...)"
@@ -1133,43 +1193,46 @@ rules:
     - pattern: "popen2.Popen4(...)"
     - pattern: "commands.getoutput(...)"
     - pattern: "commands.getstatusoutput(\"\")"
-  message: |
-    Starting a process with a shell; seems safe, but may be changed in the future, consider
-    rewriting without shell
-  metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    owasp: "A1:2017-Injection"
-    primary_identifier: "bandit.B605"
-    secondary_identifiers:
-    - name: "Bandit Test ID B605"
-      type: "bandit_test_id"
-      value: "B605"
   severity: "INFO"
+- id: "bandit.B601-1"
   languages:
   - "python"
-- id: "bandit.B601-1"
-  patterns:
-  - pattern-inside: |
-      import paramiko
-      ...
-  - pattern: "$CLIENT.exec_command(...)"
   message: |
     Unverified SSL context detected. This will permit insecure connections without `verifyingSSL`
     certificates. Use `ssl.create_default_context()` instead.
   metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
+    cwe: "CWE-78"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
     primary_identifier: "bandit.B601"
     secondary_identifiers:
     - name: "Bandit Test ID B601"
       type: "bandit_test_id"
       value: "B601"
+  patterns:
+  - pattern-inside: |
+      import paramiko
+      ...
+  - pattern: "$CLIENT.exec_command(...)"
   severity: "WARNING"
+- id: "bandit.B606-1"
   languages:
   - "python"
-- id: "bandit.B606-1"
+  message: |
+    Found dynamic content when spawning a process. This is dangerous if externaldata can reach this
+    function call because it allows a malicious actor toexecute commands. Ensure no external data
+    reaches here.
+  metadata:
+    cwe: "CWE-78"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
+    primary_identifier: "bandit.B606"
+    secondary_identifiers:
+    - name: "Bandit Test ID B606"
+      type: "bandit_test_id"
+      value: "B606"
   patterns:
   - pattern-either:
     - patterns:
@@ -1194,23 +1257,29 @@ rules:
         - pattern: "os.spawnve(...)"
         - pattern: "os.spawnvp(...)"
         - pattern: "os.spawnvpe(...)"
-  message: |
-    Found dynamic content when spawning a process. This is dangerous if externaldata can reach this
-    function call because it allows a malicious actor toexecute commands. Ensure no external data
-    reaches here.
-  metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    owasp: "A1:2017-Injection"
-    primary_identifier: "bandit.B606"
-    secondary_identifiers:
-    - name: "Bandit Test ID B606"
-      type: "bandit_test_id"
-      value: "B606"
   severity: "WARNING"
+- id: "bandit.B603-1"
   languages:
   - "python"
-- id: "bandit.B603-1"
+  message: |
+    Python possesses many mechanisms to invoke an external executable. However,
+    doing so may present a security issue if appropriate care is not taken to
+    sanitize any user provided or variable input. This plugin test is part of a
+    family of tests built to check for process spawning and warn appropriately.
+    Specifically, this test looks for the spawning of a subprocess without the
+    use of a command shell. This type of subprocess invocation is not
+    vulnerable to shell injection attacks, but care should still be taken to
+    ensure validity of input.
+  metadata:
+    cwe: "CWE-78"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
+    primary_identifier: "bandit.B603"
+    secondary_identifiers:
+    - name: "Bandit Test ID B603"
+      type: "bandit_test_id"
+      value: "B603"
   patterns:
   - pattern-not: "subprocess.$FUNC($ARG, shell=<... True ...>)"
   - pattern-not: "subprocess.$FUNC($ARG, shell=<... 'True' ...>)"
@@ -1226,28 +1295,26 @@ rules:
         subprocess.$FUNC($ARG, shell=[...])
     - pattern: |
         subprocess.$FUNC($ARG)
-  message: |
-    Python possesses many mechanisms to invoke an external executable. However,
-    doing so may present a security issue if appropriate care is not taken to
-    sanitize any user provided or variable input. This plugin test is part of a
-    family of tests built to check for process spawning and warn appropriately.
-    Specifically, this test looks for the spawning of a subprocess without the
-    use of a command shell. This type of subprocess invocation is not
-    vulnerable to shell injection attacks, but care should still be taken to
-    ensure validity of input.
-  metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    owasp: "A1:2017-Injection"
-    primary_identifier: "bandit.B603"
-    secondary_identifiers:
-    - name: "Bandit Test ID B603"
-      type: "bandit_test_id"
-      value: "B603"
   severity: "WARNING"
+- id: "bandit.B602-1"
   languages:
   - "python"
-- id: "bandit.B602-1"
+  message: |
+    Found `subprocess` function `$FUNC` with `shell=True`. This is dangerous because this call will
+    spawn the command using a shell process. Doing so propagates current shell settings and
+    variables,
+    which makes it much easier for a malicious actor to execute commands. Use `shell=False`
+    instead.
+  metadata:
+    cwe: "CWE-78"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
+    primary_identifier: "bandit.B602"
+    secondary_identifiers:
+    - name: "Bandit Test ID B602"
+      type: "bandit_test_id"
+      value: "B602"
   patterns:
   - pattern-not: "subprocess.$FUNC(..., shell=False, ...)"
   - pattern-not: "subprocess.$FUNC(..., shell=False)"
@@ -1261,62 +1328,61 @@ rules:
     - pattern: "subprocess.$FUNC(..., shell='False', ...)"
     - pattern: "subprocess.$FUNC(..., shell='None', ...)"
     - pattern: "subprocess.$FUNC(..., shell=$X, ...)"
-  message: |
-    Found `subprocess` function `$FUNC` with `shell=True`. This is dangerous because this call will
-    spawn the command using a shell process. Doing so propagates current shell settings and
-    variables,
-    which makes it much easier for a malicious actor to execute commands. Use `shell=False`
-    instead.
-  metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    owasp: "A1:2017-Injection"
-    primary_identifier: "bandit.B602"
-    secondary_identifiers:
-    - name: "Bandit Test ID B602"
-      type: "bandit_test_id"
-      value: "B602"
   severity: "ERROR"
+- id: "bandit.B604-1"
   languages:
   - "python"
-- id: "bandit.B604-1"
-  patterns:
-  - pattern-not: "subprocess.$FUNC(..., shell=True, ...)"
-  - pattern: "$FOO(..., shell=True, ...)"
   message: |
     subprocess call - check for execution of untrusted input
   metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
+    cwe: "CWE-78"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
     primary_identifier: "bandit.B604"
     secondary_identifiers:
     - name: "Bandit Test ID B604"
       type: "bandit_test_id"
       value: "B604"
+  patterns:
+  - pattern-not: "subprocess.$FUNC(..., shell=True, ...)"
+  - pattern: "$FOO(..., shell=True, ...)"
   severity: "WARNING"
+- id: "bandit.B103-1"
   languages:
   - "python"
-- id: "bandit.B103-1"
-  patterns:
-  - pattern: "os.chmod(...,$MASK)"
-  - metavariable-regex:
-      metavariable: "$MASK"
-      regex: "(0x..f|0o..[2,3,7]|stat.S_IXGRP|stat.S_IWOTH)"
   message: |
     Chmod setting a permissive mask on file.
   metadata:
-    cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
+    cwe: "CWE-732"
     owasp: "A6:2017-Security Misconfiguration"
+    shortDescription: "Incorrect Permission Assignment for Critical Resource"
     primary_identifier: "bandit.B103"
     secondary_identifiers:
     - name: "Bandit Test ID B103"
       type: "bandit_test_id"
       value: "B103"
+  patterns:
+  - pattern: "os.chmod(...,$MASK)"
+  - metavariable-regex:
+      metavariable: "$MASK"
+      regex: "(0x..f|0o..[2,3,7]|stat.S_IXGRP|stat.S_IWOTH)"
   severity: "WARNING"
+- id: "bandit.B202-1"
   languages:
   - "python"
-- id: "bandit.B202-1"
+  message: |
+    tarfile.extractall used without any validation. You should check members and discard dangerous
+    ones.
+  metadata:
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
+    primary_identifier: "bandit.B202"
+    secondary_identifiers:
+    - name: "Bandit Test ID B202"
+      type: "bandit_test_id"
+      value: "B202"
   patterns:
   - pattern-inside: |
       import tarfile
@@ -1333,103 +1399,94 @@ rules:
     - patterns:
       - pattern: "tarfile.extractall(...)"
       - pattern: "tarfile.extractall(..., members=[])"
-  message: |
-    tarfile.extractall used without any validation. You should check members and discard dangerous
-    ones.
-  metadata:
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
-    primary_identifier: "bandit.B202"
-    secondary_identifiers:
-    - name: "Bandit Test ID B202"
-      type: "bandit_test_id"
-      value: "B202"
   severity: "ERROR"
+- id: "bandit.B201-1"
   languages:
   - "python"
-- id: "bandit.B201-1"
-  patterns:
-  - pattern-inside: |
-      import flask
-      ...
-  - pattern: "$APP.run(..., debug=True, ...)"
   message: |
     Detected Flask app with `debug=True`. Do not deploy to production with this flag enabled as it
     will leak sensitive information. Instead, consider using Flask configuration variables or
     setting
     `debug` using system environment variables.
   metadata:
-    cwe: "CWE-489: Active Debug Code"
+    cwe: "CWE-489"
     owasp: "A6:2017-Security Misconfiguration"
+    shortDescription: "Active Debug Code"
     primary_identifier: "bandit.B201"
     secondary_identifiers:
     - name: "Bandit Test ID B201"
       type: "bandit_test_id"
       value: "B201"
+  patterns:
+  - pattern-inside: |
+      import flask
+      ...
+  - pattern: "$APP.run(..., debug=True, ...)"
   severity: "WARNING"
+- id: "bandit.B321-1"
   languages:
   - "python"
-- id: "bandit.B321-1"
-  pattern: "ftplib.$ANYTHING(...)"
   message: |
     FTP does not encrypt communications by default. This can lead to sensitive data being exposed.
     Ensure use of FTP here does not expose sensitive data.
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
     primary_identifier: "bandit.B321"
     secondary_identifiers:
     - name: "Bandit Test ID B321"
       type: "bandit_test_id"
       value: "B321"
+  pattern: "ftplib.$ANYTHING(...)"
   severity: "WARNING"
+- id: "bandit.B402-1"
   languages:
   - "python"
-- id: "bandit.B402-1"
-  patterns:
-  - pattern-either:
-    - pattern: "import ftplib"
-    - pattern: "from ftplib import FTP"
-    - pattern: "ftplib.FTP(...)"
   message: |
     functions are being called. FTP is considered insecure. Use SSH/SFTP/SCP orsome other encrypted
     protocol
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
     primary_identifier: "bandit.B402"
     secondary_identifiers:
     - name: "Bandit Test ID B402"
       type: "bandit_test_id"
       value: "B402"
-  severity: "ERROR"
-  languages:
-  - "python"
-- id: "bandit.B309-1"
   patterns:
   - pattern-either:
-    - pattern: "httplib.HTTPSConnection(...)"
-    - pattern: "http.client.HTTPSConnection(...)"
-    - pattern: "six.moves.http_client.HTTPSConnection(...)"
+    - pattern: "import ftplib"
+    - pattern: "from ftplib import FTP"
+    - pattern: "ftplib.FTP(...)"
+  severity: "ERROR"
+- id: "bandit.B309-1"
+  languages:
+  - "python"
   message: |
     The HTTPSConnection API has changed frequently with minor releases of Python.Ensure you are
     using the API for your version of Python securely. For example, Python 3 versions prior to
     3.4.3
     will not verify SSL certificates by default.
   metadata:
-    cwe: "CWE-295: Improper Certificate Validation"
+    cwe: "CWE-295"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Improper Certificate Validation"
     primary_identifier: "bandit.B309"
     secondary_identifiers:
     - name: "Bandit Test ID B309"
       type: "bandit_test_id"
       value: "B309"
+  patterns:
+  - pattern-either:
+    - pattern: "httplib.HTTPSConnection(...)"
+    - pattern: "http.client.HTTPSConnection(...)"
+    - pattern: "six.moves.http_client.HTTPSConnection(...)"
   severity: "WARNING"
+- id: "bandit.B612-1"
   languages:
   - "python"
-- id: "bandit.B612-1"
-  patterns:
-  - pattern: "logging.config.listen(...)"
   message: |
     The logging.config.listen function provides the ability to listen for external configuration
     files on a socket server. Because portions of the configuration are passed through eval(), use
@@ -1439,16 +1496,30 @@ rules:
     listen(). logging.config.listen provides the ability to verify bytes received across the socket
     with signature verification or encryption/decryption.
   metadata:
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+    cwe: "CWE-94"
+    shortDescription: "Improper Control of Generation of Code ('Code Injection')"
     primary_identifier: "bandit.B612"
     secondary_identifiers:
     - name: "Bandit Test ID B612"
       type: "bandit_test_id"
       value: "B612"
+  patterns:
+  - pattern: "logging.config.listen(...)"
   severity: "WARNING"
+- id: "bandit.B311-1"
   languages:
   - "python"
-- id: "bandit.B311-1"
+  message: |
+    Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+  metadata:
+    cwe: "CWE-330"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of Insufficiently Random Values"
+    primary_identifier: "bandit.B311"
+    secondary_identifiers:
+    - name: "Bandit Test ID B311"
+      type: "bandit_test_id"
+      value: "B311"
   pattern-either:
   - pattern: "random.random(...)"
   - pattern: "random.randrange(...)"
@@ -1456,27 +1527,27 @@ rules:
   - pattern: "random.choice(...)"
   - pattern: "random.uniform(...)"
   - pattern: "random.triangular(...)"
-  message: |
-    Standard pseudo-random generators are not suitable for security/cryptographic purposes.
-  metadata:
-    cwe: "CWE-330: Use of Insufficiently Random Values"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B311"
-    secondary_identifiers:
-    - name: "Bandit Test ID B311"
-      type: "bandit_test_id"
-      value: "B311"
   severity: "INFO"
+- id: "bandit.B113-1"
   languages:
   - "python"
-- id: "bandit.B113-1"
+  message: |
+    Requests call without timeout can cause your program to hang indefinitely.
+  metadata:
+    cwe: "CWE-400"
+    shortDescription: "Uncontrolled Resource Consumption"
+    primary_identifier: "bandit.B113"
+    secondary_identifiers:
+    - name: "Bandit Test ID B113"
+      type: "bandit_test_id"
+      value: "B113"
   patterns:
   - pattern-either:
     - patterns:
       - pattern: "requests.$METHOD('...', timeout=$VAL)"
       - metavariable-comparison:
-          metavariable: "$VAL"
           comparison: "$VAL <= 0"
+          metavariable: "$VAL"
     - patterns:
       - pattern: "requests.$METHOD('...', timeout=$VAL)"
       - metavariable-regex:
@@ -1490,57 +1561,61 @@ rules:
   - metavariable-regex:
       metavariable: "$METHOD"
       regex: "(get|put|delete|post|options|head|patch)"
-  message: |
-    Requests call without timeout can cause your program to hang indefinitely.
-  metadata:
-    cwe: "CWE-400: Uncontrolled Resource Consumption"
-    primary_identifier: "bandit.B113"
-    secondary_identifiers:
-    - name: "Bandit Test ID B113"
-      type: "bandit_test_id"
-      value: "B113"
   severity: "WARNING"
+- id: "bandit.B107-1"
   languages:
   - "python"
-- id: "bandit.B107-1"
-  patterns:
-  - pattern: |
-      def $FUNC(..., password="...", ...):
-        ...
   message: |
     Hardcoded password is used as a default argument to `$FUNC`. This could be dangerous if a real
     password is not supplied.
   metadata:
-    cwe: "CWE-259: Use of Hard-coded Password"
+    cwe: "CWE-259"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of Hard-coded Password"
     primary_identifier: "bandit.B107"
     secondary_identifiers:
     - name: "Bandit Test ID B107"
       type: "bandit_test_id"
       value: "B107"
+  patterns:
+  - pattern: |
+      def $FUNC(..., password="...", ...):
+        ...
   severity: "WARNING"
+- id: "bandit.B106-1"
   languages:
   - "python"
-- id: "bandit.B106-1"
-  patterns:
-  - pattern: "$FUNC(..., $PW=\"...\", ...)"
-  - metavariable-regex:
-      metavariable: "$PW"
-      regex: ".*([Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|pass|passwd|pwd|secret|token|secrete).*"
   message: |
     Possible hardcoded password
   metadata:
-    cwe: "CWE-259: Use of Hard-coded Password"
+    cwe: "CWE-259"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of Hard-coded Password"
     primary_identifier: "bandit.B106"
     secondary_identifiers:
     - name: "Bandit Test ID B106"
       type: "bandit_test_id"
       value: "B106"
+  patterns:
+  - pattern: "$FUNC(..., $PW=\"...\", ...)"
+  - metavariable-regex:
+      metavariable: "$PW"
+      regex: ".*([Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|pass|passwd|pwd|secret|token|secrete).*"
   severity: "WARNING"
+- id: "bandit.B105-1"
   languages:
   - "python"
-- id: "bandit.B105-1"
+  message: |
+    Possible hardcoded password
+  metadata:
+    cwe: "CWE-259"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of Hard-coded Password"
+    primary_identifier: "bandit.B105"
+    secondary_identifiers:
+    - name: "Bandit Test ID B105"
+      type: "bandit_test_id"
+      value: "B105"
   patterns:
   - pattern-either:
     - pattern: "$MASK == \"...\""
@@ -1549,54 +1624,58 @@ rules:
   - metavariable-regex:
       metavariable: "$MASK"
       regex: "[^\\[]*([Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|pass|passwd|pwd|secret|token|secrete)[^\\]]*"
-  message: |
-    Possible hardcoded password
-  metadata:
-    cwe: "CWE-259: Use of Hard-coded Password"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B105"
-    secondary_identifiers:
-    - name: "Bandit Test ID B105"
-      type: "bandit_test_id"
-      value: "B105"
   severity: "WARNING"
+- id: "bandit.B508-1"
   languages:
   - "python"
-- id: "bandit.B508-1"
-  pattern-either:
-  - pattern: "pysnmp.hlapi.CommunityData(..., mpModel=0, ...)"
-  - pattern: "pysnmp.hlapi.CommunityData(..., mpModel=1, ...)"
   message: |
     The use of SNMPv1 and SNMPv2 is insecure. You should use SNMPv3 if able.
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
     primary_identifier: "bandit.B508"
     secondary_identifiers:
     - name: "Bandit Test ID B508"
       type: "bandit_test_id"
       value: "B508"
+  pattern-either:
+  - pattern: "pysnmp.hlapi.CommunityData(..., mpModel=0, ...)"
+  - pattern: "pysnmp.hlapi.CommunityData(..., mpModel=1, ...)"
   severity: "WARNING"
+- id: "bandit.B509-1"
   languages:
   - "python"
-- id: "bandit.B509-1"
-  pattern-either:
-  - pattern: "pysnmp.hlapi.UsmUserData($ARG1, $ARG2)"
-  - pattern: "pysnmp.hlapi.UsmUserData($ARG1)"
-  - pattern: "pysnmp.hlapi.UsmUserData(...,'noAuthNoPriv',...)"
-  - pattern: "pysnmp.hlapi.UsmUserData(...,'authNoPriv',...)"
   message: |
     You should not use SNMPv3 without encryption. noAuthNoPriv & authNoPriv is insecure
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
     primary_identifier: "bandit.B509"
     secondary_identifiers:
     - name: "Bandit Test ID B509"
       type: "bandit_test_id"
       value: "B509"
+  pattern-either:
+  - pattern: "pysnmp.hlapi.UsmUserData($ARG1, $ARG2)"
+  - pattern: "pysnmp.hlapi.UsmUserData($ARG1)"
+  - pattern: "pysnmp.hlapi.UsmUserData(...,'noAuthNoPriv',...)"
+  - pattern: "pysnmp.hlapi.UsmUserData(...,'authNoPriv',...)"
   severity: "WARNING"
+- id: "bandit.B608-1"
   languages:
   - "python"
-- id: "bandit.B608-1"
+  message: |
+    Detected possible formatted SQL query. Use parameterized queries instead.
+  metadata:
+    cwe: "CWE-89"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
+    primary_identifier: "bandit.B608"
+    secondary_identifiers:
+    - name: "Bandit Test ID B608"
+      type: "bandit_test_id"
+      value: "B608"
   patterns:
   - pattern-either:
     - pattern: "$DB.execute(\"...\" % ...)"
@@ -1622,21 +1701,24 @@ rules:
             $SQL = f"...{$X}..."
             ...
       - pattern: "$DB.execute($SQL)"
-  message: |
-    Detected possible formatted SQL query. Use parameterized queries instead.
-  metadata:
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    owasp: "A1:2017-Injection"
-    primary_identifier: "bandit.B608"
-    secondary_identifiers:
-    - name: "Bandit Test ID B608"
-      type: "bandit_test_id"
-      value: "B608"
   severity: "WARNING"
+- id: "bandit.B507-1"
   languages:
   - "python"
-- id: "bandit.B507-1"
+  message: |
+    Detected a paramiko host key policy that implicitly trusts a server's
+    host key. Host keys should be verified to ensure the connection
+    is not to a malicious server. Use RejectPolicy or a custom subclass
+    instead.
+  metadata:
+    cwe: "CWE-322"
+    owasp: "A5:2017-Broken Access Control"
+    shortDescription: "Key Exchange without Entity Authentication"
+    primary_identifier: "bandit.B507"
+    secondary_identifiers:
+    - name: "Bandit Test ID B507"
+      type: "bandit_test_id"
+      value: "B507"
   patterns:
   - pattern-inside: |
       $CLIENT = paramiko.client.SSHClient(...)
@@ -1645,23 +1727,22 @@ rules:
   - pattern-either:
     - pattern: "paramiko.client.AutoAddPolicy"
     - pattern: "paramiko.client.WarningPolicy"
-  message: |
-    Detected a paramiko host key policy that implicitly trusts a server's
-    host key. Host keys should be verified to ensure the connection
-    is not to a malicious server. Use RejectPolicy or a custom subclass
-    instead.
-  metadata:
-    cwe: "CWE-322: Key Exchange without Entity Authentication"
-    owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "bandit.B507"
-    secondary_identifiers:
-    - name: "Bandit Test ID B507"
-      type: "bandit_test_id"
-      value: "B507"
   severity: "ERROR"
+- id: "bandit.B501-1"
   languages:
   - "python"
-- id: "bandit.B501-1"
+  message: |
+    Certificate verification has been explicitly disabled. This permits insecure connections to
+    insecure servers. Re-enable certification validation.
+  metadata:
+    cwe: "CWE-295"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Improper Certificate Validation"
+    primary_identifier: "bandit.B501"
+    secondary_identifiers:
+    - name: "Bandit Test ID B501"
+      type: "bandit_test_id"
+      value: "B501"
   patterns:
   - pattern-either:
     - pattern: "requests.put(..., verify=False, ...)"
@@ -1672,38 +1753,41 @@ rules:
     - pattern: "requests.request(..., verify=False, ...)"
     - pattern: "requests.get(..., verify=False, ...)"
     - pattern: "requests.post(..., verify=False, ...)"
-  message: |
-    Certificate verification has been explicitly disabled. This permits insecure connections to
-    insecure servers. Re-enable certification validation.
-  metadata:
-    cwe: "CWE-295: Improper Certificate Validation"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B501"
-    secondary_identifiers:
-    - name: "Bandit Test ID B501"
-      type: "bandit_test_id"
-      value: "B501"
   severity: "ERROR"
+- id: "bandit.B504-1"
   languages:
   - "python"
-- id: "bandit.B504-1"
-  patterns:
-  - pattern: "ssl.wrap_socket()"
   message: |
     `ssl.wrap_socket` call with no SSL/TLS protocol version specified, the default SSLv23 could be
     insecure, possible security issue.
   metadata:
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Inadequate Encryption Strength"
     primary_identifier: "bandit.B504"
     secondary_identifiers:
     - name: "Bandit Test ID B504"
       type: "bandit_test_id"
       value: "B504"
+  patterns:
+  - pattern: "ssl.wrap_socket()"
   severity: "WARNING"
+- id: "bandit.B502-1"
   languages:
   - "python"
-- id: "bandit.B502-1"
+  message: |
+    An insecure SSL version was detected. TLS versions 1.0, 1.1, and all SSL versions
+    are considered weak encryption and are deprecated.
+    Use 'ssl.PROTOCOL_TLSv1_2' or higher.
+  metadata:
+    cwe: "CWE-326"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Inadequate Encryption Strength"
+    primary_identifier: "bandit.B502"
+    secondary_identifiers:
+    - name: "Bandit Test ID B502"
+      type: "bandit_test_id"
+      value: "B502"
   patterns:
   - pattern-either:
     - pattern: "ssl.PROTOCOL_SSLv2"
@@ -1715,136 +1799,145 @@ rules:
     - pattern: "pyOpenSSL.SSL.SSLv3_METHOD"
     - pattern: "pyOpenSSL.SSL.TLSv1_METHOD"
     - pattern: "pyOpenSSL.SSL.TLSv1_1_METHOD"
-  message: |
-    An insecure SSL version was detected. TLS versions 1.0, 1.1, and all SSL versions
-    are considered weak encryption and are deprecated.
-    Use 'ssl.PROTOCOL_TLSv1_2' or higher.
-  metadata:
-    cwe: "CWE-326: Inadequate Encryption Strength"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    primary_identifier: "bandit.B502"
-    secondary_identifiers:
-    - name: "Bandit Test ID B502"
-      type: "bandit_test_id"
-      value: "B502"
   severity: "ERROR"
+- id: "bandit.B323-1"
   languages:
   - "python"
-- id: "bandit.B323-1"
-  pattern: "ssl._create_unverified_context(...)"
   message: |
     Unverified SSL context detected. This will permit insecure connections without `verifyingSSL`
     certificates. Use `ssl.create_default_context()` instead.
   metadata:
-    cwe: "CWE-295: Improper Certificate Validation"
+    cwe: "CWE-295"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Improper Certificate Validation"
     primary_identifier: "bandit.B323"
     secondary_identifiers:
     - name: "Bandit Test ID B323"
       type: "bandit_test_id"
       value: "B323"
+  pattern: "ssl._create_unverified_context(...)"
   severity: "ERROR"
+- id: "bandit.B401-1"
   languages:
   - "python"
-- id: "bandit.B401-1"
-  patterns:
-  - pattern: "import telnetlib"
   message: |
     Telnet-related functions are being called. Telnet is considered insecure.Use SSH or some other
     encrypted protocol.
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
     primary_identifier: "bandit.B401"
     secondary_identifiers:
     - name: "Bandit Test ID B401"
       type: "bandit_test_id"
       value: "B401"
+  patterns:
+  - pattern: "import telnetlib"
   severity: "ERROR"
+- id: "bandit.B312-1"
   languages:
   - "python"
-- id: "bandit.B312-1"
-  pattern: "telnetlib.$ANYTHING(...)"
   message: |
     Telnet does not encrypt communications. Use SSH instead.
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
     primary_identifier: "bandit.B312"
     secondary_identifiers:
     - name: "Bandit Test ID B312"
       type: "bandit_test_id"
       value: "B312"
+  pattern: "telnetlib.$ANYTHING(...)"
   severity: "WARNING"
+- id: "bandit.B108-1"
   languages:
   - "python"
-- id: "bandit.B108-1"
-  pattern: "$CALL(\"=~/^\\/tmp.*/\", ...)"
   message: |
     Detected hardcoded temp directory. Consider using `tempfile.TemporaryFile` instead.
   metadata:
-    cwe: "CWE-377: Insecure Temporary File"
+    cwe: "CWE-377"
+    shortDescription: "Insecure Temporary File"
     primary_identifier: "bandit.B108"
     secondary_identifiers:
     - name: "Bandit Test ID B108"
       type: "bandit_test_id"
       value: "B108"
+  pattern: "$CALL(\"=~/^\\/tmp.*/\", ...)"
   severity: "WARNING"
+- id: "bandit.B306-1"
   languages:
   - "python"
-- id: "bandit.B306-1"
-  pattern: "tempfile.mktemp(...)"
   message: |
     Use tempfile.NamedTemporaryFile instead. From the official Python documentation: THIS FUNCTION
     IS UNSAFE AND SHOULD NOT BE USED. The file name may refer to a file that did not exist at some
     point, but by the time you getaround to creating it, someone else may have beaten you to the
     punch.
   metadata:
-    cwe: "CWE-377: Insecure Temporary File"
+    cwe: "CWE-377"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Insecure Temporary File"
     primary_identifier: "bandit.B306"
     secondary_identifiers:
     - name: "Bandit Test ID B306"
       type: "bandit_test_id"
       value: "B306"
-  languages:
-  - "python"
+  pattern: "tempfile.mktemp(...)"
   severity: "ERROR"
 - id: "bandit.B108-2"
-  patterns:
-  - pattern: "open($DIR, ...)"
-  - metavariable-regex:
-      metavariable: "$DIR"
-      regex: "['\"](/tmp|/var/tmp|/dev/shm).*['\"]"
+  languages:
+  - "python"
   message: |
     Probable insecure usage of temp file/directory.
   metadata:
-    cwe: "CWE-377: Insecure Temporary File"
+    cwe: "CWE-377"
+    shortDescription: "Insecure Temporary File"
     primary_identifier: "bandit.B108-2"
     secondary_identifiers:
     - name: "Bandit Test ID B108"
       type: "bandit_test_id"
       value: "B108"
+  patterns:
+  - pattern: "open($DIR, ...)"
+  - metavariable-regex:
+      metavariable: "$DIR"
+      regex: "['\"](/tmp|/var/tmp|/dev/shm).*['\"]"
   severity: "WARNING"
+- id: "bandit.B325-1"
   languages:
   - "python"
-- id: "bandit.B325-1"
-  pattern-either:
-  - pattern: "os.tempnam(...)"
-  - pattern: "os.tmpnam(...)"
   message: |
     The Python `os` `tempnam|tmpnam` functions are vulnerable to symlink attacks
   metadata:
-    cwe: "CWE-377: Insecure Temporary File"
+    cwe: "CWE-377"
+    shortDescription: "Insecure Temporary File"
     primary_identifier: "bandit.B325"
     secondary_identifiers:
     - name: "Bandit Test ID B325"
       type: "bandit_test_id"
       value: "B325"
+  pattern-either:
+  - pattern: "os.tempnam(...)"
+  - pattern: "os.tmpnam(...)"
   severity: "WARNING"
+- id: "bandit.B310-1"
   languages:
   - "python"
-- id: "bandit.B310-1"
+  message: |
+    Detected a dynamic value being used with urllib. urllib supports `file://` schemes, so a
+    dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit
+    uses of urllib calls to ensure user data cannot control the URLs, or consider using the
+    `requests` library instead.
+  metadata:
+    cwe: "CWE-939"
+    owasp: "A5:2017-Broken Access Control"
+    shortDescription: "Improper Authorization in Handler for Custom URL Scheme"
+    primary_identifier: "bandit.B310"
+    secondary_identifiers:
+    - name: "Bandit Test ID B310"
+      type: "bandit_test_id"
+      value: "B310"
   patterns:
   - pattern-not: "urllib.$W(\"...\")"
   - pattern-not: "urllib.request.$W(\"...\")"
@@ -1873,23 +1966,24 @@ rules:
       - pattern-either:
         - pattern: "$OPENER.open(...)"
         - pattern: "$OPENER.retrieve(...)"
+  severity: "WARNING"
+- id: "bandit.B310-2"
+  languages:
+  - "python"
   message: |
     Detected a dynamic value being used with urllib. urllib supports `file://` schemes, so a
     dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit
     uses of urllib calls to ensure user data cannot control the URLs, or consider using the
     `requests` library instead.
   metadata:
-    cwe: "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
+    cwe: "CWE-939"
     owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "bandit.B310"
+    shortDescription: "Improper Authorization in Handler for Custom URL Scheme"
+    primary_identifier: "bandit.B310-2"
     secondary_identifiers:
     - name: "Bandit Test ID B310"
       type: "bandit_test_id"
       value: "B310"
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B310-2"
   pattern-either:
   - pattern: "urllib.urlopen(...)"
   - pattern: "urllib2.urlopen(...)"
@@ -1905,23 +1999,23 @@ rules:
   - pattern: "six.moves.urllib.request.urlretrieve(...)"
   - pattern: "six.moves.urllib.request.URLopener(...)"
   - pattern: "six.moves.urllib.request.FancyURLopener(...)"
-  message: |
-    Detected a dynamic value being used with urllib. urllib supports `file://` schemes, so a
-    dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit
-    uses of urllib calls to ensure user data cannot control the URLs, or consider using the
-    `requests` library instead.
-  metadata:
-    cwe: "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
-    owasp: "A5:2017-Broken Access Control"
-    primary_identifier: "bandit.B310-2"
-    secondary_identifiers:
-    - name: "Bandit Test ID B310"
-      type: "bandit_test_id"
-      value: "B310"
   severity: "WARNING"
+- id: "bandit.B313-1"
   languages:
   - "python"
-- id: "bandit.B313-1"
+  message: |
+    Found use of the native Python XML libraries, which is vulnerable to XML external entity (XXE)
+    attacks. The Python documentation recommends the `defusedxml` library instead. Use
+    'defusedxml'. See https://github.com/tiran/defusedxml for more information.
+  metadata:
+    cwe: "CWE-611"
+    owasp: "A4:2017-XML External Entities (XXE)"
+    shortDescription: "Improper Restriction of XML External Entity Reference"
+    primary_identifier: "bandit.B313"
+    secondary_identifiers:
+    - name: "Bandit Test ID B313"
+      type: "bandit_test_id"
+      value: "B313"
   pattern-either:
   - patterns:
     - pattern: "xml.etree.cElementTree.fromstring(...)"
@@ -1929,22 +2023,23 @@ rules:
   - pattern: "xml.etree.cElementTree.parse(...)"
   - pattern: "xml.etree.cElementTree.iterparse(...)"
   - pattern: "xml.etree.cElementTree.XMLParser(...)"
-  metadata:
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
-    owasp: "A4:2017-XML External Entities (XXE)"
-    primary_identifier: "bandit.B313"
-    secondary_identifiers:
-    - name: "Bandit Test ID B313"
-      type: "bandit_test_id"
-      value: "B313"
+  severity: "WARNING"
+- id: "bandit.B314-1"
+  languages:
+  - "python"
   message: |
     Found use of the native Python XML libraries, which is vulnerable to XML external entity (XXE)
     attacks. The Python documentation recommends the `defusedxml` library instead. Use
     'defusedxml'. See https://github.com/tiran/defusedxml for more information.
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B314-1"
+  metadata:
+    cwe: "CWE-611"
+    owasp: "A4:2017-XML External Entities (XXE)"
+    shortDescription: "Improper Restriction of XML External Entity Reference"
+    primary_identifier: "bandit.B314"
+    secondary_identifiers:
+    - name: "Bandit Test ID B314"
+      type: "bandit_test_id"
+      value: "B314"
   pattern-either:
   - patterns:
     - pattern: "xml.etree.ElementTree.fromstring(...)"
@@ -1952,22 +2047,23 @@ rules:
   - pattern: "xml.etree.ElementTree.parse(...)"
   - pattern: "xml.etree.ElementTree.iterparse(...)"
   - pattern: "xml.etree.ElementTree.XMLParser(...)"
-  metadata:
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
-    owasp: "A4:2017-XML External Entities (XXE)"
-    primary_identifier: "bandit.B314"
-    secondary_identifiers:
-    - name: "Bandit Test ID B314"
-      type: "bandit_test_id"
-      value: "B314"
+  severity: "WARNING"
+- id: "bandit.B320-1"
+  languages:
+  - "python"
   message: |
     Found use of the native Python XML libraries, which is vulnerable to XML external entity (XXE)
     attacks. The Python documentation recommends the `defusedxml` library instead. Use
     'defusedxml'. See https://github.com/tiran/defusedxml for more information.
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B320-1"
+  metadata:
+    cwe: "CWE-611"
+    owasp: "A4:2017-XML External Entities (XXE)"
+    shortDescription: "Improper Restriction of XML External Entity Reference"
+    primary_identifier: "bandit.B320"
+    secondary_identifiers:
+    - name: "Bandit Test ID B320"
+      type: "bandit_test_id"
+      value: "B320"
   pattern-either:
   - pattern: "lxml.etree.parse(...)"
   - patterns:
@@ -1977,41 +2073,41 @@ rules:
   - pattern: "lxml.etree.GlobalParserTLS(...)"
   - pattern: "lxml.etree.getDefaultParser(...)"
   - pattern: "lxml.etree.check_docinfo(...)"
-  metadata:
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
-    owasp: "A4:2017-XML External Entities (XXE)"
-    primary_identifier: "bandit.B320"
-    secondary_identifiers:
-    - name: "Bandit Test ID B320"
-      type: "bandit_test_id"
-      value: "B320"
-  message: |
-    Found use of the native Python XML libraries, which is vulnerable to XML external entity (XXE)
-    attacks. The Python documentation recommends the `defusedxml` library instead. Use
-    'defusedxml'. See https://github.com/tiran/defusedxml for more information.
   severity: "WARNING"
+- id: "bandit.B316-1"
   languages:
   - "python"
-- id: "bandit.B316-1"
-  pattern-either:
-  - patterns:
-    - pattern: "xml.dom.expatbuilder.parse(...)"
-    - pattern-not: "xml.dom.expatbuilder.parse(\"...\")"
-  - pattern: "xml.dom.expatbuilder.parseString(...)"
   message: |
     Insecure XML parsing functionality, prefer `defusedxml`
   metadata:
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
+    cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
+    shortDescription: "Improper Restriction of XML External Entity Reference"
     primary_identifier: "bandit.B316"
     secondary_identifiers:
     - name: "Bandit Test ID B316"
       type: "bandit_test_id"
       value: "B316"
+  pattern-either:
+  - patterns:
+    - pattern: "xml.dom.expatbuilder.parse(...)"
+    - pattern-not: "xml.dom.expatbuilder.parse(\"...\")"
+  - pattern: "xml.dom.expatbuilder.parseString(...)"
   severity: "WARNING"
+- id: "bandit.B315-1"
   languages:
   - "python"
-- id: "bandit.B315-1"
+  message: |
+    Insecure XML parsing functionality, prefer `defusedxml`
+  metadata:
+    cwe: "CWE-611"
+    owasp: "A4:2017-XML External Entities (XXE)"
+    shortDescription: "Improper Restriction of XML External Entity Reference"
+    primary_identifier: "bandit.B315"
+    secondary_identifiers:
+    - name: "Bandit Test ID B315"
+      type: "bandit_test_id"
+      value: "B315"
   pattern-either:
   - pattern: "xml.dom.expatreader.parse(...)"
   - patterns:
@@ -2019,225 +2115,224 @@ rules:
     - pattern-not: "xml.dom.expatreader.parseString(\"...\")"
   - pattern: "xml.dom.expatreader.parseString(...)"
   - pattern: "xml.dom.expatreader.create_parser(...)"
-  message: |
-    Insecure XML parsing functionality, prefer `defusedxml`
-  metadata:
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
-    owasp: "A4:2017-XML External Entities (XXE)"
-    primary_identifier: "bandit.B315"
-    secondary_identifiers:
-    - name: "Bandit Test ID B315"
-      type: "bandit_test_id"
-      value: "B315"
   severity: "WARNING"
+- id: "bandit.B405-1"
   languages:
   - "python"
-- id: "bandit.B405-1"
-  patterns:
-  - pattern-either:
-    - pattern: "import xml.etree.cElementTree"
-    - pattern: "import xml.etree.ElementTree"
   message: |
     Consider possible security implications associated with etree module.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B405"
     secondary_identifiers:
     - name: "Bandit Test ID B405"
       type: "bandit_test_id"
       value: "B405"
-  severity: "INFO"
-  languages:
-  - "python"
-- id: "bandit.B407-1"
   patterns:
   - pattern-either:
-    - pattern: "import xml.dom.expatbuilder"
+    - pattern: "import xml.etree.cElementTree"
+    - pattern: "import xml.etree.ElementTree"
+  severity: "INFO"
+- id: "bandit.B407-1"
+  languages:
+  - "python"
   message: |
     Using various methods to parse untrusted XML data is known to be vulnerable to
     XML attacks. Replace vulnerable imports with the equivalent defusedxml package,
     or make sure defusedxml.defuse_stdlib() is called.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B407"
     secondary_identifiers:
     - name: "Bandit Test ID B407"
       type: "bandit_test_id"
       value: "B407"
-  severity: "INFO"
-  languages:
-  - "python"
-- id: "bandit.B410-1"
   patterns:
   - pattern-either:
-    - pattern: "import lxml"
+    - pattern: "import xml.dom.expatbuilder"
+  severity: "INFO"
+- id: "bandit.B410-1"
+  languages:
+  - "python"
   message: |
     Using various methods to parse untrusted XML data is known to be vulnerable to
     XML attacks. Replace vulnerable imports with the equivalent defusedxml package.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B410"
     secondary_identifiers:
     - name: "Bandit Test ID B410"
       type: "bandit_test_id"
       value: "B410"
-  severity: "INFO"
-  languages:
-  - "python"
-- id: "bandit.B408-1"
   patterns:
   - pattern-either:
-    - pattern: "import xml.dom.minidom"
+    - pattern: "import lxml"
+  severity: "INFO"
+- id: "bandit.B408-1"
+  languages:
+  - "python"
   message: |
     Using various methods to parse untrusted XML data is known to be vulnerable
     to XML attacks. Replace vulnerable imports with the equivalent defusedxml
     package, or make sure defusedxml.defuse_stdlib() is called.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B408"
     secondary_identifiers:
     - name: "Bandit Test ID B408"
       type: "bandit_test_id"
       value: "B408"
-  severity: "INFO"
-  languages:
-  - "python"
-- id: "bandit.B403-1"
   patterns:
   - pattern-either:
-    - pattern: "import pickle"
-    - pattern: "import cPickle"
-    - pattern: "import dill"
+    - pattern: "import xml.dom.minidom"
+  severity: "INFO"
+- id: "bandit.B403-1"
+  languages:
+  - "python"
   message: |
     Consider possible security implications associated with pickle module.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B403"
     secondary_identifiers:
     - name: "Bandit Test ID B403"
       type: "bandit_test_id"
       value: "B403"
-  severity: "INFO"
-  languages:
-  - "python"
-- id: "bandit.B409-1"
   patterns:
   - pattern-either:
-    - pattern: "import xml.dom.pulldom"
+    - pattern: "import pickle"
+    - pattern: "import cPickle"
+    - pattern: "import dill"
+  severity: "INFO"
+- id: "bandit.B409-1"
+  languages:
+  - "python"
   message: |
     Using various methods to parse untrusted XML data is known to be vulnerable to
     XML attacks. Replace vulnerable imports with the equivalent defusedxml package,
     or make sure defusedxml.defuse_stdlib() is called.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B409"
     secondary_identifiers:
     - name: "Bandit Test ID B409"
       type: "bandit_test_id"
       value: "B409"
-  severity: "INFO"
-  languages:
-  - "python"
-- id: "bandit.B406-1"
   patterns:
   - pattern-either:
-    - pattern: "import xml.sax"
+    - pattern: "import xml.dom.pulldom"
+  severity: "INFO"
+- id: "bandit.B406-1"
+  languages:
+  - "python"
   message: |
     Using various methods to parse untrusted XML data is known to be vulnerable to
     XML attacks. Replace vulnerable imports with the equivalent defusedxml package,
     or make sure defusedxml.defuse_stdlib() is called.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B406"
     secondary_identifiers:
     - name: "Bandit Test ID B406"
       type: "bandit_test_id"
       value: "B406"
+  patterns:
+  - pattern-either:
+    - pattern: "import xml.sax"
   severity: "INFO"
+- id: "bandit.B411-1"
   languages:
   - "python"
-- id: "bandit.B411-1"
-  pattern-either:
-  - pattern: "import xmlrpclib"
   message: |
     Consider possible security implications associated with xmlrpclib module.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
     primary_identifier: "bandit.B411"
     secondary_identifiers:
     - name: "Bandit Test ID B411"
       type: "bandit_test_id"
       value: "B411"
+  pattern-either:
+  - pattern: "import xmlrpclib"
   severity: "ERROR"
+- id: "bandit.B318-1"
   languages:
   - "python"
-- id: "bandit.B318-1"
-  pattern-either:
-  - patterns:
-    - pattern: "xml.dom.minidom.parseString(...)"
-    - pattern-not: "xml.dom.minidom.parseString(\"...\")"
-  - pattern: "xml.dom.minidom.parse(...)"
+  message: |
+    Found use of the native Python XML libraries, which is vulnerable to XML external entity (XXE)
+    attacks. The Python documentation recommends the `defusedxml` library instead. Use
+    'defusedxml'. See https://github.com/tiran/defusedxml for more information.
   metadata:
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
+    cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
+    shortDescription: "Improper Restriction of XML External Entity Reference"
     primary_identifier: "bandit.B318"
     secondary_identifiers:
     - name: "Bandit Test ID B318"
       type: "bandit_test_id"
       value: "B318"
+  pattern-either:
+  - patterns:
+    - pattern: "xml.dom.minidom.parseString(...)"
+    - pattern-not: "xml.dom.minidom.parseString(\"...\")"
+  - pattern: "xml.dom.minidom.parse(...)"
+  severity: "WARNING"
+- id: "bandit.B319-1"
+  languages:
+  - "python"
   message: |
     Found use of the native Python XML libraries, which is vulnerable to XML external entity (XXE)
     attacks. The Python documentation recommends the `defusedxml` library instead. Use
     'defusedxml'. See https://github.com/tiran/defusedxml for more information.
-  severity: "WARNING"
-  languages:
-  - "python"
-- id: "bandit.B319-1"
-  pattern-either:
-  - patterns:
-    - pattern: "xml.dom.pulldom.parseString(...)"
-    - pattern-not: "xml.dom.pulldom.parseString(\"...\")"
-  - pattern: "xml.dom.pulldom.parse(...)"
   metadata:
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
+    cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
+    shortDescription: "Improper Restriction of XML External Entity Reference"
     primary_identifier: "bandit.B319"
     secondary_identifiers:
     - name: "Bandit Test ID B319"
       type: "bandit_test_id"
       value: "B319"
-  message: |
-    Found use of the native Python XML libraries, which is vulnerable to XML external entity (XXE)
-    attacks. The Python documentation recommends the `defusedxml` library instead. Use
-    'defusedxml'. See https://github.com/tiran/defusedxml for more information.
+  pattern-either:
+  - patterns:
+    - pattern: "xml.dom.pulldom.parseString(...)"
+    - pattern-not: "xml.dom.pulldom.parseString(\"...\")"
+  - pattern: "xml.dom.pulldom.parse(...)"
   severity: "WARNING"
+- id: "bandit.B317-1"
   languages:
   - "python"
-- id: "bandit.B317-1"
+  message: |
+    Insecure XML parsing functionality, prefer `defusedxml`
+  metadata:
+    cwe: "CWE-611"
+    owasp: "A4:2017-XML External Entities (XXE)"
+    shortDescription: "Improper Restriction of XML External Entity Reference"
+    primary_identifier: "bandit.B317"
+    secondary_identifiers:
+    - name: "Bandit Test ID B317"
+      type: "bandit_test_id"
+      value: "B317"
   pattern-either:
   - pattern: "xml.sax.parse(...)"
   - patterns:
     - pattern: "xml.sax.parseString(...)"
     - pattern-not: "xml.sax.parseString(\"...\")"
   - pattern: "xml.sax.make_parser(...)"
-  message: |
-    Insecure XML parsing functionality, prefer `defusedxml`
-  metadata:
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference"
-    owasp: "A4:2017-XML External Entities (XXE)"
-    primary_identifier: "bandit.B317"
-    secondary_identifiers:
-    - name: "Bandit Test ID B317"
-      type: "bandit_test_id"
-      value: "B317"
   severity: "WARNING"
-  languages:
-  - "python"

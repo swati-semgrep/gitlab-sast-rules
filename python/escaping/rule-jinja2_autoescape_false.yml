@@ -1,17 +1,11 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/jinja2/security/audit/autoescape-disabled.yaml
-# hash: acdabdb
-# id: autoescape-disabled
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/escaping/rule-jinja2_autoescape_false"
-  patterns:
-  - pattern-not: "jinja2.Environment(..., autoescape=True, ...)"
-  - pattern-not: "jinja2.Environment(..., autoescape=jinja2.select_autoescape(...),
-      ...)"
-  - pattern: "jinja2.Environment(...)"
+  languages:
+  - "python"
   message: |
     Detected a Jinja2 environment without autoescaping. Jinja2 does notautoescape by default. This
     is dangerous if you are rendering to a browserbecause this allows for cross-site scripting
@@ -21,8 +15,12 @@ rules:
     certain file
     extensions.
   metadata:
-    cwe: "CWE-116: Improper Encoding or Escaping of Output"
+    cwe: "CWE-116"
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    shortDescription: "Improper Encoding or Escaping of Output"
+  patterns:
+  - pattern-not: "jinja2.Environment(..., autoescape=True, ...)"
+  - pattern-not: "jinja2.Environment(..., autoescape=jinja2.select_autoescape(...),
+      ...)"
+  - pattern: "jinja2.Environment(...)"
   severity: "WARNING"
-  languages:
-  - "python"

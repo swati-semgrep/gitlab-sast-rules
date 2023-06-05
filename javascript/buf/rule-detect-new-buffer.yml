@@ -4,10 +4,9 @@
 ---
 rules:
 - id: "javascript/buf/rule-detect-new-buffer"
-  metadata:
-    # yamllint disable
-    source-rule-url: "https://github.com/eslint-community/eslint-plugin-security/blob/main/rules/detect-new-buffer.js"
-    # yamllint enable
+  languages:
+  - "javascript"
+  - "typescript"
   patterns:
   - patterns:
     - pattern-not-inside: |-
@@ -26,7 +25,11 @@ rules:
   message: |
     Detects instances of new Buffer(argument) where argument is any non-literal value which could
     cause memory leak. Recommended usage is `Buffer.from()` or `Buffer.alloc()`.
-  languages:
-  - "javascript"
-  - "typescript"
+  metadata:
+    shortDescription: "Memory leak"
+    cwe: "CWE-401"
+    category: "security"
+    # yamllint disable
+    source-rule-url: "https://github.com/eslint-community/eslint-plugin-security/blob/main/rules/detect-new-buffer.js"
+    # yamllint enable
   severity: "WARNING"

@@ -4,16 +4,17 @@
 ---
 rules:
 - id: "scala/crypto/rule-RsaNoPadding"
+  languages:
+  - "scala"
+  message: |
+    The software uses the RSA algorithm but does not incorporate Optimal Asymmetric
+    Encryption Padding (OAEP), which might weaken the encryption.
+  metadata:
+    cwe: "CWE-780"
+    shortDescription: "Use of RSA Algorithm without OAEP"
   patterns:
   - pattern: "javax.crypto.Cipher.getInstance(\"$ALG\",...)"
   - metavariable-regex:
       metavariable: "$ALG"
       regex: ".*NoPadding.*"
-  message: |
-    The software uses the RSA algorithm but does not incorporate Optimal Asymmetric
-    Encryption Padding (OAEP), which might weaken the encryption.
-  metadata:
-    cwe: "CWE-780: Use of RSA Algorithm without OAEP"
   severity: "WARNING"
-  languages:
-  - "scala"

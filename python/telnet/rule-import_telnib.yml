@@ -4,14 +4,15 @@
 ---
 rules:
 - id: "python/telnet/rule-import_telnib"
-  patterns:
-  - pattern: "import telnetlib"
+  languages:
+  - "python"
   message: |
     Telnet-related functions are being called. Telnet is considered insecure.Use SSH or some other
     encrypted protocol.
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
+  patterns:
+  - pattern: "import telnetlib"
   severity: "ERROR"
-  languages:
-  - "python"

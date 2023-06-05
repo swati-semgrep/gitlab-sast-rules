@@ -4,6 +4,20 @@
 ---
 rules:
 - id: "scala/inject/rule-LDAPInjection"
+  languages:
+  - "scala"
+  message: |
+    Just like SQL, all inputs passed to an LDAP query need to be passed in safely. Unfortunately,
+    LDAP doesn't have prepared statement interfaces like SQL. Therefore, the primary defense
+    against LDAP injection is strong input validation of any untrusted data before including it in
+    an LDAP query.
+  metadata:
+    category: "security"
+    cwe: "CWE-90"
+    shortDescription: "Improper Neutralization of Special Elements used in an LDAP
+      Query ('LDAP Injection')"
+    technology:
+    - "scala"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -34,17 +48,4 @@ rules:
       - pattern: "($CTX: com.sun.jndi.ldap.LdapCtx)"
       - pattern: "($CTX: org.springframework.ldap.core.LdapTemplate)"
       - pattern: "($CTX: org.springframework.ldap.core.LdapOperations)"
-  message: |
-    Just like SQL, all inputs passed to an LDAP query need to be passed in safely. Unfortunately,
-    LDAP doesn't have prepared statement interfaces like SQL. Therefore, the primary defense
-    against LDAP injection is strong input validation of any untrusted data before including it in
-    an LDAP query.
-  languages:
-  - "scala"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-90: Improper Neutralization of Special Elements used in an LDAP Query
-      ('LDAP Injection')"
-    technology:
-    - "scala"

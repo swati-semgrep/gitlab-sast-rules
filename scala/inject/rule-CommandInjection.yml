@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "scala/inject/rule-CommandInjection"
+  languages:
+  - "scala"
+  message: |
+    The highlighted API is used to execute a system command. If unfiltered input is passed to this
+    API, it can lead to arbitrary command execution.
+  metadata:
+    category: "security"
+    cwe: "CWE-78"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
+    technology:
+    - "scala"
   pattern-either:
   - patterns:
     - pattern-inside: |
@@ -53,15 +65,4 @@ rules:
     - pattern-not: "$PB.command(\"...\",\"...\",\"...\",...)"
     - pattern-not: |
         $PB.command(java.util.Arrays.asList("...","...","...",...))
-  message: |
-    The highlighted API is used to execute a system command. If unfiltered input is passed to this
-    API, it can lead to arbitrary command execution.
-  languages:
-  - "scala"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    technology:
-    - "scala"

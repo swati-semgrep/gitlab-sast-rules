@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "scala/inject/rule-CustomInjection"
+  languages:
+  - "scala"
+  message: |
+    The method identified is susceptible to injection. The input should be validated and properly
+    escaped.
+  metadata:
+    category: "security"
+    cwe: "CWE-89"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
+    technology:
+    - "scala"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -26,15 +38,4 @@ rules:
     - pattern: "$ST.executeQuery(... + $VAR + ...)"
     - pattern: "$ST.executeQuery(... + $VAR)"
     - pattern: "$ST.executeQuery(...,String.format(\"...\",...,$VAR,...), ...)"
-  message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
-  languages:
-  - "scala"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    technology:
-    - "scala"

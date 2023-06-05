@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.17
+# rule-set version: v1.3.18
 # yamllint enable
 ---
 rules:
@@ -1045,6 +1045,20 @@ rules:
       type: "security_code_scan_rule_id"
       value: "SCS0007"
 - id: "security_code_scan.SCS0012-1"
+  languages:
+  - "csharp"
+  message: |
+    The endpoint is potentially accessible to not authorized users. If it contains sensitive
+    information, like log files for example, it may lead to privilege escalation.
+  metadata:
+    category: "security"
+    cwe: "CWE-284"
+    shortDescription: "Improper Access Control"
+    primary_identifier: "security_code_scan.SCS0012-1"
+    secondary_identifiers:
+    - name: "SCS0012"
+      type: "security_code_scan_rule_id"
+      value: "SCS0012"
   patterns:
   - pattern-inside: |
       using System.Web.Mvc;
@@ -1061,20 +1075,7 @@ rules:
   - pattern-not: |
       [Authorize]
       class $CLASS : Controller{ ... }
-  message: |
-    The endpoint is potentially accessible to not authorized users. If it contains sensitive
-    information, like log files for example, it may lead to privilege escalation.
-  languages:
-  - "csharp"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-284: Improper Access Control"
-    primary_identifier: "security_code_scan.SCS0012-1"
-    secondary_identifiers:
-    - name: "SCS0012"
-      type: "security_code_scan_rule_id"
-      value: "SCS0012"
 - id: "security_code_scan.SCS0011-1"
   patterns:
   - pattern-either:

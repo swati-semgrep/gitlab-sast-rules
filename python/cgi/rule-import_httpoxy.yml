@@ -4,14 +4,15 @@
 ---
 rules:
 - id: "python/cgi/rule-import_httpoxy"
-  pattern-either:
-  - pattern: "wsgiref.handlers.CGIHandler(...)"
-  - pattern: "twisted.web.twcgi.CGIDirectory(...)"
+  languages:
+  - "python"
   message: |
     Consider possible security implications associated with httpoxy module.
   metadata:
-    cwe: "CWE-284: Improper Access Control"
+    cwe: "CWE-284"
     owasp: "A5:2017-Broken Access Control"
+    shortDescription: "Improper Access Control"
+  pattern-either:
+  - pattern: "wsgiref.handlers.CGIHandler(...)"
+  - pattern: "twisted.web.twcgi.CGIDirectory(...)"
   severity: "ERROR"
-  languages:
-  - "python"

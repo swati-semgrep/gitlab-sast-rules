@@ -5,14 +5,15 @@
 ---
 rules:
 - id: "go/blocklist/rule-blocklist-cgi"
-  patterns:
-  - pattern: |
-      import "net/http/cgi"
+  languages:
+  - "go"
   message: |
     Go versions < 1.6.3 are vulnerable to Httpoxy attack: (CVE-2016-5386)
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+  patterns:
+  - pattern: |
+      import "net/http/cgi"
   severity: "WARNING"
-  languages:
-  - "go"

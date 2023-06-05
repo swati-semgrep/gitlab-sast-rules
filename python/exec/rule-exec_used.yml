@@ -4,15 +4,16 @@
 ---
 rules:
 - id: "python/exec/rule-exec_used"
-  pattern-either:
-  - pattern: "exec(...)"
-  - pattern: "exec(\"...\")"
+  languages:
+  - "python"
   message: |
     The use of `exec` is risky.
   metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
+    cwe: "CWE-78"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
+  pattern-either:
+  - pattern: "exec(...)"
+  - pattern: "exec(\"...\")"
   severity: "WARNING"
-  languages:
-  - "python"

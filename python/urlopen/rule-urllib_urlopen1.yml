@@ -1,13 +1,20 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): 
-# https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/dynamic-urllib-use-detected.yaml
-# hash: acdabdb
-# id: dynamic-urllib-use-detected
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/urlopen/rule-urllib_urlopen1"
+  languages:
+  - "python"
+  message: |
+    Detected a dynamic value being used with urllib. urllib supports `file://` schemes, so a
+    dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit
+    uses of urllib calls to ensure user data cannot control the URLs, or consider using the
+    `requests` library instead.
+  metadata:
+    cwe: "CWE-939"
+    owasp: "A5:2017-Broken Access Control"
+    shortDescription: "Improper Authorization in Handler for Custom URL Scheme"
   patterns:
   - pattern-not: "urllib.$W(\"...\")"
   - pattern-not: "urllib.request.$W(\"...\")"
@@ -36,14 +43,4 @@ rules:
       - pattern-either:
         - pattern: "$OPENER.open(...)"
         - pattern: "$OPENER.retrieve(...)"
-  message: |
-    Detected a dynamic value being used with urllib. urllib supports `file://` schemes, so a
-    dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit
-    uses of urllib calls to ensure user data cannot control the URLs, or consider using the
-    `requests` library instead.
-  metadata:
-    cwe: "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
-    owasp: "A5:2017-Broken Access Control"
   severity: "WARNING"
-  languages:
-  - "python"

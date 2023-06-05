@@ -12,6 +12,8 @@ rules:
   - "java"
   severity: "WARNING"
   metadata:
+    shortDescription: "Inadequate encryption strength"
     category: "security"
+    cwe: "CWE-326"
     technology:
     - "java"

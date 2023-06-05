@@ -4,22 +4,21 @@
 ---
 rules:
 - id: "java/inject/rule-LDAPInjection"
+  languages:
+  - "java"
+  message: |
+    Just like SQL, all inputs passed to an LDAP query need to be passed in safely. Unfortunately,
+    LDAP doesn't have prepared statement interfaces like SQL. Therefore, the primary defense
+    against LDAP injection is strong input validation of any untrusted data before including it in
+    an LDAP query.
+  metadata:
+    category: "security"
+    cwe: "CWE-90"
+    shortDescription: "Improper Neutralization of Special Elements used in an LDAP
+      Query ('LDAP Injection')"
+    technology:
+    - "java"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        $FUNC(..., $VAR, ...) {
-          ...
-        }
-    - pattern: "$VAR"
-  - patterns:
-    - pattern-inside: |
-        $FUNC(..., $X, ...) {
-          ...
-          $VAR = ... + $X;
-          ...
-        }
-    - pattern: "$VAR"
   pattern-sinks:
   - pattern: "javax.naming.ldap.LdapName(...)"
   - pattern: "(javax.naming.directory.Context $C).lookup(...)"
@@ -78,17 +77,19 @@ rules:
         pattern-either:
         - pattern: "(org.springframework.ldap.core.LdapTemplate $LT)"
         - pattern: "(org.springframework.ldap.core.LdapOperations $LO)"
-  message: |
-    Just like SQL, all inputs passed to an LDAP query need to be passed in safely. Unfortunately,
-    LDAP doesn't have prepared statement interfaces like SQL. Therefore, the primary defense
-    against LDAP injection is strong input validation of any untrusted data before including it in
-    an LDAP query.
-  languages:
-  - "java"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., $X, ...) {
+          ...
+          $VAR = ... + $X;
+          ...
+        }
+    - pattern: "$VAR"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-90: Improper Neutralization of Special Elements used in an LDAP Query
-      ('LDAP Injection')"
-    technology:
-    - "java"

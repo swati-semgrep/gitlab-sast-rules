@@ -1,13 +1,24 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
-# source file: test-SpotbugsPathTraversal.java
 # yamllint enable
 ---
 rules:
 - id: "scala/inject/rule-SpotbugsPathTraversalAbsolute"
+  languages:
+  - "scala"
+  message: |
+    "The software uses an HTTP request parameter to construct a pathname that should be within a
+    restricted directory, but it does not properly neutralize absolute path sequences such as
+    "/abs/path" that can resolve to a location that is outside of that directory. See
+    http://cwe.mitre.org/data/definitions/36.html for more information."
+  metadata:
+    category: "security"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
+    technology:
+    - "scala"
   mode: "taint"
-  pattern-sources:
-  - pattern: "($REQ: HttpServletRequest ).getParameter(...)"
   pattern-sanitizers:
   - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
   pattern-sinks:
@@ -41,17 +52,6 @@ rules:
     - pattern-inside: |-
         new java.io.FileOutputStream($PATH, ...)
     - pattern: "$PATH"
-  message: |
-    "The software uses an HTTP request parameter to construct a pathname that should be within a
-    restricted directory, but it does not properly neutralize absolute path sequences such as
-    "/abs/path" that can resolve to a location that is outside of that directory. See
-    http://cwe.mitre.org/data/definitions/36.html for more information."
-  languages:
-  - "scala"
+  pattern-sources:
+  - pattern: "($REQ: HttpServletRequest ).getParameter(...)"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
-    technology:
-    - "scala"

@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "scala/inject/rule-CustomInjectionSQLString"
+  languages:
+  - "scala"
+  message: |
+    The method identified is susceptible to injection. The input should be validated and properly
+    escaped.
+  metadata:
+    category: "security"
+    cwe: "CWE-89"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
+    technology:
+    - "scala"
   patterns:
   - pattern-inside: |
       def $FOO(..., $SQLIN: String, ...): $TYPE = {
@@ -30,15 +42,4 @@ rules:
   - metavariable-regex:
       metavariable: "$SQL_STR"
       regex: "(?i)(select|insert|create|update|alter|delete|drop)\\b"
-  message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
-  languages:
-  - "scala"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    technology:
-    - "scala"

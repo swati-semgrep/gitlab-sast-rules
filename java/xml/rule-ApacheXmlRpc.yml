@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "java/xml/rule-ApacheXmlRpc"
+  languages:
+  - "java"
+  message: |
+    Enabling extensions in Apache XML RPC server or client can lead to deserialization
+    vulnerability which would allow an attacker to execute arbitrary code.
+  metadata:
+    category: "security"
+    cwe: "CWE-502"
+    shortDescription: "Deserialization of Untrusted Data"
   patterns:
   - pattern-either:
     - patterns:
@@ -16,12 +25,4 @@ rules:
           XmlRpcClientConfigImpl $VAR = new org.apache.xmlrpc.client.XmlRpcClientConfigImpl();
           ...
       - pattern: "$VAR.setEnabledForExtensions(true);"
-  languages:
-  - "java"
-  message: |
-    Enabling extensions in Apache XML RPC server or client can lead to deserialization
-    vulnerability which would allow an attacker to execute arbitrary code.
-  metadata:
-    category: "security"
-    cwe: "CWE-502: Deserialization of Untrusted Data"
   severity: "WARNING"

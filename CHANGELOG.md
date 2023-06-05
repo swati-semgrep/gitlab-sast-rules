@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.18
+- Update rules that were missing titles by moving them to shortDescription instead of cwe (!161)
+
 ## v1.3.17
 - Update Primary identifiers for `bandit.B303` and `bandit.B304` so that they match the published rules in semgrep (!155)
 

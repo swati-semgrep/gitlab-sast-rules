@@ -4,22 +4,18 @@
 ---
 rules:
 - id: "java/inject/rule-AWSQueryInjection"
+  languages:
+  - "java"
+  message: |
+    Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
+    records.
+  metadata:
+    category: "security"
+    cwe: "CWE-943"
+    shortDescription: "Improper Neutralization of Special Elements in Data Query Logic"
+    technology:
+    - "java"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        $FUNC(..., $VAR, ...) {
-          ...
-        }
-    - pattern: "$VAR"
-  - patterns:
-    - pattern-inside: |
-        $FUNC(...) {
-          ...
-          $VAR = ... + $X;
-          ...
-        }
-    - pattern: "$VAR"
   pattern-sinks:
   - patterns:
     - pattern-either:
@@ -37,14 +33,19 @@ rules:
         pattern-either:
         - pattern: "(AmazonSimpleDB $DB)"
         - pattern: "(AmazonSimpleDBClient $DB)"
-  message: |
-    Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
-    records.
-  languages:
-  - "java"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(...) {
+          ...
+          $VAR = ... + $X;
+          ...
+        }
+    - pattern: "$VAR"
   severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-943: Improper Neutralization of Special Elements in Data Query Logic"
-    technology:
-    - "java"

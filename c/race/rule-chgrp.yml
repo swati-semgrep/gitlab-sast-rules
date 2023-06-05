@@ -11,8 +11,9 @@ rules:
   message: |
     Use fchgrp( ) instead.
   metadata:
-    cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
-      files, a race condition results. (CWE-362)"
+    cwe: "CWE-362"
     owasp: "A5:2017-Broken Access Control"
+    shortDescription: "This accepts filename arguments; if an attacker can move those
+      files, a race condition results. (CWE-362)"
   pattern: "chgrp(...)"
   severity: "ERROR"

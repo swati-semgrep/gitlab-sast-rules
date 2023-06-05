@@ -4,14 +4,6 @@
 ---
 rules:
 - id: "scala/cookie/rule-TrustBoundaryViolation"
-  patterns:
-  - pattern-either:
-    - patterns:
-      - pattern: "($H: HttpServletRequest). ... .setAttribute($ARG1, $ARG2)"
-      - pattern-not: "($H: HttpServletRequest). ... .setAttribute(\"...\", \"...\")"
-    - patterns:
-      - pattern: "($H: HttpServletRequest). ... .putValue($ARG1, $ARG2)"
-      - pattern-not: "($H: HttpServletRequest). ... .putValue(\"...\", \"...\")"
   languages:
   - "scala"
   message: |
@@ -25,5 +17,14 @@ rules:
     data.
   metadata:
     category: "security"
-    cwe: "CWE-501: Trust Boundary Violation"
+    cwe: "CWE-501"
+    shortDescription: "Trust Boundary Violation"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern: "($H: HttpServletRequest). ... .setAttribute($ARG1, $ARG2)"
+      - pattern-not: "($H: HttpServletRequest). ... .setAttribute(\"...\", \"...\")"
+    - patterns:
+      - pattern: "($H: HttpServletRequest). ... .putValue($ARG1, $ARG2)"
+      - pattern-not: "($H: HttpServletRequest). ... .putValue(\"...\", \"...\")"
   severity: "WARNING"

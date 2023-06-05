@@ -1,20 +1,18 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/insecure-hash-algorithms.yaml
-# hash: acdabdb
-# id: insecure-hash-algorithm-sha1
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/crypto/rule-hash_sha1"
-  pattern: "hashlib.sha1(...)"
+  languages:
+  - "python"
   message: |
     Detected SHA1 hash algorithm which is considered insecure. SHA1 is not
     collision resistant and is therefore not suitable as a cryptographic
     signature. Use SHA256 or SHA3 instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+  pattern: "hashlib.sha1(...)"
   severity: "WARNING"
-  languages:
-  - "python"

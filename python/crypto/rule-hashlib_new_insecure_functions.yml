@@ -1,12 +1,19 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (modified): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/insecure-hash-function.yaml
-# hash: acdabdb
-# id: insecure-hash-function
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/crypto/rule-hashlib_new_insecure_functions"
+  languages:
+  - "python"
+  message: |
+    Detected use of an insecure MD4 or MD5 hash function. These functions have known
+    vulnerabilities
+    and are considered deprecated.Consider using 'SHA256' or a similar function instead.
+  metadata:
+    cwe: "CWE-327"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
   patterns:
   - pattern-either:
     - pattern: "hashlib.new(\"=~/[M|m][D|d][4|5]/\", ...)"
@@ -15,13 +22,4 @@ rules:
     - pattern: "hashlib.new(..., name='SHA1')"
     - pattern: "hashlib.new('sha', string='test')"
     - pattern: "hashlib.new(name='SHA', string='test')"
-  message: |
-    Detected use of an insecure MD4 or MD5 hash function. These functions have known
-    vulnerabilities
-    and are considered deprecated.Consider using 'SHA256' or a similar function instead.
-  metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
-    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "WARNING"
-  languages:
-  - "python"

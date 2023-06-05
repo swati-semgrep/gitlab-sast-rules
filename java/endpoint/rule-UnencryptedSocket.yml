@@ -4,8 +4,6 @@
 ---
 rules:
 - id: "java/endpoint/rule-UnencryptedSocket"
-  patterns:
-  - pattern: "new java.net.Socket(...)"
   languages:
   - "java"
   message: |
@@ -14,5 +12,8 @@ rules:
     subject to man-in-the-middle attacks. Please read the OWASP Transport Layer
     Protection Cheat Sheet for details on how to do this correctly.
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
+  patterns:
+  - pattern: "new java.net.Socket(...)"
   severity: "WARNING"

@@ -11,6 +11,7 @@ rules:
   message: |
     Use InitializeCriticalSectionAndSpinCount instead.
   metadata:
-    cwe: "CWE-754: Exceptions can be thrown in low-memory situations"
+    shortDescription: "Exceptions can be thrown in low-memory situations"
+    cwe: "CWE-754"
   pattern: "InitializeCriticalSection(...)"
   severity: "WARNING"

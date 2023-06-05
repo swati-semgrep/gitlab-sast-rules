@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "java/inject/rule-CustomInjectionSQLString"
+  languages:
+  - "java"
+  message: |
+    The method identified is susceptible to injection. The input should be validated and properly
+    escaped.
+  metadata:
+    category: "security"
+    cwe: "CWE-89"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
+    technology:
+    - "java"
   patterns:
   - pattern-not-inside: |
       final String $VAR = ...;
@@ -27,15 +39,4 @@ rules:
   - metavariable-regex:
       metavariable: "$SQL_STR"
       regex: "(?i)(select|insert|create|update|alter|delete|drop)\\b"
-  message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
-  languages:
-  - "java"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    technology:
-    - "java"

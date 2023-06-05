@@ -4,16 +4,17 @@
 ---
 rules:
 - id: "java/csrf/rule-SpringCSRFDisabled"
-  pattern-either:
-  - pattern: "(org.springframework.security.config.annotation.web.builders.HttpSecurity
-      $H). ... .csrf().disable();"
-  - pattern: "(org.springframework.security.config.annotation.web.configurers.CsrfConfigurer<HttpSecurity>
-      $C).disable();"
   languages:
   - "java"
   message: |
     Disabling Spring Security's CSRF protection is unsafe for standard web applications.
   metadata:
     category: "security"
-    cwe: "CWE-352: Cross-Site Request Forgery (CSRF)"
+    cwe: "CWE-352"
+    shortDescription: "Cross-Site Request Forgery (CSRF)"
+  pattern-either:
+  - pattern: "(org.springframework.security.config.annotation.web.builders.HttpSecurity
+      $H). ... .csrf().disable();"
+  - pattern: "(org.springframework.security.config.annotation.web.configurers.CsrfConfigurer<HttpSecurity>
+      $C).disable();"
   severity: "WARNING"

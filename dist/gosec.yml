@@ -1,25 +1,26 @@
 # yamllint disable
-# rule-set version: v1.3.17
+# rule-set version: v1.3.18
 # yamllint enable
 ---
 rules:
 - id: "gosec.G504-1"
-  patterns:
-  - pattern: |
-      import "net/http/cgi"
+  languages:
+  - "go"
   message: |
     Go versions < 1.6.3 are vulnerable to Httpoxy attack: (CVE-2016-5386)
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     primary_identifier: "gosec.G504-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G504"
       type: "gosec_rule_id"
       value: "G504"
+  patterns:
+  - pattern: |
+      import "net/http/cgi"
   severity: "WARNING"
-  languages:
-  - "go"
 - id: "gosec.G502-1"
   languages:
   - "go"
@@ -624,6 +625,20 @@ rules:
       value: "G402"
   severity: "WARNING"
 - id: "gosec.G401-1"
+  languages:
+  - "go"
+  message: |
+    Usage of a cryptographically insecure algorithm has been detected. It
+    is recommended that alternative algorithms be used instead.
+  metadata:
+    cwe: "CWE-327"
+    owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+    primary_identifier: "gosec.G401-1"
+    secondary_identifiers:
+    - name: "Gosec Rule ID G401"
+      type: "gosec_rule_id"
+      value: "G401"
   patterns:
   - pattern-either:
     - pattern: |
@@ -640,20 +655,7 @@ rules:
         sha1.New()
     - pattern: |
         sha1.Sum(...)
-  message: |
-    Usage of a cryptographically insecure algorithm has been detected. It
-    is recommended that alternative algorithms be used instead.
-  metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
-    owasp: "A9:2017-Using Components with Known Vulnerabilities"
-    primary_identifier: "gosec.G401-1"
-    secondary_identifiers:
-    - name: "Gosec Rule ID G401"
-      type: "gosec_rule_id"
-      value: "G401"
   severity: "WARNING"
-  languages:
-  - "go"
 - id: "gosec.G403-1"
   languages:
   - "go"
@@ -1720,6 +1722,18 @@ rules:
       value: "G109"
   severity: "ERROR"
 - id: "gosec.G113-1"
+  languages:
+  - "go"
+  message: |
+    Potential Integer overflow made by strconv.Atoi result conversion to int16/32
+  metadata:
+    cwe: "CWE-190"
+    shortDescription: "Integer Overflow or Wraparound"
+    primary_identifier: "gosec.G113-1"
+    secondary_identifiers:
+    - name: "Gosec Rule ID G113"
+      type: "gosec_rule_id"
+      value: "G113"
   patterns:
   - pattern-inside: |
       import "math/big"
@@ -1729,18 +1743,7 @@ rules:
       ...
   - pattern: |
       $R.SetString(...)
-  message: |
-    Potential Integer overflow made by strconv.Atoi result conversion to int16/32
-  metadata:
-    cwe: "CWE-190: Integer Overflow or Wraparound"
-    primary_identifier: "gosec.G113-1"
-    secondary_identifiers:
-    - name: "Gosec Rule ID G113"
-      type: "gosec_rule_id"
-      value: "G113"
   severity: "ERROR"
-  languages:
-  - "go"
 - id: "gosec.G601-1"
   languages:
   - "go"

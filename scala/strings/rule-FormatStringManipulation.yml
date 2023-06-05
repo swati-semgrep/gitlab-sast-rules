@@ -4,6 +4,19 @@
 ---
 rules:
 - id: "scala/strings/rule-FormatStringManipulation"
+  languages:
+  - "scala"
+  message: |
+    Allowing user input to control format parameters could enable an attacker to cause exceptions
+    to be thrown or leak information.Attackers may be able  to modify the format string argument,
+    such that an exception is thrown. If this exception is left uncaught, it may crash the
+    application. Alternatively, if sensitive information is used within the unused arguments,
+    attackers may change the format string to reveal this information.
+  metadata:
+    category: "security"
+    confidence: "HIGH"
+    cwe: "CWE-134"
+    shortDescription: "Use of Externally-Controlled Format String"
   patterns:
   - pattern-either:
     - patterns:
@@ -40,16 +53,4 @@ rules:
     - pattern: "System.out.printf(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
     - pattern: "System.out.format($FORMAT_STR, ...);"
     - pattern: "System.out.format(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
-  languages:
-  - "scala"
-  message: |
-    Allowing user input to control format parameters could enable an attacker to cause exceptions
-    to be thrown or leak information.Attackers may be able  to modify the format string argument,
-    such that an exception is thrown. If this exception is left uncaught, it may crash the
-    application. Alternatively, if sensitive information is used within the unused arguments,
-    attackers may change the format string to reveal this information.
-  metadata:
-    cwe: "CWE-134: Use of Externally-Controlled Format String"
-    category: "security"
-    confidence: "HIGH"
   severity: "ERROR"

@@ -4,22 +4,23 @@
 ---
 rules:
 - id: "java/crypto/rule-BlowfishKeySize"
+  languages:
+  - "java"
+  message: |
+    A small key size makes the ciphertext vulnerable to brute force attacks. At least 128 bits of
+    entropy should be used when generating the key if use of Blowfish is required.
+  metadata:
+    category: "security"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
+    technology:
+    - "java"
   patterns:
   - pattern-inside: |
       $KEYGEN = javax.crypto.KeyGenerator.getInstance("Blowfish", ...);
       ...
       $KEYGEN.init($KEY_SIZE);
   - metavariable-comparison:
-      metavariable: "$KEY_SIZE"
       comparison: "$KEY_SIZE < 128"
-  message: |
-    A small key size makes the ciphertext vulnerable to brute force attacks. At least 128 bits of
-    entropy should be used when generating the key if use of Blowfish is required.
-  languages:
-  - "java"
+      metavariable: "$KEY_SIZE"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
-    technology:
-    - "java"

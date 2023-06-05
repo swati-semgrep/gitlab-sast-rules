@@ -1,19 +1,24 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
-# source file: test-SpotbugsPathTraversal.java
 # yamllint enable
 ---
 rules:
 - id: "scala/inject/rule-SpotbugsPathTraversalRelative"
+  languages:
+  - "scala"
+  message: |
+    "The software uses an HTTP request parameter to construct a pathname that should be within a
+    restricted directory, but it does not properly neutralize sequences such as ".." that can
+    resolve to a location that is outside of that directory. See
+    http://cwe.mitre.org/data/definitions/23.html for more information."
+  metadata:
+    category: "security"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
+    technology:
+    - "scala"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        $P = ($REQ: HttpServletRequest ).getParameter(...);
-        ...
-    - pattern-either:
-      - pattern: "$P + ..."
-      - pattern: "... + $P"
   pattern-sanitizers:
   - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
   pattern-sinks:
@@ -47,17 +52,12 @@ rules:
     - pattern-inside: |-
         new java.io.FileOutputStream($PATH, ...)
     - pattern: "$PATH"
-  message: |
-    "The software uses an HTTP request parameter to construct a pathname that should be within a
-    restricted directory, but it does not properly neutralize sequences such as ".." that can
-    resolve to a location that is outside of that directory. See
-    http://cwe.mitre.org/data/definitions/23.html for more information."
-  languages:
-  - "scala"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $P = ($REQ: HttpServletRequest ).getParameter(...);
+        ...
+    - pattern-either:
+      - pattern: "$P + ..."
+      - pattern: "... + $P"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
-    technology:
-    - "scala"

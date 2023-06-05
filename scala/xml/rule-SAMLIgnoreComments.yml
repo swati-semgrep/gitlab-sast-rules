@@ -4,12 +4,13 @@
 ---
 rules:
 - id: "scala/xml/rule-SAMLIgnoreComments"
-  pattern: "($POOL: BasicParserPool).setIgnoreComments(false);"
   languages:
   - "scala"
   message: |
     Ignoring XML comments in SAML may lead to authentication bypass
   metadata:
-    cwe: "CWE-287: Improper Authentication"
     category: "security"
+    cwe: "CWE-287"
+    shortDescription: "Improper Authentication"
+  pattern: "($POOL: BasicParserPool).setIgnoreComments(false);"
   severity: "WARNING"

@@ -4,15 +4,21 @@
 ---
 rules:
 - id: "java/endpoint/rule-JaxWsEndpoint"
+  languages:
+  - "java"
+  message: |
+    This method is part of a SOAP Web Service (JSR224). The security of this web service should be
+    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
+    tested. The inputs should be tracked for potential vulnerabilities. The communication should
+    ideally be over SSL.
+  metadata:
+    category: "security"
+    cwe: "CWE-20"
+    owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    shortDescription: "Improper Input Validation"
+    technology:
+    - "java"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        @javax.jws.WebMethod(...)
-        $TYPE $FUNC(..., $VAR, ...) {
-          ...
-        }
-    - pattern: "$VAR"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |
@@ -28,17 +34,12 @@ rules:
   - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
   pattern-sinks:
   - pattern: "return ...;"
-  message: |
-    This method is part of a SOAP Web Service (JSR224). The security of this web service should be
-    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
-    tested. The inputs should be tracked for potential vulnerabilities. The communication should
-    ideally be over SSL.
-  languages:
-  - "java"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        @javax.jws.WebMethod(...)
+        $TYPE $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
   severity: "INFO"
-  metadata:
-    category: "security"
-    cwe: "CWE-20: Improper Input Validation"
-    owasp: "A7:2017-Cross-Site Scripting (XSS)"
-    technology:
-    - "java"
