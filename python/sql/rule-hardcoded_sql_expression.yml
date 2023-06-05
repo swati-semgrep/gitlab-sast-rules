@@ -1,12 +1,18 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (modified): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/formatted-sql-query.yaml
-# hash: acdabdb
-# id: formatted-sql-query 
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/sql/rule-hardcoded_sql_expression"
+  languages:
+  - "python"
+  message: |
+    Detected possible formatted SQL query. Use parameterized queries instead.
+  metadata:
+    cwe: "CWE-89"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
   patterns:
   - pattern-either:
     - pattern: "$DB.execute(\"...\" % ...)"
@@ -32,12 +38,4 @@ rules:
             $SQL = f"...{$X}..."
             ...
       - pattern: "$DB.execute($SQL)"
-  message: |
-    Detected possible formatted SQL query. Use parameterized queries instead.
-  metadata:
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    owasp: "A1:2017-Injection"
   severity: "WARNING"
-  languages:
-  - "python"

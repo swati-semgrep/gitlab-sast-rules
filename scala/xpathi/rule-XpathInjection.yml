@@ -4,14 +4,17 @@
 ---
 rules:
 - id: "scala/xpathi/rule-XpathInjection"
+  languages:
+  - "scala"
+  message: |
+    The input values included in SQL queries need to be passed in safely. Bind
+    variables in prepared statements can be used to easily mitigate the risk of
+    SQL injection.
+  metadata:
+    category: "security"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        def $FUNC(..., $ARG: $TYPE,...): $RET = {
-          ...
-        }
-    - pattern: "$ARG"
   pattern-sinks:
   - patterns:
     - pattern-either:
@@ -24,13 +27,11 @@ rules:
     - pattern-either:
       - pattern: "$Y.compile(...)"
       - pattern: "$X.evaluate(..., $ARG2)"
-  languages:
-  - "scala"
-  message: |
-    The input values included in SQL queries need to be passed in safely. Bind
-    variables in prepared statements can be used to easily mitigate the risk of
-    SQL injection.
-  metadata:
-    category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        def $FUNC(..., $ARG: $TYPE,...): $RET = {
+          ...
+        }
+    - pattern: "$ARG"
   severity: "ERROR"

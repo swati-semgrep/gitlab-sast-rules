@@ -4,6 +4,16 @@
 ---
 rules:
 - id: "scala/endpoint/rule-WeakHostNameVerification"
+  languages:
+  - "scala"
+  message: |
+    A HostnameVerifier that accept any host are often use because of certificate
+    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middle
+    attacks since the client will trust any certificate.
+  metadata:
+    category: "security"
+    cwe: "CWE-295"
+    shortDescription: "Improper Certificate Validation"
   patterns:
   - pattern-either:
     - patterns:
@@ -29,13 +39,4 @@ rules:
         - pattern: "def checkServerTrusted(...) = {}"
         - pattern: "def getAcceptedIssuers(): Array[X509Certificate] = null"
         - pattern: "def getAcceptedIssuers(): Array[X509Certificate] = {}"
-  languages:
-  - "scala"
-  message: |
-    A HostnameVerifier that accept any host are often use because of certificate
-    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middle
-    attacks since the client will trust any certificate.
-  metadata:
-    category: "security"
-    cwe: "CWE-295: Improper Certificate Validation"
   severity: "WARNING"

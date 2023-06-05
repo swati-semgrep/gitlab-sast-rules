@@ -1,19 +1,17 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (modified): https://semgrep.dev/c/p/bandit
-# hash: acdabdb
-# contrib.dlint.dlint-equivalent.insecure-os-temp-use
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/tmpdir/rule-tempnam"
-  pattern-either:
-  - pattern: "os.tempnam(...)"
-  - pattern: "os.tmpnam(...)"
+  languages:
+  - "python"
   message: |
     The Python `os` `tempnam|tmpnam` functions are vulnerable to symlink attacks
   metadata:
-    cwe: "CWE-377: Insecure Temporary File"
+    cwe: "CWE-377"
+    shortDescription: "Insecure Temporary File"
+  pattern-either:
+  - pattern: "os.tempnam(...)"
+  - pattern: "os.tmpnam(...)"
   severity: "WARNING"
-  languages:
-  - "python"

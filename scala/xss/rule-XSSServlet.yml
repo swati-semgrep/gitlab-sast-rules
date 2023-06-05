@@ -4,12 +4,17 @@
 ---
 rules:
 - id: "scala/xss/rule-XSSServlet"
+  languages:
+  - "scala"
+  message: |
+    A potential XSS was found. It could be used to execute unwanted JavaScript in a
+    client's browser.
+  metadata:
+    category: "security"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |-
-        def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {...}
-    - pattern: "$REQ.getParameter(...);"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -29,13 +34,9 @@ rules:
         def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
     - pattern: "$RES.getWriter.write($DATA,...);"
     - pattern: "$DATA"
-  message: |
-    A potential XSS was found. It could be used to execute unwanted JavaScript in a
-    client's browser.
-  languages:
-  - "scala"
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
-    category: "security"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |-
+        def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {...}
+    - pattern: "$REQ.getParameter(...);"
   severity: "WARNING"

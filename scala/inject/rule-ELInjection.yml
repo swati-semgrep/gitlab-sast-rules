@@ -4,6 +4,17 @@
 ---
 rules:
 - id: "scala/inject/rule-ELInjection"
+  languages:
+  - "scala"
+  message: |
+    An expression is built with a dynamic value. The source of the value(s) should be verified to
+    avoid that unfiltered values fall into this risky code evaluation.
+  metadata:
+    category: "security"
+    cwe: "CWE-94"
+    shortDescription: "Improper Control of Generation of Code ('Code Injection')"
+    technology:
+    - "scala"
   patterns:
   - pattern-inside: |
       import javax.el._
@@ -20,14 +31,4 @@ rules:
   - pattern-either:
     - pattern: "$X.createValueExpression(..., $EXPR, ...)"
     - pattern: "$X.createMethodExpression(..., $EXPR, ...)"
-  message: |
-    An expression is built with a dynamic value. The source of the value(s) should be verified to
-    avoid that unfiltered values fall into this risky code evaluation.
-  languages:
-  - "scala"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    technology:
-    - "scala"

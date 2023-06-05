@@ -4,12 +4,9 @@
 ---
 rules:
 - id: "javascript/buf/rule-buffer-noassert"
-  metadata:
-    cwe: "CWE-119: Improper Restriction of Operations within the Bounds of a Memory
-      Buffer"
-    # yamllint disable
-    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-buffer-noassert.js"
-    # yamllint enable
+  languages:
+  - "javascript"
+  - "typescript"
   message: |
     Detected usage of noassert in Buffer API, which allows the offset the be beyond the
     end of the buffer. This could result in writing or reading beyond the end of the buffer.
@@ -43,6 +40,11 @@ rules:
   - pattern: "$OBJ.writeDoubleLE(..., true)"
   - pattern: "$OBJ.writeDoubleBE(..., true)"
   severity: "WARNING"
-  languages:
-  - "javascript"
-  - "typescript"
+  metadata:
+    shortDescription: "Improper Restriction of Operations within the Bounds of a Memory
+      Buffer"
+    cwe: "CWE-119"
+    category: "security"
+    # yamllint disable
+    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-buffer-noassert.js"
+    # yamllint enable

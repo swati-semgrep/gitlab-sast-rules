@@ -4,17 +4,18 @@
 ---
 rules:
 - id: "java/crypto/rule-WeakTLSProtocol"
-  patterns:
-  - pattern-either:
-    - pattern: "new org.apache.http.impl.client.DefaultHttpClient();"
-    - pattern: "javax.net.ssl.SSLContext.getInstance(\"SSL\");"
+  languages:
+  - "java"
   message: |
     A HostnameVerifier that accept any host are often use because of certificate
     reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
     attacks since the client will trust any certificate.
   metadata:
     category: "security"
-    cwe: "CWE-295: Improper Certificate Validation"
+    cwe: "CWE-295"
+    shortDescription: "Improper Certificate Validation"
+  patterns:
+  - pattern-either:
+    - pattern: "new org.apache.http.impl.client.DefaultHttpClient();"
+    - pattern: "javax.net.ssl.SSLContext.getInstance(\"SSL\");"
   severity: "WARNING"
-  languages:
-  - "java"

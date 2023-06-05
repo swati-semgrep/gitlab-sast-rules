@@ -4,21 +4,22 @@
 ---
 rules:
 - id: "javascript/react/rule-dangerouslysetinnerhtml"
+  languages:
+  - "typescript"
+  - "javascript"
+  message: |
+    Setting HTML from code is risky because it’s easy to inadvertently expose your users to a
+    cross-site scripting (XSS) attack.
+  metadata:
+    cwe: "CWE-79"
+    owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    references:
+    - "https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
   pattern-either:
   - pattern: |
       <$X dangerouslySetInnerHTML=... />
   - pattern: |
       {dangerouslySetInnerHTML: ...}
-  message: |
-    Setting HTML from code is risky because it’s easy to inadvertently expose your users to a
-    cross-site scripting (XSS) attack.
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
-    owasp: "A7:2017-Cross-Site Scripting (XSS)"
-    references:
-    - "https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml"
-  languages:
-  - "typescript"
-  - "javascript"
   severity: "WARNING"

@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "scala/strings/rule-ImproperUnicode"
+  languages:
+  - "scala"
+  message: |
+    Improper Handling of Unicode Encoding
+  metadata:
+    category: "security"
+    confidence: "HIGH"
+    cwe: "CWE-176"
+    shortDescription: "Improper Handling of Unicode Encoding"
   pattern-either:
   - patterns:
     - pattern-either:
@@ -21,12 +30,4 @@ rules:
   - pattern: "java.text.Normalizer.normalize(...);"
   - pattern: "java.net.IDN.toASCII(...);"
   - pattern: "($U: URI).toASCIIString()"
-  languages:
-  - "scala"
-  message: |
-    Improper Handling of Unicode Encoding
-  metadata:
-    cwe: "CWE-176: Improper Handling of Unicode Encoding"
-    category: "security"
-    confidence: "HIGH"
   severity: "ERROR"

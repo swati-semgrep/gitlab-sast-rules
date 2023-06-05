@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "scala/crypto/rule-InsufficientKeySizeRsa"
+  languages:
+  - "scala"
+  message: |
+    Detected an insufficient key size for DSA. NIST recommends a key size
+    of 2048 or higher.
+  metadata:
+    category: "security"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
   patterns:
   - pattern-either:
     - patterns:
@@ -14,17 +23,9 @@ rules:
         - pattern: "$VAR.initialize($SIZE, ...)"
         - pattern: "new java.security.spec.RSAKeyGenParameterSpec($SIZE, ...)"
       - metavariable-comparison:
-          metavariable: "$SIZE"
           comparison: "$SIZE < 2048"
+          metavariable: "$SIZE"
       - metavariable-regex:
           metavariable: "$ALG"
           regex: "\"(RSA|DSA)\""
-  message: |
-    Detected an insufficient key size for DSA. NIST recommends a key size
-    of 2048 or higher.
-  metadata:
-    category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
   severity: "WARNING"
-  languages:
-  - "scala"

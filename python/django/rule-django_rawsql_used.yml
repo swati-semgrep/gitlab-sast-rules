@@ -4,17 +4,18 @@
 ---
 rules:
 - id: "python/django/rule-django_rawsql_used"
-  patterns:
-  - pattern-either:
-    - pattern: "$MODEL.objects.raw($QUERY, ...)"
-    - pattern: "django.db.models.expressions.RawSQL(...)"
+  languages:
+  - "python"
   message: |
     You should be very careful whenever you write raw SQL. Consider usingDjango ORM before raw SQL.
     See https://docs.djangoproject.com/en/3.0/topics/db/sql/#passing-parameters-into-raw
   metadata:
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
+    cwe: "CWE-89"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
+  patterns:
+  - pattern-either:
+    - pattern: "$MODEL.objects.raw($QUERY, ...)"
+    - pattern: "django.db.models.expressions.RawSQL(...)"
   severity: "ERROR"
-  languages:
-  - "python"

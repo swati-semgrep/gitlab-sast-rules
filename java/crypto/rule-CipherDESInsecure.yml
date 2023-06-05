@@ -4,20 +4,21 @@
 ---
 rules:
 - id: "java/crypto/rule-CipherDESInsecure"
+  languages:
+  - "java"
+  message: |
+    DES is considered strong ciphers for modern applications. Currently, NIST recommends the usage
+    of AES block ciphers instead of DES.
+  metadata:
+    category: "security"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
+    technology:
+    - "java"
   patterns:
   - pattern-inside: |-
       javax.crypto.Cipher.getInstance("$ALG")
   - metavariable-regex:
       metavariable: "$ALG"
       regex: "^(DES)/.*"
-  message: |
-    DES is considered strong ciphers for modern applications. Currently, NIST recommends the usage
-    of AES block ciphers instead of DES.
-  languages:
-  - "java"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
-    technology:
-    - "java"

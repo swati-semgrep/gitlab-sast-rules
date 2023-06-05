@@ -4,9 +4,17 @@
 ---
 rules:
 - id: "java/inject/rule-FileDisclosure"
+  languages:
+  - "java"
+  message: |
+    Constructing a server-side redirect path with user input could allow an
+    attacker to download application binaries (including application classes or
+    jar files) or view arbitrary files within protected directories.
+  metadata:
+    category: "security"
+    cwe: "CWE-552"
+    shortDescription: "Files or Directories Accessible to External Parties"
   mode: "taint"
-  pattern-sources:
-  - pattern: "(javax.servlet.http.HttpServletRequest $VAR).getParameter(...)"
   pattern-sinks:
   - patterns:
     - pattern: "new org.springframework.web.servlet.ModelAndView($FST);"
@@ -46,13 +54,6 @@ rules:
     - pattern-either:
       - pattern: "$REQ.include($FST, $SND)"
       - pattern: "$REQ.forward($FST, $SND)"
-  languages:
-  - "java"
-  message: |
-    Constructing a server-side redirect path with user input could allow an
-    attacker to download application binaries (including application classes or
-    jar files) or view arbitrary files within protected directories.
-  metadata:
-    category: "security"
-    cwe: "CWE-552: Files or Directories Accessible to External Parties"
+  pattern-sources:
+  - pattern: "(javax.servlet.http.HttpServletRequest $VAR).getParameter(...)"
   severity: "ERROR"

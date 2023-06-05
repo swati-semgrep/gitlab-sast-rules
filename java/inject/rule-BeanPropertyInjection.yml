@@ -4,6 +4,19 @@
 ---
 rules:
 - id: "java/inject/rule-BeanPropertyInjection"
+  languages:
+  - "java"
+  message: |
+    An attacker can set arbitrary bean properties that can compromise system integrity. An
+    attacker can leverage this functionality to access special bean properties like
+    class.classLoader that will allow them to override system properties and potentially execute
+    arbitrary code.
+  metadata:
+    category: "security"
+    cwe: "CWE-15"
+    shortDescription: "External Control of System or Configuration Setting"
+    technology:
+    - "java"
   patterns:
   - pattern-inside: |-
       $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { ... }
@@ -25,16 +38,4 @@ rules:
       - pattern: "(BeanUtilsBean $B)"
       - pattern: "new BeanUtilsBean()"
       - pattern: "org.apache.commons.beanutils.BeanUtils"
-  message: |
-    An attacker can set arbitrary bean properties that can compromise system integrity. An
-    attacker can leverage this functionality to access special bean properties like
-    class.classLoader that will allow them to override system properties and potentially execute
-    arbitrary code.
-  languages:
-  - "java"
   severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-15: External Control of System or Configuration Setting"
-    technology:
-    - "java"

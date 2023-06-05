@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "java/perm/rule-OverlyPermissiveFilePermissionObj"
+  languages:
+  - "java"
+  message: |
+    Overly permissive file permission
+  metadata:
+    category: "security"
+    confidence: "HIGH"
+    cwe: "CWE-732"
+    shortDescription: "Incorrect Permission Assignment for Critical Resource"
   patterns:
   - pattern-inside: |
       $PERMS.add($P);
@@ -12,12 +21,4 @@ rules:
   - metavariable-regex:
       metavariable: "$P"
       regex: "(PosixFilePermission.){0,1}(OTHERS_)"
-  languages:
-  - "java"
-  message: |
-    Overly permissive file permission
-  metadata:
-    cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
-    category: "security"
-    confidence: "HIGH"
   severity: "WARNING"

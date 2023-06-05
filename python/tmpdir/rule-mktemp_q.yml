@@ -1,21 +1,19 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/correctness/tempfile/mktemp.yaml
-# hash: acdabdb
-# id: tempfile-insecure
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/tmpdir/rule-mktemp_q"
-  pattern: "tempfile.mktemp(...)"
+  languages:
+  - "python"
   message: |
     Use tempfile.NamedTemporaryFile instead. From the official Python documentation: THIS FUNCTION
     IS UNSAFE AND SHOULD NOT BE USED. The file name may refer to a file that did not exist at some
     point, but by the time you getaround to creating it, someone else may have beaten you to the
     punch.
   metadata:
-    cwe: "CWE-377: Insecure Temporary File"
+    cwe: "CWE-377"
     owasp: "A3:2017-Sensitive Data Exposure"
-  languages:
-  - "python"
+    shortDescription: "Insecure Temporary File"
+  pattern: "tempfile.mktemp(...)"
   severity: "ERROR"

@@ -1,13 +1,11 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (modified): https://semgrep.dev/c/p/bandit
-# id: python.lang.security.audit.eval-detected.eval-detected
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/eval/rule-eval"
-  patterns:
-  - pattern: "eval(...)"
+  languages:
+  - "python"
   message: |
     Detected the use of `eval()`. `eval()` can be dangerous if used to evaluate dynamic content. If
     this
@@ -15,9 +13,10 @@ rules:
     Ensure evaluated content is not definableby external sources. Consider using safer
     `ast.literal_eval`.
   metadata:
-    cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
-      ('Eval Injection')"
+    cwe: "CWE-95"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Directives in Dynamically Evaluated
+      Code ('Eval Injection')"
+  patterns:
+  - pattern: "eval(...)"
   severity: "WARNING"
-  languages:
-  - "python"

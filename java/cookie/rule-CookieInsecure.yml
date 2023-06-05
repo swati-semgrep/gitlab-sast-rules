@@ -4,6 +4,17 @@
 ---
 rules:
 - id: "java/cookie/rule-CookieInsecure"
+  languages:
+  - "java"
+  message: |
+    "A new cookie is created without the Secure flag set. The Secure flag is a directive to the
+    browser to make sure that the cookie is not sent for insecure communication (http://)"
+  metadata:
+    category: "security"
+    cwe: "CWE-539"
+    shortDescription: "Information Exposure Through Persistent Cookies"
+    technology:
+    - "java"
   pattern-either:
   - patterns:
     - pattern: |
@@ -17,14 +28,4 @@ rules:
         ...
         (HttpServletResponse $RESP).addCookie($C);
   - pattern: "(javax.servlet.http.Cookie $C).setSecure(false);"
-  message: |
-    "A new cookie is created without the Secure flag set. The Secure flag is a directive to the
-    browser to make sure that the cookie is not sent for insecure communication (http://)"
-  languages:
-  - "java"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-539: Information Exposure Through Persistent Cookies"
-    technology:
-    - "java"

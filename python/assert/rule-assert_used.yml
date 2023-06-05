@@ -4,6 +4,14 @@
 ---
 rules:
 - id: "python/assert/rule-assert_used"
+  languages:
+  - "python"
+  message: |
+    Use of assert detected. The enclosed code will be removed when compiling to optimised byte
+    code.
+  metadata:
+    cwe: "CWE-754"
+    shortDescription: "Improper Check for Unusual or Exceptional Conditions"
   patterns:
   - pattern: "assert(...)"
   - pattern-not-inside: |
@@ -12,11 +20,4 @@ rules:
   - pattern-not-inside: |
       import unittest
       ...
-  message: |
-    Use of assert detected. The enclosed code will be removed when compiling to optimised byte
-    code.
-  metadata:
-    cwe: "CWE-754: Improper Check for Unusual or Exceptional Conditions"
   severity: "INFO"
-  languages:
-  - "python"

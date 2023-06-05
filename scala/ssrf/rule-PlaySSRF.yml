@@ -4,6 +4,16 @@
 ---
 rules:
 - id: "scala/ssrf/rule-PlaySSRF"
+  languages:
+  - "scala"
+  message: |
+    Server-Side Request Forgery occur when a web server executes a request to a user supplied
+    destination parameter that is not validated. Such vulnerabilities could allow an attacker to
+    access internal services or to launch attacks from your web server.
+  metadata:
+    category: "security"
+    cwe: "CWE-918"
+    shortDescription: "Server-Side Request Forgery (SSRF)"
   patterns:
   - pattern-not-inside: |
       object $CLAZZ {
@@ -29,13 +39,4 @@ rules:
       - pattern: "($W:play.api.libs.ws.WSClient).url(<...$ARG...>)"
       - pattern-not: "($W:play.api.libs.ws.WSClient).url(\"...\")"
       - pattern-not: "($W:play.api.libs.ws.WSClient).url(\"...\" + \"...\")"
-  languages:
-  - "scala"
-  message: |
-    Server-Side Request Forgery occur when a web server executes a request to a user supplied
-    destination parameter that is not validated. Such vulnerabilities could allow an attacker to
-    access internal services or to launch attacks from your web server.
-  metadata:
-    category: "security"
-    cwe: "CWE-918: Server-Side Request Forgery (SSRF)"
   severity: "ERROR"

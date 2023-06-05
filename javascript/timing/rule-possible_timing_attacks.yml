@@ -4,6 +4,14 @@
 ---
 rules:
 - id: "javascript/timing/rule-possible_timing_attacks"
+  languages:
+  - "javascript"
+  message: |
+    String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More
+    info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/
+  metadata:
+    cwe: "CWE-208"
+    shortDescription: "Observable Timing Discrepancy"
   patterns:
   - pattern-not: "if ($Z == null) { ... };"
   - pattern-not: "if ($Z === null) { ... };"
@@ -486,11 +494,4 @@ rules:
         return $X != api;
     - pattern: |
         return api != $X;
-  message: |
-    String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More
-    info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/
-  languages:
-  - "javascript"
   severity: "WARNING"
-  metadata:
-    cwe: "CWE-208: Observable Timing Discrepancy"

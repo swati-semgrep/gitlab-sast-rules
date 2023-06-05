@@ -1,18 +1,12 @@
 # yamllint disable
-# rule-set version: v1.3.17
+# rule-set version: v1.3.18
 # yamllint enable
 ---
 rules:
 - id: "eslint.detect-buffer-noassert-1"
-  metadata:
-    cwe: "CWE-119: Improper Restriction of Operations within the Bounds of a Memory
-      Buffer"
-    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-buffer-noassert.js"
-    primary_identifier: "eslint.detect-buffer-noassert"
-    secondary_identifiers:
-    - name: "ESLint rule ID/detect-buffer-noassert"
-      type: "eslint_rule_id"
-      value: "detect-buffer-noassert"
+  languages:
+  - "javascript"
+  - "typescript"
   message: |
     Detected usage of noassert in Buffer API, which allows the offset the be beyond the
     end of the buffer. This could result in writing or reading beyond the end of the buffer.
@@ -46,17 +40,21 @@ rules:
   - pattern: "$OBJ.writeDoubleLE(..., true)"
   - pattern: "$OBJ.writeDoubleBE(..., true)"
   severity: "WARNING"
+  metadata:
+    shortDescription: "Improper Restriction of Operations within the Bounds of a Memory
+      Buffer"
+    cwe: "CWE-119"
+    category: "security"
+    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-buffer-noassert.js"
+    primary_identifier: "eslint.detect-buffer-noassert"
+    secondary_identifiers:
+    - name: "ESLint rule ID/detect-buffer-noassert"
+      type: "eslint_rule_id"
+      value: "detect-buffer-noassert"
+- id: "eslint.detect-new-buffer-1"
   languages:
   - "javascript"
   - "typescript"
-- id: "eslint.detect-new-buffer-1"
-  metadata:
-    source-rule-url: "https://github.com/eslint-community/eslint-plugin-security/blob/main/rules/detect-new-buffer.js"
-    primary_identifier: "eslint.detect-new-buffer"
-    secondary_identifiers:
-    - name: "ESLint rule ID/detect-new-buffer"
-      type: "eslint_rule_id"
-      value: "detect-new-buffer"
   patterns:
   - patterns:
     - pattern-not-inside: |-
@@ -75,94 +73,120 @@ rules:
   message: |
     Detects instances of new Buffer(argument) where argument is any non-literal value which could
     cause memory leak. Recommended usage is `Buffer.from()` or `Buffer.alloc()`.
+  metadata:
+    shortDescription: "Memory leak"
+    cwe: "CWE-401"
+    category: "security"
+    source-rule-url: "https://github.com/eslint-community/eslint-plugin-security/blob/main/rules/detect-new-buffer.js"
+    primary_identifier: "eslint.detect-new-buffer"
+    secondary_identifiers:
+    - name: "ESLint rule ID/detect-new-buffer"
+      type: "eslint_rule_id"
+      value: "detect-new-buffer"
+  severity: "WARNING"
+- id: "eslint.detect-no-csrf-before-method-override-1"
   languages:
   - "javascript"
   - "typescript"
-  severity: "WARNING"
-- id: "eslint.detect-no-csrf-before-method-override-1"
+  message: |
+    Detected use of express.csrf() middleware before express.methodOverride(). This can
+    allow GET requests (which are not checked by csrf) to turn into POST requests later.
   metadata:
-    cwe: "CWE-352: Cross-Site Request Forgery (CSRF)"
-    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-no-csrf-before-method-override.js"
+    cwe: "CWE-352"
     references:
     - "https://github.com/nodesecurity/eslint-plugin-security/blob/master/docs/bypass-connect-csrf-protection-by-abusing.md"
+    shortDescription: "Cross-Site Request Forgery (CSRF)"
+    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-no-csrf-before-method-override.js"
     primary_identifier: "eslint.detect-no-csrf-before-method-override"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-no-csrf-before-method-override"
       type: "eslint_rule_id"
       value: "detect-no-csrf-before-method-override"
-  message: |
-    Detected use of express.csrf() middleware before express.methodOverride(). This can
-    allow GET requests (which are not checked by csrf) to turn into POST requests later.
   pattern: |
     express.csrf();
     ...
     express.methodOverride();
   severity: "WARNING"
+- id: "eslint.detect-non-literal-regexp-1"
   languages:
   - "javascript"
   - "typescript"
-- id: "eslint.detect-non-literal-regexp-1"
-  patterns:
-  - pattern: |
-      new RegExp(...)
-  - pattern-not: |
-      new RegExp("...", ...)
   message: |
     RegExp() called with a variable, this might allow an attacker to DOS your application with a
     long-running regular expression.
-  languages:
-  - "javascript"
-  - "typescript"
-  severity: "WARNING"
   metadata:
-    cwe: "CWE-185: Incorrect Regular Expression"
+    cwe: "CWE-185"
+    shortDescription: "Incorrect Regular Expression"
     primary_identifier: "eslint.detect-non-literal-regexp"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-non-literal-regexp"
       type: "eslint_rule_id"
       value: "detect-non-literal-regexp"
+  patterns:
+  - pattern: |
+      new RegExp(...)
+  - pattern-not: |
+      new RegExp("...", ...)
+  severity: "WARNING"
 - id: "eslint.detect-eval-with-expression-1"
+  languages:
+  - "javascript"
+  - "typescript"
+  message: |
+    Detected eval(variable), which could allow a malicious actor to run arbitrary code.
   metadata:
-    cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
-      ('Eval Injection')"
+    cwe: "CWE-95"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Directives in Dynamically Evaluated
+      Code ('Eval Injection')"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-eval-with-expression.js"
     primary_identifier: "eslint.detect-eval-with-expression"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-eval-with-expression"
       type: "eslint_rule_id"
       value: "detect-eval-with-expression"
-  message: |
-    Detected eval(variable), which could allow a malicious actor to run arbitrary code.
   patterns:
   - pattern: "eval($OBJ)"
   - pattern-not: "eval(\"...\")"
   severity: "WARNING"
+- id: "eslint.detect-child-process-1"
   languages:
   - "javascript"
   - "typescript"
-- id: "eslint.detect-child-process-1"
+  message: |
+    Detected non-literal calls to child_process.exec(). This could lead to a command
+    injection vulnerability.
   metadata:
-    cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
-      ('Eval Injection')"
+    cwe: "CWE-95"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Directives in Dynamically Evaluated
+      Code ('Eval Injection')"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-child-process.js"
     primary_identifier: "eslint.detect-child-process"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-child-process"
       type: "eslint_rule_id"
       value: "detect-child-process"
-  message: |
-    Detected non-literal calls to child_process.exec(). This could lead to a command
-    injection vulnerability.
   patterns:
   - pattern: "child_process.exec(...)"
   - pattern-not: "child_process.exec('...')"
   severity: "WARNING"
-  languages:
-  - "javascript"
-  - "typescript"
 - id: "eslint.detect-non-literal-fs-filename-1"
+  languages:
+  - "typescript"
+  - "javascript"
+  message: |
+    A variable is present in the filename argument of fs calls, this might allow an attacker to
+    access anything on your system.
+  metadata:
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
+    primary_identifier: "eslint.detect-non-literal-fs-filename"
+    secondary_identifiers:
+    - name: "ESLint rule ID/detect-non-literal-fs-filename"
+      type: "eslint_rule_id"
+      value: "detect-non-literal-fs-filename"
   patterns:
   - pattern-not: "$MOD.appendFile(\"...\", ...)"
   - pattern-not: "$MOD.appendFileSync(\"...\", ...)"
@@ -263,62 +287,70 @@ rules:
     - pattern: "$MOD.watchFile(...)"
     - pattern: "$MOD.writeFile(...)"
     - pattern: "$MOD.writeFileSync(...)"
-  message: |
-    A variable is present in the filename argument of fs calls, this might allow an attacker to
-    access anything on your system.
-  languages:
-  - "typescript"
-  - "javascript"
   severity: "WARNING"
-  metadata:
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
-    primary_identifier: "eslint.detect-non-literal-fs-filename"
-    secondary_identifiers:
-    - name: "ESLint rule ID/detect-non-literal-fs-filename"
-      type: "eslint_rule_id"
-      value: "detect-non-literal-fs-filename"
 - id: "eslint.detect-pseudoRandomBytes-1"
+  languages:
+  - "javascript"
+  - "typescript"
+  message: |
+    Detected usage of crypto.pseudoRandomBytes, which does not produce secure random numbers.
   metadata:
-    cwe: "CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"
+    cwe: "CWE-338"
+    shortDescription: "Use of Cryptographically Weak Pseudo-Random Number Generator
+      (PRNG)"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-pseudoRandomBytes.js"
     primary_identifier: "eslint.detect-pseudoRandomBytes"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-pseudoRandomBytes"
       type: "eslint_rule_id"
       value: "detect-pseudoRandomBytes"
-  message: |
-    Detected usage of crypto.pseudoRandomBytes, which does not produce secure random numbers.
   pattern: "crypto.pseudoRandomBytes"
   severity: "WARNING"
-  languages:
-  - "javascript"
-  - "typescript"
 - id: "eslint.react-dangerouslysetinnerhtml-1"
-  pattern-either:
-  - pattern: |
-      <$X dangerouslySetInnerHTML=... />
-  - pattern: |
-      {dangerouslySetInnerHTML: ...}
+  languages:
+  - "typescript"
+  - "javascript"
   message: |
     Setting HTML from code is risky because it’s easy to inadvertently expose your users to a
     cross-site scripting (XSS) attack.
   metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
+    cwe: "CWE-79"
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
     references:
     - "https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
     primary_identifier: "eslint.react-dangerouslysetinnerhtml"
     secondary_identifiers:
     - name: "ESLint rule ID/react-dangerouslysetinnerhtml"
       type: "eslint_rule_id"
       value: "react-dangerouslysetinnerhtml"
+  pattern-either:
+  - pattern: |
+      <$X dangerouslySetInnerHTML=... />
+  - pattern: |
+      {dangerouslySetInnerHTML: ...}
+  severity: "WARNING"
+- id: "eslint.react-missing-noopener-1"
   languages:
   - "typescript"
   - "javascript"
-  severity: "WARNING"
-- id: "eslint.react-missing-noopener-1"
+  message: |
+    Missing 'noopener' on an anchor tag where target='_blank'. This could introduce
+    a reverse tabnabbing vulnerability. Include 'noopener' when using target='_blank'.
+  metadata:
+    cwe: "CWE-200"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    references:
+    - "https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer"
+    - "https://web.dev/external-anchors-use-rel-noopener/"
+    - "https://owasp.org/www-community/attacks/Reverse_Tabnabbing"
+    shortDescription: "Exposure of Sensitive Information to an Unauthorized Actor"
+    primary_identifier: "eslint.react-missing-noopener"
+    secondary_identifiers:
+    - name: "ESLint rule ID/react-missing-noopener"
+      type: "eslint_rule_id"
+      value: "react-missing-noopener"
   pattern-either:
   - patterns:
     - pattern: |
@@ -357,47 +389,43 @@ rules:
     - metavariable-regex:
         metavariable: "$REL"
         regex: "[\"']((?!noopener).)*?['\"]"
-  message: |
-    Missing 'noopener' on an anchor tag where target='_blank'. This could introduce
-    a reverse tabnabbing vulnerability. Include 'noopener' when using target='_blank'.
-  metadata:
-    cwe: "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    references:
-    - "https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer"
-    - "https://web.dev/external-anchors-use-rel-noopener/"
-    - "https://owasp.org/www-community/attacks/Reverse_Tabnabbing"
-    primary_identifier: "eslint.react-missing-noopener"
-    secondary_identifiers:
-    - name: "ESLint rule ID/react-missing-noopener"
-      type: "eslint_rule_id"
-      value: "react-missing-noopener"
-  languages:
-  - "typescript"
-  - "javascript"
   severity: "WARNING"
 - id: "eslint.detect-non-literal-require-1"
+  languages:
+  - "javascript"
+  - "typescript"
+  message: |
+    Detected the use of require(variable). Calling require with a non-literal argument might
+    allow an attacker to load an run arbitrary code, or access arbitrary files.
   metadata:
-    cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code
-      ('Eval Injection')"
+    cwe: "CWE-95"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Directives in Dynamically Evaluated
+      Code ('Eval Injection')"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-require.js"
     primary_identifier: "eslint.detect-non-literal-require"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-non-literal-require"
       type: "eslint_rule_id"
       value: "detect-non-literal-require"
-  message: |
-    Detected the use of require(variable). Calling require with a non-literal argument might
-    allow an attacker to load an run arbitrary code, or access arbitrary files.
   patterns:
   - pattern: "require($OBJ)"
   - pattern-not: "require('...')"
   severity: "WARNING"
+- id: "eslint.detect-possible-timing-attacks-1"
   languages:
   - "javascript"
-  - "typescript"
-- id: "eslint.detect-possible-timing-attacks-1"
+  message: |
+    String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More
+    info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/
+  metadata:
+    cwe: "CWE-208"
+    shortDescription: "Observable Timing Discrepancy"
+    primary_identifier: "eslint.detect-possible-timing-attacks"
+    secondary_identifiers:
+    - name: "ESLint rule ID/detect-possible-timing-attacks"
+      type: "eslint_rule_id"
+      value: "detect-possible-timing-attacks"
   patterns:
   - pattern-not: "if ($Z == null) { ... };"
   - pattern-not: "if ($Z === null) { ... };"
@@ -880,34 +908,24 @@ rules:
         return $X != api;
     - pattern: |
         return api != $X;
-  message: |
-    String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More
-    info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/
+  severity: "WARNING"
+- id: "eslint.detect-disable-mustache-escape-1"
   languages:
   - "javascript"
-  severity: "WARNING"
+  - "typescript"
+  message: |
+    Markup escaping disabled. This can be used with some template engines to escape
+    disabling of HTML entities, which can lead to XSS attacks.
   metadata:
-    cwe: "CWE-208: Observable Timing Discrepancy"
-    primary_identifier: "eslint.detect-possible-timing-attacks"
-    secondary_identifiers:
-    - name: "ESLint rule ID/detect-possible-timing-attacks"
-      type: "eslint_rule_id"
-      value: "detect-possible-timing-attacks"
-- id: "eslint.detect-disable-mustache-escape-1"
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation (XSS)"
+    cwe: "CWE-79"
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      (XSS)"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-disable-mustache-escape.js"
     primary_identifier: "eslint.detect-disable-mustache-escape"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-disable-mustache-escape"
       type: "eslint_rule_id"
       value: "detect-disable-mustache-escape"
-  message: |
-    Markup escaping disabled. This can be used with some template engines to escape
-    disabling of HTML entities, which can lead to XSS attacks.
   pattern: "$OBJ.escapeMarkup = false"
   severity: "WARNING"
-  languages:
-  - "javascript"
-  - "typescript"

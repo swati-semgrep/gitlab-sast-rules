@@ -1,9 +1,27 @@
 # yamllint disable
-# rule-set version: v1.3.17
+# rule-set version: v1.3.18
 # yamllint enable
 ---
 rules:
 - id: "find_sec_bugs.HTTPONLY_COOKIE-1"
+  languages:
+  - "scala"
+  message: |
+    A new cookie is created without the HttpOnly flag set. The HttpOnly flag is a directive to the
+    browser to make sure that the cookie can not be red by malicious script. When a user is the
+    target of a "Cross-Site Scripting", the attacker would benefit greatly from getting the session
+    id for example.
+  metadata:
+    category: "security"
+    cwe: "CWE-1004"
+    shortDescription: "Sensitive Cookie Without 'HttpOnly' Flag"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.HTTPONLY_COOKIE"
+    secondary_identifiers:
+    - name: "Find Security Bugs-HTTPONLY_COOKIE"
+      type: "find_sec_bugs_type"
+      value: "HTTPONLY_COOKIE"
   pattern-either:
   - patterns:
     - pattern: |
@@ -17,25 +35,25 @@ rules:
         ...
         $RESP.addCookie($C);
   - pattern: "(javax.servlet.http.Cookie $C).setHttpOnly(false);"
-  message: |
-    A new cookie is created without the HttpOnly flag set. The HttpOnly flag is a directive to the
-    browser to make sure that the cookie can not be red by malicious script. When a user is the
-    target of a "Cross-Site Scripting", the attacker would benefit greatly from getting the session
-    id for example.
+  severity: "WARNING"
+- id: "find_sec_bugs.INSECURE_COOKIE-1"
   languages:
   - "scala"
-  severity: "WARNING"
+  message: |
+    "A new cookie is created without the Secure flag set. The Secure flag is a
+     directive to the browser to make sure that the cookie is not sent for insecure communication
+    (http://)"
   metadata:
     category: "security"
-    cwe: "CWE-1004: Sensitive Cookie Without 'HttpOnly' Flag"
+    cwe: "CWE-539"
+    shortDescription: "Information Exposure Through Persistent Cookies"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.HTTPONLY_COOKIE"
+    primary_identifier: "find_sec_bugs.INSECURE_COOKIE"
     secondary_identifiers:
-    - name: "Find Security Bugs-HTTPONLY_COOKIE"
+    - name: "Find Security Bugs-INSECURE_COOKIE"
       type: "find_sec_bugs_type"
-      value: "HTTPONLY_COOKIE"
-- id: "find_sec_bugs.INSECURE_COOKIE-1"
+      value: "INSECURE_COOKIE"
   patterns:
   - pattern-not-inside: |
       val $C = new javax.servlet.http.Cookie(..., ...);
@@ -49,39 +67,17 @@ rules:
         ...
         $RESP.addCookie($C);
     - pattern: "($C:javax.servlet.http.Cookie).setSecure(false);"
-  message: |
-    "A new cookie is created without the Secure flag set. The Secure flag is a
-     directive to the browser to make sure that the cookie is not sent for insecure communication
-    (http://)"
+  severity: "WARNING"
+- id: "find_sec_bugs.COOKIE_PERSISTENT-1"
   languages:
   - "scala"
-  severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-539: Information Exposure Through Persistent Cookies"
-    technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.INSECURE_COOKIE"
-    secondary_identifiers:
-    - name: "Find Security Bugs-INSECURE_COOKIE"
-      type: "find_sec_bugs_type"
-      value: "INSECURE_COOKIE"
-- id: "find_sec_bugs.COOKIE_PERSISTENT-1"
-  patterns:
-  - pattern: |
-      ($C: Cookie).setMaxAge($AGE)
-  - metavariable-comparison:
-      metavariable: "$AGE"
-      comparison: "$AGE >= 31536000"
   message: |
     "Storing sensitive data in a persistent cookie for an extended period can lead to a breach of
     confidentiality or account compromise."
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
+    cwe: "CWE-614"
+    shortDescription: "Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.COOKIE_PERSISTENT"
@@ -89,7 +85,31 @@ rules:
     - name: "Find Security Bugs-COOKIE_PERSISTENT"
       type: "find_sec_bugs_type"
       value: "COOKIE_PERSISTENT"
+  patterns:
+  - pattern: |
+      ($C: Cookie).setMaxAge($AGE)
+  - metavariable-comparison:
+      comparison: "$AGE >= 31536000"
+      metavariable: "$AGE"
+  severity: "WARNING"
 - id: "find_sec_bugs.COOKIE_USAGE-1"
+  languages:
+  - "scala"
+  message: |
+    The information stored in a custom cookie should not be sensitive or related to the session.
+    In most cases, sensitive data should only be stored in session and referenced by the user's
+    session cookie.
+  metadata:
+    category: "security"
+    cwe: "CWE-614"
+    shortDescription: "Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.COOKIE_USAGE"
+    secondary_identifiers:
+    - name: "Find Security Bugs-COOKIE_USAGE"
+      type: "find_sec_bugs_type"
+      value: "COOKIE_USAGE"
   patterns:
   - pattern-inside: |
       def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {
@@ -108,27 +128,28 @@ rules:
     - pattern: "($C: Cookie).getName()"
     - pattern: "($C: Cookie).getValue"
     - pattern: "($C: Cookie).getPath"
-  message: |
-    The information stored in a custom cookie should not be sensitive or related to the session.
-    In most cases, sensitive data should only be stored in session and referenced by the user's
-    session cookie.
+  severity: "WARNING"
+- id: "find_sec_bugs.HTTP_RESPONSE_SPLITTING-1"
   languages:
   - "scala"
-  severity: "WARNING"
+  message: |
+    When an HTTP request contains unexpected CR and LF characters, the server may respond with an
+    output stream that is interpreted as two different HTTP responses (instead of one). An attacker
+    can control the second response and mount attacks such as cross-site scripting and cache
+    poisoning attacks.
   metadata:
     category: "security"
-    cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
+    cwe: "CWE-113"
+    shortDescription: "Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
+      Response Splitting')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.COOKIE_USAGE"
+    primary_identifier: "find_sec_bugs.HTTP_RESPONSE_SPLITTING"
     secondary_identifiers:
-    - name: "Find Security Bugs-COOKIE_USAGE"
+    - name: "Find Security Bugs-HTTP_RESPONSE_SPLITTING"
       type: "find_sec_bugs_type"
-      value: "COOKIE_USAGE"
-- id: "find_sec_bugs.HTTP_RESPONSE_SPLITTING-1"
+      value: "HTTP_RESPONSE_SPLITTING"
   mode: "taint"
-  pattern-sources:
-  - pattern: "($REQ: javax.servlet.http.HttpServletRequest).getParameter(...)"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -146,29 +167,29 @@ rules:
   pattern-sinks:
   - pattern: "new javax.servlet.http.Cookie(\"$KEY\", ...)"
   - pattern: "($C:javax.servlet.http.Cookie).setValue(...)"
-  message: |
-    When an HTTP request contains unexpected CR and LF characters, the server may respond with an
-    output stream that is interpreted as two different HTTP responses (instead of one). An attacker
-    can control the second response and mount attacks such as cross-site scripting and cache
-    poisoning attacks.
+  pattern-sources:
+  - pattern: "($REQ: javax.servlet.http.HttpServletRequest).getParameter(...)"
+  severity: "WARNING"
+- id: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_COOKIE-1"
   languages:
   - "scala"
-  severity: "WARNING"
+  message: |
+    This code constructs an HTTP Cookie using an untrusted HTTP parameter. If this cookie is added
+    to an HTTP response, it will allow a HTTP response splitting vulnerability. See
+    http://en.wikipedia.org/wiki/HTTP_response_splitting for more information.
   metadata:
     category: "security"
-    cwe: "CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
+    cwe: "CWE-113"
+    shortDescription: "Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
       Response Splitting')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.HTTP_RESPONSE_SPLITTING"
+    primary_identifier: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_COOKIE"
     secondary_identifiers:
-    - name: "Find Security Bugs-HTTP_RESPONSE_SPLITTING"
+    - name: "Find Security Bugs-HRS_REQUEST_PARAMETER_TO_COOKIE"
       type: "find_sec_bugs_type"
-      value: "HTTP_RESPONSE_SPLITTING"
-- id: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_COOKIE-1"
+      value: "HRS_REQUEST_PARAMETER_TO_COOKIE"
   mode: "taint"
-  pattern-sources:
-  - pattern: "($REQ: HttpServletRequest).getParameter(...);"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -190,28 +211,29 @@ rules:
         $C = new javax.servlet.http.Cookie("$KEY", ...);
         ...
     - pattern: "$C.setValue(...);"
-  message: |
-    This code constructs an HTTP Cookie using an untrusted HTTP parameter. If this cookie is added
-    to an HTTP response, it will allow a HTTP response splitting vulnerability. See
-    http://en.wikipedia.org/wiki/HTTP_response_splitting for more information.
+  pattern-sources:
+  - pattern: "($REQ: HttpServletRequest).getParameter(...);"
+  severity: "ERROR"
+- id: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER-1"
   languages:
   - "scala"
-  severity: "ERROR"
+  message: |
+    This code directly writes an HTTP parameter to an HTTP header, which allows for a HTTP
+    response splitting vulnerability. See http://en.wikipedia.org/wiki/HTTP_response_splitting for
+    more information.
   metadata:
     category: "security"
-    cwe: "CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
+    cwe: "CWE-113"
+    shortDescription: "Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
       Response Splitting')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_COOKIE"
+    primary_identifier: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
     secondary_identifiers:
-    - name: "Find Security Bugs-HRS_REQUEST_PARAMETER_TO_COOKIE"
+    - name: "Find Security Bugs-HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
       type: "find_sec_bugs_type"
-      value: "HRS_REQUEST_PARAMETER_TO_COOKIE"
-- id: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER-1"
+      value: "HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
   mode: "taint"
-  pattern-sources:
-  - pattern: "($REQ: HttpServletRequest).getParameter(...);"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -231,33 +253,10 @@ rules:
   - pattern: "($RES: HttpServletResponse).addHeader(\"$KEY\", ...);"
   - pattern: "($WRP: HttpServletResponseWrapper).setHeader(\"$KEY\", ...);"
   - pattern: "($WRP: HttpServletResponseWrapper).addHeader(\"$KEY\", ...);"
-  message: |
-    This code directly writes an HTTP parameter to an HTTP header, which allows for a HTTP
-    response splitting vulnerability. See http://en.wikipedia.org/wiki/HTTP_response_splitting for
-    more information.
-  languages:
-  - "scala"
+  pattern-sources:
+  - pattern: "($REQ: HttpServletRequest).getParameter(...);"
   severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
-      Response Splitting')"
-    technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
-    secondary_identifiers:
-    - name: "Find Security Bugs-HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
-      type: "find_sec_bugs_type"
-      value: "HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
 - id: "find_sec_bugs.TRUST_BOUNDARY_VIOLATION-1"
-  patterns:
-  - pattern-either:
-    - patterns:
-      - pattern: "($H: HttpServletRequest). ... .setAttribute($ARG1, $ARG2)"
-      - pattern-not: "($H: HttpServletRequest). ... .setAttribute(\"...\", \"...\")"
-    - patterns:
-      - pattern: "($H: HttpServletRequest). ... .putValue($ARG1, $ARG2)"
-      - pattern-not: "($H: HttpServletRequest). ... .putValue(\"...\", \"...\")"
   languages:
   - "scala"
   message: |
@@ -271,14 +270,48 @@ rules:
     data.
   metadata:
     category: "security"
-    cwe: "CWE-501: Trust Boundary Violation"
+    cwe: "CWE-501"
+    shortDescription: "Trust Boundary Violation"
     primary_identifier: "find_sec_bugs.TRUST_BOUNDARY_VIOLATION"
     secondary_identifiers:
     - name: "Find Security Bugs-TRUST_BOUNDARY_VIOLATION"
       type: "find_sec_bugs_type"
       value: "TRUST_BOUNDARY_VIOLATION"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern: "($H: HttpServletRequest). ... .setAttribute($ARG1, $ARG2)"
+      - pattern-not: "($H: HttpServletRequest). ... .setAttribute(\"...\", \"...\")"
+    - patterns:
+      - pattern: "($H: HttpServletRequest). ... .putValue($ARG1, $ARG2)"
+      - pattern-not: "($H: HttpServletRequest). ... .putValue(\"...\", \"...\")"
   severity: "WARNING"
 - id: "find_sec_bugs.PERMISSIVE_CORS-1"
+  languages:
+  - "scala"
+  message: |
+    Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
+    JavaScript to access the contents of a Web page, both the JavaScript and the Web page must
+    originate from the same domain. Without the Same Origin Policy, a malicious website could serve
+    up JavaScript that loads sensitive information from other websites using a client's
+    credentials, cull through it, and communicate it back to the attacker. HTML5 makes it possible
+    for JavaScript to access data across domains if a new HTTP header called
+    Access-Control-Allow-Origin is defined. With this header, a Web server defines which other
+    domains are allowed to access its domain using cross-origin requests. However, caution should
+    be taken when defining the header because an overly permissive CORS policy will allow a
+    malicious application to communicate with the victim application in an inappropriate way,
+    leading to spoofing, data theft, relay and other attacks.
+  metadata:
+    category: "security"
+    cwe: "CWE-942"
+    shortDescription: "Permissive Cross-domain Policy with Untrusted Domains"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.PERMISSIVE_CORS"
+    secondary_identifiers:
+    - name: "Find Security Bugs-PERMISSIVE_CORS"
+      type: "find_sec_bugs_type"
+      value: "PERMISSIVE_CORS"
   pattern-either:
   - patterns:
     - pattern-either:
@@ -307,6 +340,10 @@ rules:
           ($RESP:javax.servlet.http.HttpServletResponse).setHeader("$HEADER",($REQ: javax.servlet.http.HttpServletRequest).getParameter(...))
       - pattern-inside: |-
           ($RESP:javax.servlet.http.HttpServletResponse).addHeader("$HEADER",($REQ: javax.servlet.http.HttpServletRequest).getParameter(...))
+  severity: "ERROR"
+- id: "find_sec_bugs.PERMISSIVE_CORS-2"
+  languages:
+  - "java"
   message: |
     Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
     JavaScript to access the contents of a Web page, both the JavaScript and the Web page must
@@ -319,23 +356,18 @@ rules:
     be taken when defining the header because an overly permissive CORS policy will allow a
     malicious application to communicate with the victim application in an inappropriate way,
     leading to spoofing, data theft, relay and other attacks.
-  languages:
-  - "scala"
-  severity: "ERROR"
   metadata:
-    cwe: "CWE-942: Permissive Cross-domain Policy with Untrusted Domains"
     category: "security"
+    cwe: "CWE-942"
+    shortDescription: "Permissive Cross-domain Policy with Untrusted Domains"
     technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.PERMISSIVE_CORS"
+    - "java"
+    primary_identifier: "find_sec_bugs.PERMISSIVE_CORS-2"
     secondary_identifiers:
     - name: "Find Security Bugs-PERMISSIVE_CORS"
       type: "find_sec_bugs_type"
       value: "PERMISSIVE_CORS"
-- id: "find_sec_bugs.PERMISSIVE_CORS-2"
   mode: "taint"
-  pattern-sources:
-  - pattern: "(HttpServletRequest $REQ).getParamater(...)"
   pattern-sinks:
   - patterns:
     - pattern-either:
@@ -344,49 +376,19 @@ rules:
     - metavariable-regex:
         metavariable: "$HEADER"
         regex: "(?i)(Access-Control-Allow-Origin)"
-  message: |
-    Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
-    JavaScript to access the contents of a Web page, both the JavaScript and the Web page must
-    originate from the same domain. Without the Same Origin Policy, a malicious website could serve
-    up JavaScript that loads sensitive information from other websites using a client's
-    credentials, cull through it, and communicate it back to the attacker. HTML5 makes it possible
-    for JavaScript to access data across domains if a new HTTP header called
-    Access-Control-Allow-Origin is defined. With this header, a Web server defines which other
-    domains are allowed to access its domain using cross-origin requests. However, caution should
-    be taken when defining the header because an overly permissive CORS policy will allow a
-    malicious application to communicate with the victim application in an inappropriate way,
-    leading to spoofing, data theft, relay and other attacks.
-  languages:
-  - "java"
+  pattern-sources:
+  - pattern: "(HttpServletRequest $REQ).getParamater(...)"
   severity: "ERROR"
-  metadata:
-    cwe: "CWE-942: Permissive Cross-domain Policy with Untrusted Domains"
-    category: "security"
-    technology:
-    - "java"
-    primary_identifier: "find_sec_bugs.PERMISSIVE_CORS-2"
-    secondary_identifiers:
-    - name: "Find Security Bugs-PERMISSIVE_CORS"
-      type: "find_sec_bugs_type"
-      value: "PERMISSIVE_CORS"
 - id: "find_sec_bugs.BLOWFISH_KEY_SIZE-1"
-  patterns:
-  - pattern-inside: |
-      $KEYGEN = javax.crypto.KeyGenerator.getInstance("Blowfish", ...);
-      ...
-      $KEYGEN.init($KEY_SIZE);
-  - metavariable-comparison:
-      metavariable: "$KEY_SIZE"
-      comparison: "$KEY_SIZE < 128"
+  languages:
+  - "scala"
   message: |
     A small key size makes the ciphertext vulnerable to brute force attacks. At least 128 bits of
     entropy should be used when generating the key if use of Blowfish is required.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.BLOWFISH_KEY_SIZE"
@@ -394,22 +396,25 @@ rules:
     - name: "Find Security Bugs-BLOWFISH_KEY_SIZE"
       type: "find_sec_bugs_type"
       value: "BLOWFISH_KEY_SIZE"
-- id: "find_sec_bugs.DES_USAGE-1"
   patterns:
-  - pattern-inside: |-
-      javax.crypto.Cipher.getInstance("$ALG")
-  - metavariable-regex:
-      metavariable: "$ALG"
-      regex: "^(DES)/.*"
+  - pattern-inside: |
+      $KEYGEN = javax.crypto.KeyGenerator.getInstance("Blowfish", ...);
+      ...
+      $KEYGEN.init($KEY_SIZE);
+  - metavariable-comparison:
+      comparison: "$KEY_SIZE < 128"
+      metavariable: "$KEY_SIZE"
+  severity: "WARNING"
+- id: "find_sec_bugs.DES_USAGE-1"
+  languages:
+  - "scala"
   message: |
     DES is considered strong ciphers for modern applications. Currently, NIST recommends the usage
     of AES block ciphers instead of DES.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.DES_USAGE"
@@ -417,22 +422,23 @@ rules:
     - name: "Find Security Bugs-DES_USAGE"
       type: "find_sec_bugs_type"
       value: "DES_USAGE"
-- id: "find_sec_bugs.TDES_USAGE-1"
   patterns:
   - pattern-inside: |-
       javax.crypto.Cipher.getInstance("$ALG")
   - metavariable-regex:
       metavariable: "$ALG"
-      regex: "^(DESede)/.*"
+      regex: "^(DES)/.*"
+  severity: "WARNING"
+- id: "find_sec_bugs.TDES_USAGE-1"
+  languages:
+  - "scala"
   message: |
     Triple DES (also known as 3DES or DESede) is considered strong ciphers for modern
     applications. NIST recommends the usage of AES block ciphers instead of 3DES.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.TDES_USAGE"
@@ -440,22 +446,25 @@ rules:
     - name: "Find Security Bugs-TDES_USAGE"
       type: "find_sec_bugs_type"
       value: "TDES_USAGE"
-- id: "find_sec_bugs.ECB_MODE-1"
   patterns:
   - pattern-inside: |-
-      javax.crypto.Cipher.getInstance("...")
-  - pattern-regex: "(AES|DES(ede)?)(/ECB/*)"
+      javax.crypto.Cipher.getInstance("$ALG")
+  - metavariable-regex:
+      metavariable: "$ALG"
+      regex: "^(DESede)/.*"
+  severity: "WARNING"
+- id: "find_sec_bugs.ECB_MODE-1"
+  languages:
+  - "scala"
   message: |
     An authentication cipher mode which provides better confidentiality of the encrypted data
     should be used instead of Electronic Code Book (ECB) mode, which does not provide good
     confidentiality. Specifically, ECB mode produces the same output for the same input each time.
     This allows an attacker to intercept and replay the data.
-  languages:
-  - "scala"
-  severity: "ERROR"
   metadata:
     category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.ECB_MODE"
@@ -463,7 +472,29 @@ rules:
     - name: "Find Security Bugs-ECB_MODE"
       type: "find_sec_bugs_type"
       value: "ECB_MODE"
+  patterns:
+  - pattern-inside: |-
+      javax.crypto.Cipher.getInstance("...")
+  - pattern-regex: "(AES|DES(ede)?)(/ECB/*)"
+  severity: "ERROR"
 - id: "find_sec_bugs.CIPHER_INTEGRITY-1"
+  languages:
+  - "scala"
+  message: |
+    The ciphertext produced is susceptible to alteration by an adversary. This mean that the
+    cipher provides no way to detect that the data has been tampered with. If the ciphertext can be
+    controlled by an attacker, it could be altered without detection.
+  metadata:
+    category: "security"
+    cwe: "CWE-353"
+    shortDescription: "Missing Support for Integrity Check"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.CIPHER_INTEGRITY"
+    secondary_identifiers:
+    - name: "Find Security Bugs-CIPHER_INTEGRITY"
+      type: "find_sec_bugs_type"
+      value: "CIPHER_INTEGRITY"
   patterns:
   - pattern-inside: |-
       javax.crypto.Cipher.getInstance("...")
@@ -476,41 +507,19 @@ rules:
   - pattern-not-regex: ".*/(CCM|CWC|OCB|EAX|GCM)/.*"
   - pattern-not-regex: "^(RSA)/.*"
   - pattern-not-regex: "^(ECIES)$"
-  message: |
-    The ciphertext produced is susceptible to alteration by an adversary. This mean that the
-    cipher provides no way to detect that the data has been tampered with. If the ciphertext can be
-    controlled by an attacker, it could be altered without detection.
+  severity: "ERROR"
+- id: "find_sec_bugs.PADDING_ORACLE-1"
   languages:
   - "scala"
-  severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-353: Missing Support for Integrity Check"
-    technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.CIPHER_INTEGRITY"
-    secondary_identifiers:
-    - name: "Find Security Bugs-CIPHER_INTEGRITY"
-      type: "find_sec_bugs_type"
-      value: "CIPHER_INTEGRITY"
-- id: "find_sec_bugs.PADDING_ORACLE-1"
-  patterns:
-  - pattern-inside: |-
-      javax.crypto.Cipher.getInstance("...")
-  - pattern-regex: "(/CBC/PKCS5Padding)"
-  - pattern-not-regex: "^(RSA)/.*"
-  - pattern-not-regex: "^(ECIES)$"
   message: |
     This specific mode of CBC with PKCS5Padding is susceptible to padding oracle attacks. An
     adversary could potentially decrypt the message if the system exposed the difference between
     plaintext with invalid padding or valid padding. The distinction between valid and invalid
     padding is usually revealed through distinct error messages being returned for each condition.
-  languages:
-  - "scala"
-  severity: "ERROR"
   metadata:
     category: "security"
-    cwe: "CWE-696: Incorrect Behavior Order"
+    cwe: "CWE-696"
+    shortDescription: "Incorrect Behavior Order"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.PADDING_ORACLE"
@@ -518,22 +527,24 @@ rules:
     - name: "Find Security Bugs-PADDING_ORACLE"
       type: "find_sec_bugs_type"
       value: "PADDING_ORACLE"
-- id: "find_sec_bugs.CUSTOM_MESSAGE_DIGEST-1"
   patterns:
-  - pattern: |
-      class $CLAZZ extends java.security.MessageDigest(...) {
-        ...
-      }
+  - pattern-inside: |-
+      javax.crypto.Cipher.getInstance("...")
+  - pattern-regex: "(/CBC/PKCS5Padding)"
+  - pattern-not-regex: "^(RSA)/.*"
+  - pattern-not-regex: "^(ECIES)$"
+  severity: "ERROR"
+- id: "find_sec_bugs.CUSTOM_MESSAGE_DIGEST-1"
+  languages:
+  - "scala"
   message: |
     Implementing a custom MessageDigest is error-prone. National Institute of Standards and
     Technology(NIST) recommends the use of SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, or
     SHA-512/256.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.CUSTOM_MESSAGE_DIGEST"
@@ -541,6 +552,12 @@ rules:
     - name: "Find Security Bugs-CUSTOM_MESSAGE_DIGEST"
       type: "find_sec_bugs_type"
       value: "CUSTOM_MESSAGE_DIGEST"
+  patterns:
+  - pattern: |
+      class $CLAZZ extends java.security.MessageDigest(...) {
+        ...
+      }
+  severity: "WARNING"
 - id: "find_sec_bugs.DEFAULT_HTTP_CLIENT-1"
   patterns:
   - pattern: "new org.apache.http.impl.client.DefaultHttpClient(...)"
@@ -550,7 +567,9 @@ rules:
   - "scala"
   severity: "WARNING"
   metadata:
+    shortDescription: "Inadequate encryption strength"
     category: "security"
+    cwe: "CWE-326"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.DEFAULT_HTTP_CLIENT"
@@ -559,18 +578,16 @@ rules:
       type: "find_sec_bugs_type"
       value: "DEFAULT_HTTP_CLIENT"
 - id: "find_sec_bugs.HAZELCAST_SYMMETRIC_ENCRYPTION-1"
-  patterns:
-  - pattern: "new com.hazelcast.config.SymmetricEncryptionConfig()"
+  languages:
+  - "scala"
   message: |
     The network communications for Hazelcast is configured to use a symmetric cipher (probably DES
     or Blowfish). Those ciphers alone do not provide integrity or secure authentication. The use of
     asymmetric encryption is preferred.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.HAZELCAST_SYMMETRIC_ENCRYPTION"
@@ -578,7 +595,24 @@ rules:
     - name: "Find Security Bugs-HAZELCAST_SYMMETRIC_ENCRYPTION"
       type: "find_sec_bugs_type"
       value: "HAZELCAST_SYMMETRIC_ENCRYPTION"
+  patterns:
+  - pattern: "new com.hazelcast.config.SymmetricEncryptionConfig()"
+  severity: "WARNING"
 - id: "find_sec_bugs.RSA_KEY_SIZE-1"
+  languages:
+  - "scala"
+  message: |
+    Detected an insufficient key size for DSA. NIST recommends a key size
+    of 2048 or higher.
+  metadata:
+    category: "security"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
+    primary_identifier: "find_sec_bugs.RSA_KEY_SIZE"
+    secondary_identifiers:
+    - name: "Find Security Bugs-RSA_KEY_SIZE"
+      type: "find_sec_bugs_type"
+      value: "RSA_KEY_SIZE"
   patterns:
   - pattern-either:
     - patterns:
@@ -589,37 +623,23 @@ rules:
         - pattern: "$VAR.initialize($SIZE, ...)"
         - pattern: "new java.security.spec.RSAKeyGenParameterSpec($SIZE, ...)"
       - metavariable-comparison:
-          metavariable: "$SIZE"
           comparison: "$SIZE < 2048"
+          metavariable: "$SIZE"
       - metavariable-regex:
           metavariable: "$ALG"
           regex: "\"(RSA|DSA)\""
-  message: |
-    Detected an insufficient key size for DSA. NIST recommends a key size
-    of 2048 or higher.
-  metadata:
-    category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
-    primary_identifier: "find_sec_bugs.RSA_KEY_SIZE"
-    secondary_identifiers:
-    - name: "Find Security Bugs-RSA_KEY_SIZE"
-      type: "find_sec_bugs_type"
-      value: "RSA_KEY_SIZE"
   severity: "WARNING"
+- id: "find_sec_bugs.NULL_CIPHER-1"
   languages:
   - "scala"
-- id: "find_sec_bugs.NULL_CIPHER-1"
-  pattern: "new javax.crypto.NullCipher()"
   message: |
     The NullCipher implements the Cipher interface by returning ciphertext identical to the
     supplied plaintext. In a few contexts, such as testing, a NullCipher may be appropriate. Avoid
     using the NullCipher. Its accidental use can introduce a significant confidentiality risk.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.NULL_CIPHER"
@@ -627,42 +647,38 @@ rules:
     - name: "Find Security Bugs-NULL_CIPHER"
       type: "find_sec_bugs_type"
       value: "NULL_CIPHER"
+  pattern: "new javax.crypto.NullCipher()"
+  severity: "WARNING"
 - id: "find_sec_bugs.RSA_NO_PADDING-1"
-  patterns:
-  - pattern: "javax.crypto.Cipher.getInstance(\"$ALG\",...)"
-  - metavariable-regex:
-      metavariable: "$ALG"
-      regex: ".*NoPadding.*"
+  languages:
+  - "scala"
   message: |
     The software uses the RSA algorithm but does not incorporate Optimal Asymmetric
     Encryption Padding (OAEP), which might weaken the encryption.
   metadata:
-    cwe: "CWE-780: Use of RSA Algorithm without OAEP"
+    cwe: "CWE-780"
+    shortDescription: "Use of RSA Algorithm without OAEP"
     primary_identifier: "find_sec_bugs.RSA_NO_PADDING"
     secondary_identifiers:
     - name: "Find Security Bugs-RSA_NO_PADDING"
       type: "find_sec_bugs_type"
       value: "RSA_NO_PADDING"
-  severity: "WARNING"
-  languages:
-  - "scala"
-- id: "find_sec_bugs.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
   patterns:
-  - pattern-either:
-    - pattern: "MessageDigest.getInstance(\"$ALG\", ...)"
-    - pattern: "Signature.getInstance(\"$ALG\", ...)"
+  - pattern: "javax.crypto.Cipher.getInstance(\"$ALG\",...)"
   - metavariable-regex:
       metavariable: "$ALG"
-      regex: "(.*(MD5|MD4|MD2|SHA1|SHA-1).*)"
+      regex: ".*NoPadding.*"
+  severity: "WARNING"
+- id: "find_sec_bugs.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
+  languages:
+  - "scala"
   message: |
     DES is considered strong ciphers for modern applications. Currently, NIST recommends the usage
     of AES block ciphers instead of DES.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
@@ -673,7 +689,30 @@ rules:
     - name: "Find Security Bugs-WEAK_MESSAGE_DIGEST_SHA1"
       type: "find_sec_bugs_type"
       value: "WEAK_MESSAGE_DIGEST_SHA1"
+  patterns:
+  - pattern-either:
+    - pattern: "MessageDigest.getInstance(\"$ALG\", ...)"
+    - pattern: "Signature.getInstance(\"$ALG\", ...)"
+  - metavariable-regex:
+      metavariable: "$ALG"
+      regex: "(.*(MD5|MD4|MD2|SHA1|SHA-1).*)"
+  severity: "WARNING"
 - id: "find_sec_bugs.SSL_CONTEXT-1"
+  languages:
+  - "scala"
+  message: |
+    A HostnameVerifier that accept any host are often use because of certificate
+    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
+    attacks since the client will trust any certificate.
+  metadata:
+    category: "security"
+    cwe: "CWE-295"
+    shortDescription: "Improper Certificate Validation"
+    primary_identifier: "find_sec_bugs.SSL_CONTEXT"
+    secondary_identifiers:
+    - name: "Find Security Bugs-SSL_CONTEXT"
+      type: "find_sec_bugs_type"
+      value: "SSL_CONTEXT"
   patterns:
   - pattern-either:
     - pattern: "new org.apache.http.impl.client.DefaultHttpClient()"
@@ -683,51 +722,8 @@ rules:
           import javax.net.ssl._
           ...
       - pattern: "SSLContext.getInstance(\"SSL\")"
-  message: |
-    A HostnameVerifier that accept any host are often use because of certificate
-    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
-    attacks since the client will trust any certificate.
-  metadata:
-    category: "security"
-    cwe: "CWE-295: Improper Certificate Validation"
-    primary_identifier: "find_sec_bugs.SSL_CONTEXT"
-    secondary_identifiers:
-    - name: "Find Security Bugs-SSL_CONTEXT"
-      type: "find_sec_bugs_type"
-      value: "SSL_CONTEXT"
   severity: "WARNING"
-  languages:
-  - "scala"
 - id: "find_sec_bugs.SERVLET_PARAMETER-1.SERVLET_CONTENT_TYPE-1.SERVLET_SERVER_NAME-1.SERVLET_SESSION_ID-1.SERVLET_QUERY_STRING-1.SERVLET_HEADER-1.SERVLET_HEADER_REFERER-1.SERVLET_HEADER_USER_AGENT-1"
-  mode: "taint"
-  pattern-sources:
-  - pattern-either:
-    - pattern: "($REQ: HttpServletRequest).getContentType"
-    - pattern: "($REQ: HttpServletRequest).getServerName"
-    - pattern: "($REQ: HttpServletRequest).getRequestedSessionId"
-    - pattern: "($REQ: HttpServletRequest).getParameterValues(...)"
-    - pattern: "($REQ: HttpServletRequest).getParameterMap"
-    - pattern: "($REQ: HttpServletRequest).getParameterNames"
-    - pattern: "($REQ: HttpServletRequest).getParameter(...)"
-    - patterns:
-      - pattern-inside: |
-          ($REQ: HttpServletRequest).getSession
-      - pattern: "$SESS.getAttribute(\"...\")"
-    - pattern: |
-        ($REQ: HttpServletRequest).getSession.getAttribute("...")
-  pattern-sanitizers:
-  - pattern: "Encode.forHtml(...)"
-  - pattern: "org.owasp.esapi.Encoder.encodeForSQL(...)"
-  pattern-sinks:
-  - patterns:
-    - pattern-either:
-      - pattern: |
-          ... + $PAR
-      - pattern: |
-          ... + $PAR + ...
-      - pattern: |
-          $PAR + ...
-    - pattern: "$PAR"
   languages:
   - "scala"
   message: |
@@ -735,7 +731,8 @@ rules:
     value obtained should be considered unsafe."
   metadata:
     category: "security"
-    cwe: "CWE-20: Improper Input Validation"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
     primary_identifier: "find_sec_bugs.SERVLET_PARAMETER-1.SERVLET_CONTENT_TYPE-1.SERVLET_SERVER_NAME-1.SERVLET_SESSION_ID-1.SERVLET_QUERY_STRING-1.SERVLET_HEADER-1.SERVLET_HEADER_REFERER-1.SERVLET_HEADER_USER_AGENT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SERVLET_PARAMETER"
@@ -762,17 +759,39 @@ rules:
     - name: "Find Security Bugs-SERVLET_HEADER_USER_AGENT"
       type: "find_sec_bugs_type"
       value: "SERVLET_HEADER_USER_AGENT"
+  mode: "taint"
+  pattern-sanitizers:
+  - pattern: "Encode.forHtml(...)"
+  - pattern: "org.owasp.esapi.Encoder.encodeForSQL(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern: |
+          ... + $PAR
+      - pattern: |
+          ... + $PAR + ...
+      - pattern: |
+          $PAR + ...
+    - pattern: "$PAR"
+  pattern-sources:
+  - pattern-either:
+    - pattern: "($REQ: HttpServletRequest).getContentType"
+    - pattern: "($REQ: HttpServletRequest).getServerName"
+    - pattern: "($REQ: HttpServletRequest).getRequestedSessionId"
+    - pattern: "($REQ: HttpServletRequest).getParameterValues(...)"
+    - pattern: "($REQ: HttpServletRequest).getParameterMap"
+    - pattern: "($REQ: HttpServletRequest).getParameterNames"
+    - pattern: "($REQ: HttpServletRequest).getParameter(...)"
+    - patterns:
+      - pattern-inside: |
+          ($REQ: HttpServletRequest).getSession
+      - pattern: "$SESS.getAttribute(\"...\")"
+    - pattern: |
+        ($REQ: HttpServletRequest).getSession.getAttribute("...")
   severity: "WARNING"
 - id: "find_sec_bugs.JAXRS_ENDPOINT-1"
-  mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        @javax.ws.rs.Path("...")
-        def $FUNC(..., $VAR: $TYPE, ...) = ...
-    - pattern: "$VAR"
-  pattern-sinks:
-  - pattern: "<...$VAR...>"
+  languages:
+  - "scala"
   message: |
     This method is part of a REST Web Service (JSR311). The security of this web service should be
     analyzed. For example:
@@ -782,12 +801,10 @@ rules:
     - The communication should ideally be over SSL.
     - If the service supports writes (e.g., via POST), its vulnerability to CSRF should be
     investigated.
-  languages:
-  - "scala"
-  severity: "INFO"
   metadata:
     category: "security"
-    cwe: "CWE-20: Improper Input Validation"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.JAXRS_ENDPOINT"
@@ -795,16 +812,19 @@ rules:
     - name: "Find Security Bugs-JAXRS_ENDPOINT"
       type: "find_sec_bugs_type"
       value: "JAXRS_ENDPOINT"
-- id: "find_sec_bugs.JAXWS_ENDPOINT-1"
   mode: "taint"
+  pattern-sinks:
+  - pattern: "<...$VAR...>"
   pattern-sources:
   - patterns:
     - pattern-inside: |
-        @javax.jws.WebMethod(...)
+        @javax.ws.rs.Path("...")
         def $FUNC(..., $VAR: $TYPE, ...) = ...
     - pattern: "$VAR"
-  pattern-sinks:
-  - pattern: "<...$VAR...>"
+  severity: "INFO"
+- id: "find_sec_bugs.JAXWS_ENDPOINT-1"
+  languages:
+  - "scala"
   message: |
     This method is part of a SOAP Web Service (JSR224). The security of this web service should be
     analyzed. For example:
@@ -812,13 +832,11 @@ rules:
     - Access control, if enforced, should be tested.
     - The inputs should be tracked for potential vulnerabilities.
     - The communication should ideally be over SSL.
-  languages:
-  - "scala"
-  severity: "INFO"
   metadata:
     category: "security"
-    cwe: "CWE-20: Improper Input Validation"
+    cwe: "CWE-20"
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    shortDescription: "Improper Input Validation"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.JAXWS_ENDPOINT"
@@ -826,9 +844,17 @@ rules:
     - name: "Find Security Bugs-JAXWS_ENDPOINT"
       type: "find_sec_bugs_type"
       value: "JAXWS_ENDPOINT"
+  mode: "taint"
+  pattern-sinks:
+  - pattern: "<...$VAR...>"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        @javax.jws.WebMethod(...)
+        def $FUNC(..., $VAR: $TYPE, ...) = ...
+    - pattern: "$VAR"
+  severity: "INFO"
 - id: "find_sec_bugs.UNENCRYPTED_SOCKET-1.UNENCRYPTED_SERVER_SOCKET-1"
-  patterns:
-  - pattern: "new java.net.Socket(...)"
   languages:
   - "scala"
   message: |
@@ -837,7 +863,8 @@ rules:
     subject to man-in-the-middle attacks. Please read the OWASP Transport Layer
     Protection Cheat Sheet for details on how to do this correctly.
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
     primary_identifier: "find_sec_bugs.UNENCRYPTED_SOCKET-1.UNENCRYPTED_SERVER_SOCKET-1"
     secondary_identifiers:
     - name: "Find Security Bugs-UNENCRYPTED_SOCKET"
@@ -846,8 +873,28 @@ rules:
     - name: "Find Security Bugs-UNENCRYPTED_SERVER_SOCKET"
       type: "find_sec_bugs_type"
       value: "UNENCRYPTED_SERVER_SOCKET"
+  patterns:
+  - pattern: "new java.net.Socket(...)"
   severity: "WARNING"
 - id: "find_sec_bugs.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
+  languages:
+  - "scala"
+  message: |
+    Unvalidated redirects occur when an application redirects a user to a
+    destination URL specified by a user supplied parameter that is not validated.
+    Such vulnerabilities can be used to facilitate phishing attacks.
+  metadata:
+    category: "security"
+    cwe: "CWE-601"
+    shortDescription: "URL Redirection to Untrusted Site ('Open Redirect')"
+    primary_identifier: "find_sec_bugs.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
+    secondary_identifiers:
+    - name: "Find Security Bugs-UNVALIDATED_REDIRECT"
+      type: "find_sec_bugs_type"
+      value: "UNVALIDATED_REDIRECT"
+    - name: "Find Security Bugs-URL_REWRITING"
+      type: "find_sec_bugs_type"
+      value: "URL_REWRITING"
   patterns:
   - pattern-either:
     - patterns:
@@ -862,25 +909,26 @@ rules:
     - patterns:
       - pattern: "($REQ: HttpServletResponse).encodeRedirectUrl(...)"
       - pattern-not: "($REQ: HttpServletResponse).encodeRedirectUrl(\"...\")"
+  severity: "ERROR"
+- id: "find_sec_bugs.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
   languages:
   - "scala"
   message: |
-    Unvalidated redirects occur when an application redirects a user to a
-    destination URL specified by a user supplied parameter that is not validated.
-    Such vulnerabilities can be used to facilitate phishing attacks.
+    A HostnameVerifier that accept any host are often use because of certificate
+    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middle
+    attacks since the client will trust any certificate.
   metadata:
     category: "security"
-    cwe: "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')"
-    primary_identifier: "find_sec_bugs.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
+    cwe: "CWE-295"
+    shortDescription: "Improper Certificate Validation"
+    primary_identifier: "find_sec_bugs.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
     secondary_identifiers:
-    - name: "Find Security Bugs-UNVALIDATED_REDIRECT"
+    - name: "Find Security Bugs-WEAK_HOSTNAME_VERIFIER"
       type: "find_sec_bugs_type"
-      value: "UNVALIDATED_REDIRECT"
-    - name: "Find Security Bugs-URL_REWRITING"
+      value: "WEAK_HOSTNAME_VERIFIER"
+    - name: "Find Security Bugs-WEAK_TRUST_MANAGER"
       type: "find_sec_bugs_type"
-      value: "URL_REWRITING"
-  severity: "ERROR"
-- id: "find_sec_bugs.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
+      value: "WEAK_TRUST_MANAGER"
   patterns:
   - pattern-either:
     - patterns:
@@ -906,25 +954,27 @@ rules:
         - pattern: "def checkServerTrusted(...) = {}"
         - pattern: "def getAcceptedIssuers(): Array[X509Certificate] = null"
         - pattern: "def getAcceptedIssuers(): Array[X509Certificate] = {}"
+  severity: "WARNING"
+- id: "find_sec_bugs.FILE_UPLOAD_FILENAME-1"
   languages:
   - "scala"
   message: |
-    A HostnameVerifier that accept any host are often use because of certificate
-    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middle
-    attacks since the client will trust any certificate.
+    The filename provided by the FileUpload API can be tampered with by the client to reference
+    unauthorized files. The provided filename should be properly validated to ensure it's properly
+    structured, contains no unauthorized path characters (e.g., / \), and refers to an authorized
+    file.
   metadata:
     category: "security"
-    cwe: "CWE-295: Improper Certificate Validation"
-    primary_identifier: "find_sec_bugs.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.FILE_UPLOAD_FILENAME"
     secondary_identifiers:
-    - name: "Find Security Bugs-WEAK_HOSTNAME_VERIFIER"
+    - name: "Find Security Bugs-FILE_UPLOAD_FILENAME"
       type: "find_sec_bugs_type"
-      value: "WEAK_HOSTNAME_VERIFIER"
-    - name: "Find Security Bugs-WEAK_TRUST_MANAGER"
-      type: "find_sec_bugs_type"
-      value: "WEAK_TRUST_MANAGER"
-  severity: "WARNING"
-- id: "find_sec_bugs.FILE_UPLOAD_FILENAME-1"
+      value: "FILE_UPLOAD_FILENAME"
   patterns:
   - pattern: |
       def $FUNC (..., $REQ: HttpServletRequest, ... ) = {
@@ -936,26 +986,26 @@ rules:
         }
       }
   - pattern: "$ITEM.getName()"
-  message: |
-    The filename provided by the FileUpload API can be tampered with by the client to reference
-    unauthorized files. The provided filename should be properly validated to ensure it's properly
-    structured, contains no unauthorized path characters (e.g., / \), and refers to an authorized
-    file.
+  severity: "ERROR"
+- id: "find_sec_bugs.WEAK_FILENAMEUTILS-1"
   languages:
   - "scala"
-  severity: "ERROR"
+  message: |
+    A file is opened to read its content. The filename comes from an input
+    parameter. If an unfiltered parameter is passed to this file API, files from an
+    arbitrary filesystem location could be read.
   metadata:
     category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.FILE_UPLOAD_FILENAME"
+    primary_identifier: "find_sec_bugs.WEAK_FILENAMEUTILS"
     secondary_identifiers:
-    - name: "Find Security Bugs-FILE_UPLOAD_FILENAME"
+    - name: "Find Security Bugs-WEAK_FILENAMEUTILS"
       type: "find_sec_bugs_type"
-      value: "FILE_UPLOAD_FILENAME"
-- id: "find_sec_bugs.WEAK_FILENAMEUTILS-1"
+      value: "WEAK_FILENAMEUTILS"
   pattern-either:
   - patterns:
     - pattern-inside: |
@@ -976,25 +1026,22 @@ rules:
       - pattern: "org.apache.commons.io.FilenameUtils.isExtension(...)"
       - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
       - pattern: "org.apache.commons.io.FilenameUtils.getBaseName(...)"
-  message: |
-    A file is opened to read its content. The filename comes from an input
-    parameter. If an unfiltered parameter is passed to this file API, files from an
-    arbitrary filesystem location could be read.
+  severity: "ERROR"
+- id: "find_sec_bugs.STRUTS_FORM_VALIDATION-1"
   languages:
   - "scala"
-  severity: "ERROR"
+  message: |
+    Form inputs should have minimal input validation. Preventive validation helps provide defense
+    in depth against a variety of risks.
   metadata:
     category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
-    technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.WEAK_FILENAMEUTILS"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
+    primary_identifier: "find_sec_bugs.STRUTS_FORM_VALIDATION"
     secondary_identifiers:
-    - name: "Find Security Bugs-WEAK_FILENAMEUTILS"
+    - name: "Find Security Bugs-STRUTS_FORM_VALIDATION"
       type: "find_sec_bugs_type"
-      value: "WEAK_FILENAMEUTILS"
-- id: "find_sec_bugs.STRUTS_FORM_VALIDATION-1"
+      value: "STRUTS_FORM_VALIDATION"
   patterns:
   - pattern-inside: |
       class $CLASS extends $SC {
@@ -1004,22 +1051,36 @@ rules:
       metavariable: "$SC"
       regex: "(ActionForm|ValidatorForm)"
   - pattern-not: "public void validate() { ... }"
+  severity: "WARNING"
+- id: "find_sec_bugs.AWS_QUERY_INJECTION-1"
   languages:
   - "scala"
   message: |
-    Form inputs should have minimal input validation. Preventive validation helps provide defense
-    in depth against a variety of risks.
+    Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
+    records.
   metadata:
     category: "security"
-    cwe: "CWE-20: Improper Input Validation"
-    primary_identifier: "find_sec_bugs.STRUTS_FORM_VALIDATION"
+    cwe: "CWE-943"
+    shortDescription: "Improper Neutralization of Special Elements in Data Query Logic"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.AWS_QUERY_INJECTION"
     secondary_identifiers:
-    - name: "Find Security Bugs-STRUTS_FORM_VALIDATION"
+    - name: "Find Security Bugs-AWS_QUERY_INJECTION"
       type: "find_sec_bugs_type"
-      value: "STRUTS_FORM_VALIDATION"
-  severity: "WARNING"
-- id: "find_sec_bugs.AWS_QUERY_INJECTION-1"
+      value: "AWS_QUERY_INJECTION"
   mode: "taint"
+  pattern-sinks:
+  - pattern: "new com.amazonaws.services.simpledb.model.SelectRequest($QUERY, ...);"
+  - patterns:
+    - pattern-inside: |
+        $DB.select(($SR: com.amazonaws.services.simpledb.model.SelectRequest).withSelectExpression($QUERY,...));
+    - pattern: "$QUERY"
+    - metavariable-pattern:
+        metavariable: "$DB"
+        pattern-either:
+        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDB)"
+        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDBClient)"
   pattern-sources:
   - patterns:
     - pattern-inside: |
@@ -1035,34 +1096,26 @@ rules:
           ...
         }
     - pattern: "$QUERY"
-  pattern-sinks:
-  - pattern: "new com.amazonaws.services.simpledb.model.SelectRequest($QUERY, ...);"
-  - patterns:
-    - pattern-inside: |
-        $DB.select(($SR: com.amazonaws.services.simpledb.model.SelectRequest).withSelectExpression($QUERY,...));
-    - pattern: "$QUERY"
-    - metavariable-pattern:
-        metavariable: "$DB"
-        pattern-either:
-        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDB)"
-        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDBClient)"
-  message: |
-    Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
-    records.
+  severity: "ERROR"
+- id: "find_sec_bugs.BEAN_PROPERTY_INJECTION-1"
   languages:
   - "scala"
-  severity: "ERROR"
+  message: |
+    An attacker can set arbitrary bean properties that can compromise system integrity. An
+    attacker can leverage this functionality to access special bean properties like
+    class.classLoader that will allow them to override system properties and potentially execute
+    arbitrary code.
   metadata:
     category: "security"
-    cwe: "CWE-943: Improper Neutralization of Special Elements in Data Query Logic"
+    cwe: "CWE-15"
+    shortDescription: "External Control of System or Configuration Setting"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.AWS_QUERY_INJECTION"
+    primary_identifier: "find_sec_bugs.BEAN_PROPERTY_INJECTION"
     secondary_identifiers:
-    - name: "Find Security Bugs-AWS_QUERY_INJECTION"
+    - name: "Find Security Bugs-BEAN_PROPERTY_INJECTION"
       type: "find_sec_bugs_type"
-      value: "AWS_QUERY_INJECTION"
-- id: "find_sec_bugs.BEAN_PROPERTY_INJECTION-1"
+      value: "BEAN_PROPERTY_INJECTION"
   patterns:
   - pattern-inside: |-
       def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = { ... }
@@ -1084,33 +1137,30 @@ rules:
       - pattern: "(BeanUtilsBean $B)"
       - pattern: "new BeanUtilsBean()"
       - pattern: "org.apache.commons.beanutils.BeanUtils"
-  message: |
-    An attacker can set arbitrary bean properties that can compromise system integrity. An
-    attacker can leverage this functionality to access special bean properties like
-    class.classLoader that will allow them to override system properties and potentially execute
-    arbitrary code.
+  severity: "ERROR"
+- id: "find_sec_bugs.CRLF_INJECTION_LOGS-1"
   languages:
   - "scala"
-  severity: "ERROR"
+  message: |
+    When data from an untrusted source is put into a logger and not neutralized correctly, an
+    attacker could forge log entries or include malicious content. Inserted false entries could be
+    used to skew statistics, distract the administrator or even to implicate another party in the
+    commission of a malicious act. If the log file is processed automatically, the attacker can
+    render the file unusable by corrupting the format of the file or injecting unexpected
+    characters. An attacker may also inject code or other commands into the log file and take
+    advantage of a vulnerability in the log processing utility (e.g. command injection or XSS).
   metadata:
     category: "security"
-    cwe: "CWE-15: External Control of System or Configuration Setting"
+    cwe: "CWE-93"
+    shortDescription: "Improper Neutralization of CRLF Sequences ('CRLF Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.BEAN_PROPERTY_INJECTION"
+    primary_identifier: "find_sec_bugs.CRLF_INJECTION_LOGS"
     secondary_identifiers:
-    - name: "Find Security Bugs-BEAN_PROPERTY_INJECTION"
+    - name: "Find Security Bugs-CRLF_INJECTION_LOGS"
       type: "find_sec_bugs_type"
-      value: "BEAN_PROPERTY_INJECTION"
-- id: "find_sec_bugs.CRLF_INJECTION_LOGS-1"
+      value: "CRLF_INJECTION_LOGS"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        def $FUNC(..., $REQ: HttpServletRequest, ...) : $TYPE = {
-          ...
-        }
-    - pattern: "$REQ.getParameter(...)"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -1145,28 +1195,35 @@ rules:
         - pattern: "org.slf4j.Logger"
         - pattern: "org.apache.commons.logging.Log"
         - pattern: "java.util.logging.Logger"
-  message: |
-    When data from an untrusted source is put into a logger and not neutralized correctly, an
-    attacker could forge log entries or include malicious content. Inserted false entries could be
-    used to skew statistics, distract the administrator or even to implicate another party in the
-    commission of a malicious act. If the log file is processed automatically, the attacker can
-    render the file unusable by corrupting the format of the file or injecting unexpected
-    characters. An attacker may also inject code or other commands into the log file and take
-    advantage of a vulnerability in the log processing utility (e.g. command injection or XSS).
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        def $FUNC(..., $REQ: HttpServletRequest, ...) : $TYPE = {
+          ...
+        }
+    - pattern: "$REQ.getParameter(...)"
+  severity: "ERROR"
+- id: "find_sec_bugs.COMMAND_INJECTION-1.SCALA_COMMAND_INJECTION-1"
   languages:
   - "scala"
-  severity: "ERROR"
+  message: |
+    The highlighted API is used to execute a system command. If unfiltered input is passed to this
+    API, it can lead to arbitrary command execution.
   metadata:
     category: "security"
-    cwe: "CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection')"
+    cwe: "CWE-78"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.CRLF_INJECTION_LOGS"
+    primary_identifier: "find_sec_bugs.COMMAND_INJECTION-1.SCALA_COMMAND_INJECTION-1"
     secondary_identifiers:
-    - name: "Find Security Bugs-CRLF_INJECTION_LOGS"
+    - name: "Find Security Bugs-COMMAND_INJECTION"
       type: "find_sec_bugs_type"
-      value: "CRLF_INJECTION_LOGS"
-- id: "find_sec_bugs.COMMAND_INJECTION-1.SCALA_COMMAND_INJECTION-1"
+      value: "COMMAND_INJECTION"
+    - name: "Find Security Bugs-SCALA_COMMAND_INJECTION"
+      type: "find_sec_bugs_type"
+      value: "SCALA_COMMAND_INJECTION"
   pattern-either:
   - patterns:
     - pattern-inside: |
@@ -1216,27 +1273,25 @@ rules:
     - pattern-not: "$PB.command(\"...\",\"...\",\"...\",...)"
     - pattern-not: |
         $PB.command(java.util.Arrays.asList("...","...","...",...))
-  message: |
-    The highlighted API is used to execute a system command. If unfiltered input is passed to this
-    API, it can lead to arbitrary command execution.
+  severity: "WARNING"
+- id: "find_sec_bugs.CUSTOM_INJECTION-1"
   languages:
   - "scala"
-  severity: "WARNING"
+  message: |
+    The method identified is susceptible to injection. The input should be validated and properly
+    escaped.
   metadata:
     category: "security"
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
+    cwe: "CWE-89"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.COMMAND_INJECTION-1.SCALA_COMMAND_INJECTION-1"
+    primary_identifier: "find_sec_bugs.CUSTOM_INJECTION"
     secondary_identifiers:
-    - name: "Find Security Bugs-COMMAND_INJECTION"
+    - name: "Find Security Bugs-CUSTOM_INJECTION"
       type: "find_sec_bugs_type"
-      value: "COMMAND_INJECTION"
-    - name: "Find Security Bugs-SCALA_COMMAND_INJECTION"
-      type: "find_sec_bugs_type"
-      value: "SCALA_COMMAND_INJECTION"
-- id: "find_sec_bugs.CUSTOM_INJECTION-1"
+      value: "CUSTOM_INJECTION"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -1259,24 +1314,25 @@ rules:
     - pattern: "$ST.executeQuery(... + $VAR + ...)"
     - pattern: "$ST.executeQuery(... + $VAR)"
     - pattern: "$ST.executeQuery(...,String.format(\"...\",...,$VAR,...), ...)"
+  severity: "WARNING"
+- id: "find_sec_bugs.CUSTOM_INJECTION-2"
+  languages:
+  - "scala"
   message: |
     The method identified is susceptible to injection. The input should be validated and properly
     escaped.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
+    cwe: "CWE-89"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.CUSTOM_INJECTION"
+    primary_identifier: "find_sec_bugs.CUSTOM_INJECTION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-CUSTOM_INJECTION"
       type: "find_sec_bugs_type"
       value: "CUSTOM_INJECTION"
-- id: "find_sec_bugs.CUSTOM_INJECTION-2"
   patterns:
   - pattern-inside: |
       def $FOO(..., $SQLIN: String, ...): $TYPE = {
@@ -1303,24 +1359,24 @@ rules:
   - metavariable-regex:
       metavariable: "$SQL_STR"
       regex: "(?i)(select|insert|create|update|alter|delete|drop)\\b"
-  message: |
-    The method identified is susceptible to injection. The input should be validated and properly
-    escaped.
+  severity: "WARNING"
+- id: "find_sec_bugs.EL_INJECTION-1"
   languages:
   - "scala"
-  severity: "WARNING"
+  message: |
+    An expression is built with a dynamic value. The source of the value(s) should be verified to
+    avoid that unfiltered values fall into this risky code evaluation.
   metadata:
     category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
+    cwe: "CWE-94"
+    shortDescription: "Improper Control of Generation of Code ('Code Injection')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.CUSTOM_INJECTION-2"
+    primary_identifier: "find_sec_bugs.EL_INJECTION"
     secondary_identifiers:
-    - name: "Find Security Bugs-CUSTOM_INJECTION"
+    - name: "Find Security Bugs-EL_INJECTION"
       type: "find_sec_bugs_type"
-      value: "CUSTOM_INJECTION"
-- id: "find_sec_bugs.EL_INJECTION-1"
+      value: "EL_INJECTION"
   patterns:
   - pattern-inside: |
       import javax.el._
@@ -1337,26 +1393,30 @@ rules:
   - pattern-either:
     - pattern: "$X.createValueExpression(..., $EXPR, ...)"
     - pattern: "$X.createMethodExpression(..., $EXPR, ...)"
-  message: |
-    An expression is built with a dynamic value. The source of the value(s) should be verified to
-    avoid that unfiltered values fall into this risky code evaluation.
+  severity: "WARNING"
+- id: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
   languages:
   - "scala"
-  severity: "WARNING"
+  message: |
+    Constructing a server-side redirect path with user input could allow an
+    attacker to download application binaries (including application classes or
+    jar files) or view arbitrary files within protected directories.
   metadata:
     category: "security"
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.EL_INJECTION"
+    cwe: "CWE-552"
+    shortDescription: "Files or Directories Accessible to External Parties"
+    primary_identifier: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
     secondary_identifiers:
-    - name: "Find Security Bugs-EL_INJECTION"
+    - name: "Find Security Bugs-REQUESTDISPATCHER_FILE_DISCLOSURE"
       type: "find_sec_bugs_type"
-      value: "EL_INJECTION"
-- id: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
+      value: "REQUESTDISPATCHER_FILE_DISCLOSURE"
+    - name: "Find Security Bugs-STRUTS_FILE_DISCLOSURE"
+      type: "find_sec_bugs_type"
+      value: "STRUTS_FILE_DISCLOSURE"
+    - name: "Find Security Bugs-SPRING_FILE_DISCLOSURE"
+      type: "find_sec_bugs_type"
+      value: "SPRING_FILE_DISCLOSURE"
   mode: "taint"
-  pattern-sources:
-  - pattern: "($VAR: javax.servlet.http.HttpServletRequest).getParameter(...)"
   pattern-sinks:
   - patterns:
     - pattern: "new org.springframework.web.servlet.ModelAndView($FST)"
@@ -1396,38 +1456,12 @@ rules:
     - pattern-either:
       - pattern: "$REQ.include($FST, $SND)"
       - pattern: "$REQ.forward($FST, $SND)"
-  languages:
-  - "scala"
-  message: |
-    Constructing a server-side redirect path with user input could allow an
-    attacker to download application binaries (including application classes or
-    jar files) or view arbitrary files within protected directories.
-  metadata:
-    category: "security"
-    cwe: "CWE-552: Files or Directories Accessible to External Parties"
-    primary_identifier: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
-    secondary_identifiers:
-    - name: "Find Security Bugs-REQUESTDISPATCHER_FILE_DISCLOSURE"
-      type: "find_sec_bugs_type"
-      value: "REQUESTDISPATCHER_FILE_DISCLOSURE"
-    - name: "Find Security Bugs-STRUTS_FILE_DISCLOSURE"
-      type: "find_sec_bugs_type"
-      value: "STRUTS_FILE_DISCLOSURE"
-    - name: "Find Security Bugs-SPRING_FILE_DISCLOSURE"
-      type: "find_sec_bugs_type"
-      value: "SPRING_FILE_DISCLOSURE"
+  pattern-sources:
+  - pattern: "($VAR: javax.servlet.http.HttpServletRequest).getParameter(...)"
   severity: "ERROR"
 - id: "find_sec_bugs.HTTP_PARAMETER_POLLUTION-1"
-  mode: "taint"
-  pattern-sources:
-  - pattern: "($REQ: HttpServletRequest ).getParameter(...)"
-  pattern-sanitizers:
-  - pattern: "java.net.URLEncoder.encode(...)"
-  - pattern: "com.google.common.net.UrlEscapers.urlPathSegmentEscaper().escape(...)"
-  pattern-sinks:
-  - pattern: "new org.apache.http.client.methods.HttpGet(...)"
-  - pattern: "new org.apache.commons.httpclient.methods.GetMethod(...)"
-  - pattern: "($GM: org.apache.commons.httpclient.methods.GetMethod).setQueryString(...)"
+  languages:
+  - "scala"
   message: |
     Concatenating unvalidated user input into a URL can allow an attacker to override the value of
     a request parameter. Attacker may be able to override existing parameter values, inject a new
@@ -1435,13 +1469,11 @@ rules:
     consist of injecting encoded query string delimiters into other existing parameters. If a web
     application does not properly sanitize the user input, a malicious user may compromise the
     logic of the application to perform either client-side or server-side attacks.
-  languages:
-  - "scala"
-  severity: "ERROR"
   metadata:
     category: "security"
-    cwe: "CWE-88: Improper Neutralization of Argument Delimiters in a Command ('Argument
-      Injection')"
+    cwe: "CWE-88"
+    shortDescription: "Improper Neutralization of Argument Delimiters in a Command
+      ('Argument Injection')"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.HTTP_PARAMETER_POLLUTION"
@@ -1449,7 +1481,37 @@ rules:
     - name: "Find Security Bugs-HTTP_PARAMETER_POLLUTION"
       type: "find_sec_bugs_type"
       value: "HTTP_PARAMETER_POLLUTION"
+  mode: "taint"
+  pattern-sanitizers:
+  - pattern: "java.net.URLEncoder.encode(...)"
+  - pattern: "com.google.common.net.UrlEscapers.urlPathSegmentEscaper().escape(...)"
+  pattern-sinks:
+  - pattern: "new org.apache.http.client.methods.HttpGet(...)"
+  - pattern: "new org.apache.commons.httpclient.methods.GetMethod(...)"
+  - pattern: "($GM: org.apache.commons.httpclient.methods.GetMethod).setQueryString(...)"
+  pattern-sources:
+  - pattern: "($REQ: HttpServletRequest ).getParameter(...)"
+  severity: "ERROR"
 - id: "find_sec_bugs.LDAP_INJECTION-1"
+  languages:
+  - "scala"
+  message: |
+    Just like SQL, all inputs passed to an LDAP query need to be passed in safely. Unfortunately,
+    LDAP doesn't have prepared statement interfaces like SQL. Therefore, the primary defense
+    against LDAP injection is strong input validation of any untrusted data before including it in
+    an LDAP query.
+  metadata:
+    category: "security"
+    cwe: "CWE-90"
+    shortDescription: "Improper Neutralization of Special Elements used in an LDAP
+      Query ('LDAP Injection')"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.LDAP_INJECTION"
+    secondary_identifiers:
+    - name: "Find Security Bugs-LDAP_INJECTION"
+      type: "find_sec_bugs_type"
+      value: "LDAP_INJECTION"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -1480,25 +1542,7 @@ rules:
       - pattern: "($CTX: com.sun.jndi.ldap.LdapCtx)"
       - pattern: "($CTX: org.springframework.ldap.core.LdapTemplate)"
       - pattern: "($CTX: org.springframework.ldap.core.LdapOperations)"
-  message: |
-    Just like SQL, all inputs passed to an LDAP query need to be passed in safely. Unfortunately,
-    LDAP doesn't have prepared statement interfaces like SQL. Therefore, the primary defense
-    against LDAP injection is strong input validation of any untrusted data before including it in
-    an LDAP query.
-  languages:
-  - "scala"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-90: Improper Neutralization of Special Elements used in an LDAP Query
-      ('LDAP Injection')"
-    technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.LDAP_INJECTION"
-    secondary_identifiers:
-    - name: "Find Security Bugs-LDAP_INJECTION"
-      type: "find_sec_bugs_type"
-      value: "LDAP_INJECTION"
 - id: "find_sec_bugs.OGNL_INJECTION-1"
   patterns:
   - pattern-either:
@@ -1583,7 +1627,9 @@ rules:
   - "scala"
   severity: "WARNING"
   metadata:
+    shortDescription: "Expression injection (OGNL)"
     category: "security"
+    cwe: "CWE-917"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.OGNL_INJECTION"
@@ -1592,6 +1638,28 @@ rules:
       type: "find_sec_bugs_type"
       value: "OGNL_INJECTION"
 - id: "find_sec_bugs.PATH_TRAVERSAL_IN-1.SCALA_PATH_TRAVERSAL_IN-1"
+  languages:
+  - "scala"
+  message: |
+    A file is opened to read its content. The filename comes from an input parameter. If an
+    unfiltered parameter is passed to this file API, files from an arbitrary filesystem location
+    could be read. This rule identifies potential path traversal vulnerabilities. In many cases,
+    the constructed file path cannot be controlled by the user.
+  metadata:
+    category: "security"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.PATH_TRAVERSAL_IN-1.SCALA_PATH_TRAVERSAL_IN-1"
+    secondary_identifiers:
+    - name: "Find Security Bugs-PATH_TRAVERSAL_IN"
+      type: "find_sec_bugs_type"
+      value: "PATH_TRAVERSAL_IN"
+    - name: "Find Security Bugs-SCALA_PATH_TRAVERSAL_IN"
+      type: "find_sec_bugs_type"
+      value: "SCALA_PATH_TRAVERSAL_IN"
   patterns:
   - pattern-either:
     - patterns:
@@ -1631,30 +1699,39 @@ rules:
     - pattern: "scala.io.Source.from(<...$VAR...>)"
     - pattern: "scala.io.Source.fromFile(<...$VAR...>)"
     - pattern: "scala.io.Source.fromString(<...$VAR...>)"
-  message: |
-    A file is opened to read its content. The filename comes from an input parameter. If an
-    unfiltered parameter is passed to this file API, files from an arbitrary filesystem location
-    could be read. This rule identifies potential path traversal vulnerabilities. In many cases,
-    the constructed file path cannot be controlled by the user.
+  severity: "ERROR"
+- id: "find_sec_bugs.PATH_TRAVERSAL_OUT-1"
   languages:
   - "scala"
-  severity: "ERROR"
+  message: |
+    A file is opened to write to its contents. The filename comes from an input parameter. If an
+    unfiltered parameter is passed to this file API, files at an arbitrary filesystem location
+    could be modified. This rule identifies potential path traversal vulnerabilities. In many
+    cases, the constructed file path cannot be controlled by the user.
   metadata:
     category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.PATH_TRAVERSAL_IN-1.SCALA_PATH_TRAVERSAL_IN-1"
+    primary_identifier: "find_sec_bugs.PATH_TRAVERSAL_OUT"
     secondary_identifiers:
-    - name: "Find Security Bugs-PATH_TRAVERSAL_IN"
+    - name: "Find Security Bugs-PATH_TRAVERSAL_OUT"
       type: "find_sec_bugs_type"
-      value: "PATH_TRAVERSAL_IN"
-    - name: "Find Security Bugs-SCALA_PATH_TRAVERSAL_IN"
-      type: "find_sec_bugs_type"
-      value: "SCALA_PATH_TRAVERSAL_IN"
-- id: "find_sec_bugs.PATH_TRAVERSAL_OUT-1"
+      value: "PATH_TRAVERSAL_OUT"
   mode: "taint"
+  pattern-sanitizers:
+  - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileWriter($PATH, ...)
+    - pattern: "$PATH"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileOutputStream($PATH, ...)
+    - pattern: "$PATH"
   pattern-sources:
   - patterns:
     - pattern-inside: |
@@ -1668,40 +1745,28 @@ rules:
           ...
         }
     - pattern: "$VAR"
-  pattern-sanitizers:
-  - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
-  pattern-sinks:
-  - patterns:
-    - pattern-inside: |-
-        new java.io.FileWriter($PATH, ...)
-    - pattern: "$PATH"
-  - patterns:
-    - pattern-inside: |-
-        new java.io.FileOutputStream($PATH, ...)
-    - pattern: "$PATH"
-  message: |
-    A file is opened to write to its contents. The filename comes from an input parameter. If an
-    unfiltered parameter is passed to this file API, files at an arbitrary filesystem location
-    could be modified. This rule identifies potential path traversal vulnerabilities. In many
-    cases, the constructed file path cannot be controlled by the user.
+  severity: "ERROR"
+- id: "find_sec_bugs.PT_ABSOLUTE_PATH_TRAVERSAL-1"
   languages:
   - "scala"
-  severity: "ERROR"
+  message: |
+    "The software uses an HTTP request parameter to construct a pathname that should be within a
+    restricted directory, but it does not properly neutralize absolute path sequences such as
+    "/abs/path" that can resolve to a location that is outside of that directory. See
+    http://cwe.mitre.org/data/definitions/36.html for more information."
   metadata:
     category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.PATH_TRAVERSAL_OUT"
+    primary_identifier: "find_sec_bugs.PT_ABSOLUTE_PATH_TRAVERSAL"
     secondary_identifiers:
-    - name: "Find Security Bugs-PATH_TRAVERSAL_OUT"
+    - name: "Find Security Bugs-PT_ABSOLUTE_PATH_TRAVERSAL"
       type: "find_sec_bugs_type"
-      value: "PATH_TRAVERSAL_OUT"
-- id: "find_sec_bugs.PT_ABSOLUTE_PATH_TRAVERSAL-1"
+      value: "PT_ABSOLUTE_PATH_TRAVERSAL"
   mode: "taint"
-  pattern-sources:
-  - pattern: "($REQ: HttpServletRequest ).getParameter(...)"
   pattern-sanitizers:
   - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
   pattern-sinks:
@@ -1735,27 +1800,63 @@ rules:
     - pattern-inside: |-
         new java.io.FileOutputStream($PATH, ...)
     - pattern: "$PATH"
-  message: |
-    "The software uses an HTTP request parameter to construct a pathname that should be within a
-    restricted directory, but it does not properly neutralize absolute path sequences such as
-    "/abs/path" that can resolve to a location that is outside of that directory. See
-    http://cwe.mitre.org/data/definitions/36.html for more information."
+  pattern-sources:
+  - pattern: "($REQ: HttpServletRequest ).getParameter(...)"
+  severity: "WARNING"
+- id: "find_sec_bugs.PT_RELATIVE_PATH_TRAVERSAL-1"
   languages:
   - "scala"
-  severity: "WARNING"
+  message: |
+    "The software uses an HTTP request parameter to construct a pathname that should be within a
+    restricted directory, but it does not properly neutralize sequences such as ".." that can
+    resolve to a location that is outside of that directory. See
+    http://cwe.mitre.org/data/definitions/23.html for more information."
   metadata:
     category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
     technology:
     - "scala"
-    primary_identifier: "find_sec_bugs.PT_ABSOLUTE_PATH_TRAVERSAL"
+    primary_identifier: "find_sec_bugs.PT_RELATIVE_PATH_TRAVERSAL"
     secondary_identifiers:
-    - name: "Find Security Bugs-PT_ABSOLUTE_PATH_TRAVERSAL"
+    - name: "Find Security Bugs-PT_RELATIVE_PATH_TRAVERSAL"
       type: "find_sec_bugs_type"
-      value: "PT_ABSOLUTE_PATH_TRAVERSAL"
-- id: "find_sec_bugs.PT_RELATIVE_PATH_TRAVERSAL-1"
+      value: "PT_RELATIVE_PATH_TRAVERSAL"
   mode: "taint"
+  pattern-sanitizers:
+  - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |
+        $U = new java.net.URI($VAR)
+    - pattern-either:
+      - pattern-inside: |-
+          new java.io.File($U)
+      - pattern-inside: |-
+          java.nio.file.Paths.get($U)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.RandomAccessFile($INPUT,...)
+    - pattern: "$INPUT"
+  - pattern: "new java.io.FileReader(...)"
+  - pattern: "new javax.activation.FileDataSource(...)"
+  - pattern: "new java.io.FileInputStream(...)"
+  - pattern: "new java.io.File(...)"
+  - pattern: "java.nio.file.Paths.get(...)"
+  - pattern: "java.io.File.createTempFile(...)"
+  - pattern: "java.io.File.createTempDirectory(...)"
+  - pattern: "java.nio.file.Files.createTempFile(...)"
+  - pattern: "java.nio.file.Files.createTempDirectory(...)"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileWriter($PATH, ...)
+    - pattern: "$PATH"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileOutputStream($PATH, ...)
+    - pattern: "$PATH"
   pattern-sources:
   - patterns:
     - pattern-inside: |
@@ -1764,59 +1865,40 @@ rules:
     - pattern-either:
       - pattern: "$P + ..."
       - pattern: "... + $P"
-  pattern-sanitizers:
-  - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
-  pattern-sinks:
-  - patterns:
-    - pattern-inside: |
-        $U = new java.net.URI($VAR)
-    - pattern-either:
-      - pattern-inside: |-
-          new java.io.File($U)
-      - pattern-inside: |-
-          java.nio.file.Paths.get($U)
-    - pattern: "$VAR"
-  - patterns:
-    - pattern-inside: |-
-        new java.io.RandomAccessFile($INPUT,...)
-    - pattern: "$INPUT"
-  - pattern: "new java.io.FileReader(...)"
-  - pattern: "new javax.activation.FileDataSource(...)"
-  - pattern: "new java.io.FileInputStream(...)"
-  - pattern: "new java.io.File(...)"
-  - pattern: "java.nio.file.Paths.get(...)"
-  - pattern: "java.io.File.createTempFile(...)"
-  - pattern: "java.io.File.createTempDirectory(...)"
-  - pattern: "java.nio.file.Files.createTempFile(...)"
-  - pattern: "java.nio.file.Files.createTempDirectory(...)"
-  - patterns:
-    - pattern-inside: |-
-        new java.io.FileWriter($PATH, ...)
-    - pattern: "$PATH"
-  - patterns:
-    - pattern-inside: |-
-        new java.io.FileOutputStream($PATH, ...)
-    - pattern: "$PATH"
-  message: |
-    "The software uses an HTTP request parameter to construct a pathname that should be within a
-    restricted directory, but it does not properly neutralize sequences such as ".." that can
-    resolve to a location that is outside of that directory. See
-    http://cwe.mitre.org/data/definitions/23.html for more information."
+  severity: "WARNING"
+- id: "find_sec_bugs.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1.SCALA_SQL_INJECTION_SLICK-1"
   languages:
   - "scala"
-  severity: "WARNING"
+  message: |
+    The input values included in SQL queries need to be passed in safely. Bind
+    variables in prepared statements can be used to easily mitigate the risk of
+    SQL injection.
   metadata:
     category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
-    technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.PT_RELATIVE_PATH_TRAVERSAL"
+    cwe: "CWE-89"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
+    primary_identifier: "find_sec_bugs.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1.SCALA_SQL_INJECTION_SLICK-1"
     secondary_identifiers:
-    - name: "Find Security Bugs-PT_RELATIVE_PATH_TRAVERSAL"
+    - name: "Find Security Bugs-SQL_INJECTION_SPRING_JDBC"
       type: "find_sec_bugs_type"
-      value: "PT_RELATIVE_PATH_TRAVERSAL"
-- id: "find_sec_bugs.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1.SCALA_SQL_INJECTION_SLICK-1"
+      value: "SQL_INJECTION_SPRING_JDBC"
+    - name: "Find Security Bugs-SQL_INJECTION_JPA"
+      type: "find_sec_bugs_type"
+      value: "SQL_INJECTION_JPA"
+    - name: "Find Security Bugs-SQL_INJECTION_JDO"
+      type: "find_sec_bugs_type"
+      value: "SQL_INJECTION_JDO"
+    - name: "Find Security Bugs-SQL_INJECTION_JDBC"
+      type: "find_sec_bugs_type"
+      value: "SQL_INJECTION_JDBC"
+    - name: "Find Security Bugs-SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"
+      type: "find_sec_bugs_type"
+      value: "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"
+    - name: "Find Security Bugs-SCALA_SQL_INJECTION_SLICK"
+      type: "find_sec_bugs_type"
+      value: "SCALA_SQL_INJECTION_SLICK"
   patterns:
   - pattern-not-inside: |
       $ARG = ...
@@ -2053,44 +2135,8 @@ rules:
           ...
       - pattern: "SQL(<...$ARG...>)"
       - pattern-not: "SQL(\"...\")"
-  languages:
-  - "scala"
-  message: |
-    The input values included in SQL queries need to be passed in safely. Bind
-    variables in prepared statements can be used to easily mitigate the risk of
-    SQL injection.
-  metadata:
-    category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    owasp: "A1:2017-Injection"
-    primary_identifier: "find_sec_bugs.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1.SCALA_SQL_INJECTION_SLICK-1"
-    secondary_identifiers:
-    - name: "Find Security Bugs-SQL_INJECTION_SPRING_JDBC"
-      type: "find_sec_bugs_type"
-      value: "SQL_INJECTION_SPRING_JDBC"
-    - name: "Find Security Bugs-SQL_INJECTION_JPA"
-      type: "find_sec_bugs_type"
-      value: "SQL_INJECTION_JPA"
-    - name: "Find Security Bugs-SQL_INJECTION_JDO"
-      type: "find_sec_bugs_type"
-      value: "SQL_INJECTION_JDO"
-    - name: "Find Security Bugs-SQL_INJECTION_JDBC"
-      type: "find_sec_bugs_type"
-      value: "SQL_INJECTION_JDBC"
-    - name: "Find Security Bugs-SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"
-      type: "find_sec_bugs_type"
-      value: "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"
-    - name: "Find Security Bugs-SCALA_SQL_INJECTION_SLICK"
-      type: "find_sec_bugs_type"
-      value: "SCALA_SQL_INJECTION_SLICK"
   severity: "ERROR"
 - id: "find_sec_bugs.LDAP_ANONYMOUS-1"
-  patterns:
-  - pattern-inside: |
-      import javax.naming.Context;
-      ...
-  - pattern: "$ENV.put(Context.SECURITY_AUTHENTICATION, \"none\");"
   languages:
   - "scala"
   message: |
@@ -2099,17 +2145,20 @@ rules:
     context
   metadata:
     category: "security"
-    cwe: "CWE-20: Improper Input Validation"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
     primary_identifier: "find_sec_bugs.LDAP_ANONYMOUS"
     secondary_identifiers:
     - name: "Find Security Bugs-LDAP_ANONYMOUS"
       type: "find_sec_bugs_type"
       value: "LDAP_ANONYMOUS"
+  patterns:
+  - pattern-inside: |
+      import javax.naming.Context;
+      ...
+  - pattern: "$ENV.put(Context.SECURITY_AUTHENTICATION, \"none\");"
   severity: "WARNING"
 - id: "find_sec_bugs.LDAP_ENTRY_POISONING-1"
-  patterns:
-  - pattern: "new javax.naming.directory.SearchControls($SCOPE, $CLIMIT, $TLIMIT,
-      $ATTR, true, $DEREF)"
   languages:
   - "scala"
   message: |
@@ -2118,25 +2167,27 @@ rules:
     context
   metadata:
     category: "security"
-    cwe: "CWE-20: Improper Input Validation"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
     primary_identifier: "find_sec_bugs.LDAP_ENTRY_POISONING"
     secondary_identifiers:
     - name: "Find Security Bugs-LDAP_ENTRY_POISONING"
       type: "find_sec_bugs_type"
       value: "LDAP_ENTRY_POISONING"
+  patterns:
+  - pattern: "new javax.naming.directory.SearchControls($SCOPE, $CLIMIT, $TLIMIT,
+      $ATTR, true, $DEREF)"
   severity: "ERROR"
 - id: "find_sec_bugs.DMI_CONSTANT_DB_PASSWORD-1.HARD_CODE_PASSWORD-3"
-  patterns:
-  - pattern: "java.sql.DriverManager.getConnection($URI, $USR, \"...\");"
+  languages:
+  - "scala"
   message: |
     This code creates a database connect using a hardcoded, constant password. Anyone with access
     to either the source code or the compiled code can easily learn the password.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-259: Use of Hard-coded Password"
+    cwe: "CWE-259"
+    shortDescription: "Use of Hard-coded Password"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.DMI_CONSTANT_DB_PASSWORD-1.HARD_CODE_PASSWORD-3"
@@ -2147,18 +2198,19 @@ rules:
     - name: "Find Security Bugs-HARD_CODE_PASSWORD"
       type: "find_sec_bugs_type"
       value: "HARD_CODE_PASSWORD"
-- id: "find_sec_bugs.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
   patterns:
-  - pattern: "java.sql.DriverManager.getConnection($URI, $USR, \"\");"
+  - pattern: "java.sql.DriverManager.getConnection($URI, $USR, \"...\");"
+  severity: "WARNING"
+- id: "find_sec_bugs.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
+  languages:
+  - "scala"
   message: |
     This code creates a database connect using a blank or empty password. This indicates that the
     database is not protected by a password.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-259: Use of Hard-coded Password"
+    cwe: "CWE-259"
+    shortDescription: "Use of Hard-coded Password"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
@@ -2169,7 +2221,27 @@ rules:
     - name: "Find Security Bugs-HARD_CODE_PASSWORD"
       type: "find_sec_bugs_type"
       value: "HARD_CODE_PASSWORD"
+  patterns:
+  - pattern: "java.sql.DriverManager.getConnection($URI, $USR, \"\");"
+  severity: "WARNING"
 - id: "find_sec_bugs.HARD_CODE_PASSWORD-1"
+  languages:
+  - "scala"
+  message: |
+    Passwords should not be kept in the source code. The source code can be widely shared in an
+    enterprise environment, and is certainly shared in open source. To be managed safely, passwords
+    and secret keys should be stored in separate configuration files or keystores.
+  metadata:
+    category: "security"
+    cwe: "CWE-259"
+    shortDescription: "Use of Hard-coded Password"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.HARD_CODE_PASSWORD"
+    secondary_identifiers:
+    - name: "Find Security Bugs-HARD_CODE_PASSWORD"
+      type: "find_sec_bugs_type"
+      value: "HARD_CODE_PASSWORD"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -2265,23 +2337,7 @@ rules:
   - metavariable-regex:
       metavariable: "$PWD"
       regex: "(?i).*(pass|pwd|psw|secret|key|cipher|crypt|des|aes|mac|private|sign|cert).*"
-  message: |
-    Passwords should not be kept in the source code. The source code can be widely shared in an
-    enterprise environment, and is certainly shared in open source. To be managed safely, passwords
-    and secret keys should be stored in separate configuration files or keystores.
-  languages:
-  - "scala"
   severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-259: Use of Hard-coded Password"
-    technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.HARD_CODE_PASSWORD"
-    secondary_identifiers:
-    - name: "Find Security Bugs-HARD_CODE_PASSWORD"
-      type: "find_sec_bugs_type"
-      value: "HARD_CODE_PASSWORD"
 - id: "find_sec_bugs.DANGEROUS_PERMISSION_COMBINATION-1"
   pattern-either:
   - pattern: |
@@ -2299,7 +2355,9 @@ rules:
   message: |
     Do not grant dangerous combinations of permissions.
   metadata:
+    shortDescription: "Improper privilege management"
     category: "security"
+    cwe: "CWE-269"
     confidence: "HIGH"
     primary_identifier: "find_sec_bugs.DANGEROUS_PERMISSION_COMBINATION"
     secondary_identifiers:
@@ -2308,6 +2366,20 @@ rules:
       value: "DANGEROUS_PERMISSION_COMBINATION"
   severity: "WARNING"
 - id: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-1"
+  languages:
+  - "scala"
+  message: |
+    Overly permissive file permission
+  metadata:
+    category: "security"
+    confidence: "HIGH"
+    cwe: "CWE-732"
+    shortDescription: "Incorrect Permission Assignment for Critical Resource"
+    primary_identifier: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION"
+    secondary_identifiers:
+    - name: "Find Security Bugs-OVERLY_PERMISSIVE_FILE_PERMISSION"
+      type: "find_sec_bugs_type"
+      value: "OVERLY_PERMISSIVE_FILE_PERMISSION"
   patterns:
   - pattern-either:
     - pattern: "java.nio.file.Files.setPosixFilePermissions(..., java.nio.file.attribute.PosixFilePermissions.fromString(\"$PERM_STRING\"));"
@@ -2318,21 +2390,22 @@ rules:
   - metavariable-regex:
       metavariable: "$PERM_STRING"
       regex: "[rwx-]{6}[rwx]{1,}"
+  severity: "WARNING"
+- id: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
   languages:
   - "scala"
   message: |
     Overly permissive file permission
   metadata:
-    cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION"
+    cwe: "CWE-732"
+    shortDescription: "Incorrect Permission Assignment for Critical Resource"
+    primary_identifier: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-OVERLY_PERMISSIVE_FILE_PERMISSION"
       type: "find_sec_bugs_type"
       value: "OVERLY_PERMISSIVE_FILE_PERMISSION"
-  severity: "WARNING"
-- id: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
   patterns:
   - pattern-inside: |
       ...
@@ -2343,38 +2416,18 @@ rules:
   - metavariable-regex:
       metavariable: "$P"
       regex: "(PosixFilePermission.){0,1}(OTHERS_)"
-  languages:
-  - "scala"
-  message: |
-    Overly permissive file permission
-  metadata:
-    cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
-    category: "security"
-    confidence: "HIGH"
-    primary_identifier: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
-    secondary_identifiers:
-    - name: "Find Security Bugs-OVERLY_PERMISSIVE_FILE_PERMISSION"
-      type: "find_sec_bugs_type"
-      value: "OVERLY_PERMISSIVE_FILE_PERMISSION"
   severity: "WARNING"
 - id: "find_sec_bugs.PREDICTABLE_RANDOM-1.PREDICTABLE_RANDOM_SCALA-1"
-  pattern-either:
-  - patterns:
-    - pattern: "$LANG.util.Random.$METHOD"
-    - metavariable-regex:
-        metavariable: "$METHOD"
-        regex: "^(next)"
-  - pattern: "Math.random"
+  languages:
+  - "scala"
   message: |
     The use of a predictable random value can lead to vulnerabilities when used in certain security
     critical contexts. A quick fix could be to replace the use of scala.util.Random with something
     stronger, such as java.security.SecureRandom
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-330: Use of Insufficiently Random Values"
+    cwe: "CWE-330"
+    shortDescription: "Use of Insufficiently Random Values"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.PREDICTABLE_RANDOM-1.PREDICTABLE_RANDOM_SCALA-1"
@@ -2385,20 +2438,25 @@ rules:
     - name: "Find Security Bugs-PREDICTABLE_RANDOM_SCALA"
       type: "find_sec_bugs_type"
       value: "PREDICTABLE_RANDOM_SCALA"
+  pattern-either:
+  - patterns:
+    - pattern: "$LANG.util.Random.$METHOD"
+    - metavariable-regex:
+        metavariable: "$METHOD"
+        regex: "^(next)"
+  - pattern: "Math.random"
+  severity: "WARNING"
 - id: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-1.SPEL_INJECTION-1.EL_INJECTION-2.SEAM_LOG_INJECTION-1"
-  patterns:
-  - pattern: "($ENGINE: javax.script.ScriptEngine).eval($ARG)"
-  - pattern-not: "($ENGINE: javax.script.ScriptEngine).eval(\"...\")"
+  languages:
+  - "scala"
   message: |
     The software constructs all or part of a code segment using externally-influenced
     input from an upstream component, but it does not neutralize or incorrectly
     neutralizes special elements that could modify the syntax or behavior of the
     intended code segment.
-  languages:
-  - "scala"
-  severity: "ERROR"
   metadata:
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+    cwe: "CWE-94"
+    shortDescription: "Improper Control of Generation of Code ('Code Injection')"
     primary_identifier: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-1.SPEL_INJECTION-1.EL_INJECTION-2.SEAM_LOG_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SCRIPT_ENGINE_INJECTION"
@@ -2413,27 +2471,44 @@ rules:
     - name: "Find Security Bugs-SEAM_LOG_INJECTION"
       type: "find_sec_bugs_type"
       value: "SEAM_LOG_INJECTION"
-- id: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-2"
   patterns:
-  - pattern: "($P: org.springframework.expression.spel.standard.SpelExpressionParser).parseExpression($ARG);"
-  - pattern-not: "($P: org.springframework.expression.spel.standard.SpelExpressionParser
-      ).parseExpression(\"...\");"
+  - pattern: "($ENGINE: javax.script.ScriptEngine).eval($ARG)"
+  - pattern-not: "($ENGINE: javax.script.ScriptEngine).eval(\"...\")"
+  severity: "ERROR"
+- id: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-2"
+  languages:
+  - "scala"
   message: |
     The software constructs all or part of a code segment using externally-influenced
     input from an upstream component, but it does not neutralize or incorrectly
     neutralizes special elements that could modify the syntax or behavior of the
     intended code segment.
-  languages:
-  - "scala"
-  severity: "ERROR"
   metadata:
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+    cwe: "CWE-94"
+    shortDescription: "Improper Control of Generation of Code ('Code Injection')"
     primary_identifier: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-SCRIPT_ENGINE_INJECTION"
       type: "find_sec_bugs_type"
       value: "SCRIPT_ENGINE_INJECTION"
+  patterns:
+  - pattern: "($P: org.springframework.expression.spel.standard.SpelExpressionParser).parseExpression($ARG);"
+  - pattern-not: "($P: org.springframework.expression.spel.standard.SpelExpressionParser
+      ).parseExpression(\"...\");"
+  severity: "ERROR"
 - id: "find_sec_bugs.INSECURE_SMTP_SSL-1"
+  languages:
+  - "scala"
+  message: |
+    Server identity verification is disabled when making SSL connections.
+  metadata:
+    cwe: "CWE-297"
+    shortDescription: "Improper Validation of Certificate with Host Mismatch"
+    primary_identifier: "find_sec_bugs.INSECURE_SMTP_SSL"
+    secondary_identifiers:
+    - name: "Find Security Bugs-INSECURE_SMTP_SSL"
+      type: "find_sec_bugs_type"
+      value: "INSECURE_SMTP_SSL"
   patterns:
   - pattern-either:
     - pattern-inside: |
@@ -2455,19 +2530,26 @@ rules:
       $E.setSSLOnConnect(true);
       ...
       $E.setSSLCheckServerIdentity(true);
-  message: |
-    Server identity verification is disabled when making SSL connections.
-  metadata:
-    cwe: "CWE-297: Improper Validation of Certificate with Host Mismatch"
-    primary_identifier: "find_sec_bugs.INSECURE_SMTP_SSL"
-    secondary_identifiers:
-    - name: "Find Security Bugs-INSECURE_SMTP_SSL"
-      type: "find_sec_bugs_type"
-      value: "INSECURE_SMTP_SSL"
   severity: "ERROR"
+- id: "find_sec_bugs.SMTP_HEADER_INJECTION-1"
   languages:
   - "scala"
-- id: "find_sec_bugs.SMTP_HEADER_INJECTION-1"
+  message: |
+    Simple Mail Transfer Protocol (SMTP) is a the text based protocol used for
+    email delivery. Like with HTTP, headers are separate by new line separator. If
+    kuser input is place in a header line, the application should remove or replace
+    new line characters (CR / LF). You should use a safe wrapper such as Apache
+    Common Email and Simple Java Mail which filter special characters that can lead
+    to header injection.
+  metadata:
+    category: "security"
+    cwe: "CWE-77"
+    shortDescription: "Improper Neutralization of Special Elements used in a Command"
+    primary_identifier: "find_sec_bugs.SMTP_HEADER_INJECTION"
+    secondary_identifiers:
+    - name: "Find Security Bugs-SMTP_HEADER_INJECTION"
+      type: "find_sec_bugs_type"
+      value: "SMTP_HEADER_INJECTION"
   patterns:
   - pattern-either:
     - patterns:
@@ -2494,25 +2576,23 @@ rules:
           ...
       - pattern: "$M.setDisposition($ARG)"
       - pattern-not: "$M.setDisposition(\"...\")"
+  severity: "ERROR"
+- id: "find_sec_bugs.SCALA_PLAY_SSRF-1"
   languages:
   - "scala"
   message: |
-    Simple Mail Transfer Protocol (SMTP) is a the text based protocol used for
-    email delivery. Like with HTTP, headers are separate by new line separator. If
-    kuser input is place in a header line, the application should remove or replace
-    new line characters (CR / LF). You should use a safe wrapper such as Apache
-    Common Email and Simple Java Mail which filter special characters that can lead
-    to header injection.
+    Server-Side Request Forgery occur when a web server executes a request to a user supplied
+    destination parameter that is not validated. Such vulnerabilities could allow an attacker to
+    access internal services or to launch attacks from your web server.
   metadata:
     category: "security"
-    cwe: "CWE-77: Improper Neutralization of Special Elements used in a Command"
-    primary_identifier: "find_sec_bugs.SMTP_HEADER_INJECTION"
+    cwe: "CWE-918"
+    shortDescription: "Server-Side Request Forgery (SSRF)"
+    primary_identifier: "find_sec_bugs.SCALA_PLAY_SSRF"
     secondary_identifiers:
-    - name: "Find Security Bugs-SMTP_HEADER_INJECTION"
+    - name: "Find Security Bugs-SCALA_PLAY_SSRF"
       type: "find_sec_bugs_type"
-      value: "SMTP_HEADER_INJECTION"
-  severity: "ERROR"
-- id: "find_sec_bugs.SCALA_PLAY_SSRF-1"
+      value: "SCALA_PLAY_SSRF"
   patterns:
   - pattern-not-inside: |
       object $CLAZZ {
@@ -2538,6 +2618,8 @@ rules:
       - pattern: "($W:play.api.libs.ws.WSClient).url(<...$ARG...>)"
       - pattern-not: "($W:play.api.libs.ws.WSClient).url(\"...\")"
       - pattern-not: "($W:play.api.libs.ws.WSClient).url(\"...\" + \"...\")"
+  severity: "ERROR"
+- id: "find_sec_bugs.URLCONNECTION_SSRF_FD-1"
   languages:
   - "scala"
   message: |
@@ -2546,14 +2628,13 @@ rules:
     access internal services or to launch attacks from your web server.
   metadata:
     category: "security"
-    cwe: "CWE-918: Server-Side Request Forgery (SSRF)"
-    primary_identifier: "find_sec_bugs.SCALA_PLAY_SSRF"
+    cwe: "CWE-918"
+    shortDescription: "Server-Side Request Forgery (SSRF)"
+    primary_identifier: "find_sec_bugs.URLCONNECTION_SSRF_FD"
     secondary_identifiers:
-    - name: "Find Security Bugs-SCALA_PLAY_SSRF"
+    - name: "Find Security Bugs-URLCONNECTION_SSRF_FD"
       type: "find_sec_bugs_type"
-      value: "SCALA_PLAY_SSRF"
-  severity: "ERROR"
-- id: "find_sec_bugs.URLCONNECTION_SSRF_FD-1"
+      value: "URLCONNECTION_SSRF_FD"
   pattern-either:
   - patterns:
     - pattern-either:
@@ -2593,22 +2674,23 @@ rules:
         pattern-either:
         - pattern: "InetSocketAddress"
         - pattern: "java.net.InetSocketAddress"
+  severity: "ERROR"
+- id: "find_sec_bugs.BAD_HEXA_CONVERSION-1"
   languages:
   - "scala"
   message: |
-    Server-Side Request Forgery occur when a web server executes a request to a user supplied
-    destination parameter that is not validated. Such vulnerabilities could allow an attacker to
-    access internal services or to launch attacks from your web server.
+    When converting a byte array containing a hash signature to a human readable string, a
+    conversion mistake can be made if the array is read byte by byte.
   metadata:
     category: "security"
-    cwe: "CWE-918: Server-Side Request Forgery (SSRF)"
-    primary_identifier: "find_sec_bugs.URLCONNECTION_SSRF_FD"
+    confidence: "HIGH"
+    cwe: "CWE-704"
+    shortDescription: "Incorrect Type Conversion or Cast"
+    primary_identifier: "find_sec_bugs.BAD_HEXA_CONVERSION"
     secondary_identifiers:
-    - name: "Find Security Bugs-URLCONNECTION_SSRF_FD"
+    - name: "Find Security Bugs-BAD_HEXA_CONVERSION"
       type: "find_sec_bugs_type"
-      value: "URLCONNECTION_SSRF_FD"
-  severity: "ERROR"
-- id: "find_sec_bugs.BAD_HEXA_CONVERSION-1"
+      value: "BAD_HEXA_CONVERSION"
   pattern-either:
   - pattern: |
       $B_ARR = ($MD: java.security.MessageDigest).digest(...);
@@ -2624,22 +2706,26 @@ rules:
         ...
         Integer.toHexString(...);
       }
+  severity: "WARNING"
+- id: "find_sec_bugs.FORMAT_STRING_MANIPULATION-1"
   languages:
   - "scala"
   message: |
-    When converting a byte array containing a hash signature to a human readable string, a
-    conversion mistake can be made if the array is read byte by byte.
+    Allowing user input to control format parameters could enable an attacker to cause exceptions
+    to be thrown or leak information.Attackers may be able  to modify the format string argument,
+    such that an exception is thrown. If this exception is left uncaught, it may crash the
+    application. Alternatively, if sensitive information is used within the unused arguments,
+    attackers may change the format string to reveal this information.
   metadata:
-    cwe: "CWE-704: Incorrect Type Conversion or Cast"
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs.BAD_HEXA_CONVERSION"
+    cwe: "CWE-134"
+    shortDescription: "Use of Externally-Controlled Format String"
+    primary_identifier: "find_sec_bugs.FORMAT_STRING_MANIPULATION"
     secondary_identifiers:
-    - name: "Find Security Bugs-BAD_HEXA_CONVERSION"
+    - name: "Find Security Bugs-FORMAT_STRING_MANIPULATION"
       type: "find_sec_bugs_type"
-      value: "BAD_HEXA_CONVERSION"
-  severity: "WARNING"
-- id: "find_sec_bugs.FORMAT_STRING_MANIPULATION-1"
+      value: "FORMAT_STRING_MANIPULATION"
   patterns:
   - pattern-either:
     - patterns:
@@ -2676,25 +2762,22 @@ rules:
     - pattern: "System.out.printf(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
     - pattern: "System.out.format($FORMAT_STR, ...);"
     - pattern: "System.out.format(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
+  severity: "ERROR"
+- id: "find_sec_bugs.IMPROPER_UNICODE-1"
   languages:
   - "scala"
   message: |
-    Allowing user input to control format parameters could enable an attacker to cause exceptions
-    to be thrown or leak information.Attackers may be able  to modify the format string argument,
-    such that an exception is thrown. If this exception is left uncaught, it may crash the
-    application. Alternatively, if sensitive information is used within the unused arguments,
-    attackers may change the format string to reveal this information.
+    Improper Handling of Unicode Encoding
   metadata:
-    cwe: "CWE-134: Use of Externally-Controlled Format String"
     category: "security"
     confidence: "HIGH"
-    primary_identifier: "find_sec_bugs.FORMAT_STRING_MANIPULATION"
+    cwe: "CWE-176"
+    shortDescription: "Improper Handling of Unicode Encoding"
+    primary_identifier: "find_sec_bugs.IMPROPER_UNICODE"
     secondary_identifiers:
-    - name: "Find Security Bugs-FORMAT_STRING_MANIPULATION"
+    - name: "Find Security Bugs-IMPROPER_UNICODE"
       type: "find_sec_bugs_type"
-      value: "FORMAT_STRING_MANIPULATION"
-  severity: "ERROR"
-- id: "find_sec_bugs.IMPROPER_UNICODE-1"
+      value: "IMPROPER_UNICODE"
   pattern-either:
   - patterns:
     - pattern-either:
@@ -2712,19 +2795,6 @@ rules:
   - pattern: "java.text.Normalizer.normalize(...);"
   - pattern: "java.net.IDN.toASCII(...);"
   - pattern: "($U: URI).toASCIIString()"
-  languages:
-  - "scala"
-  message: |
-    Improper Handling of Unicode Encoding
-  metadata:
-    cwe: "CWE-176: Improper Handling of Unicode Encoding"
-    category: "security"
-    confidence: "HIGH"
-    primary_identifier: "find_sec_bugs.IMPROPER_UNICODE"
-    secondary_identifiers:
-    - name: "Find Security Bugs-IMPROPER_UNICODE"
-      type: "find_sec_bugs_type"
-      value: "IMPROPER_UNICODE"
   severity: "ERROR"
 - id: "find_sec_bugs.MODIFICATION_AFTER_VALIDATION-1"
   patterns:
@@ -2740,7 +2810,9 @@ rules:
   message: |
     CERT: IDS11-J. Perform any string modifications before validation
   metadata:
+    shortDescription: "Collapse of data into unsafe value"
     category: "security"
+    cwe: "CWE-182"
     confidence: "HIGH"
     primary_identifier: "find_sec_bugs.MODIFICATION_AFTER_VALIDATION"
     secondary_identifiers:
@@ -2761,7 +2833,9 @@ rules:
   message: |
     IDS01-J. Normalize strings before validating them
   metadata:
+    shortDescription: "Collapse of data into unsafe value"
     category: "security"
+    cwe: "CWE-182"
     confidence: "HIGH"
     primary_identifier: "find_sec_bugs.NORMALIZATION_AFTER_VALIDATION"
     secondary_identifiers:
@@ -2770,6 +2844,26 @@ rules:
       value: "NORMALIZATION_AFTER_VALIDATION"
   severity: "WARNING"
 - id: "find_sec_bugs.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
+  languages:
+  - "scala"
+  message: |
+    A malicious user in control of a template can run malicious code on the
+    server-side. Velocity templates should be seen as scripts.
+  metadata:
+    category: "security"
+    cwe: "CWE-94"
+    shortDescription: "Improper Control of Generation of Code ('Code Injection')"
+    primary_identifier: "find_sec_bugs.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
+    secondary_identifiers:
+    - name: "Find Security Bugs-TEMPLATE_INJECTION_PEBBLE"
+      type: "find_sec_bugs_type"
+      value: "TEMPLATE_INJECTION_PEBBLE"
+    - name: "Find Security Bugs-TEMPLATE_INJECTION_FREEMARKER"
+      type: "find_sec_bugs_type"
+      value: "TEMPLATE_INJECTION_FREEMARKER"
+    - name: "Find Security Bugs-TEMPLATE_INJECTION_VELOCITY"
+      type: "find_sec_bugs_type"
+      value: "TEMPLATE_INJECTION_VELOCITY"
   pattern-either:
   - patterns:
     - pattern: "org.apache.velocity.app.Velocity.evaluate(..., $VAR)"
@@ -2793,42 +2887,18 @@ rules:
         $C = $T.getTemplate("...");
         ...
     - pattern: "$C.evaluate(...)"
-  languages:
-  - "scala"
-  message: |
-    A malicious user in control of a template can run malicious code on the
-    server-side. Velocity templates should be seen as scripts.
-  metadata:
-    category: "security"
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
-    primary_identifier: "find_sec_bugs.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
-    secondary_identifiers:
-    - name: "Find Security Bugs-TEMPLATE_INJECTION_PEBBLE"
-      type: "find_sec_bugs_type"
-      value: "TEMPLATE_INJECTION_PEBBLE"
-    - name: "Find Security Bugs-TEMPLATE_INJECTION_FREEMARKER"
-      type: "find_sec_bugs_type"
-      value: "TEMPLATE_INJECTION_FREEMARKER"
-    - name: "Find Security Bugs-TEMPLATE_INJECTION_VELOCITY"
-      type: "find_sec_bugs_type"
-      value: "TEMPLATE_INJECTION_VELOCITY"
   severity: "ERROR"
 - id: "find_sec_bugs.EXTERNAL_CONFIG_CONTROL-1"
-  patterns:
-  - pattern: |
-      $TAINTED = ($REQ: HttpServletRequest).getParameter(...);
-      ...
-      ($CONN: java.sql.Connection).setCatalog($TAINTED);
+  languages:
+  - "scala"
   message: |
     Allowing external control of system settings can disrupt service or cause an application to
     behave in unexpected, and potentially malicious ways. An attacker could cause an error by
     providing a nonexistent catalog name or connect to an unauthorized portion of the database.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-15: External Control of System or Configuration Setting"
+    cwe: "CWE-15"
+    shortDescription: "External Control of System or Configuration Setting"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.EXTERNAL_CONFIG_CONTROL"
@@ -2836,21 +2906,25 @@ rules:
     - name: "Find Security Bugs-EXTERNAL_CONFIG_CONTROL"
       type: "find_sec_bugs_type"
       value: "EXTERNAL_CONFIG_CONTROL"
-- id: "find_sec_bugs.INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE-1"
   patterns:
-  - pattern: "$E.printStackTrace(...)"
+  - pattern: |
+      $TAINTED = ($REQ: HttpServletRequest).getParameter(...);
+      ...
+      ($CONN: java.sql.Connection).setCatalog($TAINTED);
+  severity: "WARNING"
+- id: "find_sec_bugs.INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE-1"
+  languages:
+  - "scala"
   message: |
     The sensitive information may be valuable information on its own (such as a password), or it
     may be useful for launching other, more deadly attacks. If an attack fails, an attacker may use
     error information provided by the server to launch another more focused attack. For example, an
     attempt to exploit a path traversal weakness (CWE-22) might yield the full pathname of the
     installed application.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-209: Information Exposure Through an Error Message"
+    cwe: "CWE-209"
+    shortDescription: "Information Exposure Through an Error Message"
     technology:
     - "scala"
     primary_identifier: "find_sec_bugs.INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
@@ -2858,7 +2932,30 @@ rules:
     - name: "Find Security Bugs-INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
       type: "find_sec_bugs_type"
       value: "INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
+  patterns:
+  - pattern: "$E.printStackTrace(...)"
+  severity: "WARNING"
 - id: "find_sec_bugs.SCALA_SENSITIVE_DATA_EXPOSURE-1"
+  languages:
+  - "scala"
+  message: |
+    Applications can unintentionally leak information about their configuration, internal
+    workings, or violate privacy through a variety of application problems. Pages that provide
+    different responses based on the validity of the data can lead to Information Leakage;
+    specifically when data deemed confidential is being revealed as a result of the web
+    application's design.
+  metadata:
+    category: "security"
+    cwe: "CWE-200"
+    shortDescription: "Information Exposure"
+    technology:
+    - "scala"
+    - "play"
+    primary_identifier: "find_sec_bugs.SCALA_SENSITIVE_DATA_EXPOSURE"
+    secondary_identifiers:
+    - name: "Find Security Bugs-SCALA_SENSITIVE_DATA_EXPOSURE"
+      type: "find_sec_bugs_type"
+      value: "SCALA_SENSITIVE_DATA_EXPOSURE"
   patterns:
   - pattern-inside: |
       def $FUNC(..., $ARG: String, ...) = $TYPE {
@@ -2868,27 +2965,22 @@ rules:
       $VAL = ($C: play.api.Configuration).underlying.getString($ARG)
       ...
   - pattern: "Ok(<...$VAL...>)"
-  message: |
-    Applications can unintentionally leak information about their configuration, internal
-    workings, or violate privacy through a variety of application problems. Pages that provide
-    different responses based on the validity of the data can lead to Information Leakage;
-    specifically when data deemed confidential is being revealed as a result of the web
-    application's design.
+  severity: "WARNING"
+- id: "find_sec_bugs.RPC_ENABLED_EXTENSIONS-1"
   languages:
   - "scala"
-  severity: "WARNING"
+  message: |
+    Enabling extensions in Apache XML RPC server or client can lead to deserialization
+    vulnerability which would allow an attacker to execute arbitrary code.
   metadata:
     category: "security"
-    cwe: "CWE-200: Information Exposure"
-    technology:
-    - "scala"
-    - "play"
-    primary_identifier: "find_sec_bugs.SCALA_SENSITIVE_DATA_EXPOSURE"
+    cwe: "CWE-502"
+    shortDescription: "Deserialization of Untrusted Data"
+    primary_identifier: "find_sec_bugs.RPC_ENABLED_EXTENSIONS"
     secondary_identifiers:
-    - name: "Find Security Bugs-SCALA_SENSITIVE_DATA_EXPOSURE"
+    - name: "Find Security Bugs-RPC_ENABLED_EXTENSIONS"
       type: "find_sec_bugs_type"
-      value: "SCALA_SENSITIVE_DATA_EXPOSURE"
-- id: "find_sec_bugs.RPC_ENABLED_EXTENSIONS-1"
+      value: "RPC_ENABLED_EXTENSIONS"
   patterns:
   - pattern-either:
     - patterns:
@@ -2901,36 +2993,37 @@ rules:
           val $VAR = new org.apache.xmlrpc.client.XmlRpcClientConfigImpl();
           ...
       - pattern: "$VAR.setEnabledForExtensions(true);"
-  languages:
-  - "scala"
-  message: |
-    Enabling extensions in Apache XML RPC server or client can lead to deserialization
-    vulnerability which would allow an attacker to execute arbitrary code.
-  metadata:
-    category: "security"
-    cwe: "CWE-502: Deserialization of Untrusted Data"
-    primary_identifier: "find_sec_bugs.RPC_ENABLED_EXTENSIONS"
-    secondary_identifiers:
-    - name: "Find Security Bugs-RPC_ENABLED_EXTENSIONS"
-      type: "find_sec_bugs_type"
-      value: "RPC_ENABLED_EXTENSIONS"
   severity: "WARNING"
 - id: "find_sec_bugs.SAML_IGNORE_COMMENTS-1"
-  pattern: "($POOL: BasicParserPool).setIgnoreComments(false);"
   languages:
   - "scala"
   message: |
     Ignoring XML comments in SAML may lead to authentication bypass
   metadata:
-    cwe: "CWE-287: Improper Authentication"
     category: "security"
+    cwe: "CWE-287"
+    shortDescription: "Improper Authentication"
     primary_identifier: "find_sec_bugs.SAML_IGNORE_COMMENTS"
     secondary_identifiers:
     - name: "Find Security Bugs-SAML_IGNORE_COMMENTS"
       type: "find_sec_bugs_type"
       value: "SAML_IGNORE_COMMENTS"
+  pattern: "($POOL: BasicParserPool).setIgnoreComments(false);"
   severity: "WARNING"
 - id: "find_sec_bugs.XML_DECODER-1"
+  languages:
+  - "scala"
+  message: |
+    Avoid using XMLDecoder to parse content from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-502"
+    shortDescription: "Deserialization of Untrusted Data"
+    primary_identifier: "find_sec_bugs.XML_DECODER"
+    secondary_identifiers:
+    - name: "Find Security Bugs-XML_DECODER"
+      type: "find_sec_bugs_type"
+      value: "XML_DECODER"
   patterns:
   - pattern-inside: |
       $D = new java.beans.XMLDecoder($IN);
@@ -2939,18 +3032,6 @@ rules:
       $DX = new java.beans.XMLDecoder("...");
       ...
   - pattern: "$D.readObject"
-  languages:
-  - "scala"
-  message: |
-    Avoid using XMLDecoder to parse content from an untrusted source.
-  metadata:
-    category: "security"
-    cwe: "CWE-502: Deserialization of Untrusted Data"
-    primary_identifier: "find_sec_bugs.XML_DECODER"
-    secondary_identifiers:
-    - name: "Find Security Bugs-XML_DECODER"
-      type: "find_sec_bugs_type"
-      value: "XML_DECODER"
   severity: "WARNING"
 - id: "find_sec_bugs.MALICIOUS_XSLT-1"
   mode: "taint"
@@ -2993,9 +3074,10 @@ rules:
     can control the content or the source of the style sheet, he might be able to trigger remote
     code execution.
   metadata:
-    cwe": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
+    shortDescription: "Improper neutralization of special elements in output used
+      by a downstream component ('Injection')"
     category: "security"
+    cwe: "CWE-74"
     primary_identifier: "find_sec_bugs.MALICIOUS_XSLT"
     secondary_identifiers:
     - name: "Find Security Bugs-MALICIOUS_XSLT"
@@ -3003,14 +3085,22 @@ rules:
       value: "MALICIOUS_XSLT"
   severity: "WARNING"
 - id: "find_sec_bugs.XPATH_INJECTION-1"
+  languages:
+  - "scala"
+  message: |
+    The input values included in SQL queries need to be passed in safely. Bind
+    variables in prepared statements can be used to easily mitigate the risk of
+    SQL injection.
+  metadata:
+    category: "security"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
+    primary_identifier: "find_sec_bugs.XPATH_INJECTION"
+    secondary_identifiers:
+    - name: "Find Security Bugs-XPATH_INJECTION"
+      type: "find_sec_bugs_type"
+      value: "XPATH_INJECTION"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        def $FUNC(..., $ARG: $TYPE,...): $RET = {
-          ...
-        }
-    - pattern: "$ARG"
   pattern-sinks:
   - patterns:
     - pattern-either:
@@ -3023,23 +3113,34 @@ rules:
     - pattern-either:
       - pattern: "$Y.compile(...)"
       - pattern: "$X.evaluate(..., $ARG2)"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        def $FUNC(..., $ARG: $TYPE,...): $RET = {
+          ...
+        }
+    - pattern: "$ARG"
+  severity: "ERROR"
+- id: "find_sec_bugs.SCALA_XSS_MVC_API-1"
   languages:
   - "scala"
   message: |
-    The input values included in SQL queries need to be passed in safely. Bind
-    variables in prepared statements can be used to easily mitigate the risk of
-    SQL injection.
+    Disabling HTML escaping put the application at risk for Cross-Site Scripting (XSS).
   metadata:
     category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs.XPATH_INJECTION"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
+    primary_identifier: "find_sec_bugs.SCALA_XSS_MVC_API"
     secondary_identifiers:
-    - name: "Find Security Bugs-XPATH_INJECTION"
+    - name: "Find Security Bugs-SCALA_XSS_MVC_API"
       type: "find_sec_bugs_type"
-      value: "XPATH_INJECTION"
-  severity: "ERROR"
-- id: "find_sec_bugs.SCALA_XSS_MVC_API-1"
+      value: "SCALA_XSS_MVC_API"
   mode: "taint"
+  pattern-sanitizers:
+  - pattern: "org.owasp.encoder.Encode.forHtml(...)"
+  pattern-sinks:
+  - pattern: "Ok(...)"
   pattern-sources:
   - patterns:
     - pattern-inside: |
@@ -3047,71 +3148,64 @@ rules:
           ...
         }
     - focus-metavariable: "$ARG"
-  pattern-sanitizers:
-  - pattern: "org.owasp.encoder.Encode.forHtml(...)"
-  pattern-sinks:
-  - pattern: "Ok(...)"
-  languages:
-  - "scala"
-  message: |
-    Disabling HTML escaping put the application at risk for Cross-Site Scripting (XSS).
-  metadata:
-    category: "security"
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
-    primary_identifier: "find_sec_bugs.SCALA_XSS_MVC_API"
-    secondary_identifiers:
-    - name: "Find Security Bugs-SCALA_XSS_MVC_API"
-      type: "find_sec_bugs_type"
-      value: "SCALA_XSS_MVC_API"
   severity: "WARNING"
 - id: "find_sec_bugs.XSS_REQUEST_WRAPPER-1"
-  patterns:
-  - pattern-inside: |
-      class $CLASS(...) extends HttpServletRequestWrapper(...) {
-      ...
-      }
-  - pattern: "def stripXSS(...) = { ... }"
   languages:
   - "scala"
   message: |
     Avoid using custom XSS filtering. Please use standard sanitization functions.
   metadata:
     category: "security"
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
     primary_identifier: "find_sec_bugs.XSS_REQUEST_WRAPPER"
     secondary_identifiers:
     - name: "Find Security Bugs-XSS_REQUEST_WRAPPER"
       type: "find_sec_bugs_type"
       value: "XSS_REQUEST_WRAPPER"
+  patterns:
+  - pattern-inside: |
+      class $CLASS(...) extends HttpServletRequestWrapper(...) {
+      ...
+      }
+  - pattern: "def stripXSS(...) = { ... }"
   severity: "INFO"
 - id: "find_sec_bugs.WICKET_XSS1-1"
-  patterns:
-  - pattern: "($X: Label).setEscapeModelStrings(false);"
   languages:
   - "scala"
   message: |
     Disabling HTML escaping put the application at risk for Cross-Site Scripting (XSS).
   metadata:
     category: "security"
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
     primary_identifier: "find_sec_bugs.WICKET_XSS1"
     secondary_identifiers:
     - name: "Find Security Bugs-WICKET_XSS1"
       type: "find_sec_bugs_type"
       value: "WICKET_XSS1"
+  patterns:
+  - pattern: "($X: Label).setEscapeModelStrings(false);"
   severity: "WARNING"
 - id: "find_sec_bugs.XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER-1"
+  languages:
+  - "scala"
+  message: |
+    Servlet reflected cross site scripting vulnerability
+  metadata:
+    category: "security"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation"
+    technology:
+    - "scala"
+    primary_identifier: "find_sec_bugs.XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
+    secondary_identifiers:
+    - name: "Find Security Bugs-XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
+      type: "find_sec_bugs_type"
+      value: "XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |-
-        def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {...}
-    - pattern-either:
-      - pattern: "$REQ.getParameter(...)"
-      - pattern: "$REQ.getQueryString"
   pattern-sanitizers:
   - pattern: "Encode.forHtml(...)"
   - pattern: "org.owasp.esapi.Encoder.encodeForSQL(...)"
@@ -3131,28 +3225,31 @@ rules:
     - pattern-inside: |-
         def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
     - pattern: "$RES.getWriter.print(...)"
-  message: |
-    Servlet reflected cross site scripting vulnerability
-  languages:
-  - "scala"
-  severity: "WARNING"
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation"
-    category: "security"
-    technology:
-    - "scala"
-    primary_identifier: "find_sec_bugs.XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
-    secondary_identifiers:
-    - name: "Find Security Bugs-XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
-      type: "find_sec_bugs_type"
-      value: "XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
-- id: "find_sec_bugs.XSS_SERVLET-1"
-  mode: "taint"
   pattern-sources:
   - patterns:
     - pattern-inside: |-
         def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {...}
-    - pattern: "$REQ.getParameter(...);"
+    - pattern-either:
+      - pattern: "$REQ.getParameter(...)"
+      - pattern: "$REQ.getQueryString"
+  severity: "WARNING"
+- id: "find_sec_bugs.XSS_SERVLET-1"
+  languages:
+  - "scala"
+  message: |
+    A potential XSS was found. It could be used to execute unwanted JavaScript in a
+    client's browser.
+  metadata:
+    category: "security"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
+    primary_identifier: "find_sec_bugs.XSS_SERVLET"
+    secondary_identifiers:
+    - name: "Find Security Bugs-XSS_SERVLET"
+      type: "find_sec_bugs_type"
+      value: "XSS_SERVLET"
+  mode: "taint"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -3172,22 +3269,27 @@ rules:
         def $FUNC(..., $RES: HttpServletResponse, ...): $TYPE = {...}
     - pattern: "$RES.getWriter.write($DATA,...);"
     - pattern: "$DATA"
-  message: |
-    A potential XSS was found. It could be used to execute unwanted JavaScript in a
-    client's browser.
-  languages:
-  - "scala"
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
-    category: "security"
-    primary_identifier: "find_sec_bugs.XSS_SERVLET"
-    secondary_identifiers:
-    - name: "Find Security Bugs-XSS_SERVLET"
-      type: "find_sec_bugs_type"
-      value: "XSS_SERVLET"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |-
+        def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {...}
+    - pattern: "$REQ.getParameter(...);"
   severity: "WARNING"
 - id: "find_sec_bugs.XXE_DOCUMENT-1"
+  languages:
+  - "scala"
+  message: |
+    XML External Entity (XXE) attacks can occur when an XML parser supports XML
+    entities while processing XML received from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
+    primary_identifier: "find_sec_bugs.XXE_DOCUMENT"
+    secondary_identifiers:
+    - name: "Find Security Bugs-XXE_DOCUMENT"
+      type: "find_sec_bugs_type"
+      value: "XXE_DOCUMENT"
   patterns:
   - pattern-inside: |
       $DF = DocumentBuilderFactory.newInstance
@@ -3199,6 +3301,8 @@ rules:
       $DF.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
       ...
   - pattern: "$DB.parse(...)"
+  severity: "ERROR"
+- id: "find_sec_bugs.XXE_SAXPARSER-1"
   languages:
   - "scala"
   message: |
@@ -3206,14 +3310,13 @@ rules:
     entities while processing XML received from an untrusted source.
   metadata:
     category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs.XXE_DOCUMENT"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
+    primary_identifier: "find_sec_bugs.XXE_SAXPARSER"
     secondary_identifiers:
-    - name: "Find Security Bugs-XXE_DOCUMENT"
+    - name: "Find Security Bugs-XXE_SAXPARSER"
       type: "find_sec_bugs_type"
-      value: "XXE_DOCUMENT"
-  severity: "ERROR"
-- id: "find_sec_bugs.XXE_SAXPARSER-1"
+      value: "XXE_SAXPARSER"
   patterns:
   - pattern-inside: |
       val $SF = SAXParserFactory.newInstance
@@ -3228,6 +3331,8 @@ rules:
       val $P = $SFP.newSAXParser
       ...
   - pattern: "$P.parse(...);"
+  severity: "ERROR"
+- id: "find_sec_bugs.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
   languages:
   - "scala"
   message: |
@@ -3235,15 +3340,23 @@ rules:
     entities while processing XML received from an untrusted source.
   metadata:
     category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs.XXE_SAXPARSER"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
+    primary_identifier: "find_sec_bugs.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
     secondary_identifiers:
-    - name: "Find Security Bugs-XXE_SAXPARSER"
+    - name: "Find Security Bugs-XXE_DTD_TRANSFORM_FACTORY"
       type: "find_sec_bugs_type"
-      value: "XXE_SAXPARSER"
-  severity: "ERROR"
-- id: "find_sec_bugs.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
+      value: "XXE_DTD_TRANSFORM_FACTORY"
+    - name: "Find Security Bugs-XXE_XSLT_TRANSFORM_FACTORY"
+      type: "find_sec_bugs_type"
+      value: "XXE_XSLT_TRANSFORM_FACTORY"
   mode: "taint"
+  pattern-sanitizers:
+  - pattern: "$T.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, \"\");"
+  - pattern: "$T.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, \"\");"
+  - pattern: "$T.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);"
+  pattern-sinks:
+  - pattern: "$T.transform(...)"
   pattern-sources:
   - patterns:
     - pattern-either:
@@ -3254,12 +3367,8 @@ rules:
           import javax.xml.transform.Transformer
           ...
     - pattern: "$FACT.newTransformer"
-  pattern-sanitizers:
-  - pattern: "$T.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, \"\");"
-  - pattern: "$T.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, \"\");"
-  - pattern: "$T.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);"
-  pattern-sinks:
-  - pattern: "$T.transform(...)"
+  severity: "ERROR"
+- id: "find_sec_bugs.XXE_XMLREADER-1"
   languages:
   - "scala"
   message: |
@@ -3267,17 +3376,13 @@ rules:
     entities while processing XML received from an untrusted source.
   metadata:
     category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
+    primary_identifier: "find_sec_bugs.XXE_XMLREADER"
     secondary_identifiers:
-    - name: "Find Security Bugs-XXE_DTD_TRANSFORM_FACTORY"
+    - name: "Find Security Bugs-XXE_XMLREADER"
       type: "find_sec_bugs_type"
-      value: "XXE_DTD_TRANSFORM_FACTORY"
-    - name: "Find Security Bugs-XXE_XSLT_TRANSFORM_FACTORY"
-      type: "find_sec_bugs_type"
-      value: "XXE_XSLT_TRANSFORM_FACTORY"
-  severity: "ERROR"
-- id: "find_sec_bugs.XXE_XMLREADER-1"
+      value: "XXE_XMLREADER"
   patterns:
   - pattern-inside: |
       val $R = XMLReaderFactory.createXMLReader
@@ -3286,6 +3391,8 @@ rules:
       $R.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
       ...
   - pattern: "$R.parse(...)"
+  severity: "ERROR"
+- id: "find_sec_bugs.XXE_XMLSTREAMREADER-1"
   languages:
   - "scala"
   message: |
@@ -3293,14 +3400,13 @@ rules:
     entities while processing XML received from an untrusted source.
   metadata:
     category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs.XXE_XMLREADER"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
+    primary_identifier: "find_sec_bugs.XXE_XMLSTREAMREADER"
     secondary_identifiers:
-    - name: "Find Security Bugs-XXE_XMLREADER"
+    - name: "Find Security Bugs-XXE_XMLSTREAMREADER"
       type: "find_sec_bugs_type"
-      value: "XXE_XMLREADER"
-  severity: "ERROR"
-- id: "find_sec_bugs.XXE_XMLSTREAMREADER-1"
+      value: "XXE_XMLSTREAMREADER"
   patterns:
   - pattern-inside: |
       $SF = XMLInputFactory.newFactory
@@ -3312,6 +3418,8 @@ rules:
       $SF.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false)
       ...
   - pattern: "$SF.createXMLStreamReader(...)"
+  severity: "ERROR"
+- id: "find_sec_bugs.XXE_XPATH-1"
   languages:
   - "scala"
   message: |
@@ -3319,14 +3427,13 @@ rules:
     entities while processing XML received from an untrusted source.
   metadata:
     category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs.XXE_XMLSTREAMREADER"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
+    primary_identifier: "find_sec_bugs.XXE_XPATH"
     secondary_identifiers:
-    - name: "Find Security Bugs-XXE_XMLSTREAMREADER"
+    - name: "Find Security Bugs-XXE_XPATH"
       type: "find_sec_bugs_type"
-      value: "XXE_XMLSTREAMREADER"
-  severity: "ERROR"
-- id: "find_sec_bugs.XXE_XPATH-1"
+      value: "XXE_XPATH"
   patterns:
   - pattern-inside: |
       val $DF = DocumentBuilderFactory.newInstance
@@ -3347,17 +3454,4 @@ rules:
       $B = $DF.newDocumentBuilder
       ...
   - pattern: "$XPATH.evaluate(...)"
-  languages:
-  - "scala"
-  message: |
-    XML External Entity (XXE) attacks can occur when an XML parser supports XML
-    entities while processing XML received from an untrusted source.
-  metadata:
-    category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
-    primary_identifier: "find_sec_bugs.XXE_XPATH"
-    secondary_identifiers:
-    - name: "Find Security Bugs-XXE_XPATH"
-      type: "find_sec_bugs_type"
-      value: "XXE_XPATH"
   severity: "ERROR"

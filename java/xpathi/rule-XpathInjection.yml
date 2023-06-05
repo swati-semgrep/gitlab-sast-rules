@@ -4,6 +4,16 @@
 ---
 rules:
 - id: "java/xpathi/rule-XpathInjection"
+  languages:
+  - "java"
+  message: |
+    The input values included in SQL queries need to be passed in safely. Bind
+    variables in prepared statements can be used to easily mitigate the risk of
+    SQL injection.
+  metadata:
+    category: "security"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
   patterns:
   - pattern-either:
     - pattern-inside: |-
@@ -17,13 +27,4 @@ rules:
     - patterns:
       - pattern: "(XPath $X).evaluate($ARG)"
       - pattern-not: "(XPath $X).evaluate(\"...\")"
-  languages:
-  - "java"
-  message: |
-    The input values included in SQL queries need to be passed in safely. Bind
-    variables in prepared statements can be used to easily mitigate the risk of
-    SQL injection.
-  metadata:
-    category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
   severity: "ERROR"

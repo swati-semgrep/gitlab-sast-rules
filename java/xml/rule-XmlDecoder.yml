@@ -4,6 +4,14 @@
 ---
 rules:
 - id: "java/xml/rule-XmlDecoder"
+  languages:
+  - "java"
+  message: |
+    Avoid using XMLDecoder to parse content from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-502"
+    shortDescription: "Deserialization of Untrusted Data"
   patterns:
   - pattern-either:
     - patterns:
@@ -14,11 +22,4 @@ rules:
           $D = new XMLDecoder("...");
           ...
       - pattern: "$D.readObject()"
-  languages:
-  - "java"
-  message: |
-    Avoid using XMLDecoder to parse content from an untrusted source.
-  metadata:
-    category: "security"
-    cwe: "CWE-502: Deserialization of Untrusted Data"
   severity: "WARNING"

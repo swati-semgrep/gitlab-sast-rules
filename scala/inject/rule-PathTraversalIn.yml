@@ -1,10 +1,23 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
-# source file: test-PathTraversal.java
 # yamllint enable
 ---
 rules:
 - id: "scala/inject/rule-PathTraversalIn"
+  languages:
+  - "scala"
+  message: |
+    A file is opened to read its content. The filename comes from an input parameter. If an
+    unfiltered parameter is passed to this file API, files from an arbitrary filesystem location
+    could be read. This rule identifies potential path traversal vulnerabilities. In many cases,
+    the constructed file path cannot be controlled by the user.
+  metadata:
+    category: "security"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
+    technology:
+    - "scala"
   patterns:
   - pattern-either:
     - patterns:
@@ -44,17 +57,4 @@ rules:
     - pattern: "scala.io.Source.from(<...$VAR...>)"
     - pattern: "scala.io.Source.fromFile(<...$VAR...>)"
     - pattern: "scala.io.Source.fromString(<...$VAR...>)"
-  message: |
-    A file is opened to read its content. The filename comes from an input parameter. If an
-    unfiltered parameter is passed to this file API, files from an arbitrary filesystem location
-    could be read. This rule identifies potential path traversal vulnerabilities. In many cases,
-    the constructed file path cannot be controlled by the user.
-  languages:
-  - "scala"
   severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
-      Traversal')"
-    technology:
-    - "scala"

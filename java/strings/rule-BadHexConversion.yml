@@ -4,6 +4,16 @@
 ---
 rules:
 - id: "java/strings/rule-BadHexConversion"
+  languages:
+  - "java"
+  message: |
+    When converting a byte array containing a hash signature to a human readable string, a
+    conversion mistake can be made if the array is read byte by byte.
+  metadata:
+    category: "security"
+    confidence: "HIGH"
+    cwe: "CWE-704"
+    shortDescription: "Incorrect Type Conversion or Cast"
   patterns:
   - pattern: |
       $B_ARR = (java.security.MessageDigest $MD).digest(...);
@@ -12,13 +22,4 @@ rules:
         ...
         Integer.toHexString(...);
       }
-  languages:
-  - "java"
-  message: |
-    When converting a byte array containing a hash signature to a human readable string, a
-    conversion mistake can be made if the array is read byte by byte.
-  metadata:
-    cwe: "CWE-704: Incorrect Type Conversion or Cast"
-    category: "security"
-    confidence: "HIGH"
   severity: "WARNING"

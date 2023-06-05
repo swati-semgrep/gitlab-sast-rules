@@ -4,15 +4,20 @@
 ---
 rules:
 - id: "java/endpoint/rule-JaxRsEndpoint"
+  languages:
+  - "java"
+  message: |
+    This method is part of a REST Web Service (JSR311). The security of this web service should be
+    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
+    tested. The inputs should be tracked for potential vulnerabilities. The communication should
+    ideally be over SSL.
+  metadata:
+    category: "security"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
+    technology:
+    - "java"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        @javax.ws.rs.Path("...")
-        $TYPE $FUNC(..., $VAR, ...) {
-          ...
-        }
-    - pattern: "$VAR"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |
@@ -28,16 +33,12 @@ rules:
   - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
   pattern-sinks:
   - pattern: "return ...;"
-  message: |
-    This method is part of a REST Web Service (JSR311). The security of this web service should be
-    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
-    tested. The inputs should be tracked for potential vulnerabilities. The communication should
-    ideally be over SSL.
-  languages:
-  - "java"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        @javax.ws.rs.Path("...")
+        $TYPE $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-20: Improper Input Validation"
-    technology:
-    - "java"

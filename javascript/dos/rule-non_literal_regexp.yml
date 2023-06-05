@@ -4,17 +4,18 @@
 ---
 rules:
 - id: "javascript/dos/rule-non_literal_regexp"
+  languages:
+  - "javascript"
+  - "typescript"
+  message: |
+    RegExp() called with a variable, this might allow an attacker to DOS your application with a
+    long-running regular expression.
+  metadata:
+    cwe: "CWE-185"
+    shortDescription: "Incorrect Regular Expression"
   patterns:
   - pattern: |
       new RegExp(...)
   - pattern-not: |
       new RegExp("...", ...)
-  message: |
-    RegExp() called with a variable, this might allow an attacker to DOS your application with a
-    long-running regular expression.
-  languages:
-  - "javascript"
-  - "typescript"
   severity: "WARNING"
-  metadata:
-    cwe: "CWE-185: Incorrect Regular Expression"

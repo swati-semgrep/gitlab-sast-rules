@@ -6,6 +6,13 @@
 ---
 rules:
 - id: "go/memory/rule-math_big_rat"
+  languages:
+  - "go"
+  message: |
+    Potential Integer overflow made by strconv.Atoi result conversion to int16/32
+  metadata:
+    cwe: "CWE-190"
+    shortDescription: "Integer Overflow or Wraparound"
   patterns:
   - pattern-inside: |
       import "math/big"
@@ -15,10 +22,4 @@ rules:
       ...
   - pattern: |
       $R.SetString(...)
-  message: |
-    Potential Integer overflow made by strconv.Atoi result conversion to int16/32
-  metadata:
-    cwe: "CWE-190: Integer Overflow or Wraparound"
   severity: "ERROR"
-  languages:
-  - "go"

@@ -11,8 +11,9 @@ rules:
   message: |
     Make sure that you set inheritance by hand if you wish it to inherit.
   metadata:
-    cwe: "CWE-732: This doesn't set the inheritance bits in the access control entry
-      (ACE) header (CWE-732)"
+    cwe: "CWE-732"
     owasp: "A5:2017-Broken Access Control"
+    shortDescription: "This doesn't set the inheritance bits in the access control
+      entry (ACE) header (CWE-732)"
   pattern: "AddAccessAllowedAce(...)"
   severity: "WARNING"

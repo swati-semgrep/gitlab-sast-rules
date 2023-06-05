@@ -1,19 +1,17 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/lang/security/audit/ftplib.yaml
-# hash: acdabdb
-# id: ftplib
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/ftp/rule-ftplib"
-  pattern: "ftplib.$ANYTHING(...)"
+  languages:
+  - "python"
   message: |
     FTP does not encrypt communications by default. This can lead to sensitive data being exposed.
     Ensure use of FTP here does not expose sensitive data.
   metadata:
-    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+    cwe: "CWE-319"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
+  pattern: "ftplib.$ANYTHING(...)"
   severity: "WARNING"
-  languages:
-  - "python"

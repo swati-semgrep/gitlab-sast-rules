@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "scala/cookie/rule-CookieUsage"
+  languages:
+  - "scala"
+  message: |
+    The information stored in a custom cookie should not be sensitive or related to the session.
+    In most cases, sensitive data should only be stored in session and referenced by the user's
+    session cookie.
+  metadata:
+    category: "security"
+    cwe: "CWE-614"
+    shortDescription: "Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
+    technology:
+    - "scala"
   patterns:
   - pattern-inside: |
       def $FUNC(..., $REQ: HttpServletRequest, ...): $TYPE = {
@@ -22,15 +34,4 @@ rules:
     - pattern: "($C: Cookie).getName()"
     - pattern: "($C: Cookie).getValue"
     - pattern: "($C: Cookie).getPath"
-  message: |
-    The information stored in a custom cookie should not be sensitive or related to the session.
-    In most cases, sensitive data should only be stored in session and referenced by the user's
-    session cookie.
-  languages:
-  - "scala"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
-    technology:
-    - "scala"

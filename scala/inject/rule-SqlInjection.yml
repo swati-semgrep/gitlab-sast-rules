@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "scala/inject/rule-SqlInjection"
+  languages:
+  - "scala"
+  message: |
+    The input values included in SQL queries need to be passed in safely. Bind
+    variables in prepared statements can be used to easily mitigate the risk of
+    SQL injection.
+  metadata:
+    category: "security"
+    cwe: "CWE-89"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
   patterns:
   - pattern-not-inside: |
       $ARG = ...
@@ -240,15 +252,4 @@ rules:
           ...
       - pattern: "SQL(<...$ARG...>)"
       - pattern-not: "SQL(\"...\")"
-  languages:
-  - "scala"
-  message: |
-    The input values included in SQL queries need to be passed in safely. Bind
-    variables in prepared statements can be used to easily mitigate the risk of
-    SQL injection.
-  metadata:
-    category: "security"
-    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
-      ('SQL Injection')"
-    owasp: "A1:2017-Injection"
   severity: "ERROR"

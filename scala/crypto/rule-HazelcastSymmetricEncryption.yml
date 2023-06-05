@@ -4,17 +4,18 @@
 ---
 rules:
 - id: "scala/crypto/rule-HazelcastSymmetricEncryption"
-  patterns:
-  - pattern: "new com.hazelcast.config.SymmetricEncryptionConfig()"
+  languages:
+  - "scala"
   message: |
     The network communications for Hazelcast is configured to use a symmetric cipher (probably DES
     or Blowfish). Those ciphers alone do not provide integrity or secure authentication. The use of
     asymmetric encryption is preferred.
-  languages:
-  - "scala"
-  severity: "WARNING"
   metadata:
     category: "security"
-    cwe: "CWE-326: Inadequate Encryption Strength"
+    cwe: "CWE-326"
+    shortDescription: "Inadequate Encryption Strength"
     technology:
     - "scala"
+  patterns:
+  - pattern: "new com.hazelcast.config.SymmetricEncryptionConfig()"
+  severity: "WARNING"

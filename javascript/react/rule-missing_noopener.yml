@@ -4,6 +4,20 @@
 ---
 rules:
 - id: "javascript/react/rule-missing_noopener"
+  languages:
+  - "typescript"
+  - "javascript"
+  message: |
+    Missing 'noopener' on an anchor tag where target='_blank'. This could introduce
+    a reverse tabnabbing vulnerability. Include 'noopener' when using target='_blank'.
+  metadata:
+    cwe: "CWE-200"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    references:
+    - "https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer"
+    - "https://web.dev/external-anchors-use-rel-noopener/"
+    - "https://owasp.org/www-community/attacks/Reverse_Tabnabbing"
+    shortDescription: "Exposure of Sensitive Information to an Unauthorized Actor"
   pattern-either:
   - patterns:
     - pattern: |
@@ -42,17 +56,4 @@ rules:
     - metavariable-regex:
         metavariable: "$REL"
         regex: "[\"']((?!noopener).)*?['\"]"
-  message: |
-    Missing 'noopener' on an anchor tag where target='_blank'. This could introduce
-    a reverse tabnabbing vulnerability. Include 'noopener' when using target='_blank'.
-  metadata:
-    cwe: "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    references:
-    - "https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer"
-    - "https://web.dev/external-anchors-use-rel-noopener/"
-    - "https://owasp.org/www-community/attacks/Reverse_Tabnabbing"
-  languages:
-  - "typescript"
-  - "javascript"
   severity: "WARNING"

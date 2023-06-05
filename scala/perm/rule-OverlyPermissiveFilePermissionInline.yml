@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "scala/perm/rule-OverlyPermissiveFilePermissionInline"
+  languages:
+  - "scala"
+  message: |
+    Overly permissive file permission
+  metadata:
+    category: "security"
+    confidence: "HIGH"
+    cwe: "CWE-732"
+    shortDescription: "Incorrect Permission Assignment for Critical Resource"
   patterns:
   - pattern-either:
     - pattern: "java.nio.file.Files.setPosixFilePermissions(..., java.nio.file.attribute.PosixFilePermissions.fromString(\"$PERM_STRING\"));"
@@ -14,12 +23,4 @@ rules:
   - metavariable-regex:
       metavariable: "$PERM_STRING"
       regex: "[rwx-]{6}[rwx]{1,}"
-  languages:
-  - "scala"
-  message: |
-    Overly permissive file permission
-  metadata:
-    cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
-    category: "security"
-    confidence: "HIGH"
   severity: "WARNING"

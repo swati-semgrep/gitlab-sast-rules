@@ -1,19 +1,17 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/pycryptodome/security/insecure-cipher-algorithm.yaml
-# hash: acdabdb
-# id: insecure-cipher-algorithm-blowfish
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/crypto/rule-crypto_hazmat_cipher_blowfish"
-  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.Blowfish(...)"
+  languages:
+  - "python"
   message: |
     Detected Blowfish cipher algorithm which is considered insecure. The algorithm has many known
     vulnerabilities. Use AES instead.
   metadata:
-    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.Blowfish(...)"
   severity: "WARNING"
-  languages:
-  - "python"

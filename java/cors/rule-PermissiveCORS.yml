@@ -1,20 +1,11 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
-# source file: test-PermissiveCORS.java
 # yamllint enable
 ---
 rules:
 - id: "java/cors/rule-PermissiveCORS"
-  patterns:
-  - pattern-either:
-    - pattern: "(HttpServletResponse $RES).setHeader(\"$HEADER\", \"$VAL\")"
-    - pattern: "(HttpServletResponse $RES).addHeader(\"$HEADER\", \"$VAL\")"
-  - metavariable-regex:
-      metavariable: "$HEADER"
-      regex: "(?i)(Access-Control-Allow-Origin)"
-  - metavariable-regex:
-      metavariable: "$VAL"
-      regex: "(\\*|null)"
+  languages:
+  - "java"
   message: |
     Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
     JavaScript to access the contents of a Web page, both the JavaScript and the Web page must
@@ -27,11 +18,20 @@ rules:
     be taken when defining the header because an overly permissive CORS policy will allow a
     malicious application to communicate with the victim application in an inappropriate way,
     leading to spoofing, data theft, relay and other attacks.
-  languages:
-  - "java"
-  severity: "ERROR"
   metadata:
-    cwe: "CWE-942: Permissive Cross-domain Policy with Untrusted Domains"
     category: "security"
+    cwe: "CWE-942"
+    shortDescription: "Permissive Cross-domain Policy with Untrusted Domains"
     technology:
     - "java"
+  patterns:
+  - pattern-either:
+    - pattern: "(HttpServletResponse $RES).setHeader(\"$HEADER\", \"$VAL\")"
+    - pattern: "(HttpServletResponse $RES).addHeader(\"$HEADER\", \"$VAL\")"
+  - metavariable-regex:
+      metavariable: "$HEADER"
+      regex: "(?i)(Access-Control-Allow-Origin)"
+  - metavariable-regex:
+      metavariable: "$VAL"
+      regex: "(\\*|null)"
+  severity: "ERROR"

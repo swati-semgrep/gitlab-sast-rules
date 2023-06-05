@@ -139,6 +139,8 @@ rules:
   - "java"
   severity: "WARNING"
   metadata:
+    shortDescription: "Expression injection (OGNL)"
     category: "security"
+    cwe: "CWE-917"
     technology:
     - "java"

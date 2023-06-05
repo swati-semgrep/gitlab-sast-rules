@@ -4,15 +4,16 @@
 ---
 rules:
 - id: "python/exec/rule-subprocess_shell_TRUE"
-  patterns:
-  - pattern-not: "subprocess.$FUNC(..., shell=True, ...)"
-  - pattern: "$FOO(..., shell=True, ...)"
+  languages:
+  - "python"
   message: |
     subprocess call - check for execution of untrusted input
   metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
+    cwe: "CWE-78"
     owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
+  patterns:
+  - pattern-not: "subprocess.$FUNC(..., shell=True, ...)"
+  - pattern: "$FOO(..., shell=True, ...)"
   severity: "WARNING"
-  languages:
-  - "python"

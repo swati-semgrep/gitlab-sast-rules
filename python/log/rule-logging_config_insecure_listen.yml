@@ -1,12 +1,11 @@
 # yamllint disable
 # License: MIT (c) GitLab Inc.
-# hash: acdabdb
 # yamllint enable
 ---
 rules:
 - id: "python/log/rule-logging_config_insecure_listen"
-  patterns:
-  - pattern: "logging.config.listen(...)"
+  languages:
+  - "python"
   message: |
     The logging.config.listen function provides the ability to listen for external configuration
     files on a socket server. Because portions of the configuration are passed through eval(), use
@@ -16,7 +15,8 @@ rules:
     listen(). logging.config.listen provides the ability to verify bytes received across the socket
     with signature verification or encryption/decryption.
   metadata:
-    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+    cwe: "CWE-94"
+    shortDescription: "Improper Control of Generation of Code ('Code Injection')"
+  patterns:
+  - pattern: "logging.config.listen(...)"
   severity: "WARNING"
-  languages:
-  - "python"

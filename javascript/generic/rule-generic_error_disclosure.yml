@@ -1,11 +1,17 @@
 # yamllint disable
-# License: GNU Lesser General Public License v3.0
-# source (original): https://github.com/ajinabraham/njsscan/blob/master/njsscan/rules/semantic_grep/generic/error_disclosure.yaml
-# hash: e7a0a61
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "javascript/generic/rule-generic_error_disclosure"
+  languages:
+  - "javascript"
+  message: |
+    Error messages with stack traces may expose sensitive information about the application.
+  metadata:
+    cwe: "CWE-209"
+    owasp: "A03:2017 - Sensitive Data Exposure"
+    shortDescription: "Information Exposure Through an Error Message"
   patterns:
   - pattern-either:
     - pattern: |
@@ -16,11 +22,4 @@ rules:
         } catch($ERR){
             console.error(<... $ERR ...>, ...)
         }
-  message: |
-    Error messages with stack traces may expose sensitive information about the application.
-  languages:
-  - "javascript"
   severity: "WARNING"
-  metadata:
-    owasp: "A03:2017 - Sensitive Data Exposure"
-    cwe: "CWE-209: Information Exposure Through an Error Message"

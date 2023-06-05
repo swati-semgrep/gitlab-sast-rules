@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "scala/xss/rule-XSSServletParameter"
+  languages:
+  - "scala"
+  message: |
+    The Servlet can read GET and POST parameters from various methods. The value obtained should be
+    considered unsafe. You may need to validate or sanitize those values before passing them to
+    sensitive APIs
+  metadata:
+    category: "security"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
+    technology:
+    - "scala"
   pattern-either:
   - patterns:
     - pattern-inside: "def $FUNC(..., $REQ: ServletRequest, ...) : $TYPE = {\n  ...
@@ -28,15 +40,4 @@ rules:
         - metavariable-regex:
             metavariable: "$HEADER"
             regex: "(?i)(Host|Referer|User-Agent)"
-  message: |
-    The Servlet can read GET and POST parameters from various methods. The value obtained should be
-    considered unsafe. You may need to validate or sanitize those values before passing them to
-    sensitive APIs
-  languages:
-  - "scala"
   severity: "WARNING"
-  metadata:
-    cwe: "CWE-20: Improper Input Validation"
-    category: "security"
-    technology:
-    - "scala"

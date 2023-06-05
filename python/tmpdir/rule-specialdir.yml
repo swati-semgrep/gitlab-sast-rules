@@ -4,15 +4,16 @@
 ---
 rules:
 - id: "python/tmpdir/rule-specialdir"
+  languages:
+  - "python"
+  message: |
+    Probable insecure usage of temp file/directory.
+  metadata:
+    cwe: "CWE-377"
+    shortDescription: "Insecure Temporary File"
   patterns:
   - pattern: "open($DIR, ...)"
   - metavariable-regex:
       metavariable: "$DIR"
       regex: "['\"](/tmp|/var/tmp|/dev/shm).*['\"]"
-  message: |
-    Probable insecure usage of temp file/directory.
-  metadata:
-    cwe: "CWE-377: Insecure Temporary File"
   severity: "WARNING"
-  languages:
-  - "python"

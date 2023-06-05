@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "python/exec/rule-start_process_path"
+  languages:
+  - "python"
+  message: |
+    Starting a process with a partial executable path
+  metadata:
+    cwe: "CWE-78"
+    owasp: "A1: Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
   patterns:
   - pattern-either:
     - pattern: "subprocess.Popen($BIN, shell=False)"
@@ -21,12 +30,4 @@ rules:
   - metavariable-regex:
       metavariable: "$BIN"
       regex: "^['\"][^/\\.][^:].*['\"]"
-  message: |
-    Starting a process with a partial executable path
-  metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    owasp: "A1: Injection"
   severity: "ERROR"
-  languages:
-  - "python"

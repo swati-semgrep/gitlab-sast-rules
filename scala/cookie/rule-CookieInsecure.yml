@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "scala/cookie/rule-CookieInsecure"
+  languages:
+  - "scala"
+  message: |
+    "A new cookie is created without the Secure flag set. The Secure flag is a
+     directive to the browser to make sure that the cookie is not sent for insecure communication
+    (http://)"
+  metadata:
+    category: "security"
+    cwe: "CWE-539"
+    shortDescription: "Information Exposure Through Persistent Cookies"
+    technology:
+    - "scala"
   patterns:
   - pattern-not-inside: |
       val $C = new javax.servlet.http.Cookie(..., ...);
@@ -17,15 +29,4 @@ rules:
         ...
         $RESP.addCookie($C);
     - pattern: "($C:javax.servlet.http.Cookie).setSecure(false);"
-  message: |
-    "A new cookie is created without the Secure flag set. The Secure flag is a
-     directive to the browser to make sure that the cookie is not sent for insecure communication
-    (http://)"
-  languages:
-  - "scala"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-539: Information Exposure Through Persistent Cookies"
-    technology:
-    - "scala"

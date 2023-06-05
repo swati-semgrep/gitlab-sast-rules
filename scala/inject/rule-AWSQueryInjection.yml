@@ -4,7 +4,29 @@
 ---
 rules:
 - id: "scala/inject/rule-AWSQueryInjection"
+  languages:
+  - "scala"
+  message: |
+    Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
+    records.
+  metadata:
+    category: "security"
+    cwe: "CWE-943"
+    shortDescription: "Improper Neutralization of Special Elements in Data Query Logic"
+    technology:
+    - "scala"
   mode: "taint"
+  pattern-sinks:
+  - pattern: "new com.amazonaws.services.simpledb.model.SelectRequest($QUERY, ...);"
+  - patterns:
+    - pattern-inside: |
+        $DB.select(($SR: com.amazonaws.services.simpledb.model.SelectRequest).withSelectExpression($QUERY,...));
+    - pattern: "$QUERY"
+    - metavariable-pattern:
+        metavariable: "$DB"
+        pattern-either:
+        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDB)"
+        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDBClient)"
   pattern-sources:
   - patterns:
     - pattern-inside: |
@@ -20,25 +42,4 @@ rules:
           ...
         }
     - pattern: "$QUERY"
-  pattern-sinks:
-  - pattern: "new com.amazonaws.services.simpledb.model.SelectRequest($QUERY, ...);"
-  - patterns:
-    - pattern-inside: |
-        $DB.select(($SR: com.amazonaws.services.simpledb.model.SelectRequest).withSelectExpression($QUERY,...));
-    - pattern: "$QUERY"
-    - metavariable-pattern:
-        metavariable: "$DB"
-        pattern-either:
-        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDB)"
-        - pattern: "($DB: com.amazonaws.services.simpledb.AmazonSimpleDBClient)"
-  message: |
-    Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
-    records.
-  languages:
-  - "scala"
   severity: "ERROR"
-  metadata:
-    category: "security"
-    cwe: "CWE-943: Improper Neutralization of Special Elements in Data Query Logic"
-    technology:
-    - "scala"

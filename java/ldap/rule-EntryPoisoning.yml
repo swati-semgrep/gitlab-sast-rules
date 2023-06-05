@@ -4,9 +4,6 @@
 ---
 rules:
 - id: "java/ldap/rule-EntryPoisoning"
-  patterns:
-  - pattern: "new javax.naming.directory.SearchControls($SCOPE, $CLIMIT, $TLIMIT,
-      $ATTR, true, $DEREF)"
   languages:
   - "java"
   message: |
@@ -15,5 +12,9 @@ rules:
     context
   metadata:
     category: "security"
-    cwe: "CWE-20: Improper Input Validation"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
+  patterns:
+  - pattern: "new javax.naming.directory.SearchControls($SCOPE, $CLIMIT, $TLIMIT,
+      $ATTR, true, $DEREF)"
   severity: "ERROR"

@@ -4,14 +4,15 @@
 ---
 rules:
 - id: "java/xss/rule-WicketXSS"
-  patterns:
-  - pattern: "(org.apache.wicket.markup.html.basic.Label $X).setEscapeModelStrings(false);"
   languages:
   - "java"
   message: |
     Disabling HTML escaping put the application at risk for Cross-Site Scripting (XSS).
   metadata:
     category: "security"
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
+  patterns:
+  - pattern: "(org.apache.wicket.markup.html.basic.Label $X).setEscapeModelStrings(false);"
   severity: "WARNING"

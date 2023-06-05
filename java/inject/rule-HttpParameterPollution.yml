@@ -4,16 +4,8 @@
 ---
 rules:
 - id: "java/inject/rule-HttpParameterPollution"
-  mode: "taint"
-  pattern-sources:
-  - pattern: "(HttpServletRequest $REQ).getParameter(...)"
-  pattern-sanitizers:
-  - pattern: "java.net.URLEncoder.encode(...)"
-  - pattern: "com.google.common.net.UrlEscapers.urlPathSegmentEscaper().escape(...)"
-  pattern-sinks:
-  - pattern: "new org.apache.http.client.methods.HttpGet(...)"
-  - pattern: "new org.apache.commons.httpclient.methods.GetMethod(...)"
-  - pattern: "(org.apache.commons.httpclient.methods.GetMethod $GM).setQueryString(...)"
+  languages:
+  - "java"
   message: |
     Concatenating unvalidated user input into a URL can allow an attacker to override the value of
     a request parameter. Attacker may be able to override existing parameter values, inject a new
@@ -21,12 +13,21 @@ rules:
     consist of injecting encoded query string delimiters into other existing parameters. If a web
     application does not properly sanitize the user input, a malicious user may compromise the
     logic of the application to perform either client-side or server-side attacks.
-  languages:
-  - "java"
-  severity: "ERROR"
   metadata:
     category: "security"
-    cwe: "CWE-88: Improper Neutralization of Argument Delimiters in a Command ('Argument
-      Injection')"
+    cwe: "CWE-88"
+    shortDescription: "Improper Neutralization of Argument Delimiters in a Command
+      ('Argument Injection')"
     technology:
     - "java"
+  mode: "taint"
+  pattern-sanitizers:
+  - pattern: "java.net.URLEncoder.encode(...)"
+  - pattern: "com.google.common.net.UrlEscapers.urlPathSegmentEscaper().escape(...)"
+  pattern-sinks:
+  - pattern: "new org.apache.http.client.methods.HttpGet(...)"
+  - pattern: "new org.apache.commons.httpclient.methods.GetMethod(...)"
+  - pattern: "(org.apache.commons.httpclient.methods.GetMethod $GM).setQueryString(...)"
+  pattern-sources:
+  - pattern: "(HttpServletRequest $REQ).getParameter(...)"
+  severity: "ERROR"

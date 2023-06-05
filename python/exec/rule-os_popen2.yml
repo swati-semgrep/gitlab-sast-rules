@@ -4,6 +4,16 @@
 ---
 rules:
 - id: "python/exec/rule-os_popen2"
+  languages:
+  - "python"
+  message: |
+    Starting a process with a shell; seems safe, but may be changed in the future, consider
+    rewriting without shell
+  metadata:
+    cwe: "CWE-78"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
   patterns:
   - pattern-either:
     - pattern: "os.system(...)"
@@ -18,13 +28,4 @@ rules:
     - pattern: "popen2.Popen4(...)"
     - pattern: "commands.getoutput(...)"
     - pattern: "commands.getstatusoutput(\"\")"
-  message: |
-    Starting a process with a shell; seems safe, but may be changed in the future, consider
-    rewriting without shell
-  metadata:
-    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    owasp: "A1:2017-Injection"
   severity: "INFO"
-  languages:
-  - "python"

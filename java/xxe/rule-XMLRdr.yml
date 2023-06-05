@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "java/xxe/rule-XMLRdr"
+  languages:
+  - "java"
+  message: |
+    XML External Entity (XXE) attacks can occur when an XML parser supports XML
+    entities while processing XML received from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-611"
+    shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
   patterns:
   - pattern-inside: |
       $R = XMLReaderFactory.createXMLReader();
@@ -12,12 +21,4 @@ rules:
       $R.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       ...
   - pattern: "$R.parse(...);"
-  languages:
-  - "java"
-  message: |
-    XML External Entity (XXE) attacks can occur when an XML parser supports XML
-    entities while processing XML received from an untrusted source.
-  metadata:
-    category: "security"
-    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
   severity: "ERROR"

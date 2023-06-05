@@ -4,7 +4,20 @@
 ---
 rules:
 - id: "scala/xss/rule-MVCApi"
+  languages:
+  - "scala"
+  message: |
+    Disabling HTML escaping put the application at risk for Cross-Site Scripting (XSS).
+  metadata:
+    category: "security"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
   mode: "taint"
+  pattern-sanitizers:
+  - pattern: "org.owasp.encoder.Encode.forHtml(...)"
+  pattern-sinks:
+  - pattern: "Ok(...)"
   pattern-sources:
   - patterns:
     - pattern-inside: |
@@ -12,16 +25,4 @@ rules:
           ...
         }
     - focus-metavariable: "$ARG"
-  pattern-sanitizers:
-  - pattern: "org.owasp.encoder.Encode.forHtml(...)"
-  pattern-sinks:
-  - pattern: "Ok(...)"
-  languages:
-  - "scala"
-  message: |
-    Disabling HTML escaping put the application at risk for Cross-Site Scripting (XSS).
-  metadata:
-    category: "security"
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
-      Scripting')"
   severity: "WARNING"

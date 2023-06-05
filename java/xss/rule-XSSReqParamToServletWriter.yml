@@ -4,12 +4,17 @@
 ---
 rules:
 - id: "java/xss/rule-XSSReqParamToServletWriter"
+  languages:
+  - "java"
+  message: |
+    Servlet reflected cross site scripting vulnerability
+  metadata:
+    category: "security"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation"
+    technology:
+    - "java"
   mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |-
-        $FUNC(..., HttpServletRequest $REQ, ...) {...}
-    - pattern: "$REQ.getParameter(...);"
   pattern-sanitizers:
   - patterns:
     - pattern-inside: |-
@@ -29,13 +34,9 @@ rules:
         $FUNC(..., HttpServletResponse $RES, ...) {...}
     - pattern: "$RES.getWriter().write($DATA,...);"
     - pattern: "$DATA"
-  message: |
-    Servlet reflected cross site scripting vulnerability
-  languages:
-  - "java"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., HttpServletRequest $REQ, ...) {...}
+    - pattern: "$REQ.getParameter(...);"
   severity: "WARNING"
-  metadata:
-    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation"
-    category: "security"
-    technology:
-    - "java"

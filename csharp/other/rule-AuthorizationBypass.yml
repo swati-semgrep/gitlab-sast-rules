@@ -4,6 +4,15 @@
 ---
 rules:
 - id: "csharp/other/rule-AuthorizationBypass"
+  languages:
+  - "csharp"
+  message: |
+    The endpoint is potentially accessible to not authorized users. If it contains sensitive
+    information, like log files for example, it may lead to privilege escalation.
+  metadata:
+    category: "security"
+    cwe: "CWE-284"
+    shortDescription: "Improper Access Control"
   patterns:
   - pattern-inside: |
       using System.Web.Mvc;
@@ -20,12 +29,4 @@ rules:
   - pattern-not: |
       [Authorize]
       class $CLASS : Controller{ ... }
-  message: |
-    The endpoint is potentially accessible to not authorized users. If it contains sensitive
-    information, like log files for example, it may lead to privilege escalation.
-  languages:
-  - "csharp"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-284: Improper Access Control"

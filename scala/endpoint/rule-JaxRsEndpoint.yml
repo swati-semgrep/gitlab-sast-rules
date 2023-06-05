@@ -4,15 +4,8 @@
 ---
 rules:
 - id: "scala/endpoint/rule-JaxRsEndpoint"
-  mode: "taint"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        @javax.ws.rs.Path("...")
-        def $FUNC(..., $VAR: $TYPE, ...) = ...
-    - pattern: "$VAR"
-  pattern-sinks:
-  - pattern: "<...$VAR...>"
+  languages:
+  - "scala"
   message: |
     This method is part of a REST Web Service (JSR311). The security of this web service should be
     analyzed. For example:
@@ -22,11 +15,19 @@ rules:
     - The communication should ideally be over SSL.
     - If the service supports writes (e.g., via POST), its vulnerability to CSRF should be
     investigated.
-  languages:
-  - "scala"
-  severity: "INFO"
   metadata:
     category: "security"
-    cwe: "CWE-20: Improper Input Validation"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
     technology:
     - "scala"
+  mode: "taint"
+  pattern-sinks:
+  - pattern: "<...$VAR...>"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        @javax.ws.rs.Path("...")
+        def $FUNC(..., $VAR: $TYPE, ...) = ...
+    - pattern: "$VAR"
+  severity: "INFO"

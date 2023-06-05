@@ -1,12 +1,18 @@
 # yamllint disable
-# License: LGPL 2.1 (c) Return To Corporation
-# source (original): https://github.com/returntocorp/semgrep-rules/blob/develop/python/requests/security/disabled-cert-validation.yaml
-# hash: acdabdb
-# id: disabled-cert-validation
+# License: MIT (c) GitLab Inc.
 # yamllint enable
 ---
 rules:
 - id: "python/ssl/rule-req_no_certvalid"
+  languages:
+  - "python"
+  message: |
+    Certificate verification has been explicitly disabled. This permits insecure connections to
+    insecure servers. Re-enable certification validation.
+  metadata:
+    cwe: "CWE-295"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Improper Certificate Validation"
   patterns:
   - pattern-either:
     - pattern: "requests.put(..., verify=False, ...)"
@@ -17,12 +23,4 @@ rules:
     - pattern: "requests.request(..., verify=False, ...)"
     - pattern: "requests.get(..., verify=False, ...)"
     - pattern: "requests.post(..., verify=False, ...)"
-  message: |
-    Certificate verification has been explicitly disabled. This permits insecure connections to
-    insecure servers. Re-enable certification validation.
-  metadata:
-    cwe: "CWE-295: Improper Certificate Validation"
-    owasp: "A3:2017-Sensitive Data Exposure"
   severity: "ERROR"
-  languages:
-  - "python"

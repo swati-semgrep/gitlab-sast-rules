@@ -4,6 +4,13 @@
 ---
 rules:
 - id: "python/exception/rule-try_except_continue"
+  languages:
+  - "python"
+  message: |
+    Try, Except, Continue
+  metadata:
+    cwe: "CWE-703"
+    shortDescription: "Improper Check or Handling of Exceptional Conditions"
   pattern-either:
   - pattern: |
       try: ...
@@ -117,10 +124,4 @@ rules:
       except ... : ...
       except ... : ...
       except $EXCEPTION as $X: continue
-  message: |
-    Try, Except, Continue
-  metadata:
-    cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
   severity: "INFO"
-  languages:
-  - "python"

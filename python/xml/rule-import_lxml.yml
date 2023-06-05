@@ -4,15 +4,16 @@
 ---
 rules:
 - id: "python/xml/rule-import_lxml"
-  patterns:
-  - pattern-either:
-    - pattern: "import lxml"
+  languages:
+  - "python"
   message: |
     Using various methods to parse untrusted XML data is known to be vulnerable to
     XML attacks. Replace vulnerable imports with the equivalent defusedxml package.
   metadata:
-    cwe: "CWE-502: Deserialization of Untrusted Data"
+    cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
+  patterns:
+  - pattern-either:
+    - pattern: "import lxml"
   severity: "INFO"
-  languages:
-  - "python"

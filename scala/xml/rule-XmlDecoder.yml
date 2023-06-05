@@ -4,6 +4,14 @@
 ---
 rules:
 - id: "scala/xml/rule-XmlDecoder"
+  languages:
+  - "scala"
+  message: |
+    Avoid using XMLDecoder to parse content from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-502"
+    shortDescription: "Deserialization of Untrusted Data"
   patterns:
   - pattern-inside: |
       $D = new java.beans.XMLDecoder($IN);
@@ -12,11 +20,4 @@ rules:
       $DX = new java.beans.XMLDecoder("...");
       ...
   - pattern: "$D.readObject"
-  languages:
-  - "scala"
-  message: |
-    Avoid using XMLDecoder to parse content from an untrusted source.
-  metadata:
-    category: "security"
-    cwe: "CWE-502: Deserialization of Untrusted Data"
   severity: "WARNING"

@@ -4,6 +4,18 @@
 ---
 rules:
 - id: "java/password/rule-HardcodeKeyEquals"
+  languages:
+  - "java"
+  message: |
+    Cryptographic keys should not be kept in the source code. The source code can be widely shared
+    in an enterprise environment, and is certainly shared in open source. To be managed safely,
+    passwords and secret keys should be stored in separate configuration files or keystores.
+  metadata:
+    category: "security"
+    cwe: "CWE-321"
+    shortDescription: "Use of Hard-coded Cryptographic Key"
+    technology:
+    - "java"
   patterns:
   - pattern-not-inside: |
       $FUNC(..., $VAR_NAME, ...) {
@@ -23,15 +35,4 @@ rules:
   - metavariable-regex:
       metavariable: "$VAR_NAME"
       regex: "(?i).*(pass|pwd|psw|secret|key|cipher|crypt|des|aes|mac|private|sign|cert).*"
-  message: |
-    Cryptographic keys should not be kept in the source code. The source code can be widely shared
-    in an enterprise environment, and is certainly shared in open source. To be managed safely,
-    passwords and secret keys should be stored in separate configuration files or keystores.
-  languages:
-  - "java"
   severity: "WARNING"
-  metadata:
-    category: "security"
-    cwe: "CWE-321: Use of Hard-coded Cryptographic Key"
-    technology:
-    - "java"
