@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.21
+# rule-set version: v1.3.22
 # yamllint enable
 ---
 rules:
@@ -2126,6 +2126,10 @@ rules:
         - pattern-either:
           - pattern: |
               $CMDARR = new String[]{"$SHELL",...,$PARAM,...};
+              ...
+              (Runtime $R).exec($CMDARR,...);
+          - pattern: |
+              String[] $CMDARR = {"$SHELL",...,$PARAM,...};
               ...
               (Runtime $R).exec($CMDARR,...);
           - pattern: "(Runtime $R).exec(new String[]{\"$SHELL\",...,$PARAM,...}, ...);"
