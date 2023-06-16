@@ -133,6 +133,8 @@ unique-rule-id:
 
 gapanalysis:
   stage: gapanalysis
+  variables:
+    UPSTREAM_BRANCH: $CI_COMMIT_REF_NAME
   trigger:
     project: gitlab-org/security-products/sast-rule-testing-framework/rule-testing
   rules:
