@@ -1,9 +1,9 @@
 # yamllint disable
-# rule-set version: v1.3.23
+# rule-set version: v1.3.24
 # yamllint enable
 ---
 rules:
-- id: "eslint.detect-buffer-noassert-1"
+- id: "eslint.detect-buffer-noassert"
   languages:
   - "javascript"
   - "typescript"
@@ -51,7 +51,7 @@ rules:
     - name: "ESLint rule ID/detect-buffer-noassert"
       type: "eslint_rule_id"
       value: "detect-buffer-noassert"
-- id: "eslint.detect-new-buffer-1"
+- id: "eslint.detect-new-buffer"
   languages:
   - "javascript"
   - "typescript"
@@ -84,7 +84,7 @@ rules:
       type: "eslint_rule_id"
       value: "detect-new-buffer"
   severity: "WARNING"
-- id: "eslint.detect-no-csrf-before-method-override-1"
+- id: "eslint.detect-no-csrf-before-method-override"
   languages:
   - "javascript"
   - "typescript"
@@ -107,7 +107,7 @@ rules:
     ...
     express.methodOverride();
   severity: "WARNING"
-- id: "eslint.detect-non-literal-regexp-1"
+- id: "eslint.detect-non-literal-regexp"
   languages:
   - "javascript"
   - "typescript"
@@ -128,7 +128,7 @@ rules:
   - pattern-not: |
       new RegExp("...", ...)
   severity: "WARNING"
-- id: "eslint.detect-eval-with-expression-1"
+- id: "eslint.detect-eval-with-expression"
   languages:
   - "javascript"
   - "typescript"
@@ -149,7 +149,7 @@ rules:
   - pattern: "eval($OBJ)"
   - pattern-not: "eval(\"...\")"
   severity: "WARNING"
-- id: "eslint.detect-child-process-1"
+- id: "eslint.detect-child-process"
   languages:
   - "javascript"
   - "typescript"
@@ -171,7 +171,7 @@ rules:
   - pattern: "child_process.exec(...)"
   - pattern-not: "child_process.exec('...')"
   severity: "WARNING"
-- id: "eslint.detect-non-literal-fs-filename-1"
+- id: "eslint.detect-non-literal-fs-filename"
   languages:
   - "typescript"
   - "javascript"
@@ -288,7 +288,7 @@ rules:
     - pattern: "$MOD.writeFile(...)"
     - pattern: "$MOD.writeFileSync(...)"
   severity: "WARNING"
-- id: "eslint.detect-pseudoRandomBytes-1"
+- id: "eslint.detect-pseudoRandomBytes"
   languages:
   - "javascript"
   - "typescript"
@@ -306,7 +306,7 @@ rules:
       value: "detect-pseudoRandomBytes"
   pattern: "crypto.pseudoRandomBytes"
   severity: "WARNING"
-- id: "eslint.react-dangerouslysetinnerhtml-1"
+- id: "eslint.react-dangerouslysetinnerhtml"
   languages:
   - "typescript"
   - "javascript"
@@ -331,7 +331,7 @@ rules:
   - pattern: |
       {dangerouslySetInnerHTML: ...}
   severity: "WARNING"
-- id: "eslint.react-missing-noopener-1"
+- id: "eslint.react-missing-noopener"
   languages:
   - "typescript"
   - "javascript"
@@ -390,7 +390,7 @@ rules:
         metavariable: "$REL"
         regex: "[\"']((?!noopener).)*?['\"]"
   severity: "WARNING"
-- id: "eslint.detect-non-literal-require-1"
+- id: "eslint.detect-non-literal-require"
   languages:
   - "javascript"
   - "typescript"
@@ -412,7 +412,7 @@ rules:
   - pattern: "require($OBJ)"
   - pattern-not: "require('...')"
   severity: "WARNING"
-- id: "eslint.detect-possible-timing-attacks-1"
+- id: "eslint.detect-possible-timing-attacks"
   languages:
   - "javascript"
   message: |
@@ -909,7 +909,7 @@ rules:
     - pattern: |
         return api != $X;
   severity: "WARNING"
-- id: "eslint.detect-disable-mustache-escape-1"
+- id: "eslint.detect-disable-mustache-escape"
   languages:
   - "javascript"
   - "typescript"
