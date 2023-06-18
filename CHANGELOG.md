@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.24
+- Remove `-1` from all eslint rule IDs (!177)
+
 ## v1.3.23
 - Update Java `rule-CommandInjection.yml`to match concatenated strings (!169)
 - Update Java `rule-SpelView.yml` to also match `ExpressionParser` interface methods (!169)
