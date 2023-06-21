@@ -1,24 +1,50 @@
 // License: LGPL-3.0 License (c) find-sec-bugs
 package inject;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.BufferedReader;
 import java.io.RandomAccessFile;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class SpotbugsPathTraversal extends HttpServlet {
+
+    @GetMapping("/somepath")
+    public String get_image(Model model, @RequestParam String input) {
+        String input_file_name = "somedir/"+input;
+        
+        InputStream staticFile = getClass().getClassLoader().getResourceAsStream("static_file.xml"); // should not match
+
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(input_file_name); // BAD, DETECTS: PT_RELATIVE_PATH_TRAVERSAL
+        URL loaderInput = getClass().getClassLoader().getResource(input_file_name); // BAD, DETECTS: PT_RELATIVE_PATH_TRAVERSAL
+        
+        InputStream classStream = getClass().getResourceAsStream(input_file_name); // BAD, DETECTS: PT_RELATIVE_PATH_TRAVERSAL
+        URL resourceInput = getClass().getResource(input_file_name); // BAD, DETECTS: PT_RELATIVE_PATH_TRAVERSAL
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder sb = new StringBuilder();
+        // ... read file ...
+        return "something";
+    }
 
     // DETECTS: PT_ABSOLUTE_PATH_TRAVERSAL
     @Override

@@ -1,10 +1,13 @@
 sast-rules changelog
 
+## v1.3.25
+- Update Java `rule-SpotbugsPathTraversalAbsolute.yml` to handle getResourceAsStream and getResource (!182)
+
 ## v1.3.24
 - Remove `-1` from all eslint rule IDs (!177)
 
 ## v1.3.23
-- Update Java `rule-CommandInjection.yml`to match concatenated strings (!169)
+- Update Java `rule-CommandInjection.yml` to match concatenated strings (!169)
 - Update Java `rule-SpelView.yml` to also match `ExpressionParser` interface methods (!169)
 - Update Java `rule-XpathInjection.yml` to match actual XPath import path (!169)
 
