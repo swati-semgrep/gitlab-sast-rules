@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.24
+# rule-set version: v1.3.25
 # yamllint enable
 ---
 rules:
@@ -3073,6 +3073,21 @@ rules:
   - pattern: "java.nio.file.Files.createTempFile(...)"
   - pattern: "java.nio.file.Files.createTempDirectory(...)"
   - patterns:
+    - pattern: "$SRC.$METHOD(...)"
+    - metavariable-pattern:
+        metavariable: "$SRC"
+        pattern-either:
+        - pattern: "getClass()"
+        - pattern: "getClass().getClassLoader()"
+        - pattern: "(ClassLoader $C)"
+        - pattern: "(Class $C)"
+        - pattern: "$CLZ.getClassLoader()"
+    - metavariable-pattern:
+        metavariable: "$METHOD"
+        pattern-either:
+        - pattern: "getResourceAsStream"
+        - pattern: "getResource"
+  - patterns:
     - pattern-inside: |-
         new java.io.FileWriter($PATH, ...)
     - pattern: "$PATH"
@@ -3082,6 +3097,10 @@ rules:
     - pattern: "$PATH"
   pattern-sources:
   - pattern: "(HttpServletRequest $REQ).getParameter(...)"
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., @RequestParam $TYPE $REQ, ...) {...}
+    - focus-metavariable: "$REQ"
   message: |
     The application dynamically constructs file or path information. If the path
     information comes from user input, it could be abused to read sensitive files,
