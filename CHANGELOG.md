@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.26
+- Update Javascript `rule-non_literal_fs_filename.yml` to only flag on fs modules (!183)
+
 ## v1.3.25
 - Update Java `rule-SpotbugsPathTraversalAbsolute.yml` to handle getResourceAsStream and getResource (!182)
 

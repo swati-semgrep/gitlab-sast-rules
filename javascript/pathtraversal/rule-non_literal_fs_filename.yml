@@ -15,6 +15,16 @@ rules:
     shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
       ('Path Traversal')"
   patterns:
+  - pattern-either:
+    - pattern-inside: |
+        import $MOD from $IMP
+        ...
+    - pattern-inside: |
+        $MOD = require($IMP)
+        ...
+  - metavariable-comparison:
+      metavariable: "$IMP"
+      comparison: "$IMP in ['fs', 'node:fs', 'fs/promises', 'node:fs/promises', 'fs-extra']"
   - pattern-not: "$MOD.appendFile(\"...\", ...)"
   - pattern-not: "$MOD.appendFileSync(\"...\", ...)"
   - pattern-not: "$MOD.chmod(\"...\", ...)"

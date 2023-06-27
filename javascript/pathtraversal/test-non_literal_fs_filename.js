@@ -1,8 +1,12 @@
 // License: MIT (c) GitLab Inc.
 
+const fs = require('node:fs');
+import fs2 from "fs";
+
 function negative(argOne, argTwo) {
+    
   // string args
-  fs.appendFile('foo', data, callback)
+  fs2.appendFile('foo', data, callback)
   fs.appendFileSync('foo', data)
   fs.chmod('foo', mode, callback)
   fs.chmodSync('foo', mode)
@@ -104,6 +108,57 @@ function negative(argOne, argTwo) {
   fs.watchFile(strArgOne, listener)
   fs.writeFile(strArgOne, callback)
   fs.writeFileSync(strArgOne)
+
+  const notfs = require("test");
+  notfs.appendFile(argOne, data, callback)
+  notfs.appendFileSync(argOne, data)
+  notfs.chmod(argOne, mode, callback)
+  notfs.chmodSync(argOne, mode)
+  notfs.chown(argOne, uid, gid, callback)
+  notfs.chownSync(argOne, uid, gid)
+  notfs.createReadStream(argOne)
+  notfs.createWriteStream(argOne)
+  notfs.exists(argOne, callback)
+  notfs.existsSync(argOne, callback)
+  notfs.lchmod(argOne, mode, callback)
+  notfs.lchmodSync(argOne, mode)
+  notfs.lchown(argOne, uid, gid, callback)
+  notfs.lchownSync(argOne, uid, gid)
+  notfs.link(argOne, argTwo, callback)
+  notfs.linkSync(argOne, argTwo)
+  notfs.lstat(argOne, callback)
+  notfs.lstatSync(argOne)
+  notfs.mkdir(argOne, callback)
+  notfs.mkdirSync(argOne)
+  notfs.open(argOne, callback)
+  notfs.openSync(argOne)
+  notfs.readdir(argOne, callback)
+  notfs.readdirSync(argOne)
+  notfs.readFile(argOne, callback)
+  notfs.readFileSync(argOne)
+  notfs.readlink(argOne, callback)
+  notfs.readlinkSync(argOne)
+  notfs.realpath(argOne, callback)
+  notfs.realpathSync(argOne)
+  notfs.rename(argOne, argTwo, callback)
+  notfs.renameSync(argOne, argTwo)
+  notfs.rmdir(argOne, callback)
+  notfs.rmdirSync(argOne)
+  notfs.stat(argOne, callback)
+  notfs.statSync(argOne)
+  notfs.symlink(argOne, argTwo, callback)
+  notfs.symlinkSync(argOne, argTwo)
+  notfs.truncate(argOne, callback)
+  notfs.truncateSync(argOne)
+  notfs.unlink(argOne, callback)
+  notfs.unlinkSync(argOne)
+  notfs.unwatchFile(argOne)
+  notfs.utimes(argOne, callback)
+  notfs.utimesSync(argOne)
+  notfs.watch(argOne)
+  notfs.watchFile(argOne, listener)
+  notfs.writeFile(argOne, callback)
+  notfs.writeFileSync(argOne)
 }
 
 function positive(argOne, argTwo) {
@@ -156,4 +211,7 @@ function positive(argOne, argTwo) {
   fs.watchFile(argOne, listener)
   fs.writeFile(argOne, callback)
   fs.writeFileSync(argOne)
+
+
+  fs2.writeFileSync(argOne)
 }
