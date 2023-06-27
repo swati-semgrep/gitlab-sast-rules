@@ -1,6 +1,6 @@
-# semgrep-rules
+# Semgrep rules
 
-This is the central semgrep rule repository that hosts the semgrep rules
+This is the central Semgrep rule repository that hosts the Semgrep rules
 for the [GitLab semgrep analyzer](https://gitlab.com/gitlab-org/security-products/analyzers/semgrep).
 
 We follow the testing methodology laid out in this [blog post](https://about.gitlab.com/blog/2021/09/08/write-vulnerability-detection-rules/).
@@ -46,7 +46,7 @@ descriptive name for the class of issues the rule aims to detect and
 
 We can have multiple test cases per rule (all prefixed with `test-`) and rule
 files `rule-<rulename>.yml` that are prefixed with `rule-`; a rule file
-contains a single semgrep rule.
+contains a single Semgrep rule.
 
 The `mappings` and `dist` directories include the rule-pack configuration which
 define the rules that should included into rule-packs and the resulting,
@@ -72,17 +72,17 @@ installing the gems `psych yaml fileutils` with `gem install psych yaml fileutil
 ## Mappings
 
 The mappings directory in this repository contains YAML configuration files
-that map native analyzer ids to the corresponding semgrep rules. These mappings
+that map native analyzer ids to the corresponding Semgrep rules. These mappings
 are digested by the [testing framework](https://gitlab.com/gitlab-org/security-products/sast-rule-testing-framework/rule-testing)
 to perform an automated gap analysis; the goal of this analysis is to check
-whether there is an unexpected deviation between semgrep (with the rules in this repository)
+whether there is an unexpected deviation between Semgrep (with the rules in this repository)
 and a given analyzer.
 
 In addition to that mappings are also used to automatically assemble
 rule-packs. The snippet below illustrates an example mapping files for the
 `bandit` analyzer. The `native_id` section includes some information about the
 native id mappings. The actual rule mappings are defined in the `mappings`
-section. Each mapping defines of which semgrep rules in this repository, a
+section. Each mapping defines of which Semgrep rules in this repository, a
 bandit rules is composed. Note that the order of the rules in the files are
 listed does matter at the moment, so that new mappings should be appended at
 the end.
@@ -104,7 +104,7 @@ bandit:
   # ...
 ```
 
-## Datasources
+## Data sources
 
 The rules and test-cases in this repository are partially sourced from the
 sources listed below:
@@ -128,7 +128,7 @@ repository.
 
 After making changes to rules or mappings, make sure to run `./ci/deploy.sh <semantic version>`
 and commit your updates to the `/dist` directory where `<semantic version>`
-should correspond to the latest pusblished version in [CHANGELOG.md](./CHANGELOG.md)>
+should correspond to the latest published version in [CHANGELOG.md](./CHANGELOG.md)>
 
 ## Versioning and Changelog
 
@@ -163,10 +163,10 @@ contributions.
 - B414: [import_pycryptodome](https://bandit.readthedocs.io/en/latest/blacklists/blacklist_imports.html#b414-import-pycryptodome) Not supported anymore since the plugin was removed
 
 
-#### Adusted patterns (3)
-- B503: [ssl_with_bad_defaults](https://bandit.readthedocs.io/en/latest/plugins/b503_ssl_with_bad_defaults.html) Our semgrep pattern captures both B503 and B502 because they are very similar and are both practically capturing insecure setting using outdated versions of encryption algorithms.
-- B110: [try_except_pass](https://bandit.readthedocs.io/en/latest/plugins/b110_try_except_pass.html) The Semgrep rule checks the whole try except block whereas bandit reports every except case. The semgrep rule approximates the original rule behaviour looking at various permutations of except pass cases embedded in a try ... except block.
-- B112: [try_except_continue](https://bandit.readthedocs.io/en/latest/plugins/b112_try_except_continue.html) The Semgrep rule checks the whole try except block whereas bandit reports every except case. The semgrep rule approximates the original rule behaviour looking at various permutations of except continue cases embedded in a try ... except block.
+#### Adjusted patterns (3)
+- B503: [ssl_with_bad_defaults](https://bandit.readthedocs.io/en/latest/plugins/b503_ssl_with_bad_defaults.html) Our Semgrep pattern captures both B503 and B502 because they are very similar and are both practically capturing insecure setting using outdated versions of encryption algorithms.
+- B110: [try_except_pass](https://bandit.readthedocs.io/en/latest/plugins/b110_try_except_pass.html) The Semgrep rule checks the whole try except block whereas bandit reports every except case. The Semgrep rule approximates the original rule behaviour looking at various permutations of except pass cases embedded in a try ... except block.
+- B112: [try_except_continue](https://bandit.readthedocs.io/en/latest/plugins/b112_try_except_continue.html) The Semgrep rule checks the whole try except block whereas bandit reports every except case. The Semgrep rule approximates the original rule behaviour looking at various permutations of except continue cases embedded in a try ... except block.
 
 ### ESLint
 
@@ -240,7 +240,7 @@ We excluded the patterns below because they are overly verbose; they are trigger
 
 #### Patterns we were unable to migrate (12)
 
-The patterns below could not be migrated, because they required features not supported by semgrep. See https://gitlab.com/gitlab-org/gitlab/-/issues/357679 for more information.
+The patterns below could not be migrated, because they required features not supported by Semgrep. See https://gitlab.com/gitlab-org/gitlab/-/issues/357679 for more information.
 
 | Rule ID                                    | Description                                                                                                                   | Status          | Comment                                                                                                                                                                                                                                 |
 | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -250,8 +250,8 @@ The patterns below could not be migrated, because they required features not sup
 | `UNSAFE_HASH_EQUALS`                       | [Unsafe hash equals](https://find-sec-bugs.github.io/bugs.html#UNSAFE_HASH_EQUALS)                                            | :no_entry_sign: | this rule is highly prone to FPs -- it checks for unsecure hash functions by looking for keywords (e.g., sha) in variable or parameter names. As we are already covered by secret detection, we can probably omit this particular rule. |
 | `STATIC_IV`                                | [Static IV](https://find-sec-bugs.github.io/bugs.html#STATIC_IV)                                                              | :no_entry_sign: | https://gitlab.com/gitlab-org/gitlab/-/issues/357679#note_905023485                                                                                                                                                                     |
 | `DESERIALIZATION_GADGET`                   | [This class could be used as deserialization gadget](https://find-sec-bugs.github.io/bugs.html#DESERIALIZATION_GADGET)        | :no_entry_sign: | Multiple logical flows involved. Cannot be achieved in Semgrep.                                                                                                                                                                         |
-| `ENTITY_LEAK`                              | [Unexpected property leak](https://find-sec-bugs.github.io/bugs.html#ENTITY_LEAK)                                             | :no_entry_sign: | Annonations of classes are processed to determine the result. This cannot be achieved in Semgrep.                                                                                                                                       |
-| `ENTITY_MASS_ASSIGNMENT`                   | [Mass assignment](https://find-sec-bugs.github.io/bugs.html#ENTITY_MASS_ASSIGNMENT)                                           | :no_entry_sign: | Annonations of classes are processed to determine the result. This cannot be achieved in Semgrep.                                                                                                                                       |
+| `ENTITY_LEAK`                              | [Unexpected property leak](https://find-sec-bugs.github.io/bugs.html#ENTITY_LEAK)                                             | :no_entry_sign: | Annotations of classes are processed to determine the result. This cannot be achieved in Semgrep.                                                                                                                                       |
+| `ENTITY_MASS_ASSIGNMENT`                   | [Mass assignment](https://find-sec-bugs.github.io/bugs.html#ENTITY_MASS_ASSIGNMENT)                                           | :no_entry_sign: | Annotations of classes are processed to determine the result. This cannot be achieved in Semgrep.                                                                                                                                       |
 | `ESAPI_ENCRYPTOR`                          | [Use of ESAPI Encryptor](https://find-sec-bugs.github.io/bugs.html#ESAPI_ENCRYPTOR)                                           | :no_entry_sign: | Config files related. We currently support only files with `.java` extensions.                                                                                                                                                          |
 | `JACKSON_UNSAFE_DESERIALIZATION`           | [Unsafe Jackson deserialization configuration](https://find-sec-bugs.github.io/bugs.html#JACKSON_UNSAFE_DESERIALIZATION)      | :no_entry_sign: | [Reason](https://gitlab.com/gitlab-org/gitlab/-/issues/357679#note_905594086)                                                                                                                                                           |
 | `OBJECT_DESERIALIZATION`                   | [Object deserialization is used](https://find-sec-bugs.github.io/bugs.html#OBJECT_DESERIALIZATION)                            | :no_entry_sign: | This problem is solved by determining Interface supersets and Annotation metadata. This cannot be accomplished in Semgrep                                                                                                               |
@@ -275,7 +275,7 @@ We excluded the patterns below because they are overly verbose.
 
 #### Patterns we were unable to migrate (5)
 
-The patterns below could not be migrated, because they required features not supported by semgrep.
+The patterns below could not be migrated, because they required features not supported by Semgrep.
 
 | Rule ID   | Description                                                                                                        | Status          | Comment                                                                                                                                                                                                                                 |
 | --------- | ------------------------------------------------------------------------------------------------------------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -299,6 +299,6 @@ Semgrep rules should be kept in-sync with upstream scanners regularly; here's th
 - [Map](https://gitlab.com/gitlab-org/secure/gsoc-sast-vulnerability-rules/playground/sast-rules#mappings) them against native analyzer's IDs in this repository.
 - Generate a new ruleset distribution using the instructions described [above](https://gitlab.com/gitlab-org/secure/gsoc-sast-vulnerability-rules/playground/sast-rules#contribution-instructions).
 - Add all the un-translatable rules into this file along with the reason against the downstream analyzer/
-- Copy over the new ruleset distribution into [`Semgrep/rules`](https://gitlab.com/gitlab-org/security-products/analyzers/semgrep/-/tree/main/rules) to reflect rule changes in the Analyzer.
+- Copy over the new ruleset distribution into [`Semgrep/rules`](https://gitlab.com/gitlab-org/security-products/analyzers/semgrep/-/tree/main/rules) to reflect rule changes in the analyzer.
 
 For better tracking purposes, create a dedicated issue on rule synchronization cadence and create a sub-task for each semgrep-translated analyzer. The subtask should contain all the new rules that should be synchronized. Here's an example [issue](https://gitlab.com/gitlab-org/gitlab/-/issues/373117) that has followed the mentioned process.

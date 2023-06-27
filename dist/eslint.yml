@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.25
+# rule-set version: v1.3.26
 # yamllint enable
 ---
 rules:
@@ -188,6 +188,16 @@ rules:
       type: "eslint_rule_id"
       value: "detect-non-literal-fs-filename"
   patterns:
+  - pattern-either:
+    - pattern-inside: |
+        import $MOD from $IMP
+        ...
+    - pattern-inside: |
+        $MOD = require($IMP)
+        ...
+  - metavariable-comparison:
+      metavariable: "$IMP"
+      comparison: "$IMP in ['fs', 'node:fs', 'fs/promises', 'node:fs/promises', 'fs-extra']"
   - pattern-not: "$MOD.appendFile(\"...\", ...)"
   - pattern-not: "$MOD.appendFileSync(\"...\", ...)"
   - pattern-not: "$MOD.chmod(\"...\", ...)"
