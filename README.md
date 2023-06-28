@@ -147,6 +147,7 @@ contributions.
 | ----------------- | ---------- |
 | @masakura         | !99, !107  |
 | @gregory.mcdaniel | #32        |
+| @niklas.volcz.    | !183       |
 
 
 ## Rule deployment
