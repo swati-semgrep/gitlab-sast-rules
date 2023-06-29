@@ -359,6 +359,9 @@ find_sec_bugs:
     - path: "java/crypto/rule-WeakTLSProtocol"
       primary_id: "find_sec_bugs.SSL_CONTEXT-1"
       id: "find_sec_bugs.SSL_CONTEXT-1"
+    - path: "java/crypto/rule-WeakTLSProtocolVersion"
+      primary_id: "find_sec_bugs.SSL_CONTEXT-2"
+      id: "find_sec_bugs.SSL_CONTEXT-2"
   - id: "WEAK_MESSAGE_DIGEST_MD5"
     rules:
     - path: "java/crypto/rule-WeakMessageDigest"
