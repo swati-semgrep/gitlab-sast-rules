@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.26
+# rule-set version: v1.3.27
 # yamllint enable
 ---
 rules:
@@ -1537,6 +1537,91 @@ rules:
     category: "security"
     cwe: "CWE-295"
     primary_identifier: "find_sec_bugs.SSL_CONTEXT-1"
+    secondary_identifiers:
+    - name: "Find Security Bugs-SSL_CONTEXT"
+      type: "find_sec_bugs_type"
+      value: "SSL_CONTEXT"
+  severity: "WARNING"
+- id: "find_sec_bugs.SSL_CONTEXT-2"
+  languages:
+  - "java"
+  patterns:
+  - pattern-either:
+    - pattern-inside: |
+        import javax.net.ssl.*;
+        ...
+    - pattern-inside: |
+        import javax.net.ssl.SSLContext;
+        ...
+  - pattern-either:
+    - pattern-inside: |
+        SSLContext.getInstance("$UNSAFE_VERSION");
+    - pattern-inside: |
+        SSLContext.getInstance(...);
+        ...
+        $ENGINE.setEnabledProtocols(new String[]{...,"$UNSAFE_VERSION",...});
+  - pattern-not-inside: |
+      $C = SSLContext.getInstance(...);
+      ...
+      $ENGINE.setEnabledProtocols(new String[]{...,"TLSv1.2",...});
+  - pattern-not-inside: |
+      $C = SSLContext.getInstance(...);
+      ...
+      $ENGINE.setEnabledProtocols(new String[]{...,"TLSv1.3",...});
+  - pattern-not-inside: |
+      $C = SSLContext.getInstance(...);
+      ...
+      $ENGINE.setEnabledProtocols(new String[]{...,"DTLSv1.2",...});
+  - pattern-not-inside: |
+      $C = SSLContext.getInstance(...);
+      ...
+      $ENGINE.setEnabledProtocols(new String[]{...,"DTLSv1.3",...});
+  - metavariable-regex:
+      metavariable: "$UNSAFE_VERSION"
+      regex: "^(TLS|(D)?TLSv1.(0|1))$"
+  message: |
+    The application was found enabling insecure TLS protocol versions. When enabling protocol
+    versions for an `SSLContext`, only the following versions should be allowed:
+    - TLSv1.2
+    - TLSv1.3
+    - DTLSv1.2
+    - DTLSv1.3
+
+    To mitigate potential security risks, it is strongly advised to enforce TLS 1.2 as the minimum
+    protocol version and disallow older versions such as TLS 1.0. Do note that newer versions of
+    Java do not even support TLS 1.0 and will throw `NoSuchAlgorithmException`. Versions of TLS
+    prior to 1.2 could expose the connection to downgrade attacks, where an adversary intercepts
+    the
+    connection and alters the requested protocol version to be a less secure one.
+
+    In many scenarios, relying on the default system configuration does not meet compliance
+    standards. This is due to the application being deployed across diverse systems with varying
+    configurations and Java versions. While the default value may be secure on modern and
+    up-to-date systems, it may not hold true for older systems. Consequently, it is highly
+    recommended to explicitly define a secure configuration in all cases.
+
+    Example configuring an SSLContext with TLSv1.2:
+    ```
+    // Create an SSLContext with TLSv1.2 explicitly
+    SSLContext tlsContext = SSLContext.getInstance("TLSv1.2"); // or TLSv1.3, DTLSv1.2, DTLSv1.3
+
+    // Alternatively, set the enabled protocols
+    SSLContext serverSslContext = SSLContext.getInstance("TLS");
+    SSLEngine serverEngine = serverSslContext.createSSLEngine();
+    // Calling setEnabledProtocols will override the original context's configured protocol version
+    serverEngine.setEnabledProtocols(new String[]{ "TLSv1.2" });
+    ```
+
+    For more information on `SSLContext` see:
+    - https://docs.oracle.com/en/java/javase/11/docs/api/java.base/javax/net/ssl/SSLContext.html
+
+    For more information on MiTM attacks see:
+    - https://owasp.org/www-community/attacks/Manipulator-in-the-middle_attack
+  metadata:
+    shortDescription: "Inadequate encryption strength"
+    category: "security"
+    cwe: "CWE-326"
+    primary_identifier: "find_sec_bugs.SSL_CONTEXT-2"
     secondary_identifiers:
     - name: "Find Security Bugs-SSL_CONTEXT"
       type: "find_sec_bugs_type"
@@ -4320,20 +4405,45 @@ rules:
       value: "URLCONNECTION_SSRF_FD"
   pattern-either:
   - patterns:
-    - pattern: "new URL(...). ... .connect()"
-    - pattern-not: "new URL(\"...\"). ... .connect()"
+    - pattern-either:
+      - pattern-inside: |
+          import java.net.*
+          ...
+      - pattern-inside: |
+          import java.net.URL
+          ...
+      - pattern-inside: |
+          import java.net.URI
+          ...
+    - pattern: "new $TYPE(...). ... .$FUNC"
+    - pattern-not: "new $TYPE(\"...\"). ... .$FUNC"
+    - metavariable-pattern:
+        metavariable: "$FUNC"
+        pattern-either:
+        - pattern: "connect"
+        - pattern: "GetContent"
+        - pattern: "openConnection"
+        - pattern: "openStream"
+        - pattern: "getContent"
+    - metavariable-pattern:
+        metavariable: "$TYPE"
+        pattern-either:
+        - pattern: "URL"
+        - pattern: "java.net.URL"
+        - pattern: "URI"
+        - pattern: "java.net.URI"
   - patterns:
-    - pattern: "new URL(...). ... .GetContent(...)"
-    - pattern-not: "new URL(\"...\"). ... .GetContent(...)"
-  - patterns:
-    - pattern: "new URL(...). ... .openConnection(...)"
-    - pattern-not: "new URL(\"...\"). ... .openConnection(...)"
-  - patterns:
-    - pattern: "new URL(...). ... .openStream(...)"
-    - pattern-not: "new URL(\"...\"). ... .openStream(...)"
-  - patterns:
-    - pattern: "new URL(...). ... .getContent(...)"
-    - pattern-not: "new URL(\"...\"). ... .getContent(...)"
+    - pattern-either:
+      - pattern-inside: |
+          import java.net.*;
+          ...
+      - pattern-inside: |
+          import java.net.InetSocketAddress;
+          ...
+    - pattern: |
+        new InetSocketAddress(..., $PORT)
+    - pattern-not: |
+        new InetSocketAddress("...", $PORT)
   severity: "ERROR"
 - id: "find_sec_bugs.BAD_HEXA_CONVERSION-1"
   languages:

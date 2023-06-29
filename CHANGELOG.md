@@ -1,5 +1,9 @@
 sast-rules changelog
 
+## v1.3.27
+- Update Java `rule-SSRF.yml` to match more cases under `java.net.*` package (!186)
+- Add Java rule `rule-WeakTLSProtocolVersion.yml` to detect weak TLS versions (!186)
+
 ## v1.3.26
 - Update Javascript `rule-non_literal_fs_filename.yml` to only flag on fs modules (!183)
 
