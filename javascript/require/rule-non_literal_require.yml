@@ -7,18 +7,24 @@ rules:
   languages:
   - "javascript"
   - "typescript"
-  message: |
-    Detected the use of require(variable). Calling require with a non-literal argument might
-    allow an attacker to load an run arbitrary code, or access arbitrary files.
-  metadata:
-    cwe: "CWE-95"
-    owasp: "A1:2017-Injection"
-    shortDescription: "Improper Neutralization of Directives in Dynamically Evaluated
-      Code ('Eval Injection')"
-    # yamllint disable
-    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-require.js"
-    # yamllint enable
   patterns:
   - pattern: "require($OBJ)"
   - pattern-not: "require('...')"
   severity: "WARNING"
+  message: |
+    The application was found to dynamically import a module by calling `require` using a
+    non-literal string. An adversary might be able to read the first line of
+    arbitrary files. If they had write access to the file system, they may also be able to
+    execute arbitrary code.
+
+    To remediate this issue, use a hardcoded string literal when calling `require`. Never call it
+    it with dynamically created variables or user-supplied data.
+  metadata:
+    cwe: "CWE-95"
+    owasp: "A1:2017-Injection"
+    shortDescription: "Improper neutralization of directives in dynamically evaluated
+      code ('Eval Injection')"
+    category: "security"
+    # yamllint disable
+    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-require.js"
+    # yamllint enable

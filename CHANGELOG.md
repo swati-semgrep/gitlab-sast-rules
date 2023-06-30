@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.28
+- Enhance Javascript ruleset descriptions and titles (!166)
+
 ## v1.3.27
 - Update Java `rule-SSRF.yml` to match more cases under `java.net.*` package (!186)
 - Add Java rule `rule-WeakTLSProtocolVersion.yml` to detect weak TLS versions (!186)
