@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.28
+# rule-set version: v1.3.29
 # yamllint enable
 ---
 rules:
@@ -1750,23 +1750,23 @@ rules:
   patterns:
   - pattern-either:
     - pattern: |
-        for _, $ARG := range $SLICE {
+        for ..., $ARG := range $SLICE {
           <... &($ARG) ...>
         }
     - pattern: |
-        for _, $ARG := range $SLICE {
+        for ..., $ARG := range $SLICE {
           <... func() { <... &$ARG ...> } ...>
         }
     - pattern: |
-        for _, $ARG := range $SLICE {
+        for ..., $ARG := range $SLICE {
           <... $X(..., <... &$ARG ...>, ...) ...>
         }
   - pattern-not: |
-      for _, $ARG := range $SLICE {
+      for ..., $ARG := range $SLICE {
         <... *$ARG ...>
       }
   - pattern-not-inside: |-
-      for _, $ARG := range $SLICE { return ... }
+      for ..., $ARG := range $SLICE { return ... }
   message: |
     Go's `for ... range` statements create an iteration variable for each iteration of the loop.
     By taking the address of this iteration variable, the value of the address will be re-used
