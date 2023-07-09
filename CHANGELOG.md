@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.29
+- Improve Go memory aliasing in `G601` (!187)
+
 ## v1.3.28
 - Enhance Javascript ruleset descriptions and titles (!166)
 

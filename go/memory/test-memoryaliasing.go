@@ -44,3 +44,10 @@ func shouldNotBeReported() {
         fmt.Println(s)
     }
 }
+
+func shouldBeReported() {
+    array := []string{"a", "b"}
+    for i, s := range array {
+        fmt.Println("%d %p", i, &s)
+    }
+}
