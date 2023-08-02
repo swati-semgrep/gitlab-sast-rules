@@ -34,6 +34,6 @@ docker run --platform linux/amd64 -it --rm -v "$PWD:$PWD" -w "$PWD" \
 8. If failures did occur, then we will need to update the expectations using [analyzer-scripts](https://gitlab.com/gitlab-org/secure/tools/analyzer-scripts). 
 9. Checkout: `git@gitlab.com:gitlab-org/secure/tools/analyzer-scripts.git`
 10. Go back to the semgrep project root, and run: `../analyzer-scripts/analyzer-refresh-expected-json` . This will take another 2-3 minutes
-11. You can either re-run step 6 (re-running integration test locally) or simply push your changes and create your MR.
+11. You can either re-run step 6 (re-running integration test locally) or simply push your changes and create your MR. Besure to update the CHANGELOG as in step 7.
 12. Assign a [CODEOWNER](https://gitlab.com/gitlab-org/security-products/analyzers/semgrep/-/blob/main/.gitlab/CODEOWNERS?ref_type=heads) to review. 
 13. :party:
