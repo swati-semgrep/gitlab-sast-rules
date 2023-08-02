@@ -52,6 +52,10 @@ The `mappings` and `dist` directories include the rule-pack configuration which
 define the rules that should included into rule-packs and the resulting,
 assembled rule-packs.
 
+## Updating rules
+
+Please see [our update process for more details](docs/update-rule-process.md).
+
 ## Formatting guidelines
 
 Rules contained in this repository have to adhere to the following format:
