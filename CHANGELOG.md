@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.30
+- Enhance Python ruleset descriptions and titles (!170)
+
 ## v1.3.29
 - Improve Go memory aliasing in `G601` (!187)
 
