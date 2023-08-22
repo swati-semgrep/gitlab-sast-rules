@@ -7,13 +7,34 @@ rules:
   languages:
   - "python"
   message: |
-    Use tempfile.NamedTemporaryFile instead. From the official Python documentation: THIS FUNCTION
-    IS UNSAFE AND SHOULD NOT BE USED. The file name may refer to a file that did not exist at some
-    point, but by the time you getaround to creating it, someone else may have beaten you to the
-    punch.
+    The application was found creating temporary files with the insecure `mktemp` method.
+    Depending on how the application uses this temporary file, an attacker may be able to create
+    symlinks that point to other files prior to the application creating or writing
+    to the target file, leading to unintended files being created or overwritten.
+
+    To remediate this issue consider using `tempfile.TemporaryFile` instead.
+
+    Example using `tempfile.TemporaryFile` to write a file:
+    ```
+    import tempfile
+
+    # Open a new temporary file using a context manager
+    with tempfile.TemporaryFile() as fp:
+        # Write some data to the temporary file
+        fp.write(b'Some data')
+        # Seek back to beginning of file
+        fp.seek(0)
+        # Read it
+        data = fp.read()
+    # File is automatically closed/removed once we exit the with context
+    ```
+
+    For more information on alternative tempfile functions see:
+    - https://docs.python.org/3/library/tempfile.html
   metadata:
     cwe: "CWE-377"
+    category: "security"
     owasp: "A3:2017-Sensitive Data Exposure"
-    shortDescription: "Insecure Temporary File"
+    shortDescription: "Insecure temporary file"
   pattern: "tempfile.mktemp(...)"
   severity: "ERROR"
