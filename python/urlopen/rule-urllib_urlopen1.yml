@@ -7,10 +7,21 @@ rules:
   languages:
   - "python"
   message: |
-    Detected a dynamic value being used with urllib. urllib supports `file://` schemes, so a
-    dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit
-    uses of urllib calls to ensure user data cannot control the URLs, or consider using the
-    `requests` library instead.
+    The application was found passing in a non-literal value to the `urllib` methods which issue
+    requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control
+    the URL value to read arbitrary files on the file system.
+
+    To remediate this issue either hardcode the URLs being used in urllib or use the `requests`
+    module instead.
+
+    Example using the `requests` module to issue an HTTPS request:
+    ```
+    import requests
+    # Issue a GET request to https://example.com with a timeout of 10 seconds
+    response = requests.get('https://example.com', timeout=10)
+    # Work with the response object
+    # ...
+    ```
   metadata:
     cwe: "CWE-939"
     owasp: "A5:2017-Broken Access Control"

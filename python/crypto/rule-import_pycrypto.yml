@@ -7,11 +7,17 @@ rules:
   languages:
   - "python"
   message: |
-    Consider possible security implications associated with pycrypto module.
+    The application was detected importing `pycrypto`. This package has been deprecated as it
+    contains
+    security vulnerabilities.
+
+    To remediate this issue, consider using the [cryptography](https://cryptography.io/)
+    package instead.
   metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+    cwe: "CWE-1104"
+    owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    category: "security"
+    shortDescription: "Use of unmaintained third party components"
   pattern-either:
   - pattern: "import pycryto"
   - pattern: "import Crypto.Cipher"
