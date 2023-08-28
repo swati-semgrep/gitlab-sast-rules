@@ -1,5 +1,10 @@
 sast-rules changelog
 
+## v1.3.38
+- Remove poor C# rules (!199)
+  - `csharp/cache/rule-OutputCacheConflicts.yml` - Unable to confirm exploitability
+  - `csharp/other/rule-AuthorizationBypass.yml` - Highly prone to false positives as it assumes any controller without [AllowAnonymous] or [Authorize] is an authorization bypass
+
 ## v1.3.32
 - Remove poor Go rules (!194)
   - `go/audit/rule-unhandled_error.yml` - Empty placeholder rule
