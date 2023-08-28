@@ -1,9 +1,26 @@
 sast-rules changelog
 
-## v1.3.38
+## v1.3.34
 - Remove poor C# rules (!199)
-  - `csharp/cache/rule-OutputCacheConflicts.yml` - Unable to confirm exploitability
+  - `csharp/cache/rule-OutputCacheConflicts.yml` - Unable to confirm vulnerability
   - `csharp/other/rule-AuthorizationBypass.yml` - Highly prone to false positives as it assumes any controller without `[AllowAnonymous]` or `[Authorize]` is an authorization bypass
+
+## v1.3.33
+- Remove poor Python rules (!197)
+  - `python/cgi/rule-import_httpoxy.yml` - Not vulnerable since 2016 https://bugs.python.org/issue27568
+  - `python/crypto/rule-import_pyghmi.yml` - Old rule from 2013 https://www.cisa.gov/news-events/alerts/2013/07/26/risks-using-intelligent-platform-management-interface-ipmi
+  - `python/escaping/rule-mark_safe.yml` - Duplicate of `rule-django.yml`
+  - `python/exception/rule-try_except_continue.yml` - Not a security rule
+  - `python/exception/rule-try_except_pass.yml` - Not a security rule
+  - `python/ftp/rule-import_ftplib.yml` - Duplicate rule, see `rule-ftplib.yml`
+  - `python/https/rule-httpsconnection.yml` - Software Composition Analysis (SCA) problem, not a SAST problem (flag if python < 3.4.3 and HTTPSConnection is used)
+  - `python/secrets/` - enable secret detection instead
+  - `python/telnet/rule-telnetlib.yml` - Duplicate of `rule-import_telnib.yml`
+  - `python/tmpdir/rule-specialdir.yml` - It is perfectly fine to use `/dev/shm` as a tmpfs. Rule for using /tmp/ directly is flagged in `rule-hardcodedtmp.yml`
+  - `python/tmpdir/rule-tempnam.yml` - `tempnam` was removed in Python 3, Python 2.7 is no longer supported
+  - `python/urlopen/rule-urllib_urlopen2.yml` - Duplicate of `rule-urllib_urlopen1.yml` and also missing patterns
+  - `python/xml/rule-import_pickle.yml` - Duplicate rule, see `deserialization/rule-pickle.yml`
+  - `python/xml/rule-import_...` - Removed all `import` rules as they are just duplicates of the other rules
 
 ## v1.3.32
 - Remove poor Go rules (!194)
