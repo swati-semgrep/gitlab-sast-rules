@@ -1,5 +1,21 @@
 sast-rules changelog
 
+## v1.3.32
+- Remove poor Go rules (!194)
+  - `go/audit/rule-unhandled_error.yml` - Empty placeholder rule
+  - `go/blocklist/rule-blocklist-cgi.yml` - Only problematic in Go <1.6.3 and we can't currently determine the version
+  - `go/crypto/rule-weakcrypto.yml` - Removed in favor of crypto blocklist rules with better descriptions and recommendations
+
+## v1.3.31
+- Remove poor or outdated C rules (!188)
+  - c/buffer/rule-char_TCHAR.yml - Using character arrays is fine
+  - c/buffer/rule-getchar_fgetc.yml - Using getchar does not constitute a vulnerability
+  - c/buffer/rule-getopt_getopt_long.yml - This is a bug from 1999, see: https://stackoverflow.com/questions/64305167/flawfinder-error-internal-buffer-overflows-how-to-limit-string-input-size-and
+  - c/misc/rule-chroot.yml - Does not point to any specific vulnerability.
+  - c/misc/rule-InitializeCriticalSection.yml - This is no longer true since XP / 2003
+  - c/race/rule-chgrp.yml - There is no such function (only a unix command line utility)
+  - c/input/recv_recvfrom.yml - This is a source not a sink
+
 ## v1.3.30
 - Enhance Python ruleset descriptions and titles (!170)
 
@@ -171,4 +187,3 @@ sast-rules changelog
 ## v1.1.0
 - Changing deployment target to `/dist`, incorporate meta-information into
   generated rule-packs, update documentation (!87)
-
