@@ -1,5 +1,10 @@
 sast-rules changelog
 
+## v1.3.34
+- Remove poor C# rules (!199)
+  - `csharp/cache/rule-OutputCacheConflicts.yml` - Unable to confirm vulnerability
+  - `csharp/other/rule-AuthorizationBypass.yml` - Highly prone to false positives as it assumes any controller without `[AllowAnonymous]` or `[Authorize]` is an authorization bypass
+
 ## v1.3.33
 - Remove poor Python rules (!197)
   - `python/cgi/rule-import_httpoxy.yml` - Not vulnerable since 2016 https://bugs.python.org/issue27568
