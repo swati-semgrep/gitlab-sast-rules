@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.37
+- Disable SAST `message` field wordwrap and update rules that had incorrectly wrapped URLs. (!200)
+
 ## v1.3.36
 - Remove Java Rules (!193)
   - `java/cookie/rule-CookiePersistent.yml` - Cookies may not contain sensitive information and should be removed to be consistent with C# rules

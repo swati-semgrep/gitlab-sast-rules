@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.36
+# rule-set version: v1.3.37
 # yamllint enable
 ---
 rules:
@@ -34,10 +34,8 @@ rules:
 
     Session cookies should be configured with the following security directives:
 
-    -
-    [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
-    -
-    [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
     - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
   severity: "WARNING"
   metadata:
@@ -78,11 +76,9 @@ rules:
 
     Session cookies should be configured with the following security directives:
 
-    -
-    [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
     - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
-    -
-    [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
   severity: "WARNING"
   metadata:
     shortDescription: "Sensitive cookie in HTTPS session without 'Secure' attribute"
@@ -1072,8 +1068,7 @@ rules:
 
     For more information on security considerations when using XSL see the following URLs:
     - https://learn.microsoft.com/en-us/dotnet/standard/data/xml/xslt-security-considerations
-    -
-    https://learn.microsoft.com/en-us/dotnet/api/system.xml.xsl.xslcompiledtransform?view=net-7.0#security-considerations
+    - https://learn.microsoft.com/en-us/dotnet/api/system.xml.xsl.xslcompiledtransform?view=net-7.0#security-considerations
   languages:
   - "csharp"
   severity: "WARNING"
@@ -1450,12 +1445,9 @@ rules:
     Depending
     on output context, consider using the following `System.Text.Encodings.Web` encoders:
 
-    -
-    [HtmlEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.htmlencoder)
-    -
-    [JavaScriptEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.javascriptencoder)
-    -
-    [UrlEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.urlencoder)
+    - [HtmlEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.htmlencoder)
+    - [JavaScriptEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.javascriptencoder)
+    - [UrlEncoder](https://learn.microsoft.com/en-us/dotnet/api/system.text.encodings.web.urlencoder)
 
     For more information on protecting ASP.NET Core applications from XSS see:
     https://learn.microsoft.com/en-us/aspnet/core/security/cross-site-scripting#accessing-encoders-in-code
