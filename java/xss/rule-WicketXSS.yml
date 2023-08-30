@@ -48,8 +48,7 @@ rules:
     - https://nightlies.apache.org/wicket/apidocs/9.x/org/apache/wicket/Component.html
 
     For more information on XSS see OWASP:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
   metadata:
     shortDescription: "Improper neutralization of input during web page generation
       ('Cross-site Scripting')"

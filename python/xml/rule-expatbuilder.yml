@@ -40,8 +40,7 @@ rules:
     - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 
     For more information on XML security see OWASP's guide:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
+    - https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
   metadata:
     cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"

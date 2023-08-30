@@ -59,8 +59,7 @@ rules:
 
     For more information on security considerations when using XSL see the following URLs:
     - https://learn.microsoft.com/en-us/dotnet/standard/data/xml/xslt-security-considerations
-    -
-    https://learn.microsoft.com/en-us/dotnet/api/system.xml.xsl.xslcompiledtransform?view=net-7.0#security-considerations
+    - https://learn.microsoft.com/en-us/dotnet/api/system.xml.xsl.xslcompiledtransform?view=net-7.0#security-considerations
   languages:
   - "csharp"
   severity: "WARNING"

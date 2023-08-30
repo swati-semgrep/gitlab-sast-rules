@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.36
+# rule-set version: v1.3.37
 # yamllint enable
 ---
 rules:
@@ -214,8 +214,7 @@ rules:
     ```
 
     For more information on why not to use `eval`, and alternatives see:
-    -
-    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!
   metadata:
     cwe: "CWE-95"
     owasp: "A1:2017-Injection"

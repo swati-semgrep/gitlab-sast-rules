@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.36
+# rule-set version: v1.3.37
 # yamllint enable
 ---
 rules:
@@ -2111,8 +2111,7 @@ rules:
     - https://jinja.palletsprojects.com/en/3.1.x/api/#autoescaping
 
     For more information on XSS see OWASP:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
   metadata:
     cwe: "CWE-116"
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
@@ -2936,8 +2935,7 @@ rules:
     ```
 
     For more information on using SNMPv3 with `Pysnmp` see:
-    -
-    https://pysnmp.readthedocs.io/en/latest/examples/hlapi/v3arch/asyncore/sync/manager/cmdgen/snmp-versions.html#snmpv3-auth-sha-privacy-aes128
+    - https://pysnmp.readthedocs.io/en/latest/examples/hlapi/v3arch/asyncore/sync/manager/cmdgen/snmp-versions.html#snmpv3-auth-sha-privacy-aes128
   metadata:
     cwe: "CWE-319"
     category: "security"
@@ -2979,8 +2977,7 @@ rules:
     ```
 
     For more information on using SNMPv3 with `Pysnmp` see:
-    -
-    https://pysnmp.readthedocs.io/en/latest/examples/hlapi/v3arch/asyncore/sync/manager/cmdgen/snmp-versions.html#snmpv3-auth-sha-privacy-aes128
+    - https://pysnmp.readthedocs.io/en/latest/examples/hlapi/v3arch/asyncore/sync/manager/cmdgen/snmp-versions.html#snmpv3-auth-sha-privacy-aes128
   metadata:
     cwe: "CWE-319"
     category: "security"
@@ -3105,8 +3102,7 @@ rules:
     ```
 
     For more information on `set_missing_host_key_policy` see:
-    -
-    https://docs.paramiko.org/en/stable/api/client.html#paramiko.client.SSHClient.set_missing_host_key_policy
+    - https://docs.paramiko.org/en/stable/api/client.html#paramiko.client.SSHClient.set_missing_host_key_policy
   metadata:
     cwe: "CWE-322"
     category: "security"
@@ -3581,8 +3577,7 @@ rules:
     - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 
     For more information on XML security see OWASP's guide:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
+    - https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
   metadata:
     cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
@@ -3637,8 +3632,7 @@ rules:
     - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 
     For more information on XML security see OWASP's guide:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
+    - https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
   metadata:
     cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
@@ -3693,8 +3687,7 @@ rules:
     - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 
     For more information on XML security see OWASP's guide:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
+    - https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
   metadata:
     cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
@@ -3752,8 +3745,7 @@ rules:
     - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 
     For more information on XML security see OWASP's guide:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
+    - https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
   metadata:
     cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
@@ -3806,8 +3798,7 @@ rules:
     - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 
     For more information on XML security see OWASP's guide:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
+    - https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
   metadata:
     cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
@@ -3862,8 +3853,7 @@ rules:
     - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 
     For more information on XML security see OWASP's guide:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
+    - https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
   metadata:
     cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
@@ -3916,8 +3906,7 @@ rules:
     - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 
     For more information on XML security see OWASP's guide:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
+    - https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
   metadata:
     cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"
@@ -3970,8 +3959,7 @@ rules:
     - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 
     For more information on XML security see OWASP's guide:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
+    - https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#python
   metadata:
     cwe: "CWE-611"
     owasp: "A4:2017-XML External Entities (XXE)"

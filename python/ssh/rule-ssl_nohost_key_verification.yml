@@ -36,8 +36,7 @@ rules:
     ```
 
     For more information on `set_missing_host_key_policy` see:
-    -
-    https://docs.paramiko.org/en/stable/api/client.html#paramiko.client.SSHClient.set_missing_host_key_policy
+    - https://docs.paramiko.org/en/stable/api/client.html#paramiko.client.SSHClient.set_missing_host_key_policy
   metadata:
     cwe: "CWE-322"
     category: "security"

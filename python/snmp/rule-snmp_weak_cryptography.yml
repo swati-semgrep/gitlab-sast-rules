@@ -31,8 +31,7 @@ rules:
     ```
 
     For more information on using SNMPv3 with `Pysnmp` see:
-    -
-    https://pysnmp.readthedocs.io/en/latest/examples/hlapi/v3arch/asyncore/sync/manager/cmdgen/snmp-versions.html#snmpv3-auth-sha-privacy-aes128
+    - https://pysnmp.readthedocs.io/en/latest/examples/hlapi/v3arch/asyncore/sync/manager/cmdgen/snmp-versions.html#snmpv3-auth-sha-privacy-aes128
   metadata:
     cwe: "CWE-319"
     category: "security"

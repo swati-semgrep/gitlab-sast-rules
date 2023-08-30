@@ -3,13 +3,8 @@
 require 'psych'
 require 'yaml'
 require 'fileutils'
-require 'word_wrap'
 
 module AutoFormat
-  def self.wrap(txt, col_limit = 95)
-    WordWrap.ww(txt, 95, false)
-  end
-
   def self.reformat_yaml(id, yaml_dict)
     ast = Psych.parse_stream(Psych.dump(yaml_dict))
 
@@ -44,7 +39,6 @@ module AutoFormat
           v.quoted = true
           v.plain = true
           v.style = Psych::Nodes::Scalar::LITERAL
-          v.value = AutoFormat.wrap(v.value)
         when 'pattern', 'pattern-not'
           v.style = if v.value.count("\n").zero?
                       Psych::Nodes::Scalar::DOUBLE_QUOTED

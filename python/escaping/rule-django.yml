@@ -50,8 +50,7 @@ rules:
     ```
 
     For more information on XSS see OWASP:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
   metadata:
     cwe: "CWE-79"
     owasp: "A7: Cross-Site Scripting (XSS)"

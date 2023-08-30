@@ -80,8 +80,7 @@ rules:
     ```
 
     For more information on XSS see OWASP:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
   severity: "WARNING"
   metadata:
     shortDescription: "Improper neutralization of input during web page generation

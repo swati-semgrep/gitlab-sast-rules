@@ -153,8 +153,7 @@ rules:
     - https://jinja.palletsprojects.com/en/3.1.x/api/#autoescaping
 
     For more information on XSS see OWASP:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
   metadata:
     cwe: "CWE-116"
     owasp: "A7:2017-Cross-Site Scripting (XSS)"

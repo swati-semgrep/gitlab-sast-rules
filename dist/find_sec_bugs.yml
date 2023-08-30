@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.36
+# rule-set version: v1.3.37
 # yamllint enable
 ---
 rules:
@@ -40,10 +40,8 @@ rules:
 
     Session cookies should be configured with the following security directives:
 
-    -
-    [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
-    -
-    [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
     - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
   severity: "WARNING"
   metadata:
@@ -92,11 +90,9 @@ rules:
 
     Session cookies should be configured with the following security directives:
 
-    -
-    [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
     - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
-    -
-    [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
   severity: "WARNING"
   metadata:
     shortDescription: "Sensitive cookie in HTTPS session without 'Secure' attribute"
@@ -4364,8 +4360,7 @@ rules:
     - https://nightlies.apache.org/wicket/apidocs/9.x/org/apache/wicket/Component.html
 
     For more information on XSS see OWASP:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
   metadata:
     shortDescription: "Improper neutralization of input during web page generation
       ('Cross-site Scripting')"
@@ -4454,8 +4449,7 @@ rules:
     ```
 
     For more information on XSS see OWASP:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
   severity: "WARNING"
   metadata:
     shortDescription: "Improper neutralization of input during web page generation
@@ -4556,8 +4550,7 @@ rules:
     ```
 
     For more information on XSS see OWASP:
-    -
-    https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
   severity: "WARNING"
   metadata:
     shortDescription: "Improper neutralization of input during web page generation
