@@ -1,6 +1,6 @@
 sast-rules changelog
 
-## v1.3.30
+## v1.3.36
 - Remove Java Rules (!193)
   - `java/cookie/rule-CookiePersistent.yml` - Cookies may not contain sensitive information and should be removed to be consistent with C# rules
   - `java/cookie/rule-CookieUsage.yml` - Cookies may not contain sensitive information and should be removed to be consistent with C# rules
@@ -32,6 +32,52 @@ sast-rules changelog
   - `java/xss/rule-XSSServletParameter.yml` This is a source not a sink
   - `java/xxe/rule-XPathXXE.yml` - Rule matches a hardcoded variable name, and has no namespace/import associated with it. Better XXE rule required
   - `java/xxe/rule-Trans.yml` - Duplicate of `java/xml/rule-XsltTransform.yml` with less information
+
+## v1.3.35
+- Remove poor JavaScript rules (!198)
+  - `javascript/csrf/rule-no_csrf_before_method_override.yml` - Deprecated and no way of testing, see http://blog.nibblesec.org/2014/05/nodejs-connect-csrf-bypass-abusing.html
+  - `javascript/react/rule-missing_noopener.yml` - Browsers no longer allow this by default, see https://gitlab.com/gitlab-org/gitlab/-/issues/233079#note_513860690
+
+## v1.3.34
+- Remove poor C# rules (!199)
+  - `csharp/cache/rule-OutputCacheConflicts.yml` - Unable to confirm vulnerability
+  - `csharp/other/rule-AuthorizationBypass.yml` - Highly prone to false positives as it assumes any controller without `[AllowAnonymous]` or `[Authorize]` is an authorization bypass
+
+## v1.3.33
+- Remove poor Python rules (!197)
+  - `python/cgi/rule-import_httpoxy.yml` - Not vulnerable since 2016 https://bugs.python.org/issue27568
+  - `python/crypto/rule-import_pyghmi.yml` - Old rule from 2013 https://www.cisa.gov/news-events/alerts/2013/07/26/risks-using-intelligent-platform-management-interface-ipmi
+  - `python/escaping/rule-mark_safe.yml` - Duplicate of `rule-django.yml`
+  - `python/exception/rule-try_except_continue.yml` - Not a security rule
+  - `python/exception/rule-try_except_pass.yml` - Not a security rule
+  - `python/ftp/rule-import_ftplib.yml` - Duplicate rule, see `rule-ftplib.yml`
+  - `python/https/rule-httpsconnection.yml` - Software Composition Analysis (SCA) problem, not a SAST problem (flag if python < 3.4.3 and HTTPSConnection is used)
+  - `python/secrets/` - enable secret detection instead
+  - `python/telnet/rule-telnetlib.yml` - Duplicate of `rule-import_telnib.yml`
+  - `python/tmpdir/rule-specialdir.yml` - It is perfectly fine to use `/dev/shm` as a tmpfs. Rule for using /tmp/ directly is flagged in `rule-hardcodedtmp.yml`
+  - `python/tmpdir/rule-tempnam.yml` - `tempnam` was removed in Python 3, Python 2.7 is no longer supported
+  - `python/urlopen/rule-urllib_urlopen2.yml` - Duplicate of `rule-urllib_urlopen1.yml` and also missing patterns
+  - `python/xml/rule-import_pickle.yml` - Duplicate rule, see `deserialization/rule-pickle.yml`
+  - `python/xml/rule-import_...` - Removed all `import` rules as they are just duplicates of the other rules
+
+## v1.3.32
+- Remove poor Go rules (!194)
+  - `go/audit/rule-unhandled_error.yml` - Empty placeholder rule
+  - `go/blocklist/rule-blocklist-cgi.yml` - Only problematic in Go <1.6.3 and we can't currently determine the version
+  - `go/crypto/rule-weakcrypto.yml` - Removed in favor of crypto blocklist rules with better descriptions and recommendations
+
+## v1.3.31
+- Remove poor or outdated C rules (!188)
+  - `c/buffer/rule-char_TCHAR.yml` - Using character arrays is fine
+  - `c/buffer/rule-getchar_fgetc.yml` - Using getchar does not constitute a vulnerability
+  - `c/buffer/rule-getopt_getopt_long.yml` - This is a bug from 1999, see: https://stackoverflow.com/questions/64305167/flawfinder-error-internal-buffer-overflows-how-to-limit-string-input-size-and
+  - `c/misc/rule-chroot.yml` - Does not point to any specific vulnerability.
+  - `c/misc/rule-InitializeCriticalSection.yml` - This is no longer true since XP / 2003
+  - `c/race/rule-chgrp.yml` - There is no such function (only a unix command line utility)
+  - `c/input/recv_recvfrom.yml` - This is a source not a sink
+
+## v1.3.30
+- Enhance Python ruleset descriptions and titles (!170)
 
 ## v1.3.29
 - Improve Go memory aliasing in `G601` (!187)
@@ -201,4 +247,3 @@ sast-rules changelog
 ## v1.1.0
 - Changing deployment target to `/dist`, incorporate meta-information into
   generated rule-packs, update documentation (!87)
-
