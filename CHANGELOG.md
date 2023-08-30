@@ -1,5 +1,10 @@
 sast-rules changelog
 
+## v1.3.35
+- Remove poor JavaScript rules (!198)
+  - `javascript/csrf/rule-no_csrf_before_method_override.yml` - Deprecated and no way of testing, see http://blog.nibblesec.org/2014/05/nodejs-connect-csrf-bypass-abusing.html
+  - `javascript/react/rule-missing_noopener.yml` - Browsers no longer allow this by default, see https://gitlab.com/gitlab-org/gitlab/-/issues/233079#note_513860690
+
 ## v1.3.34
 - Remove poor C# rules (!199)
   - `csharp/cache/rule-OutputCacheConflicts.yml` - Unable to confirm vulnerability
