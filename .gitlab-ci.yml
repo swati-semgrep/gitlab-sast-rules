@@ -3,8 +3,10 @@ stages:
   - verify
   - gapanalysis
   - tag
+  - test
 
 include:
+  - template: Jobs/SAST.gitlab-ci.yml
   - project: 'gitlab-org/security-products/ci-templates'
     ref: 'master'
     file: '/includes-dev/upsert-git-tag.yml'
@@ -143,3 +145,13 @@ gapanalysis:
       when: never
     - when: always
   resource_group: "sast-rules-$CI_COMMIT_REF_SLUG"
+
+semgrep-sast:
+  stage: test
+  artifacts:
+    reports:
+      sast: gl-sast-report.json
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - when: always
