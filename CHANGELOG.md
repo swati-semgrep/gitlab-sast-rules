@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.38
+- Change rule ID format from `find_sec_bugs.XYZ` to `find_sec_bugs_scala.XYZ` for Scala rules (!202)
+
 ## v1.3.37
 - Disable SAST `message` field wordwrap and update rules that had incorrectly wrapped URLs. (!200)
 
