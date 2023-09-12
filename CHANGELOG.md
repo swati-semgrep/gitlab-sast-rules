@@ -74,13 +74,13 @@ sast-rules changelog
 
 ## v1.3.31
 - Remove poor or outdated C rules (!188)
-  - `c/buffer/rule-char_TCHAR.yml` - Using character arrays is fine
-  - `c/buffer/rule-getchar_fgetc.yml` - Using getchar does not constitute a vulnerability
-  - `c/buffer/rule-getopt_getopt_long.yml` - This is a bug from 1999, see: https://stackoverflow.com/questions/64305167/flawfinder-error-internal-buffer-overflows-how-to-limit-string-input-size-and
-  - `c/misc/rule-chroot.yml` - Does not point to any specific vulnerability.
-  - `c/misc/rule-InitializeCriticalSection.yml` - This is no longer true since XP / 2003
-  - `c/race/rule-chgrp.yml` - There is no such function (only a unix command line utility)
-  - `c/input/recv_recvfrom.yml` - This is a source not a sink
+  - c/buffer/rule-char_TCHAR.yml - Using character arrays is fine
+  - c/buffer/rule-getchar_fgetc.yml - Using getchar does not constitute a vulnerability
+  - c/buffer/rule-getopt_getopt_long.yml - This is a bug from 1999, see: https://stackoverflow.com/questions/64305167/flawfinder-error-internal-buffer-overflows-how-to-limit-string-input-size-and
+  - c/misc/rule-chroot.yml - Does not point to any specific vulnerability.
+  - c/misc/rule-InitializeCriticalSection.yml - This is no longer true since XP / 2003
+  - c/race/rule-chgrp.yml - There is no such function (only a unix command line utility)
+  - c/input/recv_recvfrom.yml - This is a source not a sink
 
 ## v1.3.30
 - Enhance Python ruleset descriptions and titles (!170)
