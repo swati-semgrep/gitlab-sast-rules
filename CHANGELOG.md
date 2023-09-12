@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.39
+- Revert rule changes made in (!193), (!198), (!199), (!197), (!194), and (!188) to allow for staged release of those MRs (!214)
+
 ## v1.3.38
 - Change rule ID format from `find_sec_bugs.XYZ` to `find_sec_bugs_scala.XYZ` for Scala rules (!202)
 
